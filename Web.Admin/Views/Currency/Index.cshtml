@@ -1,0 +1,469 @@
+﻿@{
+	ViewBag.Title = "Currency";
+}
+
+<style>
+	.left-content-user {
+		width: 500px;
+	}
+
+	.right-content-user {
+		left: 500px;
+	}
+
+	#currency-table > tbody > tr > td {
+		cursor: pointer;
+	}
+
+</style>
+
+<div class="left-content left-content-user">
+	<div class="col-xs-12">
+		<h3>Currency Admin</h3>
+		<hr style="margin-top:15px;margin-bottom:15px" />
+		<table id="currency-table" class="table table-condensed table-striped table-hover" data-container=".left-content">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Symbol</th>
+					<th>Name</th>
+					<th>Type</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+<div class="right-content right-content-user">
+	<div id="message-alert" class="alert text-center" style="display: none">
+		<p></p>
+	</div>
+	<div id="user-stats-panel" class="col-xs-12">
+		<h1>All of tha stats</h1>
+	</div>
+	<div id="user-data-panel" class="col-xs-12" style="display:none">
+		<div id="message-alert" class="alert text-center" style="display: none">
+			<p></p>
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a aria-expanded="true" href="#details" data-toggle="tab">
+					<h4>Details</h4>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#deposits" data-toggle="tab">
+					<h4>Deposits</h4>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#withdrawals" data-toggle="tab">
+					<h4>Withdrawals</h4>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#transfers" data-toggle="tab">
+					<h4>Transfers</h4>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#addresses" data-toggle="tab">
+					<h4>Addresses</h4>
+				</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="userTabContent" style="padding-top:15px">
+			<div class="tab-pane fade active in" id="details">
+				<div id="details-target"></div>
+			</div>
+
+			<div class="tab-pane fade" id="deposits">
+				<table id="depositTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>UserName</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>TxId</th>
+							<th>Conf</th>
+							<th>Timestamp</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="withdrawals">
+				<table id="withdrawTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>UserName</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>Confirmed</th>
+							<th>TxId</th>
+							<th>Address</th>
+							<th>Conf</th>
+							<th>Timestamp</th>
+							<th>Init</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="transfers">
+				<table id="transferTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Sender</th>
+							<th>Receiver</th>
+							<th>Amount</th>
+							<th>Type</th>
+							<th>Timestamp</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="addresses">
+				<table id="addressTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>UserName</th>
+							<th>Address</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+    <script>
+
+        var selectedCurrency = '';
+        var selectedTab = '#details';
+        var coinTemplate = $("#coinTemplate").html();
+
+        var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>";
+
+        var actionGetCurrencies = '@Url.Action("GetCurrencies")';
+        var actionGetCurrencyDetails = '@Url.Action("GetCurrency")';
+
+        $('#currency-table tbody').on('click', 'tr', function () {
+            var row = $(this);
+            if (!row.hasClass('info')) {
+                $("#user-stats-panel").hide();
+                $("#user-data-panel").show();
+                datatable.$('tr.info').removeClass('info');
+                var cell = $(this).find("td:first");
+                if (cell.hasClass("dataTables_empty")) {
+                    return;
+                }
+                $(this).addClass('info');
+                selectedCurrency = cell.text();
+                setActiveTab();
+            }
+        });
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            selectedTab = $(e.target).attr("href");
+            setActiveTab();
+        });
+
+        function setActiveTab() {
+            $('.right-content').block({ message: 'Loading Data...' });
+            if (selectedTab == '#details') {
+                getCurrencyDetails(selectedCurrency);
+            }
+            else if (selectedTab == '#deposits') {
+                depositTable.ajax.reload();
+            }
+            else if (selectedTab == '#withdrawals') {
+                withdrawTable.ajax.reload();
+            }
+            else if (selectedTab == '#transfers') {
+                transferTable.ajax.reload();
+            }
+            else if (selectedTab == '#addresses') {
+                addressTable.ajax.reload();
+            }
+        }
+
+        function getCurrencyDetails(selectedCurrency) {
+            postJson(actionGetCurrencyDetails, { currencyId: selectedCurrency }, function (data) {
+                $("#details-target").html(Mustache.render(coinTemplate, data));
+                $('.right-content').unblock();
+                if (data.ListingStatus === "Active") {
+                    $("#DelistButton").removeClass("hidden");
+                } else {
+                    $("#DelistButton").addClass("hidden");
+                }
+            });
+        }
+
+        function updateCurrency(id) {
+            openModalGet('@Url.Action("UpdateCurrency", "Currency")', { id: id }, function (modalData) {
+                if (modalData && modalData.Success) {
+                    setActiveTab();
+                }
+                showMessage(modalData);
+            });
+        }
+
+        function delistCurrency(id) {
+            openModalGet('@Url.Action("BeginDelistingCurrency", "Currency")', { id: id }, function (modalData) {
+                if (modalData && modalData.Success) {
+                    setActiveTab();
+                }
+                showMessage(modalData);
+            });
+        }
+
+        function pingCurrency(id) {
+            $.blockUI({ message: 'Sending Ping...' });
+            postJson('@Url.Action("PingCurrency", "Currency")', { id: id }, function (modalData) {
+                $.unblockUI();
+                showMessage(modalData);
+            });
+        }
+
+        var table = $("#currency-table");
+        var datatable = table.DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[1, "asc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": true,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "pagingType": "simple",
+            "sAjaxSource": actionGetCurrencies,
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "There are no users.",
+                "infoFiltered": "_MAX_ users",
+                "info": "_MAX_ users",
+                "search": "",
+                "searchPlaceholder": "Search currencies"
+            },
+            "fnDrawCallback": function () {
+                $('.left-content').unblock();
+            }
+        });
+
+        var actionGetDeposits = '@Url.Action("GetDeposits")';
+        var depositTable = $("#depositTable").DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "desc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": true,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "deferLoading": 0,
+            "sAjaxSource": actionGetDeposits,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "currencyId", "value": selectedCurrency });
+            },
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "There are no deposits.",
+                "searchPlaceholder": "Search deposits",
+                "search": ""
+            },
+            "columnDefs": [],
+            "fnDrawCallback": function () {
+                $('.right-content').unblock();
+            }
+        });
+
+        var actionGetWithdrawals = '@Url.Action("GetWithdrawals")';
+        var withdrawTable = $("#withdrawTable").DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "desc"]],
+            "searchDelay": 2000,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": true,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "deferLoading": 0,
+            "sAjaxSource": actionGetWithdrawals,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "currencyId", "value": selectedCurrency });
+            },
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "User has no withdrawals.",
+                "searchPlaceholder": "Search withdrawals",
+                "search": ""
+            },
+            "columnDefs": [{
+                "targets": [5, 6, 8],
+                "render": function (data, type, full, meta) {
+                    return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+                }
+            }],
+            "fnDrawCallback": function () {
+                $('.right-content').unblock();
+            }
+        });
+
+        var actionGetTransfers = '@Url.Action("GetTransfers")';
+        var transferTable = $("#transferTable").DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "desc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": true,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "deferLoading": 0,
+            "sAjaxSource": actionGetTransfers,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "currencyId", "value": selectedCurrency });
+            },
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "User has no transfers.",
+                "searchPlaceholder": "Search transfers",
+                "search": ""
+            },
+            "columnDefs": [],
+            "fnDrawCallback": function () {
+                $('.right-content').unblock();
+            }
+        });
+
+        var actionGetAddresses = '@Url.Action("GetAddresses")';
+        var addressTable = $("#addressTable").DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[1, "asc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": true,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "deferLoading": 0,
+            "sAjaxSource": actionGetAddresses,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "currencyId", "value": selectedCurrency });
+            },
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "User has no addresses.",
+                "searchPlaceholder": "Search addresses",
+                "search": ""
+            },
+            "columnDefs": [],
+            "fnDrawCallback": function () {
+                $('.right-content').unblock();
+            }
+        });
+
+        var searchDelay = null;
+        $('div.dataTables_filter input').off('keyup.DT input.DT');
+        $('div.dataTables_filter input').on('keyup', function (e) {
+            var _this = $(this);
+            var search = _this.val();
+            var delay = e.keyCode == 13 ? 0 : 2000;
+            clearTimeout(searchDelay);
+            searchDelay = setTimeout(function () {
+                if (search != null) {
+                    var tableId = '#' + _this.closest('.dataTables_filter').attr("id").replace("_filter", "");
+                    var table = $(tableId)
+                    $(table.data("container") || '.right-content').block({ message: 'Searching...' });
+                    table.DataTable().search(search).draw();
+                }
+            }, delay);
+        });
+
+    </script>
+    
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+}
+
+<script id="coinTemplate" type="text/html">
+    <div>
+        <div class="row">
+            <div class="col-xs-12" style="margin-bottom:10px">
+                <img class="pull-left" src="/Content/Images/Coins/{{Symbol}}-medium.png" />
+                <div style="margin-left:5px" class="pull-left">
+                    <div style="font-size:18px">{{Symbol}}</div>
+                    <div>{{Name}}</div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-condensed">
+            <tbody>
+            <tr>
+                <td>Status</td>
+                <td>{{Status}}</td>
+                <td>ListingStatus</td>
+                <td>{{ListingStatus}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">{{StatusMessage}}</td>
+            </tr>
+            <tr>
+                <td>Connections</td>
+                <td>{{Connections}}</td>
+                <td>Confirmations</td>
+                <td>{{Confirmations}}</td>
+            </tr>
+            <tr>
+                <td>Block Explorer</td>
+                <td colspan="3">{{Explorer}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn-group btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" onclick="updateCurrency({{{Id}}})">Update</button>
+            <button type="button" class="btn btn-default" onclick="pingCurrency({{{Id}}})">Ping</button>
+            <button disabled="disabled" type="button" class="btn btn-default">Restart</button>
+            <button id="DelistButton" type="button" class="btn btn-default" onclick="delistCurrency({{{Id}}})">Delist</button>
+        </div>
+    </div>
+</script>

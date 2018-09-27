@@ -1,0 +1,93 @@
+﻿@model Web.Site.Models.VerifyLoginTwoFactorModel
+@{
+	ViewBag.Title = Resources.Authorization.twoFactorLoginPageTitle;
+	ViewBag.IsFullPage = true;
+}
+
+
+<div class="text-center" style="padding-top: 100px">
+	<div class="panel panel-primary" style="width: 340px; display: inline-block; text-align: left">
+		<div class="panel-heading" style="padding: 5px">
+			<span><i class="fa fa-unlock panel-icon"></i>@Resources.Authorization.twoFactorLoginHeadline</span>
+		</div>
+		@Html.ModelValidationSummary()
+		<div class="panel-body">
+			@using (Html.BeginForm("VerifyLoginTwoFactor", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Type)
+				<div class="form-margin">
+					<label class="control-label">@Model.UnlockSummary</label>
+
+					@if (Model.Type == Cryptopia.Enums.TwoFactorType.Question)
+					{
+						<div>
+							@Html.LabelFor(m => m.Question1, new { @class = "control-label" })
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorQuestionShortLabel</span>
+								@Html.TextBoxFor(m => m.Question1, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorAnswerShortLabel</span>
+								@Html.PasswordFor(model => model.Answer1, new { @class = "form-control  input-sm", @autofocus = "autofocus" })
+							</div>
+						</div>
+						<div>
+							@Html.LabelFor(m => m.Question2, new { @class = "control-label" })
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorQuestionShortLabel</span>
+								@Html.TextBoxFor(m => m.Question2, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorAnswerShortLabel</span>
+								@Html.PasswordFor(model => model.Answer2, new { @class = "form-control  input-sm" })
+							</div>
+							<div>@Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })</div>
+							<div>@Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })</div>
+						</div>
+					}
+					else
+					{
+						switch (Model.Type)
+						{
+							case Cryptopia.Enums.TwoFactorType.EmailCode:
+						@Html.PasswordFor(m => m.EmailCode, new { @class = "form-control  input-sm", @autofocus = "autofocus" })
+						@Html.ValidationMessageFor(model => model.EmailCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.GoogleCode:
+						@Html.TextBoxFor(m => m.GoogleCode, new { @class = "form-control  input-sm", @autofocus = "autofocus" })   
+						@Html.ValidationMessageFor(model => model.GoogleCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.CryptopiaCode:
+							@Html.TextBoxFor(m => m.CryptopiaCode, new { @class = "form-control  input-sm", @autofocus = "autofocus" })
+								@Html.ValidationMessageFor(model => model.CryptopiaCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.PinCode:
+						@Html.PasswordFor(m => m.Pin, new { @class = "form-control  input-sm", @autofocus = "autofocus" })  
+						@Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" }) 
+								break;
+							case Cryptopia.Enums.TwoFactorType.Password:
+						@Html.PasswordFor(m => m.Password, new { @class = "form-control  input-sm", @autofocus = "autofocus" })   
+						@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+								break;
+							default:
+								break;
+						}
+					}
+
+					<br />
+					<div class="text-center">
+						<input type="submit" value="@Resources.Authorization.twoFactorVerifyButton" class="btn btn-info btn-sm btnhalfwidth" />
+					</div>
+				</div>
+			}
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+}
+
+

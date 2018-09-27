@@ -1,0 +1,65 @@
+﻿@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button">×</button>
+			<h3 class="modal-title">@Resources.User.avatarHeadline</h3>
+		</div>
+		@using (Html.BeginForm("UpdateAvatar", "UserProfile", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+		{
+		<div class="modal-body">
+			@Html.AntiForgeryToken()
+			<div class="form-margin">
+				<span id="errorMessage" class="text-danger" />
+				<span id="infoMessage" class="text-success" />
+
+				<div class="change-avatar-avatar-container">
+					<img id="avatarimg" class="change-avatar-avatar-img" src="@CdnHelper.RenderImage(User.Identity.GetAvatar())" onerror="this.src='@CdnHelper.RenderImage("/Content/Images/Avatar.png")'" />
+				</div>
+				<div class="change-avatar-options-container">
+					@Html.Label("AvatarFile", "Image File", new { @class = "control-label" })
+					@Html.TextBox("AvatarFile", "", new { @id = "optionFile", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+					@Html.ValidationMessage("AvatarFile", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="text-center">
+				<div>
+					<p class="text-warning">@Resources.User.avatarInfoText</p>
+				</div>
+				<div><small style="font-style: italic">@Resources.User.avatarWarningText</small></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-info simplemodal-close" type="button">@Cryptopia.Resources.General.Cancel</button>
+			<button id="submit" class="btn btn-info" type="submit">@Cryptopia.Resources.General.Upload</button>
+		</div>
+		}
+	</div>
+</div>
+
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#avatarimg').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(document).ready(function () {
+		$("#optionFile").change(function () {
+			$("#submit").removeAttr("disabled");
+			readURL(this);
+		});
+	});
+
+</script>

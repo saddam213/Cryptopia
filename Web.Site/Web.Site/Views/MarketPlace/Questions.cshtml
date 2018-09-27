@@ -1,0 +1,78 @@
+﻿@using Cryptopia.Enums
+@model Web.Site.Models.MarketItemModel
+@{
+   
+}
+
+<!-- Question Answer section -->
+<div>
+    <h4>@(Model.IsUserListing ? Resources.Market.itemQuestionForYouLabel : Model.Status == MarketItemStatus.Active ? Resources.Market.itemQuestionActiveLabel : Resources.Market.itemQuestionLabel)</h4>
+    <ul class="list-group">
+        @if (Model.Questions.Any())
+        {
+            foreach (var question in Model.Questions)
+            {
+            <li class="list-group-item">
+                <div>
+                    <span><span class="marketplace-qa-question">@Resources.Market.itemQuestionShortLabel: @question.Question</span><span class="marketplace-qa-time pull-right">@question.UserName: @question.Timestamp</span></span>
+                </div>
+                @if (Model.IsUserListing)
+                {
+                    if (string.IsNullOrEmpty(question.Answer))
+                    {
+                        using (Html.BeginForm("SubmitAnswer", "MarketPlace", FormMethod.Post))
+                        {
+							@Html.AntiForgeryToken()
+							@Html.Hidden("MarketItemId", Model.Id)
+							@Html.Hidden("QuestionId", question.Id)
+							@Html.Hidden("Question", question.Question)
+							<div class="input-group input-group-sm">
+								@Html.TextBox("Answer", "", new { @class = "form-control  input-sm" })
+								<span class="input-group-btn">
+									<input id="submit-answer" type="submit" class="btn btn-info" value="@Resources.Market.itemQuestionSubmitAnswerButton" style="margin-left: 3px" />
+								</span>
+							</div>
+                        }
+                    }
+                    else
+                    {
+                    <div>@Resources.Market.itemAnswerShortLabel: @question.Answer</div>
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(question.Answer))
+                    {
+                    <div>@Resources.Market.itemAnswerShortLabel: <span class="marketplace-qa-answer-placeholder">@Resources.Market.itemQuestionAwaitingAnswerMessage</span> </div>
+                    }
+                    else
+                    {
+                    <div class="marketplace-qa-answer">@Resources.Market.itemAnswerShortLabel: @question.Answer</div>
+                    }
+                }
+            </li>
+            }
+        }
+        else
+        {
+            <li class="list-group-item">@Resources.Market.itemQuestionEmptyListMessage</li>
+        }
+    </ul>
+
+    @if (!Model.IsUserListing && Model.Status == MarketItemStatus.Active)
+    {
+        using (Html.BeginForm("SubmitQuestion", "MarketPlace", FormMethod.Post))
+        {
+			@Html.AntiForgeryToken()
+			@Html.Hidden("MarketItemId", Model.Id)
+
+			<div class="input-group input-group-sm">
+				@Html.TextBox("Question", "", new { @class = "form-control  input-sm" })
+				<span class="input-group-btn">
+					<input id="submit-question" type="submit" class="btn btn-info" value="@Resources.Market.itemQuestionSubmitQuestionButton" style="margin-left: 3px" />
+				</span>
+			</div>
+        }
+    }
+</div>
+

@@ -1,0 +1,47 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminResetTwoFactorModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Reset Two Factor</h3>
+		</div>
+
+		@*ResetAllTwoFactor Form*@
+		@using (Ajax.BeginForm("ResetAllTwoFactor", "User", new AjaxOptions {HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace}, new {@class = "form-horizontal"}))
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+
+					<div class="row">
+						<div class="col-lg-4"></div>
+						<div class="col-lg-4">
+							<input id="submit" class="btn btn-warning button-180" type="submit" value="Reset All Two Factor" />
+						</div>
+						<div class="col-lg-4"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+			</div>
+		}
+
+	</div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(document)
+		.ready(function() {
+			//$(".datepicker").datepicker();
+		});
+</script>

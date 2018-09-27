@@ -1,0 +1,236 @@
+﻿@model Cryptopia.Common.Paytopia.PaytopiaPaymentModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({Cancel:true});">×</button>
+			<h3 class="modal-title">@Resources.UserData.shareholderPaymentHeadline</h3>
+		</div>
+
+		<div class="modal-body">
+		
+				<div class="row">
+					@if (Model.Type == Cryptopia.Enums.PaytopiaItemType.ExchangeListing || (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId == 0))
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>@Resources.UserData.shareholderSubmissionHeadline</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionNameLabel</td>
+										<td>@requestData.Name</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionSymbolLabel</td>
+										<td>@requestData.Symbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionSourceLabel</td>
+										<td>@requestData.Source</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionAlgoTypeLabel</td>
+										<td>@requestData.AlgoType</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionNetworkTypeLabel</td>
+										<td>@requestData.NetworkType</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionBlockExplorerLabel</td>
+										<td>@requestData.BlockExplorer</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionLaunchForumLabel</td>
+										<td>@requestData.LaunchForum</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionWebsiteLabel</td>
+										<td>@requestData.Website</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div style="padding-left:4px">
+								<span style="font-size:12px">@Resources.UserData.shareholderSubmitionExtraInfoLabel</span>
+								<div>
+									<pre style="border-radius:0">@requestData.ExtraInfo</pre>
+								</div>
+							</div>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId > 0)
+					{
+						<div class="col-md-12">
+							<h4>@Resources.UserData.shareholderSubmissionHeadline</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmittionTypeLabel</td>
+										<td>@Resources.UserData.sharehoulderSubmitionTypeExtensionValue</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionPoolLabel</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionAlgorithmLabel</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionPeriodBeginsLabel</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>@Resources.UserData.shareholderSubmitionPeriodEndsLabel</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.LottoSlot)
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>@Resources.UserData.submitionh</h4>
+							<table class="table" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>Currency</td>
+										<td>@requestData.Symbol</td>
+									</tr>
+									<tr>
+										<td>Name</td>
+										<td>@requestData.Name</td>
+									</tr>
+									<tr>
+										<td>TicketPrice</td>
+										<td>@requestData.TicketPrice.ToString("F8")</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="padding-left:8px">
+								<span style="font-size:12px">Description</span>
+								<div>
+									<pre style="border-radius:0">@requestData.Description</pre>
+								</div>
+							</div>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedCurrency)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedPool)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>Pool</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.RewardSlot)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.TipSlot)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+				</div>
+			</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary button-180" onclick="$.modal.close({ Cancel: true });">Close</button>
+		</div>
+	</div>
+</div>
+

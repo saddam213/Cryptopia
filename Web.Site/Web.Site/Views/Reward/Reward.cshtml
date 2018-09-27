@@ -1,0 +1,174 @@
+﻿@{
+	ViewBag.Title = Resources.Reward.rewardPageTitle;
+	ViewBag.HideFooter = false;
+	ViewBag.ReturnUrl = "/Rewards";
+}
+
+@Html.AntiForgeryToken()
+<div class="row">
+	<div class="col-xs-12">
+		<h3>@Resources.Reward.rewardHeadline</h3>
+		<p style="white-space:pre-line;font-size:12px">
+			@Html.Raw(
+				String.Format(Html.Encode(Resources.Reward.rewardInfoText),
+					String.Format("<a href=\"https://www.cryptopia.co.nz/Forum/Thread/694\">{0}</a>", Resources.Reward.rewardInfoLink)
+				)
+			)
+		</p>
+		<hr style="margin-top: 3px; margin-bottom: 3px" />
+		<br />
+	</div>
+
+	<div class="col-lg-8 col-md-7 col-xs-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading" style="padding: 5px">
+				<span><i class="fa fa-trophy panel-icon"></i>@Resources.Reward.rewardHistoryHeadline</span>
+			</div>
+			<div class="panel-body" style="padding: 0px;">
+				<table id="rewardlist" class="table table-striped table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>@Resources.Reward.rewardTypeColumn</th>
+							<th>@Resources.Reward.rewardUserColumn</th>
+							<th>@Resources.Reward.rewardRewardPercentageColumn</th>
+							<th>@Resources.Reward.rewardCurrencyColumn</th>
+							<th>@Resources.Reward.rewardRewardColumn</th>
+							<th>@Resources.Reward.rewardTimeColumn</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+		<div style="font-size:12px;position:absolute;bottom:22px;left:20px;">
+			<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-5 col-xs-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading" style="padding: 5px">
+				<span><i class="fa fa-list-ol panel-icon"></i>@Resources.Reward.rewardLeaderboardHeadline</span>
+			</div>
+
+			<div class="panel-body" style="padding: 0px;">
+				<table id="statslist" class="table table-striped table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>@Resources.Reward.rewardLeaderboardTypeColumn</th>
+							<th>@Resources.Reward.rewardLeaderboard24hrColumn</th>
+							<th>@Resources.Reward.rewardLeaderboardWeekColumn</th>
+							<th>@Resources.Reward.rewardLeaderboardAllTimeColumn</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="panel panel-primary">
+			<div class="panel-heading" style="padding: 5px">
+				<span><i class="fa fa-list-ol panel-icon"></i>@Resources.Reward.rewardBalancesHeadline</span>
+			</div>
+			<div class="panel-body" style="padding: 0px;">
+				<table id="balancelist" class="table table-striped table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>@Resources.Reward.rewardBalancesCurrencyColumn</th>
+							<th>@Resources.Reward.rewardBalancesRemainingColumn</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+
+
+@section Scripts {
+	<script>
+		$('#rewardlist').dataTable({
+			"order": [[0, "desc"]],
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"iDisplayLength": 15,
+			"sort": true,
+			"paging": true,
+			"info": false,
+			"sAjaxSource": '@Url.Action("GetRewards")',
+			"sServerMethod": "POST",
+			"language": { "emptyTable": "@Resources.Reward.rewardEmptyListMessage" },
+			"columnDefs": [{
+				"targets": 4,
+				"render": function (data, type, full, meta) {
+					return '<div style="display:inline-block"><div class="sprite-small small/' + data + '-small.png"></div> ' + data + '</div>';
+				}
+			}],
+			"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				if (aData[2] === '@User.Identity.Name') {
+					$(nRow).addClass("success");
+				}
+			}
+		});
+
+		$('#statslist').dataTable({
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": false,
+			"searching": false,
+			"scrollCollapse": false,
+			"scrollY": "100%",
+			"sort": true,
+			"paging": false,
+			"info": false,
+			"sAjaxSource": '@Url.Action("GetStatistics")',
+			"sServerMethod": "POST",
+			"language": { "emptyTable": "@Resources.Reward.rewardLeaderboardEmptyListMessage" }
+		});
+
+		var balancetable = $('#balancelist').DataTable({
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": false,
+			"searching": false,
+			"scrollCollapse": false,
+			"scrollY": "100%",
+			"sort": true,
+			"paging": false,
+			"info": false,
+			"sAjaxSource": '@Url.Action("GetBalances")',
+			"sServerMethod": "POST",
+			"language": { "emptyTable": "@Resources.Reward.rewardBalancesEmtpyListMessage" },
+			"columnDefs": [{
+				"targets": 0,
+				"render": function (data, type, full, meta) {
+					return '<div style="display:inline-block"><div class="sprite-small small/' + data + '-small.png"></div> ' + data + '</div>';
+				}
+			},
+				{
+					"targets": 2,
+					"searchable": false,
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+					@if (User.Identity.IsAuthenticated)
+					{
+						@:return "<a class='btn btn-xs btn-primary pull-right' href='/Transfer/Create?currency=" + full[0] + "&userName=RewardBot&ReturnUrl=/Reward' >@Resources.Reward.rewardBalancesDonateButton</a>";
+					}
+					else
+					{
+						@:return "<a class='btn btn-xs btn-primary pull-right' href='/Login?ReturnUrl=/Reward'>@Resources.Reward.rewardBalancesDonateButton</a>";
+					}
+					}
+				}]
+		});
+
+	</script>
+}
+@Html.Partial("_SEOPartial")

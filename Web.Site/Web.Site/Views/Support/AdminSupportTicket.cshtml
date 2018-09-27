@@ -1,0 +1,133 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Support.AdminSupportTicketModel
+@{
+	ViewBag.Title = "Support";
+}
+
+
+
+<div>
+	<h2>@ViewBag.Title</h2>
+	<hr />
+
+	<div id="message-alert" class="alert text-center" style="display: none">
+		<p></p>
+	</div>
+
+	<div class="col-lg-4">
+		<h4>Ticket Information:</h4>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+
+				<strong style="font-size: larger">#@Model.Id - @Model.Title</strong>
+				<table class="tablefixed tablelayout">
+					<tr>
+						<td>Category:</td>
+						<td>@Model.Category</td>
+					</tr>
+					<tr>
+						<td>Status:</td>
+						<td id="ticket-status" class="cell-ellipsis">
+							@switch (Model.Status)
+							{
+								case SupportTicketStatus.New:
+								<span class="label label-info">New</span>
+									break;
+								case SupportTicketStatus.UserReply:
+								<span class="label label-warning">Awaiting admin reply.</span>
+									break;
+								case SupportTicketStatus.AdminReply:
+								<span class="label label-success">Admin replied.</span>
+									break;
+								case SupportTicketStatus.Closed:
+								<span class="label label-danger">Closed</span>
+									break;
+								default:
+									break;
+							}
+						</td>
+					</tr>
+					<tr>
+						<td>Opened:</td>
+						<td class="cell-ellipsis">@Model.Created</td>
+					</tr>
+					<tr>
+						<td>Last Update:</td>
+						<td id="ticket-lastupdate" class="cell-ellipsis">@Model.LastUpdate</td>
+					</tr>
+				</table>
+				<span>Ticket description:</span>
+				<p style="white-space:pre-line">@Model.Description</p>
+				<br />
+				@if (Model.Status != SupportTicketStatus.Closed)
+				{
+				<div id="ticket-actions">
+					<button onclick="replyTicket(@Model.Id, '@Model.UserName')" class="btn btn-info">Admin Reply</button>
+					<button onclick="closeTicket(@Model.Id)" class="btn btn-danger">Close Ticket</button>
+					<a class='btn btn-success pull-right' href='/AdminSupport'>Return To Support</a>
+				</div>
+				}
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-lg-8">
+		<h4>Ticket History:</h4>
+		<ul id="message-list" class="list-group">
+			@foreach (var item in Model.Messages)
+			{
+			<li class="list-group-item">
+				<span><span style="font-weight: bold">Sender: @item.Sender</span><span style="font-weight: bold" class="pull-right">@item.TimeStamp</span></span>
+				<p style="white-space:pre-line">
+					@item.Message
+				</p>
+			</li>
+			}
+		</ul>
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+
+	function replyTicket(ticketId, username) {
+		openModalGet('/Support/AdminCreateReply', { ticketId: ticketId, username:username}, function(data){
+			showMessage(data);
+			if(data.Success){
+				var messageTemplate = $("#messageTemplate").html();
+				$("#message-list").prepend(Mustache.render(messageTemplate, data.Data));
+				$("#ticket-lastupdate").html(data.Data.Timestamp);
+				$("#ticket-status").html("<span class='label label-success'>Admin replied.</span>");
+			}
+		});
+	}
+
+	function closeTicket(ticketId) {
+		confirm("Close support ticket?", "Are you sure you want to close support ticket #"+ticketId+"?", function () {
+			$.blockUI({ message: "Closing ticket..." });
+			getJson('/Support/AdminCloseTicket', { id: ticketId }, function (data) {
+				$.unblockUI();
+				showMessage(data);
+				if (data.Success) {
+					$("#ticket-lastupdate").html(data.Data.Timestamp);
+					$("#ticket-status").html("<span class='label label-danger'>Closed</span>");
+					$("#ticket-actions").html("	<a class='btn btn-success' href='/AdminSupport'>Return To Support</a>");
+				}
+			});
+		});
+	}
+
+</script>
+
+<script id="messageTemplate" type="text/html">
+	<li class="list-group-item">
+		<span><span style="font-weight: bold">Sender: {{Sender}}</span><span style="font-weight: bold" class="pull-right">{{Timestamp}}</span></span>
+		<p style="white-space:pre-line">
+			{{Message}}
+		</p>
+	</li>
+</script>

@@ -1,0 +1,31 @@
+﻿<h4>@Resources.User.securityAddressBookHeadline</h4>
+<hr />
+<table id="addressBook" class="table table-striped table-hover datatable" data-action="@Url.Action("GetAddressBook", "UserSecurity")" data-delete="@Url.Action("DeleteAddressBook", "UserSecurity")">
+	<thead>
+	<tr>
+		<th>@Resources.User.securityAddressBookIdColumn</th>
+		<th>@Resources.User.securityAddressBookCurrencyIdColumn</th>
+		<th>@Resources.User.securityAddressBookCurrencyColumn</th>
+		<th>@Resources.User.securityAddressBookLabelColumn</th>
+		<th>@Resources.User.securityAddressBookAddressColumn</th>
+		<th>@Resources.User.securityAddressBookTypeColumn</th>
+		<th style="width: 30px"></th>
+	</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<div style="padding-top:15px">
+	<button type="button" id="addAddressBook" class="btn btn-sm btn-default button-180" data-action="@Url.Action("CreateAddressBook", "UserSecurity")">@Resources.User.securityAddressBookAddNewButton</button>
+</div>
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserAddressBook = {
+		SecurityAddressBookEmptyListMessage: '@Resources.User.securityAddressBookEmptyListMessage',
+		SecurityAddressBookDeleteHint: '@Resources.User.securityAddressBookDeleteHint',
+		SecurityAddressBookDeleteQuestionTitle: '@Resources.User.securityAddressBookDeleteQuestionTitle',
+		SecurityAddressBookDeleteQuestion: '@Resources.User.securityAddressBookDeleteQuestionMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userAddressBook.min.js")
+
+

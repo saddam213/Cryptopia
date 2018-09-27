@@ -1,0 +1,231 @@
+﻿@{
+		ViewBag.Title = "NZDT";
+}
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+
+<ul class="nav nav-tabs">
+
+	<li class="active">
+		<a aria-expanded="false" href="#upload" data-toggle="tab">
+			<h4>Upload</h4>
+		</a>
+	</li>
+
+	<li>
+		<a aria-expanded="true" href="#tx-ready" data-toggle="tab">
+			<h4>Ready for Processing</h4>
+		</a>
+	</li>
+
+	<li>
+		<a aria-expanded="true" href="#tx-processed" data-toggle="tab">
+			<h4>Processed</h4>
+		</a>
+	</li>
+
+	<li>
+		<a aria-expanded="true" href="#tx-errored" data-toggle="tab">
+			<h4>Errored</h4>
+		</a>
+	</li>
+
+	<li>
+		<a aria-expanded="true" href="#tx-all" data-toggle="tab">
+			<h4>All</h4>
+		</a>
+	</li>
+
+</ul>
+
+<div class="tab-content" id="userTabContent" style="padding-top:15px">
+
+	<div class="tab-pane fade active in" id="upload">
+		<div class="panel panel-default">
+			<div class="panel-heading">Upload CSV</div>
+			<div class="panel-body">
+
+				@using (Html.BeginForm("Upload", "Nzdt", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+				{
+						@Html.AntiForgeryToken()
+						@Html.ValidationSummary()
+
+						<div class="form-group">
+							<input type="file" id="dataFile" name="upload" />
+						</div>
+
+						<div class="form-group">
+							<input type="submit" value="Upload" class="btn btn-default" />
+						</div>
+				}
+			</div>
+		</div>
+	</div>
+
+	<div class="tab-pane fade" id="tx-ready">
+		<table id="tx-table-ready" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UniqueId</th>
+					<th>Amount</th>
+					<th>UserName</th>
+					<th>CreatedOn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="tab-pane fade" id="tx-processed">
+		<table id="tx-table-processed" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UniqueId</th>
+					<th>Amount</th>
+					<th>DepositId</th>
+					<th>UserName</th>
+					<th>ProcessedOn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="tab-pane fade" id="tx-errored">
+		<table id="tx-table-errored" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UniqueId</th>
+					<th>Amount</th>
+					<th>Memo</th>
+					<th>Date</th>
+					<th>UserName</th>
+					<th>VerificationLevel</th>
+					<th>Status</th>
+					<th>CreatedOn</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="tab-pane fade" id="tx-all">
+		<table id="tx-table-all" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UniqueId</th>
+					<th>Amount</th>
+					<th>Memo</th>
+					<th>Date</th>
+					<th>DepositId</th>
+					<th>UserName</th>
+					<th>Status</th>
+					<th>CreatedOn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+</div>
+
+<script id="nzdtErrorButtonTemplate" type="text/html">
+	<div style="width:120px" class="btn-group btn-group-xs btn-group-justified pull-right">
+		<a onclick="{{{action}}}" class="btn btn-danger btn-xs">Update</a>
+	</div>
+</script>
+@section Scripts {
+	<script type="text/javascript">
+
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+			"<'row'<'col-sm-12'tr>>" +
+			"<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+		var nzdtErrorButtonTemplate = $('#nzdtErrorButtonTemplate').html();
+
+		var readyTxTable = buildDataTable("#tx-table-ready", '@Url.Action("GetReadyTransactions")');
+		var processedTxTable = buildDataTable("#tx-table-processed", '@Url.Action("GetProcessedTransactions")');
+		var allTxTable = buildDataTable("#tx-table-all", '@Url.Action("GetAllTransations")');
+
+		var erroredTxTable = buildDataTable("#tx-table-errored", '@Url.Action("GetErroredTransactions")', {
+
+			"columnDefs": [
+				{
+					"targets": 9,
+					"searchable": false,
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return Mustache.render(nzdtErrorButtonTemplate, {
+							action: 'updateTransaction(\'' + full[0] + '\')'
+						})
+					}
+				}
+			]
+
+		});
+
+		var updateAction = '@Url.Action("UpdateErroredTransaction", "Nzdt")';
+
+		function updateTransaction(id) {
+			openModalGet(updateAction, { id: id }, function (data) {
+				showMessage(data);
+				if (data && data.Success) {
+					erroredTxTable.ajax.reload();
+				}
+			});
+		}
+
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			var target = $(e.target).attr("href").replace('#', ''); // activated tab
+			if (target == 'tx-ready') {
+				readyTxTable.ajax.reload();
+			}
+			else if (target == 'tx-processed') {
+				processedTxTable.ajax.reload();
+			}
+			else if (target == 'tx-errored') {
+				erroredTxTable.ajax.reload();
+			}
+			else if (target == 'tx-all') {
+				allTxTable.ajax.reload();
+			}
+		}).trigger('shown.bs.tab');
+
+		function buildDataTable(id, action, opts) {
+			var defaultOptions = {
+				"dom": tableOptionsLayout,
+				"order": [[0, "asc"]],
+				"searchDelay": 1500,
+				"lengthChange": false,
+				"processing": false,
+				"bServerSide": true,
+				"searching": true,
+				"scrollCollapse": true,
+				"scrollX": false,
+				"width": "100%",
+				"paging": true,
+				"info": true,
+				"iDisplayLength": 20,
+				"sAjaxSource": action,
+				"sServerMethod": "POST",
+				"deferLoading": 0,
+				"language": {
+					"emptyTable": "There are no items",
+					"searchPlaceholder": "Search",
+					"search": ""
+				},
+				"columnDefs": []
+			};
+			var options = $.extend(defaultOptions, opts ? opts : {});
+			return $(id).DataTable(options);
+		}
+
+	</script>
+}

@@ -1,0 +1,73 @@
+﻿@model Cryptopia.Common.Karma.UserKarmaModel
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.UserData.karmaHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row karma-page-subheader">
+	<div class="col-xs-12">
+		<span>
+			<span>@Resources.UserData.karmaTotalLabel: </span>
+			<b class="text-info">@Model.Total</b>
+			<small><i> @Resources.UserData.karmaPointsLabel</i></small>
+		</span>
+	</div>
+	<div class="col-xs-12">
+		<span>
+			<span>@Resources.UserData.karmaUnspentLabel: </span>
+			<b class="text-success">@Model.Available</b>
+			<small><i> @Resources.UserData.karmaPointsLabel</i></small>
+		</span>
+	</div>
+</div>
+
+<div class="row karma-page-content">
+
+	<div class="col-md-5">
+		<div  class="table-header-container ">
+			<h4 class="table-header">@Resources.UserData.karmaReceivedHeadline</h4>
+			<hr class="table-seperator" />
+		</div>
+		<div class="table-search-seperator"></div>
+		<div class="table-search-seperator-mobile visible-xs"></div>
+		<table id="karmaReceived" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetKarmaReceived", "UserKarma")">
+			<thead>
+				<tr>
+					<th>@Resources.UserData.karmaTimestampColumn</th>
+					<th>@Resources.UserData.karmaFromColumn</th>
+					<th>@Resources.UserData.karmaTypeColumn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="col-md-7">
+		<div class="table-header-container">
+			<h4 class="table-header">@Resources.UserData.karmaHistoryHeadline</h4>
+			<hr class="table-seperator" />
+		</div>
+		<div class="table-search-seperator"></div>
+		<div class="table-search-seperator-mobile visible-xs"></div>
+		<table id="karmaHistory" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetKarmaHistory", "UserKarma")">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>@Resources.UserData.karmaTimestampColumn</th>
+					<th>@Resources.UserData.karmaAmountColumn</th>
+					<th>@Resources.UserData.karmaTransactionInfoColumn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserKarma = {
+		HistoryEmptyListMessage: '@Resources.UserData.karmaHistoryEmptyListMessage',
+		EmptyListMessage: '@Resources.UserData.karmaEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userKarma.min.js")

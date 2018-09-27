@@ -1,0 +1,1136 @@
+﻿@{
+		ViewBag.Title = "User" + (ViewBag.UserName == null ? " Admin" : (" - " + ViewBag.UserName));
+}
+
+<style>
+	.left-content-user {
+		width: 475px;
+	}
+
+	.right-content-user {
+		left: 475px;
+	}
+
+	#user-table > tbody > tr > td {
+		cursor: pointer;
+	}
+	
+</style>
+
+<div class="left-content left-content-user">
+	<div class="col-xs-12">
+		<h3>User Admin</h3>
+		<hr style="margin-top:15px;margin-bottom:15px" />
+		<table id="user-table" class="table table-condensed table-striped table-hover" data-container=".left-content">
+			<thead>
+				<tr>
+					<th>UserName</th>
+					<th>ChatName</th>
+					<th>EmailAddress</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+<div class="right-content right-content-user">
+	<div id="message-alert" class="alert text-center" style="display: none">
+		<p></p>
+	</div>
+	<div id="user-stats-panel" class="col-xs-12">
+		<h1>All of tha stats</h1>
+	</div>
+	<div id="user-data-panel" class="col-xs-12" style="display:none">
+		<div id="message-alert" class="alert text-center" style="display: none">
+			<p></p>
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a aria-expanded="true" href="#details" data-toggle="tab">
+					<h5>Details</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#security" data-toggle="tab">
+					<h5>Security</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#deposits" data-toggle="tab">
+					<h5>Deposits</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#withdrawals" data-toggle="tab">
+					<h5>Withdrawals</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#transfers" data-toggle="tab">
+					<h5>Transfers</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#balances" data-toggle="tab">
+					<h5>Balances</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#addresses" data-toggle="tab">
+					<h5>Addresses</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#trades" data-toggle="tab">
+					<h5>Trades</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#tradeHistory" data-toggle="tab">
+					<h5>Trade History</h5>
+				</a>
+			</li>
+			<li>
+				<a aria-expanded="false" href="#openTickets" data-toggle="tab">
+					<h5>Open Tickets</h5>
+				</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="userTabContent" style="padding-top:15px">
+			<div class="tab-pane fade active in" id="details">
+				<div id="details-target"></div>
+			</div>
+			<div class="tab-pane fade" id="security">
+				<div id="security-target"></div>
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<table id="loginsTable" class="table table-condensed table-striped table-hover">
+							<thead>
+								<tr>
+									<th>IPAddress</th>
+									<th>Timestamp</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="deposits">
+				<table id="depositTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Currency</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>TxId</th>
+							<th>Conf</th>
+							<th>Timestamp</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="withdrawals">
+				<table id="withdrawTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Currency</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>Confirmed</th>
+							<th>TxId</th>
+							<th>Address</th>
+							<th>Conf</th>
+							<th>Timestamp</th>
+							<th>Init</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+
+			<div class="tab-pane fade" id="transfers">
+				<table id="transferTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Currency</th>
+							<th>Sender</th>
+							<th>Receiver</th>
+							<th>Amount</th>
+							<th>Type</th>
+							<th>Timestamp</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="balances">
+				<table id="balanceTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Currency</th>
+							<th>Total</th>
+							<th>Available</th>
+							<th>HeldForTrades</th>
+							<th>PendingWithdraw</th>
+							<th>Unconfirmed</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="addresses">
+				<table id="addressTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Currency</th>
+							<th>Address</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="trades">
+				<table id="tradeTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>TradePair</th>
+							<th>Type</th>
+							<th>Amount</th>
+							<th>Remaining</th>
+							<th>Price</th>
+							<th>Fee</th>
+							<th>Status</th>
+							<th>Timestamp</th>
+							<th>Init</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="tradeHistory">
+				<table id="tradeHistoryTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>TradePair</th>
+							<th>Type</th>
+							<th>Amount</th>
+							<th>Rate</th>
+							<th>Fee</th>
+							<th>Total</th>
+							<th>Timestamp</th>
+							<th>Init</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane fade" id="openTickets">
+				<table id="openTicketsTable" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr class="clickable-row">
+							<th>Id</th>
+							<th>Category</th>
+							<th>Title</th>
+							<th>Status</th>
+							<th>Created</th>
+							<th>Queue</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+
+		var selectedUser = '';
+		var selectedTab = '#details';
+		var userDetailsTemplate = $("#userDetailsTemplate").html();
+		var userSecurityTemplate = $("#userSecurityTemplate").html();
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+														 "<'row'<'col-sm-12'tr>>" +
+														 "<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+		var actionGetUsers = '@Url.Action("GetUsers")';
+		var actionGetUserDetails = '@Url.Action("GetUserDetails")';
+		var actionGetUserSecurity = '@Url.Action("GetUserSecurity")';
+
+		@if(ViewBag.UserName != null){
+		<text>
+			selectedUser = '@ViewBag.UserName';
+			$("#user-stats-panel").hide();
+			$("#user-data-panel").show();
+			setActiveTab();
+		</text>
+		}
+
+		$('#user-table tbody').on('click', 'tr', function () {
+			var row = $(this);
+			if (!row.hasClass('info')) {
+				$("#user-stats-panel").hide();
+				$("#user-data-panel").show();
+				datatable.$('tr.info').removeClass('info');
+				var cell = $(this).find("td:first");
+				if (cell.hasClass("dataTables_empty")) {
+					return;
+				}
+				$(this).addClass('info');
+				selectedUser = cell.text();
+				setActiveTab();
+			}
+		});
+
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			selectedTab = $(e.target).attr("href");
+			setActiveTab();
+		});
+
+		function setActiveTab() {
+			$('.right-content').block({ message: 'Loading Data...' });
+			if (selectedTab == '#details') {
+				getUserDetails(selectedUser);
+				//getUserProfile(selectedUser);
+			}
+			else if (selectedTab == '#security') {
+				getUserSecurity(selectedUser);
+			}
+			else if (selectedTab == '#deposits') {
+				depositTable.ajax.reload();
+			}
+			else if (selectedTab == '#withdrawals') {
+				withdrawTable.ajax.reload();
+			}
+			else if (selectedTab == '#transfers') {
+				transferTable.ajax.reload();
+			}
+			else if (selectedTab == '#balances') {
+				balanceTable.ajax.reload();
+			}
+			else if (selectedTab == '#trades') {
+				tradeTable.ajax.reload();
+			}
+			else if (selectedTab == '#tradeHistory') {
+				tradeHistoryTable.ajax.reload();
+			}
+			else if (selectedTab == '#addresses') {
+				addressTable.ajax.reload();
+			}
+			else if (selectedTab == '#openTickets') {
+				openTicketsTable.ajax.reload();
+			}
+
+		}
+
+
+
+
+		var table = $("#user-table");
+		var datatable = table.DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"pagingType": "simple",
+			"sAjaxSource": actionGetUsers,
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "There are no users.",
+				"infoFiltered": "_MAX_ users",
+				"info": "_MAX_ users",
+				"search": "",
+				"searchPlaceholder": "Search users"
+			},
+			"fnDrawCallback": function () {
+				$('.left-content').unblock();
+			}
+		});
+
+		var actionGetDeposits = '@Url.Action("GetDeposits")';
+		var depositTable = $("#depositTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetDeposits,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "There are no deposits.",
+				"searchPlaceholder": "Search deposits",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetWithdrawals = '@Url.Action("GetWithdrawals")';
+		var withdrawTable = $("#withdrawTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 2000,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetWithdrawals,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no withdrawals.",
+				"searchPlaceholder": "Search withdrawals",
+				"search": ""
+			},
+			"columnDefs": [{
+				"targets": [5, 6, 8],
+				"render": function (data, type, full, meta) {
+					return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+				}
+			}],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetTransfers = '@Url.Action("GetTransfers")';
+		var transferTable = $("#transferTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetTransfers,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no transfers.",
+				"searchPlaceholder": "Search transfers",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetTrades = '@Url.Action("GetTrades")';
+		var tradeTable = $("#tradeTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetTrades,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no trades.",
+				"searchPlaceholder": "Search trades",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetTradeHistory = '@Url.Action("GetTradeHistory")';
+		var tradeHistoryTable = $("#tradeHistoryTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetTradeHistory,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no trade history.",
+				"searchPlaceholder": "Search trade history",
+				"search": ""
+			},
+			"columnDefs": [{
+				"targets": [6],
+				"render": function (data, type, full, meta) {
+					return (+data).toFixed(8);
+				}
+			}],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetBalances = '@Url.Action("GetBalances")';
+		var balanceTable = $("#balanceTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[1, "asc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetBalances,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no balances.",
+				"searchPlaceholder": "Search balances",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetAddresses = '@Url.Action("GetAddresses")';
+		var addressTable = $("#addressTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[1, "asc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetAddresses,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no addresses.",
+				"searchPlaceholder": "Search addresses",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetOpenTickets = '@Url.Action("GetOpenTickets")';
+		var openTicketsTable = $("#openTicketsTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			"deferLoading": 0,
+			"sAjaxSource": actionGetOpenTickets,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no open tickets.",
+				"searchPlaceholder": "Search open tickets",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		var actionGetLogins = '@Url.Action("GetLogins")';
+		var loginsTable = $("#loginsTable").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[1, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 10,
+			"deferLoading": 0,
+			"pagingType": "simple",
+			"sAjaxSource": actionGetLogins,
+			"fnServerParams": function (aoData) {
+				aoData.push({ "name": "username", "value": selectedUser });
+			},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "User has no logins.",
+				"searchPlaceholder": "Search logins",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				$('.right-content').unblock();
+			}
+		});
+
+		function ProcessUserDetailsData(data) {
+			data.Birthday = moment(data.Birthday).format("DD/MM/YYYY");
+            data.RegisterDate = moment(data.RegisterDate).format("DD/MM/YYYY");
+
+			if (data.LockoutEnd != null && moment(data.LockoutEnd).isAfter(moment())) {
+				data.LockoutEnd = moment(data.LockoutEnd).format("DD/MM/YYYY h:mm A");
+				data.lockoutBtn = 'Unlock';
+				data.isLocked = true;
+			} else {
+				data.LockoutEnd = 'Unlocked';
+				data.lockoutBtn = 'Lock';
+				data.isLocked = false;
+			}
+
+			data.disableBtn = data.IsDisabled ? 'Enable' : 'Reactivate';
+
+			$("#details-target").html(Mustache.render(userDetailsTemplate, data));
+
+			if (!data.IsDisabled) {
+				$(".details-disable").show().removeAttr('disabled');
+			}
+
+			$('.right-content').unblock();
+		}
+
+		function getUserDetails(selectedUser) {
+			postJson(actionGetUserDetails, { username: selectedUser }, ProcessUserDetailsData);
+		}
+
+		function getUserSecurity(selectedUser) {
+			postJson(actionGetUserSecurity, { username: selectedUser }, function (data) {
+				$("#security-target").html(Mustache.render(userSecurityTemplate, data));
+				loginsTable.ajax.reload();
+			});
+		}
+
+		$("#user-target").on("click", ".btn-user-update", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("UpdateUser", "User")', { userName: username }, function (modalData) {
+				if (modalData && modalData.Success) {
+					getUserDetails(username);
+				}
+				showMessage(modalData);
+			});
+		});
+
+		$("#user-target").on("click", ".btn-user-lock", function () {
+			var lock = $(this).data('islocked');
+			var username = $(this).data('username');
+			var lockAction = '@Url.Action("LockUser", "AdminSecurity")';
+			var unlockAction = '@Url.Action("UnlockUser", "AdminSecurity")';
+			if (lock) {
+				confirm("Notify User", "Would you like to email the user notifing them of being unlocked?",
+					function () {
+						postJson(unlockAction, { username: userName, sendemail: true }, function (modalData) {
+							$.unblockUI();
+							if (modalData && modalData.Success) {
+								getUserDetails(username);
+							}
+							showMessage(modalData);
+						});
+					},
+					function () {
+						postJson(unlockAction, { username: userName, sendemail: false }, function (modalData) {
+							$.unblockUI();
+							if (modalData && modalData.Success) {
+								getUserDetails(username);
+							}
+							showMessage(modalData);
+						});
+					});
+			} else {
+				postJson(lockAction, { userName: username }, function (modalData) {
+					$.unblockUI();
+					if (modalData && modalData.Success) {
+						getUserDetails(username);
+					}
+					showMessage(modalData);
+				});
+			}
+		});
+
+
+		$("#security").on("click", ".security-edit-twofactor", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("ResetTwoFactor", "User")', { userName: username }, function (modalData) {
+				showMessage(modalData);
+				if (modalData.Success) {
+					setActiveTab();
+				}
+			});
+		});
+
+		$("#security").on("click", ".security-edit-settings", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("UpdateApi", "User")', { userName: username }, function (modalData) {
+				if (modalData && modalData.Success) {
+					getUserDetails(username);
+				}
+				showMessage(modalData);
+			});
+		});
+
+		$("#details").on("click", ".details-edit-profile", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("UpdateProfile", "User")', { userName: username }, function (modalData) {
+				showMessage(modalData);
+				if (modalData.Success) {
+					getUserDetails(username);
+				}
+			});
+		});
+
+
+		$("#details").on("click", ".details-edit-email", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("ChangeEmail", "User")', { username: username }, function (modalData) {
+				if (modalData && modalData.Success) {
+					getUserDetails(username);
+				}
+				showMessage(modalData);
+			});
+		});
+
+		$("#details").on("click", ".details-edit-activation", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("ActivateUser", "User")', { username: username }, function (modalData) {
+				if (modalData && modalData.Success) {
+					getUserDetails(username);
+				}
+				showMessage(modalData);
+			});
+		});
+
+		$("#details").on("click", ".details-edit-settings", function () {
+			var username = $(this).data('username');
+			openModalGet('@Url.Action("UpdateSettings", "User")', { userName: username }, function (modalData) {
+				if (modalData && modalData.Success) {
+					getUserDetails(username);
+				}
+				showMessage(modalData);
+			});
+		});
+
+		var actionDisableUser = '@Url.Action("DisableUser")';
+		$("#details").on("click", ".details-disable", function () {
+			var username = $(this).data('username');
+
+			confirm('Disable User ?', 'Do you want to disable this User? Operation cannot be reversed!', function () {
+				$('.right-content').block({ message: 'Updating User ...' });
+				postJson(actionDisableUser, { username: selectedUser }, function (data) {
+					showMessage(data);
+					getUserDetails(selectedUser);
+				});
+			});
+
+		});
+
+		var actionLockUser = '@Url.Action("LockUser")';
+		var actionUnlockUser = '@Url.Action("UnlockUser")';
+
+		$("#details").on("click", ".details-lock", function () {
+			var username = $(this).data('username');
+			var isLocked = $(this).data('islocked');
+			var action = isLocked ? actionUnlockUser : actionLockUser;
+
+			$('.right-content').block({ message: 'Updating User ...' });
+			postJson(action, { username: selectedUser }, function (data) {
+				showMessage(data);
+				getUserDetails(selectedUser);
+			});
+		});
+
+		var ticketDetailsAction = '@Url.Action("TicketDetails", "Support")';
+		$('#openTicketsTable').on('click', 'tr', function () {
+			var cell = $(this).find("td:first");
+			var url = ticketDetailsAction + "?id=" + cell.text();
+			var tab = window.open(url, '_blank');
+			tab.focus();
+		});
+
+		var searchDelay = null;
+		$('div.dataTables_filter input').off('keyup.DT input.DT');
+		$('div.dataTables_filter input').on('keyup', function (e) {
+			var _this = $(this);
+			var search = _this.val();
+			var delay = e.keyCode == 13 ? 0 : 2000;
+			clearTimeout(searchDelay);
+			searchDelay = setTimeout(function () {
+				if (search != null) {
+					var tableId = '#' + _this.closest('.dataTables_filter').attr("id").replace("_filter", "");
+					var table = $(tableId)
+					$(table.data("container") || '.right-content').block({ message: 'Searching...' });
+					table.DataTable().search(search).draw();
+				}
+			}, delay);
+		});
+
+	</script>
+
+
+}
+
+<script id="userDetailsTemplate" type="text/html">
+	<div id="section-details" class="row">
+		<div class="col-md-12 col-lg-6">
+			<table class="table table-bordered table-condensed tablefixed">
+				<thead>
+					<tr>
+						<th colspan="2" style="font-size:larger">User Settings</th>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="details-edit-settings">Edit</a>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>UserName</b></td>
+						<td colspan="2">{{UserName}}</td>
+					</tr>
+					<tr>
+						<td><b>ChatHandle</b></td>
+						<td colspan="2">{{ChatHandle}}</td>
+					</tr>
+					<tr>
+						<td><b>MiningHandle</b></td>
+						<td colspan="2">{{MiningHandle}}</td>
+					</tr>
+					<tr>
+						<td><b>Email</b></td>
+						<td>{{Email}}</td>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="details-edit-email">Edit</a>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Activated</b></td>
+						<td>{{EmailConfirmed}}</td>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="details-edit-activation">Edit</a>
+						</td>
+					</tr>
+					<tr>
+						<td><b>Verification Level</b></td>
+						<td colspan="2">{{VerificationLevel}}</td>
+					</tr>
+					<tr>
+						<td><b>Referrer</b></td>
+						<td colspan="2">{{Referrer}}</td>
+					</tr>
+					<tr>
+						<td><b>Karma</b></td>
+						<td colspan="2">{{KarmaTotal}}</td>
+					</tr>
+					<tr>
+						<td><b>Trust Rating</b></td>
+						<td colspan="2">{{{Trust}}}</td>
+					</tr>
+					<tr>
+						<td><b>Flair</b></td>
+						<td colspan="2"><span class="">{{RoleCss}}</span></td>
+					</tr>
+					<tr>
+						<td><b>Share Count</b></td>
+						<td colspan="2"><span class="">{{ShareCount}}</span></td>
+					</tr>
+					<tr>
+						<td><b>DisableLogonEmail</b></td>
+						<td colspan="2"><span class="">{{DisableLogonEmail}}</span></td>
+					</tr>
+					<tr>
+						<td><b>DisableTips</b></td>
+						<td colspan="2"><span class="">{{DisableTips}}</span></td>
+					</tr>
+					<tr>
+						<td><b>ChatDisableEmoticons</b></td>
+						<td colspan="2"><span class="">{{ChatDisableEmoticons}}</span></td>
+					</tr>
+					<tr>
+						<td><b>RegisterDate</b></td>
+						<td colspan="2"><span class="">{{RegisterDate}}</span></td>
+					</tr>
+					<tr>
+						<td><b>IsDisabled</b></td>
+						<td><span class="">{{IsDisabled}}</span></td>
+						<td>
+							<a class="details-disable btn btn-primary btn-xs btn-edit" style="display: none" disabled data-username="{{UserName}}">
+								Disable
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td><b>LockoutEnd</b></td>
+						<td><span class="">{{LockoutEnd}}</span></td>
+						<td class="table-edit-row">
+							<a class="details-lock btn btn-primary btn-xs btn-edit" data-username="{{UserName}}" data-islocked="{{isLocked}}">
+								{{lockoutBtn}}
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-12 col-lg-6">
+			<table class="table table-bordered table-condensed tablefixed">
+				<thead>
+					<tr>
+						<th colspan="2" style="font-size:larger">User Profile</th>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="details-edit-profile">Edit</a>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>FirstName</b></td>
+						<td colspan="2">{{FirstName}}</td>
+					</tr>
+					<tr>
+						<td><b>LastName</b></td>
+						<td colspan="2">{{LastName}}</td>
+					</tr>
+					<tr>
+						<td><b>ContactEmail</b></td>
+						<td colspan="2">{{ContactEmail}}</td>
+					</tr>
+					<tr>
+						<td><b>Birthday</b></td>
+						<td colspan="2">{{Birthday}}</td>
+					</tr>
+					<tr>
+						<td><b>Gender</b></td>
+						<td colspan="2">{{Gender}}</td>
+					</tr>
+					<tr>
+						<td><b>Country</b></td>
+						<td colspan="2">{{Country}}</td>
+					</tr>
+					<tr>
+						<td><b>City</b></td>
+						<td colspan="2">{{City}}</td>
+					</tr>
+					<tr>
+						<td><b>Postcode</b></td>
+						<td colspan="2">{{Postcode}}</td>
+					</tr>
+					<tr>
+						<td><b>State</b></td>
+						<td colspan="2">{{State}}</td>
+					</tr>
+					<tr>
+						<td><b>Address</b></td>
+						<td colspan="2">{{Address}}</td>
+					</tr>
+					<tr>
+						<td><b>Occupation</b></td>
+						<td colspan="2">{{Occupation}}</td>
+					</tr>
+					<tr>
+						<td><b>Facebook</b></td>
+						<td colspan="2"><a target="_blank" href="{{Website}}">{{Facebook}}</a></td>
+					</tr>
+					<tr>
+						<td><b>LinkedIn</b></td>
+						<td colspan="2"><a target="_blank" href="{{Website}}">{{LinkedIn}}</a></td>
+					</tr>
+					<tr>
+						<td><b>Twitter</b></td>
+						<td colspan="2"><a target="_blank" href="{{Website}}">{{Twitter}}</a></td>
+					</tr>
+					<tr>
+						<td><b>Website</b></td>
+						<td colspan="2"><a target="_blank" href="{{Website}}">{{Website}}</a></td>
+					</tr>
+					<tr>
+						<td><b>Hobbies</b></td>
+						<td colspan="2">{{Hobbies}}</td>
+					</tr>
+					<tr>
+						<td><b>AboutMe</b></td>
+						<td colspan="2">{{AboutMe}}</td>
+					</tr>
+					<tr>
+						<td><b>IsPublic</b></td>
+						<td colspan="2">{{IsPublic}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>
+
+
+
+
+
+<script id="userSecurityTemplate" type="text/html">
+	<div class="row">
+		<div class="col-md-12 col-lg-6">
+			<table class="table table-bordered table-condensed tablefixed">
+				<thead>
+					<tr>
+						<th colspan="2" style="font-size:larger">User Security Settings</th>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="security-edit-settings">Edit</a>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>DisableLogonEmail</b></td>
+						<td style="min-width:100px" colspan="2" class="alert-amber-true-{{DisableLogonEmail}} alert-green-false-{{DisableLogonEmail}}">{{DisableLogonEmail}}</td>
+					</tr>
+					<tr>
+						<td><b>DisableWithdrawEmailConfirmation</b></td>
+						<td colspan="2" class="alert-red-true-{{DisableWithdrawEmailConfirmation}} alert-green-false-{{DisableWithdrawEmailConfirmation}}">{{DisableWithdrawEmailConfirmation}}</td>
+					</tr>
+					<tr>
+						<td><b>IsUnsafeWithdrawEnabled</b></td>
+						<td colspan="2" class="alert-red-true-{{IsUnsafeWithdrawEnabled}} alert-green-false-{{IsUnsafeWithdrawEnabled}}"> {{IsUnsafeWithdrawEnabled}}</td>
+					</tr>
+					<tr>
+						<td><b>IsApiEnabled</b></td>
+						<td colspan="2" class="alert-amber-true-{{IsApiEnabled}} alert-green-false-{{IsApiEnabled}}">{{IsApiEnabled}}</td>
+					</tr>
+					<tr>
+						<td><b>IsApiWithdrawEnabled</b></td>
+						<td colspan="2" class="alert-red-true-{{IsApiUnsafeWithdrawEnabled}} alert-green-false-{{IsApiUnsafeWithdrawEnabled}}">{{IsApiWithdrawEnabled}}</td>
+					</tr>
+					<tr>
+						<td><b>IsApiUnsafeWithdrawEnabled</b></td>
+						<td colspan="2" class="alert-red-true-{{IsApiUnsafeWithdrawEnabled}} alert-green-false-{{IsApiUnsafeWithdrawEnabled}}">{{IsApiUnsafeWithdrawEnabled}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12 col-lg-6">
+			<table class="table table-bordered table-condensed tablefixed">
+				<thead>
+					<tr>
+						<th colspan="2" style="font-size:larger">User TwoFactor</th>
+						<td class="table-edit-row">
+							<a data-username="{{UserName}}" class="security-edit-twofactor">Edit</a>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					{{#TwoFactor}}
+					<tr>
+						<td><b>{{Name}}</b></td>
+						<td style="min-width:100px" colspan="2" class="alert-tfa alert-tfa-{{Type}}">{{Type}}</td>
+					</tr>
+					{{/TwoFactor}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AdmintopiaService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Enums" />
+      <xsd:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAdmintopiaService_GetWalletTransactions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletTransactions" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_GetWalletTransactions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletTransactionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_GetWalletTransactionsSince_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletTransactionsSince" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_GetWalletTransactionsSince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletTransactionsSinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_BlacklistIpAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:BlacklistIpAddress" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_BlacklistIpAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BlacklistIpAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_GetIpAddressBlacklist_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIpAddressBlacklist" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_GetIpAddressBlacklist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIpAddressBlacklistResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_PurgeSiteCache_InputMessage">
+    <wsdl:part name="parameters" element="tns:PurgeSiteCache" />
+  </wsdl:message>
+  <wsdl:message name="IAdmintopiaService_PurgeSiteCache_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PurgeSiteCacheResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAdmintopiaService">
+    <wsdl:operation name="GetWalletTransactions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdmintopiaService/GetWalletTransactions" message="tns:IAdmintopiaService_GetWalletTransactions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdmintopiaService/GetWalletTransactionsResponse" message="tns:IAdmintopiaService_GetWalletTransactions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletTransactionsSince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdmintopiaService/GetWalletTransactionsSince" message="tns:IAdmintopiaService_GetWalletTransactionsSince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdmintopiaService/GetWalletTransactionsSinceResponse" message="tns:IAdmintopiaService_GetWalletTransactionsSince_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BlacklistIpAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdmintopiaService/BlacklistIpAddress" message="tns:IAdmintopiaService_BlacklistIpAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdmintopiaService/BlacklistIpAddressResponse" message="tns:IAdmintopiaService_BlacklistIpAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIpAddressBlacklist">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdmintopiaService/GetIpAddressBlacklist" message="tns:IAdmintopiaService_GetIpAddressBlacklist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdmintopiaService/GetIpAddressBlacklistResponse" message="tns:IAdmintopiaService_GetIpAddressBlacklist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PurgeSiteCache">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdmintopiaService/PurgeSiteCache" message="tns:IAdmintopiaService_PurgeSiteCache_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdmintopiaService/PurgeSiteCacheResponse" message="tns:IAdmintopiaService_PurgeSiteCache_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAdmintopiaService" type="tns:IAdmintopiaService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetWalletTransactions">
+      <soap:operation soapAction="http://tempuri.org/IAdmintopiaService/GetWalletTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletTransactionsSince">
+      <soap:operation soapAction="http://tempuri.org/IAdmintopiaService/GetWalletTransactionsSince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BlacklistIpAddress">
+      <soap:operation soapAction="http://tempuri.org/IAdmintopiaService/BlacklistIpAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIpAddressBlacklist">
+      <soap:operation soapAction="http://tempuri.org/IAdmintopiaService/GetIpAddressBlacklist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurgeSiteCache">
+      <soap:operation soapAction="http://tempuri.org/IAdmintopiaService/PurgeSiteCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AdmintopiaService">
+    <wsdl:port name="BasicHttpBinding_IAdmintopiaService" binding="tns:BasicHttpBinding_IAdmintopiaService">
+      <soap:address location="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

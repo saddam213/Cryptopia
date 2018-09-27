@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="32c6ef91-a9d1-4317-bb44-1955d98bcb01" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="Cryptopia.Enums" />
+      <ReferencedAssembly AssemblyName="Cryptopia.Infrastructure.Incapsula.Common" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="ae6309ef-46bb-4a26-881f-572229661be0" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd2" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="aaf2fe5e-e434-4ba4-9847-a76a4ca33ce6" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd3" />
+    <MetadataFile FileName="AdmintopiaService.wsdl" MetadataType="Wsdl" ID="718c1825-e341-435c-887a-b10a5f167924" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?wsdl" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="55558839-a18d-4daf-803b-f3e9b73acf21" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd5" />
+    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="f7346dec-af8e-494e-972e-d251b15610db" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd4" />
+    <MetadataFile FileName="item5.xsd" MetadataType="Schema" ID="688c8489-c6cb-49f2-bbea-90755a41c07a" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd0" />
+    <MetadataFile FileName="item6.xsd" MetadataType="Schema" ID="7d5590d7-9ded-4d3b-b28e-7ec4d2d520ee" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd6" />
+    <MetadataFile FileName="item7.xsd" MetadataType="Schema" ID="e87047fb-ce60-4c5b-b7b0-4869dd9a4560" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="fde58a48-e23f-472b-ab2f-cacc0ed4f602" SourceId="1" SourceUrl="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

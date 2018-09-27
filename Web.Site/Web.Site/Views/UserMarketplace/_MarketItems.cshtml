@@ -1,0 +1,37 @@
+﻿@{
+}
+
+<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.marketHeadline</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="openmarket" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetMarketItems",  "UserMarketplace")" data-action-edit="@Url.Action("EditMarketItem",  "MarketPlace")" data-action-cancel="@Url.Action("CancelMarketItem",  "MarketPlace")" data-action-marketitem="@Url.Action("MarketItem",  "MarketPlace")">
+	<thead>
+		<tr>
+			<th><strong>#</strong></th>
+			<th><strong>@Resources.UserData.marketTitleColumn</strong></th>
+			<th><strong>@Resources.UserData.marketTypeColumn</strong></th>
+			<th><strong>@Resources.UserData.marketOpenedColumn</strong></th>
+			<th><strong>@Resources.UserData.marketClosesColumn</strong></th>
+			<th><strong>@Resources.UserData.marketStatusColumn</strong></th>
+			<th><strong></strong></th>
+			<th><strong></strong></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.MarketItems = {
+		EmptyListMessage: '@Resources.UserData.marketEmptyListMessage',
+		CancelListingButton: '@Resources.UserData.marketCancelListingButton',
+		CancelListingQuestionTitle: '@Resources.UserData.marketCancelListingQuestionTitle',
+		CancelListingQuestion: '@Resources.UserData.marketCancelListingQuestion',
+		CancelingMessage: '@Resources.UserData.marketCancelingMessage',
+		EditListingButton: '@Resources.UserData.marketEditListingButton'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userMarketplace.min.js")

@@ -1,0 +1,29 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.transferHeadline</h2>
+	<hr class="table-seperator"/>
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="transfers" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetTransfers", "UserTransfer")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>@Resources.UserData.transferCurrencyColumn</th>
+			<th>@Resources.UserData.transferAmountColumn</th>
+			<th>@Resources.UserData.transferFeeColumn</th>
+			<th>@Resources.UserData.transferTypeColumn</th>
+			<th>@Resources.UserData.transferSenderColumn</th>
+			<th>@Resources.UserData.transferReceiverColumn</th>
+			<th>@Resources.UserData.transferTimestampColumn</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserTransfer = {
+		EmptyListMessage: '@Resources.UserData.transferEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Bundle/dataExport_bundle.min.js")
+@Scripts.Render("~/Scripts/Project/User/userTransfer.min.js")

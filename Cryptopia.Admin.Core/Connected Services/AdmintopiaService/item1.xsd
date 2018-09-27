@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" />
+  <xs:complexType name="ArrayOfWalletTransaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WalletTransaction" nillable="true" type="tns:WalletTransaction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWalletTransaction" nillable="true" type="tns:ArrayOfWalletTransaction" />
+  <xs:complexType name="WalletTransaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Confirmations" type="xs:int" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Txid" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="Type" type="q1:TransactionDataType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WalletTransaction" nillable="true" type="tns:WalletTransaction" />
+</xs:schema>

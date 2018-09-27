@@ -1,0 +1,3 @@
+﻿namespace Cryptopia.API.Objects
+{
+}

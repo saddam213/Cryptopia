@@ -1,0 +1,115 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.TwoFactor.RemoveTwoFactorModel
+@{
+	ViewBag.Title = "Remove TFA";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+	<div class="col-md-8">
+		<section>
+			@using (Html.BeginForm("Remove", "TwoFactor", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Type)
+				@Html.HiddenFor(m => m.ComponentType)
+				<h4>@Html.Label("Remove " + Model.ComponentType.ToString() + " TwoFactor Authentication.")</h4>
+				<hr />
+				<div class="row">
+					<div class="col-md-7 ">
+						@Html.ValidationSummary(true)
+					</div>
+				</div>
+
+				if (Model.Type == TwoFactorType.EmailCode)
+				{
+				<div class="row">
+					<div class="col-md-9 ">
+						<div class="alert alert-success text-center">
+							<h5>@Html.Label("Your unlock code has been sent to your registered two factor email address")</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Email code is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				if (Model.Type == TwoFactorType.GoogleCode)
+				{
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Google Auth. code is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				if (Model.Type == TwoFactorType.CryptopiaCode)
+				{
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Cryptopia Auth. code is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				if (Model.Type == TwoFactorType.PinCode)
+				{
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "PinCode is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				if (Model.Type == TwoFactorType.Password)
+				{
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Password is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				if (Model.Type == TwoFactorType.Question)
+				{
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.Question1, new { @class = "form-control", @readonly = "readonly" })
+						@Html.PasswordFor(m => m.Data, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Answer is required" })
+						@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Data2, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.Question2, new { @class = "form-control", @readonly = "readonly" })
+						@Html.PasswordFor(m => m.Data2, new { @class = "form-control", data_rule_required = "true", data_msg_required = "Answer is required" })
+						@Html.ValidationMessageFor(m => m.Data2, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				}
+
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-5">
+						<input type="submit" value="Remove TwoFactor" class="btn btn-default" style="width:180px" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>

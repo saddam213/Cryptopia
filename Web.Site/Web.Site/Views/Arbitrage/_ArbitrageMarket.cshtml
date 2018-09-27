@@ -1,0 +1,100 @@
+﻿@model Web.Site.Models.ArbitrageMarketModel
+@{
+
+}
+
+<br />
+<div class="nopad" >
+
+	<table class="table-arbitrage table table-striped table-hover table-fixed table-bordered">
+		<thead>
+			<tr>
+				<th>
+					@Resources.Arbitrage.arbitrageCurrencySearchLabel
+					@Html.TextBox("search", "", new { @class = "searcher input-sm form-control", style = "font-weight:normal", placeholder = Resources.Arbitrage.arbitrageCurrencySearchPlaceholder })
+				</th>
+				@foreach (var exchange in Model.Exchanges)
+				{
+					<th class="text-center @(exchange + "-column")">
+						<img height="40" src="@CdnHelper.RenderImage("/Content/Images/Emoticonset/{0}.png",exchange)" />
+					</th>
+				}
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var item in Model.Markets)
+			{
+				<tr class="main-row">
+					<td>
+						<img height="16" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-small.png", item.Key.Symbol)" />
+						<span class="search-data">@item.Key.ToCurrencyLabel()</span>
+					</td>
+					@foreach (var e in item.Value)
+					{
+						if (e.HasData())
+						{
+						<td class="@(e.Exchange + "-column")">
+							<div class="text-center">
+								<table class="table-fixed text-left table-bordered" style="width: 100%;">
+									<tr>
+										<td>@Resources.Arbitrage.arbitrageMarketLastLabel:</td>
+										<td>@e.Last</td>
+										<td>@e.BaseSymbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.Arbitrage.arbitrageMarketAskLabel:</td>
+										<td>@e.Ask</td>
+										<td>@e.BaseSymbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.Arbitrage.arbitrageMarketBidLabel:</td>
+										<td>@e.Bid</td>
+										<td>@e.BaseSymbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.Arbitrage.arbitrageMarketVolumeLabel:</td>
+										<td>@e.Volume</td>
+										<td>@e.Symbol</td>
+									</tr>
+									<tr>
+										<td>@Resources.Arbitrage.arbitrageMarketBaseVolLabel:</td>
+										<td>@e.BaseVolume</td>
+										<td>@e.BaseSymbol</td>
+									</tr>
+								</table>
+							</div>
+							<div class="text-center"><a href="@e.MarketUrl" target="_blank">@string.Format("{0} {1}/{2} market", e.Exchange, e.Symbol, e.BaseSymbol)</a></div>
+						</td>
+						}
+						else
+						{
+						<td class="@(e.Exchange + "-column")">
+							<div class="text-center">
+								<i>No Data</i>
+							</div>
+						</td>
+						}
+					}
+				</tr>
+				
+			}
+
+		</tbody>
+	</table>
+</div>
+
+
+<script>
+	$(document).ready(function () {
+		$(".searcher").keyup(function () {
+			var _this = $(this);
+			$.each($(".table-arbitrage tbody").find(".main-row"), function () {
+				if ($(this).find('.search-data').text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
+					$(this).hide();
+				else
+					$(this).show();
+			});
+		});
+	});
+</script>

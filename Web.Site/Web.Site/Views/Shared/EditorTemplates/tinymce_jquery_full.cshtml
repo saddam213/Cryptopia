@@ -1,0 +1,28 @@
+﻿<script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/tinymce/jquery.tinymce.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+	(function () {
+		$(function () {
+			tinymce.init({
+				selector: ".tinymce-textarea",
+				theme: "modern",
+				plugins: [
+					"advlist autolink lists link image charmap print preview hr anchor pagebreak",
+					"searchreplace wordcount visualblocks visualchars code fullscreen",
+					"insertdatetime media nonbreaking save table contextmenu directionality",
+					"emoticons template paste textcolor colorpicker textpattern imagetools"
+				],
+				toolbar1: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+				toolbar2: "preview media | fontsizeselect forecolor backcolor emoticons",
+				content_css: "/Content/bootstrap.Spacelab.css",
+				resize: false,
+				relative_urls: false,
+				document_base_url: "https://www.cryptopia.co.nz/"
+			});
+		});
+	})();
+</script>
+
+@Html.TextArea(string.Empty, /* Name suffix */
+	ViewData.TemplateInfo.FormattedModelValue.ToString() /* Initial value */
+, new {@rows=30, @class="tinymce-textarea"})

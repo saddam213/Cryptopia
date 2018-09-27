@@ -1,0 +1,39 @@
+﻿@model Web.Site.Models.ReportPostModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button">×</button>
+			<h3 class="modal-title">Report Post</h3>
+		</div>
+		<div id="errorMessage" class="alert alert-danger text-center" style="display: none">
+			<p></p>
+		</div>
+		@using (Html.BeginForm("SubmitReportPost", "Forum"))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(x => x.PostId)
+				<p>Report a suspicious or abusive post to the Cryptopia moderators.</p>
+				<div>
+					@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Message, new { @class = "form-control ", rows = "8" })
+					@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-success" type="submit">@Resources.Forum.postReportButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	
+</script>

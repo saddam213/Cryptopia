@@ -1,0 +1,153 @@
+﻿@using Cryptopia.Common.User
+@using Cryptopia.Enums
+@model UserBalanceModel
+@{
+
+}
+
+<style>
+	.tooltip {
+		width: 120px
+	}
+</style>
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+
+<div class="settings-page-header-container">
+	@Html.AntiForgeryToken()
+	<div class="pull-right" style="padding-top:15px">
+		<span>
+			@Resources.UserData.balancesSearchLabel
+			<input id="search-box" type="search" />
+		</span>
+	</div>
+	<h2 class="settings-page-header">@Resources.UserData.balancesHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div style="padding-left:5px;padding-top:5px">
+	<div class="col-md-4 nopad">
+		<div>
+			<span>@Resources.UserData.balancesEstimatedLabel: <span class="text-success">@Model.BTCEstimate.ToString("F8")</span> BTC</span>
+		</div>
+		<div>
+			<span>@Resources.UserData.balancesEstimatedLabel<small>@Resources.UserData.balancesEstimatedAltcoinSufixLabel: </small><span class="text-success">@Model.BTCEstimateAlt.ToString("F8")</span> BTC</span>
+		</div>
+	</div>
+	<div class="pull-right">
+		<div>
+			<span>@Html.CheckBox("chk-favorites", ClaimsUser.ShowFavoriteBalance, new { id = "chk-favorites", data_action = Url.Action("UpdateBalanceFavoritesOnly", "UserSettings") }) @Resources.UserData.balancesFavoritesOnlyLabel</span>
+		</div>
+		<div>
+			<span>@Html.CheckBox("chk-hidezero", ClaimsUser.HideZeroBalance, new { id = "chk-hidezero", data_action = Url.Action("UpdateBalanceHideZero", "UserSettings") }) @Resources.UserData.balancesHideZeroBalancesLabel</span>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+
+@if (Model.HasWithdrawLimit)
+{
+	<div>
+		<div class="progress" style="margin-bottom:0;padding-bottom:0;">
+			<div class="progress-bar" style="width: @(Model.WithdrawPercent)%;"></div>
+		</div>
+		<div class="text-center">
+			@String.Format(Resources.UserData.balancesDailyLimitMessage, Model.WithdrawTotal.ToString("F2"), Model.WithdrawLimit.ToString("F2"))
+			<a href="/UserVerification">@Resources.UserData.balancesDailyLimitMessageLink</a>.
+		</div>
+	</div>
+}
+<table id="table-balances" class="table table-condensed">
+	<thead>
+		<tr>
+			<th width="94" style="min-width:94px;max-width:94px;">@Resources.UserData.balancesActionsColumn</th>
+			<th style="max-width:200px;">@Resources.UserData.balancesCurrencyColumn</th>
+			<th>@Resources.UserData.balancesAvailableColumn</th>
+			<th class="hidden-sm hidden-xs">@Resources.UserData.balancesTotalColumn</th>
+			<th class="hidden-sm hidden-xs">@Resources.UserData.balancesOpenOrdersColumn</th>
+			<th class="hidden-xs">@Resources.UserData.balancesEstBtcColumn</th>
+			<th>@Resources.UserData.balancesFavoriteColumn</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var balance in Model.Balances)
+		{
+			var statusMessage = string.Format("{0}: <b>{1}</b><br/>{2}", Resources.UserData.balancesStatusHintLabel, balance.Status, balance.StatusMessage);
+			var delistingMessage = string.Format("{0}: <b>{1}</b><br/>{2}", Resources.UserData.balancesStatusHintLabel, balance.ListingStatus, balance.StatusMessage);
+			var depositMessage = string.Format("{0} {1}", Resources.UserData.balancesDepositButtonHint, balance.Symbol);
+			var withdrawMessage = string.Format("{0} {1}", Resources.UserData.balancesWithdrawButtonHint, balance.Symbol);
+			var transferMessage = string.Format("{0} {1}", Resources.UserData.balancesTransferButtonHint, balance.Symbol);
+			var dustMessage = string.Format(Resources.UserData.balancesDustButtonHint, balance.Symbol);
+
+			var isActive = balance.ListingStatus == CurrencyListingStatus.Active;
+			var isDelisting = balance.ListingStatus == CurrencyListingStatus.Delisting;
+
+			var isOk = balance.Status == CurrencyStatus.OK;
+			
+			<tr class="@(isDelisting ? "danger" : !isOk ? "warning" : string.Empty)">
+				<td style="padding:4px">
+					<div class="btn-toolbar">
+						<div class="btn-group btn-group-xs">
+							<a class="btn btn-default" data-toggle="tooltip" data-container="body" data-html="true" title="@(isDelisting ? delistingMessage : isActive && isOk ? depositMessage : statusMessage)" @(isActive && isOk ? "href=" + '"' + Url.Action("Display","Deposit", new { currency = balance.Symbol, returnUrl = "/Balances" }) + '"' : "disabled")>
+								<i class="fa fa-download"></i>
+							</a>
+							<a class="btn btn-default" data-toggle="tooltip" data-container="body" data-html="true" title="@(isOk ? withdrawMessage : statusMessage)" @(isOk ? "href=" + '"' + Url.Action("Create", "Withdraw", new { currency = balance.Symbol, returnUrl = "/Balances" }) + '"' : "disabled")>
+								<i class="fa fa-upload"></i>
+							</a>
+							<a class="btn btn-default" data-toggle="tooltip" data-container="body" title="@transferMessage" href="@Url.Action("Create","Transfer", new { currency = balance.Symbol, returnUrl = "/Balances" })">
+								<i class="fa fa-exchange"></i>
+							</a>
+							<a class="btn btn-default currency-dustbin)" data-container="body" data-toggle="tooltip" title="@dustMessage" data-symbol="@balance.Symbol" data-currency="@balance.CurrencyId" data-action="@Url.Action("DustBalance", "UserBalance")">
+								<i class="fa fa-trash"></i>
+							</a>
+						</div>
+					</div>
+				</td>
+				<td data-sort="@balance.ToCurrencyLabel()" data-search="@balance.ToCurrencyLabel()">
+					<div class="hidden-xs hidden-sm">
+						<div class="sprite-small small/@balance.Symbol-small.png"></div> @balance.ToCurrencyLabel()
+					</div>
+					<div class="visible-xs visible-sm">
+						<div class="sprite-small small/@balance.Symbol-small.png"></div> @balance.Symbol
+					</div>
+				</td>
+				<td data-sort="@balance.Available">
+					<a class="preview-popover" style="font-size:11px" href="#" data-toggle="popover" data-placement="left" data-html="true" title="@String.Format(Resources.UserData.balancesDetailsHint, balance.Symbol)" data-content="<div><small>@Resources.UserData.balancesTotalHintLabel: <b>@balance.Total.ToString("F8") @balance.Symbol</b></small></div><div><small>@Resources.UserData.balancesUnconfirmedHintLabel: <b>@balance.Unconfirmed.ToString("F8") @balance.Symbol</b></small></div><div><small>@Resources.UserData.balancesHeldForOrdersHintLabel: <b>@balance.HeldForTrades.ToString("F8") @balance.Symbol</b></small></div><div><small>@Resources.UserData.balancesPendingWithdrawHintLabel: <b>@balance.PendingWithdraw.ToString("F8") @balance.Symbol</b></small></div><br /><div><small>@Resources.UserData.balancesAvailableHintLabel: <b class='text-success' >@balance.Available.ToString("F8") @balance.Symbol</b></small></div><div><small>@Resources.UserData.balancesEstimatedBtcHintLabel: <b class='text-info' >@balance.EstimatedBTC.ToString("F8") BTC</b></small></div>">
+						<i style="font-size:14px" class="fa fa-info-circle" aria-hidden="true"></i>
+					</a>
+					<span class="balancedata-@balance.CurrencyId">@balance.Available.ToString("F8")</span>
+				</td>
+				<td class="hidden-sm hidden-xs balancedata-@balance.CurrencyId">@balance.Total.ToString("F8")</td>
+				<td class="hidden-sm hidden-xs balancedata-@balance.CurrencyId">@balance.HeldForTrades.ToString("F8")</td>
+				<td class="hidden-xs balancedata-@balance.CurrencyId">@balance.EstimatedBTC.ToString("F8")</td>
+				<td style="width:20px !important;" class="text-center">
+					<input type="checkbox" data-currency="@balance.CurrencyId" data-action="@Url.Action("SetFavorite", "UserBalance")" class="chk-setfavorite" @(balance.IsFavorite ? "checked='checked'" : "") />
+				</td>
+				<td>@balance.IsFavorite.ToString().ToLower()</td>
+			</tr>
+			}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="7">
+				<div class="text-center">
+					<b>@Resources.UserData.balancesWarningLabel</b> @Resources.UserData.balancesWarningMessage
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserBalances = {
+		BalancesDustQuestionTitle: '@Resources.UserData.balancesDustQuestionTitle',
+		BalancesDustQuestion: '@Resources.UserData.balancesDustQuestion',
+		BalancesEmptyListMessage: '@Resources.UserData.balancesEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userBalance.min.js")
+

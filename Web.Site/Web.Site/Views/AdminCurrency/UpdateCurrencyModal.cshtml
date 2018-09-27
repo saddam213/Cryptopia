@@ -1,0 +1,102 @@
+﻿@model Cryptopia.Common.Currency.UpdateCurrencyModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update @Model.Name Settings</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateCurrency", "AdminCurrency", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+		<div class="modal-body">
+			@Html.AntiForgeryToken()
+			@Html.WriterValidationSummary()
+			@Html.HiddenFor(m => m.Id)
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Status, new { @class = "control-label" })
+					@Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.ListingStatus, new { @class = "control-label" })
+					@Html.EnumDropDownListFor(m => m.ListingStatus, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.ListingStatus, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					<div style="padding-top: 25px">
+					
+					</div>
+				</div>
+				<div class="col-xs-12">
+					@Html.LabelFor(m => m.StatusMessage, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.StatusMessage, new { @class = "form-control input", @rows = 4 })
+					@Html.ValidationMessageFor(model => model.StatusMessage, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.TipMin, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.TipMin, "{0:F8}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(m => m.TipMin, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.PoolFee, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.PoolFee, "{0:F1}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.PoolFee, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.TradeFee, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.TradeFee, "{0:F1}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.TradeFee, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.WithdrawFeeType, new { @class = "control-label" })
+					@Html.EnumDropDownListFor(m => m.WithdrawFeeType, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.WithdrawFeeType, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.WithdrawFee, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.WithdrawFee, "{0:F8}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.WithdrawFee, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.MinBaseTrade, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.MinBaseTrade, "{0:F8}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.MinBaseTrade, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.WithdrawMax, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.WithdrawMax, "{0:F8}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.WithdrawMax, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.WithdrawMin, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.WithdrawMin, "{0:F8}", new { @class = "form-control input-sm", type = "number" })
+					@Html.ValidationMessageFor(model => model.WithdrawMin, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.MinConfirmations, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.MinConfirmations, new { @class = "form-control input-sm", @type = "number" })
+					@Html.ValidationMessageFor(model => model.MinConfirmations, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Submit</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

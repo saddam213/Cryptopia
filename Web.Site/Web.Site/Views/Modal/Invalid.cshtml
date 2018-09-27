@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modalform modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close simplemodal-close" aria-hidden="true" type="button">×</button>
+            <h4 class="modal-title">@Resources.Layout.modalInvalidHeadline</h4>
+        </div>
+        <div class="modal-body">
+            <p>@Resources.Layout.modalInvalidInfoText</p>
+            <p>@Resources.Layout.modalInvalidSupportText</p>
+        </div>
+         <div class="modal-footer">
+            <button style="width:70px" class="btn btn-info simplemodal-close" type="button">@Cryptopia.Resources.General.OK</button>
+        </div>
+    </div>
+</div>

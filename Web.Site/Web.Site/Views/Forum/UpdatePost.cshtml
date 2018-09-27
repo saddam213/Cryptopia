@@ -1,0 +1,27 @@
+﻿@model Web.Site.Models.UpdatePostModel
+@{
+
+}
+
+@using (Html.BeginForm("UpdatePost", "Forum"))
+{
+	<div>
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.PostId)
+		@Html.HiddenFor(x => x.ThreadId)
+		<div>
+			@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+			@Html.EditorFor(m => m.Message, new { style = "height:1000px" })
+			@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div style="padding-top: 10px; padding-bottom: 10px">
+		<button class="btn btn-success" type="submit" style="width: 120px">@Cryptopia.Resources.General.Update</button>
+		<a href="@Url.Action("Thread", new { id = Model.ThreadId })" class="btn btn-info simplemodal-close" type="button" style="width:120px">@Cryptopia.Resources.General.Cancel</a>
+	</div>
+}
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+</script>

@@ -1,0 +1,106 @@
+﻿@model Cryptopia.Common.Paytopia.FeaturedSlotModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Model.Name</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("FeaturedPoolSlot", "Paytopia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Price)
+				@Html.HiddenFor(m => m.Balance)
+				@Html.HiddenFor(m => m.Currency)
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.ItemId, Resources.Paytopia.poolPoolLabel, new { @class = "control-label" })
+							@Html.ExtendedDropDownListFor(m => m.ItemId, Model.Items.Select(x => new CustomSelectListItem { Value = x.Id.ToString(), Text = x.Name, HtmlAttributes = new { data_featured = x.IsFeatured, data_slotsummary = x.SlotSummary } }), "-Please Select-", new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12" style="margin-top:12px">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaPriceLabel:</small></b> @Model.Price.ToString("F8") @Model.Currency
+									</span>
+								</div>
+								<div class="col-md-12">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaAvailableLabel:</small></b>
+										<span class="@(Model.Price > Model.Balance ? "text-danger":"text-info")">@Model.Balance.ToString("F8")</span> @Model.Currency
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div id="message-section" class="col-md-12 text-center" style="display:none;font-size:13px;margin-top:15px">
+							<span style="font-size:13px">
+								@Html.Raw(String.Format(Html.Encode(Resources.Paytopia.poolNextAvailableInfoText), "<span class=\"symbol\"></span>")):
+								<b id="week-time"></b> <i>(<span id="begin-time"></span> - <span id="end-time"></span>)</i>
+							</span>
+							<div class="existing-slots" style="display:none;margin-top:15px">
+								<span>
+									@Html.Raw(String.Format(Html.Encode(Resources.Paytopia.poolAlreadyPurchasedInfoText), "<span class=\"symbol\"></span>"))
+								</span>
+							</div>
+							<div style="font-size:12px;" class="existing-slots" id="existing-slots">
+							</div>
+						</div>
+
+						<div class="col-md-12 text-center" style="margin-top:15px">
+							<span style="font-size:12px">@Resources.Paytopia.poolBuyNowInfoText</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button @(Model.Price > Model.Balance ? "disabled='disabled'":"") id="submit" class="btn btn-primary button-180" type="submit">@Resources.Paytopia.paytopiaBuyNowButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+
+	$("#ItemId").on("change", function () {
+		var item = $(this).find("option:selected");
+		if (item.val()) {
+			$(".existing-slots").hide();
+			var container = $("#existing-slots");
+			container.empty();
+			$("#message-section").show();
+			$("#end-time").html(toLocalDate(item.data("nextend")))
+			$("#begin-time").html(toLocalDate(item.data("nextbegin")))
+			$("#week-time").html(item.data("nextweek"))
+			$(".symbol").html(item.text())
+			var slotsummary = item.data("slotsummary").toString();
+			if (slotsummary.length > 0) {
+				$(".existing-slots").show();
+				var existingSlots = slotsummary.split(',');
+				for (var i = 0; i < existingSlots.length; i++) {
+					container.append("<div><i>" + existingSlots[i] + "</i></div>");
+				}
+			}
+			return;
+		}
+		$("#message-section").hide();
+	});
+</script>

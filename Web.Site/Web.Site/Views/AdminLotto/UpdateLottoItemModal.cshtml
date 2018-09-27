@@ -1,0 +1,50 @@
+﻿@model Cryptopia.Common.Lotto.UpdateLottoItemModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close();">×</button>
+			<h3 class="modal-title">Update Lotto Item</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateLottoItem", "Lotto", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-vertical" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.ValidationSummary(true)
+			@Html.HiddenFor(m => m.LottoItemId)
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Name, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Status, new { @class = "control-label" })
+						@Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Description, new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.Description, new { @class = "form-control  input", rows = 6 })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.LottoType, new { @class = "control-label" })
+						@Html.EnumDropDownListFor(m => m.LottoType, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.LottoType, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close();">Cancel</button>
+				<button class="btn btn-info " type="submit">Update</button>
+			</div>
+		}
+
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")

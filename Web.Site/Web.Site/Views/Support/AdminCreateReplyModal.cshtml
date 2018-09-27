@@ -1,0 +1,34 @@
+﻿@model Cryptopia.Common.Support.CreateSupportReplyModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+				<h3 class="modal-title">Support Reply</h3>
+			</div>
+			@Html.WriterValidationSummary()
+			@using (Ajax.BeginForm("AdminCreateReply", "Support", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+			{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.TicketId)
+				<div class="row">
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.Message, new { @class = "form-control", @rows = 12 })
+						@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });" >Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Submit</button>
+			</div>
+			}
+		</div>
+	</div>
+
+	@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")

@@ -1,0 +1,73 @@
+﻿@model Cryptopia.Common.Transfer.TransferViewModel
+@{
+	ViewBag.Title = Resources.UserWallet.transferPageTitle;
+	ViewBag.IsFullPage = true;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default withdraw-container">
+		<div class="col-md-12">
+			<h3><i class="fa glyphicon glyphicon-transfer"></i>@Resources.UserWallet.transferHeadline</h3>
+			<img src="/Content/Images/transfer.png" style="width:100%; margin: 0 auto">
+			<hr>
+			<p>@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferInfoText), "<i>Cryptopia</i>"))</p>
+		</div>
+		<div class="col-md-12">
+			@Html.DropDownListFor(m => m.Symbol, new SelectList(Model.Currencies, "Symbol", "DisplayName"), "", new { @id = "Symbol", @class = "form-control input-sm", style = "width:100%" })
+		</div>
+		<div class="col-md-12">
+			<div class="alert alert-warning" style="font-size:11px;margin-bottom:0;margin-top:10px">
+				<p>
+					<i class="fa icon-warning-sign"></i> 
+					@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferToAccountInfoText),
+														String.Format("<a href=\"/Withdraw\"><i class=\"fa icon-uploadalt\"></i> <b>{0}</b></a>",
+																	  Html.Encode(Resources.UserWallet.transferToAccountLink))))
+				</p>
+				<p>
+					<i class="fa icon-warning-sign"></i>
+					@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferConvertInfoText),					                                                   
+														String.Format("<a href=\"/Exchange\"> <i class=\"fa icon-barchartasc\"></i><b>{0}</b></a>",
+																	  Html.Encode(Resources.UserWallet.transferConvertLink))))
+				</p>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="withdraw-button-container">
+				<a id="next" class="btn btn-success btnfullwidth" disabled="disabled">@Cryptopia.Resources.General.Next <i class="fa glyphicon icon-chevron-right"></i></a>
+			</div>
+		</div>
+		
+		<div class="col-md-12 text-center withdraw-container-link">
+			<a href="@Url.RouteUrl("TransferHistory")"><i class="fa fa-history"></i>@Resources.UserWallet.transferHistoryLink</a>
+		</div>
+	
+	</div>
+</div>
+
+@section Scripts {
+	<script type="text/javascript">
+		var returnUrl = '@Model.ReturnUrl';
+		var createAction = '@Url.Action("Create")';
+
+		var Resources = Resources || {};
+		Resources.Transfer = {
+			SelectCurrencyPlaceholder: '@Resources.UserWallet.transferSelectCurrencyPlaceholder'
+		};
+	</script>
+	@Scripts.Render("~/Scripts/Project/Transfer/index.min.js")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

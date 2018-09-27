@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="TransactionDataType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Deposit" />
+      <xs:enumeration value="Withdraw" />
+      <xs:enumeration value="Transfer" />
+      <xs:enumeration value="Mined" />
+      <xs:enumeration value="Immature" />
+      <xs:enumeration value="Orphan" />
+      <xs:enumeration value="Savings" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TransactionDataType" nillable="true" type="tns:TransactionDataType" />
+</xs:schema>

@@ -1,0 +1,51 @@
+﻿@model Cryptopia.Common.Support.CreateSupportTicketModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Support.createTitle</h3>
+		</div>
+		@using (Ajax.BeginForm("CreateTicket", "Support", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+			{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.WriterValidationSummary()
+				<div class="row">
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Subject, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Subject, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Category, new { @class = "control-label" })
+						@Html.EnumDropDownListFor(m => m.Category, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Description, new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 8 })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">@Cryptopia.Resources.General.Submit</button>
+			</div>
+			}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Resources.Support.createSubmitingMessage' });
+		}
+	});
+</script>

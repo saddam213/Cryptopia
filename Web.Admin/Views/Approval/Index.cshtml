@@ -1,0 +1,117 @@
+﻿@{
+	ViewBag.Title = "Approval";
+}
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<h3>Approval Queues</h3>
+<table id="approval-table" class="table table-condensed table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Type</th>
+			<th>User</th>
+			<th>RequestBy</th>
+			<th>Requested</th>
+			<th>Status</th>
+			<th>Approved</th>
+			<th>ApprovedBy</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@section Scripts {
+	<script>
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+			"<'row'<'col-sm-12'tr>>" +
+			"<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+		var actionGetApprovals = '@Url.Action("GetApprovals")';
+		var table = $("#approval-table");
+		var datatable = table.DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 800,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 15,
+			"sAjaxSource": actionGetApprovals,
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "There are no approvals.",
+				"searchPlaceholder": "Search approvals",
+				"search": ""
+			},
+			"columnDefs": [{
+				"targets": 6,
+				"searchable": false,
+				"orderable": true,
+				"render": function (data, type, full, meta) {
+					if (full[5] != 'Pending') {
+						return data;
+					}
+					return null;
+				}
+			},
+			{
+				"targets": 8,
+				"searchable": false,
+				"orderable": false,
+				"render": function (data, type, full, meta) {
+
+					if (full[1] === "@Cryptopia.Enums.ApprovalQueueType.ChangeEmail.ToString()") { //Check Type
+						return '<button class="btn btn-xs btn-info pull-right btn-approve-email" data-id="' + full[0] + '">Details</button>';
+					}else if (full[1] === "@Cryptopia.Enums.ApprovalQueueType.ResetAllTwoFactor.ToString()") {
+						return '<button class="btn btn-xs btn-info pull-right btn-approve-resetalltwofactor" data-id="' + full[0] + '">Details</button>';
+                    }else if (full[1] === "@Cryptopia.Enums.ApprovalQueueType.WithdrawalReprocessing.ToString()") {
+                        return '<button class="btn btn-xs btn-info pull-right btn-approve-reprocessWithdrawal" data-id="' + full[0] + '">Details</button>';
+                    }else {
+						return '<div class="text-danger">not implemented</div>';
+					}
+				}
+			}
+			],
+			"fnDrawCallback": function () {
+			}
+		});
+
+		$("#approval-table").on("click", ".btn-approve-resetalltwofactor", function () {
+			var id = $(this).data('id');
+			openModalGet('@Url.Action("ApproveResetAllTwoFactor", "User")', { approvalId: id }, function (modalData) {
+				if (modalData && modalData.Success) {
+					datatable.ajax.reload();
+				}
+				showMessage(modalData);
+			});
+		});
+
+		$("#approval-table").on("click", ".btn-approve-email", function () {
+			var id = $(this).data('id');
+			openModalGet('@Url.Action("ApproveChangeEmail", "User")', { approvalId: id }, function (modalData) {
+				if (modalData && modalData.Success) {
+					datatable.ajax.reload();
+				}
+				showMessage(modalData);
+			});
+        });
+
+        $("#approval-table").on("click", ".btn-approve-reprocessWithdrawal", function () {
+			var id = $(this).data('id');
+			openModalGet('@Url.Action("ApproveWithdrawalReprocessing", "Reprocessing")', { id: id }, function (modalData) {
+				if (modalData && modalData.Success) {
+					datatable.ajax.reload();
+				}
+				showMessage(modalData);
+			});
+		});
+	</script>
+}

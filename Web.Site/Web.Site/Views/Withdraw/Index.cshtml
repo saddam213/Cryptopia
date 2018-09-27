@@ -1,0 +1,54 @@
+﻿@model Cryptopia.Common.Withdraw.WithdrawViewModel
+@{
+	ViewBag.Title = Resources.UserWallet.withdrawPageTitle;
+	ViewBag.IsFullPage = true;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default withdraw-container">
+		<div class="col-md-12">
+			<h3>@Resources.UserWallet.withdrawHeadline</h3>
+			<p>@Resources.UserWallet.withdrawInfoText</p>
+		</div>
+		<div class="col-md-12">
+			@Html.DropDownListFor(m => m.Symbol, new SelectList(Model.Currencies, "Symbol", "DisplayName"), "", new { @id = "Symbol", @class = "form-control input-sm", style = "width:100%" })
+		</div>
+		<div class="col-md-12">
+			<div class="withdraw-button-container">
+				<a id="next" class="btn btn-success btnfullwidth" disabled="disabled">@Cryptopia.Resources.General.Next</a>
+			</div>
+		</div>
+
+		<div class="col-md-12 text-center withdraw-container-link">
+			<a href="@Url.RouteUrl("WithdrawHistory")">@Resources.UserWallet.withdrawHistoryLink</a>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script type="text/javascript">
+		var returnUrl = '@Model.ReturnUrl';
+		var createAction = '@Url.Action("Create")';
+
+		var Resources = Resources || {};
+		Resources.Withdraw = {
+			SelectCurrencyPlaceholder: '@Resources.UserWallet.withdrawSelectCurrencyPlaceholder'
+		};
+	</script>
+	@Scripts.Render("~/Scripts/Project/Withdraw/index.min.js")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

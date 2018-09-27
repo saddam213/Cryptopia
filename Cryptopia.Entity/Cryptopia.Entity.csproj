@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C3292DD-2AE8-4025-925C-BDD2C10DC741}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.Entity</RootNamespace>
+    <AssemblyName>Cryptopia.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminActivityLog.cs" />
+    <Compile Include="ApprovalQueue.cs" />
+    <Compile Include="Auditing\AuditableAttribute.cs" />
+    <Compile Include="Auditing\IAuditable.cs" />
+    <Compile Include="ActivityLog.cs" />
+    <Compile Include="AuthenticatedFeature.cs" />
+    <Compile Include="EmailMessage.cs" />
+    <Compile Include="Exchange\ExternalTransaction.cs" />
+    <Compile Include="Exchange\CurrencySettings.cs" />
+    <Compile Include="Exchange\IntegrationExchange.cs" />
+    <Compile Include="Exchange\IntegrationMarketData.cs" />
+    <Compile Include="Exchange\ReferralInfo.cs" />
+    <Compile Include="Exchange\Reward.cs" />
+    <Compile Include="Exchange\Location.cs" />
+    <Compile Include="Exchange\Address.cs" />
+    <Compile Include="Exchange\AddressBook.cs" />
+    <Compile Include="ApplicationUser.cs" />
+    <Compile Include="ChatMessage.cs" />
+    <Compile Include="Exchange\Balance.cs" />
+    <Compile Include="Exchange\Currency.cs" />
+    <Compile Include="Exchange\CurrencyInfo.cs" />
+    <Compile Include="Exchange\Deposit.cs" />
+    <Compile Include="Exchange\LottoHistory.cs" />
+    <Compile Include="Exchange\LottoItem.cs" />
+    <Compile Include="Exchange\LottoTicket.cs" />
+    <Compile Include="Exchange\MarketCategory.cs" />
+    <Compile Include="Exchange\MarketFeedback.cs" />
+    <Compile Include="Exchange\MarketItem.cs" />
+    <Compile Include="Exchange\MarketItemBid.cs" />
+    <Compile Include="Exchange\MarketItemImage.cs" />
+    <Compile Include="Exchange\MarketItemQuestion.cs" />
+    <Compile Include="Exchange\TermDepositPayment.cs" />
+    <Compile Include="Exchange\TermDeposit.cs" />
+    <Compile Include="Exchange\TermDepositItem.cs" />
+    <Compile Include="Exchange\Trade.cs" />
+    <Compile Include="Exchange\TradeHistory.cs" />
+    <Compile Include="Exchange\TradePair.cs" />
+    <Compile Include="Exchange\TransferHistory.cs" />
+    <Compile Include="Exchange\User.cs" />
+    <Compile Include="Exchange\Withdraw.cs" />
+    <Compile Include="Monitoring\BandwidthDataPoint.cs" />
+    <Compile Include="Monitoring\BandwidthSummary.cs" />
+    <Compile Include="Monitoring\CachingReport.cs" />
+    <Compile Include="Monitoring\CachingSummary.cs" />
+    <Compile Include="Monitoring\CachingDataPoint.cs" />
+    <Compile Include="Monitoring\DataPoint.cs" />
+    <Compile Include="Monitoring\GeoDistributionDataPoint.cs" />
+    <Compile Include="Monitoring\GeoDistributionSummary.cs" />
+    <Compile Include="Monitoring\HitDataPoint.cs" />
+    <Compile Include="Monitoring\HitsSummary.cs" />
+    <Compile Include="Monitoring\SiteStatistics.cs" />
+    <Compile Include="Monitoring\SummaryBase.cs" />
+    <Compile Include="Monitoring\Threat.cs" />
+    <Compile Include="Monitoring\VisitDataPoint.cs" />
+    <Compile Include="Monitoring\VisitDistributionDataPoint.cs" />
+    <Compile Include="Monitoring\VisitDistributionSummary.cs" />
+    <Compile Include="Monitoring\VisitSummary.cs" />
+    <Compile Include="NzdtTransaction.cs" />
+    <Compile Include="Pool\PoolSettings.cs" />
+    <Compile Include="Pool\PoolUserPayout.cs" />
+    <Compile Include="Pool\PoolBlock.cs" />
+    <Compile Include="Pool\Pool.cs" />
+    <Compile Include="Pool\PoolConnection.cs" />
+    <Compile Include="Pool\PoolShare.cs" />
+    <Compile Include="Pool\PoolStatistics.cs" />
+    <Compile Include="Pool\PoolUser.cs" />
+    <Compile Include="Pool\PoolUserStatistics.cs" />
+    <Compile Include="Pool\PoolWorker.cs" />
+    <Compile Include="NewsItem.cs" />
+    <Compile Include="SiteExpenses.cs" />
+    <Compile Include="PaytopiaItem.cs" />
+    <Compile Include="PaytopiaPayment.cs" />
+    <Compile Include="Support\SupportTag.cs" />
+    <Compile Include="Support\SupportTicket.cs" />
+    <Compile Include="Support\SupportTicketMessage.cs" />
+    <Compile Include="Support\SupportTicketQueue.cs" />
+    <Compile Include="UserKarmaHistory.cs" />
+    <Compile Include="UserKarma.cs" />
+    <Compile Include="TwoFactorCode.cs" />
+    <Compile Include="UserVerification.cs" />
+    <Compile Include="UserRole.cs" />
+    <Compile Include="EmailTemplate.cs" />
+    <Compile Include="Forum.cs" />
+    <Compile Include="ForumCategory.cs" />
+    <Compile Include="ForumPost.cs" />
+    <Compile Include="ForumReport.cs" />
+    <Compile Include="ForumThread.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="UserLogon.cs" />
+    <Compile Include="UserMessage.cs" />
+    <Compile Include="UserNotification.cs" />
+    <Compile Include="UserProfile.cs" />
+    <Compile Include="UserSettings.cs" />
+    <Compile Include="UserTwoFactor.cs" />
+    <Compile Include="UserVerificationReject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

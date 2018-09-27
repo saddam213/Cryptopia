@@ -1,0 +1,174 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Mineshaft.MineshaftModel
+@{
+	ViewBag.Title = "Mineshaft";
+	ViewBag.ReturnUrl = "/Mineshaft";
+	ViewBag.HideFooter = true;
+
+	var currentBaseAlgo = Model.CurrentPool != null
+		? Model.CurrentPool.AlgoType
+		: Model.BaseAlgo;
+}
+
+
+<div id="wrapper" data-username="@User.Identity.Name" data-miningname="@ClaimsUser.MiningHandle" data-summaryalgo="@currentBaseAlgo" data-poolId="@(Model.CurrentPool != null ? Model.CurrentPool.Id.ToString():"")" data-action-workers="@Url.Action("GetUserWorkers", "Mineshaft")" data-action-rentals="@Url.Action("GetUserRentals", "Mineshaft")" data-action-updatepool="@Url.Action("UpdateWorkerPool","UserMineshaft")" data-action-update="@Url.Action("UpdateWorker","UserMineshaft")">
+	@Html.AntiForgeryToken()
+	@* Sidebar Content*@
+	<div id="sidebar-wrapper" class="col-sm-2 col-xs-3 panelBg">
+		<div id="sidebar">
+
+			<div class="stackmenu-container">
+				<div class="stackmenu-header">
+					@if (User.Identity.IsAuthenticated)
+					{
+					<div>
+						<div class="stackmenu-btns btn-group btn-group-justified btn-group-sm" >
+							<a href="#" class="btn btn-default stackmenu-menu-btn pools-menu-btn active" style="border-left:none" >Pools</a>
+							<a href="#" class="btn btn-default stackmenu-menu-btn workers-menu-btn">Workers</a>
+							@*<a href="#" class="btn btn-default stackmenu-menu-btn rentals-menu-btn" style="border-right:none;">Rentals</a>*@
+						</div>
+					</div>
+					}
+
+					@*Pools Header*@
+					<div id="pools-menu" class="pools-menu">
+						<div style="padding: 5px;">
+							<div>
+								@Html.TextBox("PoolsSearch", "", new { placeholder = "Search", @class = "form-control input-sm", id = "pools-search", maxlength = "20", type = "search" })
+							</div>
+							<div>
+								<div style="padding-left: 2px; font-size: 10px; font-style: italic">Algorithms:</div>
+								@Html.DropDownList("BaseAlgoId", new SelectList(Model.Algos, Model.BaseAlgo), "All Algorithms", new { @class = "form-control input-sm", @id = "baseAlgos" })
+							</div>
+							<div class="clearfix"></div>
+						</div>
+
+					</div>
+					@*Pools Header*@
+
+					@*Workers Header*@
+					<div class="workers-menu">
+						<div style="padding: 5px;">
+							@Html.TextBox("WorkerSearch", "", new { placeholder = "Search", @class = "form-control input-sm", id = "workersSearch" })
+						</div>
+					</div>
+					@*Workers Header*@
+
+					@*Rentals Header*@
+					<div class="rentals-menu">
+						<div style="padding: 5px;">
+							@Html.TextBox("RentalsSearch", "", new { placeholder = "Search", @class = "form-control input-sm", id = "rentalsSearch" })
+						</div>
+					</div>
+					@*Rentals Header*@
+
+				</div>
+				<div class="stackmenu-body" >
+					<div class="stackmenu-content" >
+
+						@*Pools Header*@
+						<div class="pools-menu">
+							<table id="mineshaftinfo-btn-list" style="width:100%;table-layout:fixed">
+								<tbody>
+									@foreach (var c in Model.Pools.OrderBy(x => x.Symbol))
+									{
+									<tr style="display: @(c.AlgoType == currentBaseAlgo ? "":"none");" id="mineshaft-btn-@c.Id" class="list-group-item mineshaft-btn mineshaft-btn-base-@c.AlgoType" data-basealgo="@c.AlgoType" data-poolId="@c.Id" data-pool="@c.Symbol" >
+										<td width="16px">
+											<div style="margin:7px;" class="@string.Format("small/{0}-small.png", c.Symbol) hidden-xs hidden-sm hidden-md visible-lg"></div>
+										</td>
+										<td style="width:100%;">
+											<div class="mineshafttitle-container text-xs-center text-sm-center text-md-center text-lg-left">
+												<span class="mineshafttitle search-data">@c.Symbol</span>
+											</div>
+											<div class="cmineshaftname-container hidden-xs hidden-sm hidden-md">
+												<small class="mineshaftname search-data ellipsis">@c.Name</small>
+											</div>
+											<div class="hidden-lg" style="text-align:center">
+												<div class="mineshaftalgo-container-sm">
+													<small  class="mineshaftalgo-sm">@c.AlgoType</small>
+												</div>
+												<div class="mineshafthashrate-container-sm">
+													<small class="mineshafthashrate-sm search-data">@Cryptopia.Base.Extensions.PoolExtensions.GetHashrateLabel(c.Hashrate)</small>
+												</div>
+											</div>
+										</td>
+
+										<td class="hidden-xs hidden-sm hidden-md">
+											<div class="pull-right" style="text-align:right;margin-right:3px">
+												<div class="mineshaftalgo-container-sm">
+													<small  class="mineshaftalgo search-data">@c.AlgoType</small>
+												</div>
+												<div class="mineshafthashrate-container">
+													<small style="white-space:nowrap" class="mineshafthashrate">@Cryptopia.Base.Extensions.PoolExtensions.GetHashrateLabel(c.Hashrate)</small>
+												</div>
+											</div>
+										</td>
+									</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+						@*Pools Header*@
+
+						@*Workers Header*@
+						<div class="workers-menu" style="overflow:hidden;">
+							<table id="userWorkers" class="table table-striped table-hover table-condensed" style="font-size: 10px!important; padding: 0px; ">
+								<thead>
+									<tr>
+										<th>Worker</th>
+										<th>Algorithm</th>
+										<th>Hashrate</th>
+										<th></th>
+										<th>Pool</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						@*Workers Header*@
+
+						@*Rentals Header*@
+						<div class="rentals-menu" style="overflow-x:hidden">
+							<table id="userRentals" class="table table-striped table-hover table-condensed" style="font-size: 10px!important; padding: 0px;max-width:100% !important">
+								<thead>
+									<tr>
+										<th>Worker</th>
+										<th>Pool</th>
+										<th>Hashrate</th>
+										<th>Expires</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						@*Rentals Header*@
+
+					</div>
+				</div>
+				<div class="stackmenu-footer">
+					@{Html.RenderPartial("_Social");}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	@* Main Content*@
+	<div id="main-wrapper" class="col-sm-10 col-xs-9 pull-right">
+		<div id="main" style="overflow: visible">
+			<div style="max-width: 1240px;" id="mainContentResult" data-basealgo="@Model.BaseAlgo">
+			</div>
+		</div>
+		@{Html.RenderPartial("_Footer");}
+	</div>
+</div>
+
+@Html.Partial("_SEOPartial")
+@section Scripts {
+	@Scripts.Render("~/Scripts/highstock.min.js")
+	@Scripts.Render("~/Scripts/Project/Mineshaft/mineshaft.min.js")
+	@if (User.Identity.IsAuthenticated)
+	{
+		@Scripts.Render("~/Scripts/Project/Mineshaft/user-mineshaft.min.js")
+	}
+}

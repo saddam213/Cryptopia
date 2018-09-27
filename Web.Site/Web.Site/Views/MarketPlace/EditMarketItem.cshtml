@@ -1,0 +1,460 @@
+﻿@using Cryptopia.Enums
+@model Web.Site.Models.EditMarketItemModel
+
+@{
+    ViewBag.Title = Resources.Market.createItemEditPageTitle;
+}
+
+<div class="col-lg-12">
+
+
+
+
+    @using (Html.BeginForm("UpdateMarketItem", "MarketPlace", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", @id = "form" }))
+    {
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.IsRelisting)
+        @Html.HiddenFor(m => m.Type)
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        <h3 class="text-info">@Resources.Market.createItemEditHeadline</h3>      
+        
+     
+        
+        <!-- Listing Details -->
+        <div class="col-lg-12"></div>
+        <div class="col-lg-8 panel panel-default shadow">
+            <h4 class="text-info">@Resources.Market.createItemDetailsHeadline:</h4>
+
+            @if (Model.Type == MarketItemType.Auction && Model.IsRelisting)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <span>
+                        @Html.LabelFor(m => m.AuctionDuration, new { @class = "control-label" })
+                        <small>@Resources.Market.createItemAuctionDurationUnit</small>
+                    </span>
+                    @Html.TextBoxFor(m => m.AuctionDuration, new { @class = "form-control  input-sm" })
+                    @Html.ValidationMessageFor(model => model.AuctionDuration, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-12"></div>
+            }
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.MainCategoryId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.MainCategoryId, Model.Category, new { @class = "form-control  input-sm", @id = "MainCategory" })
+                @Html.ValidationMessageFor(model => model.MainCategoryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.CategoryId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(string.Empty, "Value", "Text"), new { @class = "form-control  input-sm", @id = "Category", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.SubCategoryId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.SubCategoryId, new SelectList(string.Empty, "Value", "Text"), new { @class = "form-control  input-sm", @id = "SubCategory", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-xs-12">
+                @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control  input-sm" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+
+
+
+            <div class="col-xs-12">
+                @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 8 })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="col-lg-12"></div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.CountryId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CountryId, Model.Locations, new { @class = "form-control  input-sm", @id = "Country" })
+                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.CityId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CityId, new SelectList(string.Empty, "Value", "Text"), new { @class = "form-control  input-sm", @id = "City", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.LocationRegion, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.LocationRegion, new { @class = "form-control  input-sm" })
+                @Html.ValidationMessageFor(model => model.LocationRegion, "", new { @class = "text-danger" })
+            </div>
+            <div class="clearfix"></div>
+            <br />
+        </div>
+      
+        <!-- Images -->
+        <div class="col-lg-8 panel panel-default shadow">
+            <h4 class="text-info">@Resources.Market.createItemImagesHeadline:</h4>
+
+            <div class="col-lg-12">
+                <label>@Resources.Market.createItemMainImageLabel:</label>
+            </div>
+            <div class="nopad col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    @Html.HiddenFor(m => m.CurrentMainImage)
+                    <div class="text-center">
+                        <img id="img-main" src="@CdnHelper.RenderImage((string.IsNullOrEmpty(Model.CurrentMainImage) ? "/Content/Images/MarketItem.png" : Model.CurrentMainImage))" height="80" />
+                        <div>
+                            <input id="remove-main" type="checkbox" disabled="@(string.IsNullOrEmpty(Model.CurrentMainImage) ? "disabled" : null)" />
+                            @Resources.Market.createItemRemoveImageLink
+                        </div>
+                    </div>
+                    @Html.TextBoxFor(m => m.MainImage, new { @id = "imgFile-main", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+                    @Html.ValidationMessageFor(model => model.MainImage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr />
+            <div class="col-lg-12">
+                <label>@Resources.Market.createItemAlternateImagesLabel:</label>
+            </div>
+            <div class="nopad col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                <!-- Alt 1 -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    @Html.HiddenFor(m => m.CurrentAltImage1)
+                    <div class="text-center">
+                        <img id="img-1" src="@CdnHelper.RenderImage((string.IsNullOrEmpty(Model.CurrentAltImage1) ? "/Content/Images/MarketItem.png" : Model.CurrentAltImage1))" height="80" />
+                        <div>
+                            <input onchange="resetImage(1)" id="remove-1" type="checkbox" disabled="@(string.IsNullOrEmpty(Model.CurrentAltImage1) ? "disabled" : null)" />
+                            @Resources.Market.createItemRemoveImageLink
+                        </div>
+                    </div>
+                    @Html.TextBoxFor(m => m.AltImage1, new { @id = "imgFile-1", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+                </div>
+
+                <!-- Alt 2 -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    @Html.HiddenFor(m => m.CurrentAltImage2)
+                    <div class="text-center">
+                        <img id="img-2" src="@CdnHelper.RenderImage((string.IsNullOrEmpty(Model.CurrentAltImage2) ? "/Content/Images/MarketItem.png" : Model.CurrentAltImage2))" height="80" />
+                        <div>
+                            <input onchange="resetImage(2)"  id="remove-2" type="checkbox" disabled="@(string.IsNullOrEmpty(Model.CurrentAltImage2) ? "disabled" : null)" />
+                            @Resources.Market.createItemRemoveImageLink
+                        </div>
+                    </div>
+                    @Html.TextBoxFor(m => m.AltImage2, new { @id = "imgFile-2", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+                </div>
+
+                <!-- Alt 3 -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    @Html.HiddenFor(m => m.CurrentAltImage3)
+                    <div class="text-center">
+                        <img id="img-3" src="@CdnHelper.RenderImage((string.IsNullOrEmpty(Model.CurrentAltImage3) ? "/Content/Images/MarketItem.png" : Model.CurrentAltImage3))" height="80" />
+                        <div>
+                            <input onchange="resetImage(3)"  id="remove-3" type="checkbox" disabled="@(string.IsNullOrEmpty(Model.CurrentAltImage3) ? "disabled" : null)" />
+                            @Resources.Market.createItemRemoveImageLink
+                        </div>
+                    </div>
+                    @Html.TextBoxFor(m => m.AltImage3, new { @id = "imgFile-3", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+                </div>
+
+                <!-- Alt4 -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    @Html.HiddenFor(m => m.CurrentAltImage4)
+                    <div class="text-center">
+                        <img id="img-4" src="@CdnHelper.RenderImage((string.IsNullOrEmpty(Model.CurrentAltImage4) ? "/Content/Images/MarketItem.png" : Model.CurrentAltImage4))" height="80" />
+                        <div>
+                            <input onchange="resetImage(4)"  id="remove-4" type="checkbox" disabled="@(string.IsNullOrEmpty(Model.CurrentAltImage4) ? "disabled" : null)" />
+                            @Resources.Market.createItemRemoveImageLink
+                        </div>
+                    </div>
+                    @Html.TextBoxFor(m => m.AltImage4, new { @id = "imgFile-4", @type = "file", @class = "form-control  input-sm", @accept = "image/*" })
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <br />
+        </div>
+        
+        <!-- Pricing -->
+        <div class="col-lg-12"></div>
+        <div class="col-lg-8 panel panel-default shadow">
+            <h4 class="text-info">@Resources.Market.createItemPricingHeadline:</h4>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.LabelFor(m => m.CurrencyId, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CurrencyId, Model.Currency, new { @class = "form-control  input-sm" })
+                @Html.ValidationMessageFor(model => model.CurrencyId, "", new { @class = "text-danger" })
+            </div>
+
+            @if (Model.Type == MarketItemType.BuySell)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control  input-sm" })
+                        <span style="border: none" class="input-group-addon currency-addon">BTC</span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            }
+            else if (Model.Type == MarketItemType.Auction)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(m => m.ReservePrice, new { @class = "control-label" })
+                    <div class="input-group">
+                        @if (Model.HasBids)
+                        {
+                            @Html.TextBoxFor(m => m.ReservePrice, new { @class = "form-control  input-sm", @disabled = "disabled", @title = "you cannot change the reserve price once bidding has started" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => m.ReservePrice, new { @class = "form-control  input-sm" })
+                        }
+                        <span style="border: none" class="input-group-addon currency-addon">BTC</span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ReservePrice, "", new { @class = "text-danger" })
+                </div>
+            }
+            else if (Model.Type == MarketItemType.Wanted)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <label class="control-label">@Resources.Market.createItemPayPriceLabel</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control  input-sm" })
+                        <span style="border: none" class="input-group-addon currency-addon">BTC</span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            }
+            <div class="clearfix"></div>
+            <br />
+        </div>
+        
+            if (Model.Type != MarketItemType.Wanted)
+            {
+        <!-- Shipping -->
+        <div class="col-lg-12"></div>
+        <div class="col-lg-8 panel panel-default shadow">
+            <h4 class="text-info">@Resources.Market.createItemShippingOptionsHeadline:</h4>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                @Html.CheckBoxFor(mbox => mbox.AllowPickup)
+                @Html.LabelFor(m => m.AllowPickup, new { @class = "control-label" })
+            </div>
+            <div class="col-lg-8 col-md-4 col-sm-4 col-xs-12">
+                @Html.CheckBoxFor(mbox => mbox.PickupOnly, "PickupOnly")
+                @Html.LabelFor(m => m.PickupOnly, new { @class = "control-label" })
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @Html.CheckBoxFor(mbox => mbox.ShippingBuyerArrange, "PickupOnly")
+                @Html.LabelFor(m => m.ShippingBuyerArrange, new { @class = "control-label" })
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.CheckBoxFor(mbox => mbox.ShippingNational)
+                    @Html.LabelFor(m => m.ShippingNational, new { @class = "control-label" })
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(m => m.ShippingNationalPrice, new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(mbox => mbox.ShippingNationalPrice, new { @class = "form-control  input-sm" })
+                        <span style="border: none" class="input-group-addon currency-addon">BTC</span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span>@Html.LabelFor(m => m.ShippingNationalDetails, new { @class = "control-label" })   <small style="font-style: italic">(e.g. Fedex - Overnight)</small></span>
+                    @Html.TextBoxFor(m => m.ShippingNationalDetails, new { @class = "form-control  input-sm" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.CheckBoxFor(mbox => mbox.ShippingInternational)
+                    @Html.LabelFor(m => m.ShippingInternational, new { @class = "control-label" })
+                </div>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(m => m.ShippingInternationalPrice, new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(mbox => mbox.ShippingInternationalPrice, new { @class = "form-control  input-sm" })
+                        <span style="border: none" class="input-group-addon currency-addon">BTC</span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span>@Html.LabelFor(m => m.ShippingInternationalDetails, new { @class = "control-label" })   <small style="font-style: italic">(e.g. Fedex - Overnight)</small></span>
+                    @Html.TextBoxFor(m => m.ShippingInternationalDetails, new { @class = "form-control  input-sm" })
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+        </div>
+            }
+             
+        <div class="clearfix"></div>
+        <div class="col-lg-8">
+            <hr />
+            <div class="text-center">
+                <div class="col-md-offset-3 col-sm-offset-2 col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                    <button id="submit" class="btn btn-success col-xs-6" type="submit">@(Model.IsRelisting ? Resources.Market.createItemRelistButton : Resources.Market.createItemUpdateButton)</button>
+                    <a href="/MarketPlace" class="btn btn-info col-xs-6">@Cryptopia.Resources.General.Cancel</a>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <br />
+                    <span class="text-warning">@Resources.Market.createItemCheckReminderText</span><br />
+                    <small style="font-style: italic;">@Resources.Market.createItemWarningText</small>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr />
+        </div>
+    }
+</div>
+<div class="clearfix"></div>
+
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#MainCategory").change(function () {
+            $("#Category").empty();
+            $("#SubCategory").empty();
+            getJsonSync('/MarketPlaceAction/GetCategories', { parentId: $("#MainCategory").val() }, function (data) {
+                if (data.length > 1) {
+                    $("#Category").removeAttr('disabled');
+                    $.each(data, function (i, category) {
+                        $("#Category").append('<option value="' + category.Value + '">' + category.Text + '</option>');
+                    });
+                    $("#Category").trigger('change');
+                }
+                else {
+                    $("#Category").append('<option value="-1">@Resources.Market.createItemNoCategoriesOption</option>');
+                    $("#SubCategory").append('<option value="-1">@Resources.Market.createItemNoCategoriesOption</option>');
+                    $("#Category").attr('disabled', true);
+                    $("#SubCategory").attr('disabled', true);
+                }
+            });
+        });
+
+
+
+        $("#Category").change(function () {
+            $("#SubCategory").empty();
+            getJsonSync('/MarketPlaceAction/GetCategories', { parentId: $("#Category").val() }, function (data) {
+                if (data.length > 1) {
+                    $("#SubCategory").removeAttr('disabled');
+                    $.each(data, function (i, category) {
+                        $("#SubCategory").append('<option value="' + category.Value + '">' + category.Text + '</option>');
+                    });
+                }
+                else {
+                    $("#SubCategory").append('<option value="-1">@Resources.Market.createItemNoCategoriesOption</option>');
+                    $("#SubCategory").attr('disabled', true);
+                }
+            });
+        });
+
+        $("#MainCategory").trigger('change');
+        $("#Category").val('@(Model.CategoryId.HasValue ? Model.CategoryId.Value : -1)');
+        $("#Category").trigger('change');
+        $("#SubCategory").val('@(Model.SubCategoryId.HasValue ? Model.SubCategoryId.Value : -1)');
+
+        $("#Country").change(function () {
+            $("#City").empty();
+            var val = $("#Country").val();
+            if (val) {
+                getJsonSync('/MarketPlaceAction/GetLocations', { parentId: $("#Country").val() }, function (data) {
+                    if (data.length > 1) {
+                        $("#City, #LocationRegion").removeAttr('disabled');
+                        $.each(data, function (i, category) {
+                            $("#City").append('<option value="' + category.Value + '">' + category.Text + '</option>');
+                        });
+                    }
+                    else {
+                        $('#LocationRegion').val('');
+                        $("#City").append('<option value="-1">@Resources.Market.createItemNoCitiesOption</option>');
+                        $("#City, #LocationRegion").attr('disabled', true);
+                    }
+                });
+            }
+            else {
+                $('#LocationRegion').val('');
+                $("#City").append('<option value="-1">@Resources.Market.createItemNoCitiesOption</option>');
+                $("#City, #LocationRegion").attr('disabled', true);
+            }
+        });
+
+
+
+        $("#Country").trigger('change');
+        $("#City").val('@(Model.CityId.HasValue ? Model.CityId.Value : -2)');
+
+
+        $('#ShippingNational').on('change', function () {
+            $('#ShippingNationalPrice, #ShippingNationalDetails').attr('disabled', !this.checked);
+        });
+
+        $('#ShippingInternational').on('change', function () {
+            $('#ShippingInternationalPrice, #ShippingInternationalDetails').attr('disabled', !this.checked);
+        });
+
+        $('#ShippingBuyerArrange').on('change', function () {
+            $('#ShippingNational, #ShippingInternational').attr('disabled', this.checked)
+            if (this.checked) {
+                $('#ShippingNational, #ShippingInternational').removeAttr('checked').trigger('change');
+            }
+        });
+
+        $('#PickupOnly').on('change', function () {
+            if (this.checked) {
+                $('#ShippingBuyerArrange, #ShippingInternational, #ShippingNational').removeAttr('checked').trigger('change');
+            }
+            $('#ShippingBuyerArrange, #ShippingNational, #ShippingInternational').attr('disabled', this.checked);
+        });
+
+        $('#ShippingNational, #ShippingInternational').trigger('change');
+        $('#CurrencyId').on('change', function () {
+            $('.currency-addon').html($("#CurrencyId option:selected").text());
+        });
+
+        $("#CurrencyId").trigger('change');
+
+
+        $('#remove-main').on('change', function () {
+            $('#remove-main').attr('disabled', 'disabled').removeAttr('checked');
+            $('#img-main').attr('src', '@CdnHelper.RenderImage("/Content/Images/MarketItem.png")');
+            $('#imgFile-main').val('');
+            $('#CurrentMainImage').val('');
+        });
+
+        $("#imgFile-main").change(function () { $('#remove-main').removeAttr('disabled', ''); $('#CurrentMainImage').val(''); readImageURL(this, '#img-main'); });
+        $("#imgFile-1").change(function () { $('#remove-1').removeAttr('disabled', ''); $('#CurrentAltImage1').val(''); readImageURL(this, '#img-1'); });
+        $("#imgFile-2").change(function () { $('#remove-2').removeAttr('disabled', ''); $('#CurrentAltImage2').val(''); readImageURL(this, '#img-2'); });
+        $("#imgFile-3").change(function () { $('#remove-3').removeAttr('disabled', ''); $('#CurrentAltImage3').val(''); readImageURL(this, '#img-3'); });
+        $("#imgFile-4").change(function () { $('#remove-4').removeAttr('disabled', ''); $('#CurrentAltImage4').val(''); readImageURL(this, '#img-4'); });
+    });
+
+
+    function resetImage(num) {
+        $('#remove-' + num).attr('disabled', 'disabled').removeAttr('checked');
+        $('#img-' + num).attr('src', '@CdnHelper.RenderImage("/Content/Images/MarketItem.png")');
+        $('#imgFile-' + num).val('');
+        $('#CurrentAltImage' + num).val('');
+    }
+
+    function readImageURL(input, target) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(target).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

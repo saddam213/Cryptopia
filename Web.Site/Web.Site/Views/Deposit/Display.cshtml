@@ -1,0 +1,201 @@
+﻿@model Cryptopia.Common.Address.DisplayAddressModel
+@{
+	ViewBag.Title = String.Format(Resources.UserWallet.depositDisplayPageTitle, Model.Symbol);
+	ViewBag.IsFullPage = true;
+}
+
+@Html.AntiForgeryToken()
+<div class="row deposit-wrapper">
+	<div id="addressContent" class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad deposit-container" style="display:none;">
+		<div class="col-md-12">
+			<div class="text-xs-center text-sm-left deposit-title-wrapper">
+				<img class="pull-left-lg pull-left-md pull-left-sm" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-medium.png", Model.Symbol)" />
+				<div class="pull-left-lg pull-left-md pull-left-sm deposit-title-container">
+					<h3 class="deposit-title">@Model.DisplayName</h3>
+					<p class="deposit-subtitle">@Resources.UserWallet.depositDisplayInfoMessage</p>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<hr style="margin:0" />
+		</div>
+
+		@if (!string.IsNullOrEmpty(Model.Message))
+		{
+		<div class="col-md-12 nopad">
+			<div class="alert alert-@Model.MessageType.ToLower() text-center" style="margin-bottom:0px">
+				@Html.Raw(Model.Message)
+			</div>
+		</div>
+		}
+
+		@if (Model.AddressType != Cryptopia.Enums.AddressType.Standard && Model.CurrencyType != Cryptopia.Enums.CurrencyType.Fiat)
+		{
+			var title1 = Model.AddressType.ToString();
+			var title2 = Model.CurrencyType == Cryptopia.Enums.CurrencyType.Pascal ? string.Format(Resources.UserWallet.depositDisplayCryptopiaAccountLabel, Model.Symbol)
+			                                                                       : string.Format(Resources.UserWallet.depositDisplayCryptopiaAddressLabel, Model.Symbol);
+			<div class="col-md-12">
+				<div class="text-center">
+					<label class="control-label">@Resources.UserWallet.depositDisplayQrCodeLabel</label>
+					<div id="qr-code" title="@Model.QrCode"></div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div id="addressContainer" class="form-group" style="margin-bottom:5px">
+					<label id="addressLabel" class="control-label">@title1</label><small style="font-size:10px" class="text-danger"> @Resources.UserWallet.depositDisplayAddressIsRequiredLabel</small>
+					<div class="input-group input-group-sm">
+						<span id="copy-icon" data-clipboard-target="depositAddress" class="input-group-addon  fa fa-copy"></span>
+						@Html.TextBoxFor(m => m.AddressData, new { @id = "depositAddress", @class = "form-control ", @readonly = "readonly" })
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div id="addressContainer2" class="form-group">
+					<label id="addressLabel2" class="control-label">@title2</label>
+					<div class="input-group input-group-sm">
+						<span id="copy-icon2" data-clipboard-target="depositAddress2" class="input-group-addon  fa fa-copy"></span>
+						@Html.TextBoxFor(m => m.AddressData2, new { @id = "depositAddress2", @class = "form-control ", @readonly = "readonly" })
+					</div>
+				</div>
+			</div>
+		}
+		else if (Model.CurrencyType == Cryptopia.Enums.CurrencyType.Fiat)
+		{
+		<div class="col-md-12 text-center" style="margin-bottom:5px;margin-top:5px">
+		
+			<label class="radio-inline"><input id="fiatOptionBank" type="radio" name="fiatDepositOptions" value="Bank" checked="checked" /> @Resources.UserWallet.depositDisplayTypeBankLabel</label>
+			<label class="radio-inline"><input id="fiatOptionToken" type="radio" name="fiatDepositOptions" value="Token"  /> @Resources.UserWallet.depositDisplayTypeTokenLabel</label>
+		</div>
+
+		<div class="col-md-12 fiatDepositOptions fiatDepositOptionToken" style="display:none;">
+			<div class="text-center">
+				<label class="control-label">@Resources.UserWallet.depositDisplayQrCodeLabel</label>
+				<div id="qr-code" title="@Model.QrCode"></div>
+			</div>
+		</div>
+		<div class="col-md-12 fiatDepositOptions fiatDepositOptionToken" style="display:none;">
+			<div id="addressContainer" class="form-group" style="">
+				<label id="addressLabel" class="control-label">@String.Format(Resources.UserWallet.depositDisplayAddressLabel, @Model.Symbol)</label>
+				<div class="input-group input-group-sm">
+					<span id="copy-icon" data-clipboard-target="depositAddress" class="input-group-addon  fa fa-copy"></span>
+					@Html.TextBoxFor(m => m.AddressData, new { @id = "depositAddress", @class = "form-control ", @readonly = "readonly" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 fiatDepositOptions fiatDepositOptionBank">
+			<div id="addressContainer2" class="form-group" style="margin-bottom:5px">
+				<label id="addressLabel2" class="control-label">@Resources.UserWallet.depositDisplayBankAccountLabel</label>
+				<div class="input-group input-group-sm">
+					<span id="copy-icon2" data-clipboard-target="depositAddress2" class="input-group-addon  fa fa-copy"></span>
+					@Html.TextBoxFor(m => m.AddressData2, new { @id = "depositAddress2", @class = "form-control ", @readonly = "readonly" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 fiatDepositOptions fiatDepositOptionBank">
+			<div id="addressContainer3" class="form-group" style="">
+				<label id="addressLabel3" class="control-label">@Resources.UserWallet.depositDisplayBankReferenceLabel</label>
+				<div class="input-group input-group-sm">
+					<span id="copy-icon3" data-clipboard-target="depositAddress3" class="input-group-addon  fa fa-copy"></span>
+					@Html.TextBoxFor(m => m.AddressData3, new { @id = "depositAddress3", @class = "form-control ", @readonly = "readonly" })
+				</div>
+			</div>
+		</div>
+		}
+		else
+		{
+		<div class="col-md-12">
+			<div class="text-center">
+				<label class="control-label">@Resources.UserWallet.depositDisplayQrCodeLabel</label>
+				<div id="qr-code" title="@Model.QrCode"></div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div id="addressContainer" class="form-group" style="">
+				<label id="addressLabel" class="control-label">@Resources.UserWallet.depositDisplayDepositAddressLabel</label>
+				<div class="input-group input-group-sm">
+					<span id="copy-icon" data-clipboard-target="depositAddress" class="input-group-addon  fa fa-copy"></span>
+					@Html.TextBoxFor(m => m.AddressData, new { @id = "depositAddress", @class = "form-control ", @readonly = "readonly" })
+				</div>
+			</div>
+		</div>
+		}
+
+		@if (!string.IsNullOrEmpty(Model.Instructions))
+		{
+		<div id="instructions" class="col-md-12" style="display:@(Model.CurrencyType == Cryptopia.Enums.CurrencyType.Fiat ? "none":"")">
+			<div>
+				<label class="control-label" style="margin:0">@Resources.UserWallet.depositDisplayInstructionsLabel</label>
+				<p style="font-size:12px">@Model.Instructions</p>
+			</div>
+		</div>
+		}
+
+		<div class="col-md-12">
+			<div class="text-center">
+				@if (string.IsNullOrEmpty(Model.ReturnUrl))
+				{
+				<a class="btn btn-success btnfullwidth" href="/Deposit">@Resources.UserWallet.depositDisplayDoneButton</a>
+				}
+				else
+				{
+				<div class="row">
+					<div class="col-md-6">
+						<a class="btn btn-default btnfullwidth" href="/Deposit">@Cryptopia.Resources.General.Back</a>
+					</div>
+					<div class="col-md-6">
+						<a class="btn btn-success btnfullwidth" href="@Model.ReturnUrl">@Resources.UserWallet.depositDisplayDoneButton</a>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="text-center text-danger deposit-poolwarning">
+				<small><b>@Resources.UserWallet.depositDisplayWarningLabel</b> @Resources.UserWallet.depositDisplayWarningMessage</small>
+			</div>
+		</div>
+		<div class="col-md-12 text-center deposit-container-link">
+			<a href="@Url.RouteUrl("DepositHistory")">@Resources.UserWallet.depositHistoryLink</a>
+		</div>
+	</div>
+
+	@*Error Message*@
+	<div id="errorMessage" class="col-md-offset-4 col-md-4 panel panel-default deposit-container" style="display:none;">
+		<div class="row">
+			<div class="col-md-12" style="margin-top:15px">
+				<div class="alert alert-danger">
+					<h4>@String.Format(Resources.UserWallet.depositDisplayAddressError, @Model.DisplayName)</h4>
+					<p id="errorText" style="margin-bottom:20px"></p>
+					<small>@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.depositDisplayAddressError), 
+					                               String.Format("<a href=\"/UserSupport\"></a>", @Cryptopia.Resources.General.CryptopiaSupportLink)))</small>
+				</div>
+			</div>
+			<div class="col-md-12" style="margin-bottom:15px">
+				<a class="btn btn-success btnfullwidth" href="@(string.IsNullOrEmpty(Model.ReturnUrl) ? "/Deposit" : Model.ReturnUrl)">
+					@String.Format(Resources.UserWallet.depositDisplayReturnLink,
+					               string.IsNullOrEmpty(Model.ReturnUrl) ? Resources.UserWallet.depositDeisplayReturnToMenuLink
+																		 : Model.ReturnUrl.TrimStart('/'))
+				</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+@section Scripts {
+	<script>
+		var addressData = '@Model.AddressData';
+		var addressData2 = '@Model.AddressData2';
+		var addressData3 = '@Model.AddressData3';
+		var qrCodeData = '@Model.QrCode';
+		var currencyId = @Model.CurrencyId;
+		var createAction = '@Url.Action("GenerateAddress")';
+
+		var Resources = Resources || {};
+		Resources.DepositDisplay = {
+			CreatingAddressMessage: '@Resources.UserWallet.depositDisplayCreatingAddressMessage',
+			CopiedToClipboardMessage: '@Resources.UserWallet.depositDisplayCopiedToClipboardMessage'
+		};
+	</script>
+	@Scripts.Render("~/Scripts/ZeroClipboard.min.js")
+	@Scripts.Render("~/Scripts/Project/Deposit/display.min.js")
+}

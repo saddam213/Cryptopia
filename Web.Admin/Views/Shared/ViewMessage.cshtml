@@ -1,0 +1,28 @@
+﻿@model Web.Admin.Models.ViewMessageModel
+@{
+	ViewBag.Title = Model.Type.ToString();
+	ViewBag.IsFullPage = true;
+}
+
+<div style="padding:5%">
+	<div class="alert alert-@Model.Type.ToString().ToLower()">
+		<h4 class="nopad" style="margin: 0px"><strong class="nopad">@Model.Title</strong></h4>
+		<hr />
+		@if (Model.ShowLoginLink)
+		{
+		<h5>@Model.Message, please<b>@Html.ActionLink(" click here ", "Login", "Login")</b>to log in.</h5>}
+		else if (Model.ShowSupportLink)
+		{
+		<h5>@Model.Message please contact<a class="alert-link" href="/Support"> Cryptopia Support</a>.</h5>}
+		else if (Model.ShowContinueLink)
+		{
+		<h5>@Model.Message</h5>
+						<hr />
+						<a href="@Model.ContinueLink" class="btn btn-sm btn-info">@Model.ContinueLinkText</a>}
+		else
+		{
+		<h5>@Model.Message</h5>}
+	</div>
+</div>
+
+

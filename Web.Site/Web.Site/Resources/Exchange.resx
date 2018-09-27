@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="balanceAvailableColumn" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="balanceCoinColumn" xml:space="preserve">
+    <value>Coin</value>
+  </data>
+  <data name="balanceFavoritesOnlyLabel" xml:space="preserve">
+    <value>Show Favorites Only</value>
+  </data>
+  <data name="balanceHideZeroBalancesLabel" xml:space="preserve">
+    <value>Hide Zero Balances</value>
+  </data>
+  <data name="balanceSearchPlaceholder" xml:space="preserve">
+    <value>Search balances...</value>
+  </data>
+  <data name="exchangeTitle" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="featuredInfoLabel" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="featuredHeadline" xml:space="preserve">
+    <value>Featured Markets</value>
+  </data>
+  <data name="featuredWebsiteLabel" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="historyAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="historyBuyHeadline" xml:space="preserve">
+    <value>Buy Orders</value>
+  </data>
+  <data name="historyMarketHeadline" xml:space="preserve">
+    <value>Market History</value>
+  </data>
+  <data name="historyPriceColumn" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="historyRemainingColumn" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+  <data name="historySellTitle" xml:space="preserve">
+    <value>Sell Orders</value>
+  </data>
+  <data name="historySumColumn" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="historyTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="historyTotalColumn" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="historyTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="historyMyOpenOrdersCancelLink" xml:space="preserve">
+    <value>Cancel All</value>
+  </data>
+  <data name="historyMyOpenOrdersHeadline" xml:space="preserve">
+    <value>My Open Orders</value>
+  </data>
+  <data name="historyMyMarketHeadline" xml:space="preserve">
+    <value>My Market History</value>
+  </data>
+  <data name="infoBaseLabel" xml:space="preserve">
+    <value>Base</value>
+  </data>
+  <data name="infoChartSettingsCandlestickLabel" xml:space="preserve">
+    <value>Candlestick</value>
+  </data>
+  <data name="infoChartButton" xml:space="preserve">
+    <value>Chart</value>
+  </data>
+  <data name="infoCloseLabel" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="infoDateLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="infoDepthHeadline" xml:space="preserve">
+    <value>Orderbook Depth</value>
+  </data>
+  <data name="infoDistributionHeadline" xml:space="preserve">
+    <value>Balance Distribution</value>
+  </data>
+  <data name="infoChartSettingsEma1PeriodLabel" xml:space="preserve">
+    <value>EMA 1 period</value>
+  </data>
+  <data name="infoChartSettingsEma2PeriodLabel" xml:space="preserve">
+    <value>EMA 2 period</value>
+  </data>
+  <data name="infoChartSettingsFibonacciLinesLabel" xml:space="preserve">
+    <value>Fibonacci Lines</value>
+  </data>
+  <data name="infoHighLabel" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="infoHistLabel" xml:space="preserve">
+    <value>Hist</value>
+  </data>
+  <data name="infoChartSettingsHistogramLabel" xml:space="preserve">
+    <value>Histogram</value>
+  </data>
+  <data name="infoLowLabel" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="infoChartSettingsMacdLabel" xml:space="preserve">
+    <value>MACD</value>
+  </data>
+  <data name="infoMacdLabel" xml:space="preserve">
+    <value>MACD</value>
+  </data>
+  <data name="infoChartNoDataMessage" xml:space="preserve">
+    <value>No Data Available</value>
+  </data>
+  <data name="infoOpenLabel" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="infoPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="infoSaveProfileButton" xml:space="preserve">
+    <value>Save Profile</value>
+  </data>
+  <data name="infoSigLabel" xml:space="preserve">
+    <value>Sig:</value>
+  </data>
+  <data name="infoChartSettingsSignalLabel" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="infoChartSettingsSmaPeriodLabel" xml:space="preserve">
+    <value>SMA period</value>
+  </data>
+  <data name="infoVolLabel" xml:space="preserve">
+    <value>Vol</value>
+  </data>
+  <data name="infoStatisticsChangeLabel" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="infoStatisticsHighLabel" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="infoStatisticsLastPriceLabel" xml:space="preserve">
+    <value>Last price</value>
+  </data>
+  <data name="infoStatisticsLowLabel" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="infoStatisticsTitle" xml:space="preserve">
+    <value>24 Hours</value>
+  </data>
+  <data name="infoStatisticsTitle2" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="infoStatisticsVolumeLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="marketsSearchPlaceholder" xml:space="preserve">
+    <value>Search markets...</value>
+  </data>
+  <data name="menuBalances" xml:space="preserve">
+    <value>Balances</value>
+  </data>
+  <data name="menuMarkets" xml:space="preserve">
+    <value>Markets</value>
+  </data>
+  <data name="menuOrders" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="ordersPairColumn" xml:space="preserve">
+    <value>Pair</value>
+  </data>
+  <data name="ordersRateColumn" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="ordersRemainingColumn" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+  <data name="ordersSearchPlaceholder" xml:space="preserve">
+    <value>Search orders...</value>
+  </data>
+  <data name="ordersTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="summaryChangeColumn" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="summaryCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="summaryHighColumn" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="summaryLastColumn" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="summaryLowColumn" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="summaryMarketColumn" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="summaryHeadline" xml:space="preserve">
+    <value>Market Summary (24hr)</value>
+  </data>
+  <data name="summaryVolumeColumn" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="topChangeColumn" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="topHighColumn" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="topLowColumn" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="marketsMarketColumn" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="topHeadline" xml:space="preserve">
+    <value>Top Markets</value>
+  </data>
+  <data name="topTotalColumn" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="topVolumeColumn" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="tradeMaxAmountError" xml:space="preserve">
+    <value>Invalid trade amount, Maximum single trade is {0}</value>
+    <comment>{0} - Max amount</comment>
+  </data>
+  <data name="tradeMaxPriceError" xml:space="preserve">
+    <value>Invalid trade price, maximum price is {0}</value>
+    <comment>{0} - Max price</comment>
+  </data>
+  <data name="tradeMinPriceError" xml:space="preserve">
+    <value>Invalid trade price, minimum price is {0}</value>
+    <comment>{0} - Min price</comment>
+  </data>
+  <data name="tradeMinTotalError" xml:space="preserve">
+    <value>Your trade total must be at least {0} {1}</value>
+    <comment>{0} - Amount; {1} - CurrencySymbol;</comment>
+  </data>
+  <data name="tradeNoMarketError" xml:space="preserve">
+    <value>Market not found.</value>
+  </data>
+  <data name="balanceAvailableColumnHint" xml:space="preserve">
+    <value>Amount available to trade</value>
+  </data>
+  <data name="balanceEstimatedColumn" xml:space="preserve">
+    <value>Est.</value>
+  </data>
+  <data name="balanceEstimatedColumnHint" xml:space="preserve">
+    <value>Estimated BTC value</value>
+  </data>
+  <data name="balanceOrdersColumn" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="balanceOrdersColumnHint" xml:space="preserve">
+    <value>Amount held for open orders</value>
+  </data>
+  <data name="buyAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="buyAvailableLabel" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="buyButton" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="buyFeeLabel" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="buyHeadline" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="buyMinimumTradeLabel" xml:space="preserve">
+    <value>Minimum trade</value>
+  </data>
+  <data name="buyPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="buySumLabel" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="buyTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="infoChartSettingsHeadline" xml:space="preserve">
+    <value>Chart Settings</value>
+  </data>
+  <data name="infoChartSettingsStockPriceLabel" xml:space="preserve">
+    <value>StockPrice</value>
+  </data>
+  <data name="infoChartSettingsVolumeLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="infoDepthButton" xml:space="preserve">
+    <value>OrderBook</value>
+  </data>
+  <data name="infoDepthSettingsAutoLabel" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="infoDepthSettingsHeadline" xml:space="preserve">
+    <value>Depth Calculation</value>
+  </data>
+  <data name="infoDepthTooltipDepthLabel" xml:space="preserve">
+    <value>Depth</value>
+  </data>
+  <data name="infoDepthTooltipHeadline" xml:space="preserve">
+    <value>Market Depth</value>
+  </data>
+  <data name="infoDepthTooltipPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="infoDepthTooltipVolumeLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="infoDistributionButton" xml:space="preserve">
+    <value>Distribution</value>
+  </data>
+  <data name="infoDistributionSettingsHeadline" xml:space="preserve">
+    <value>Balance Distribution</value>
+  </data>
+  <data name="infoDistributionSettingsTopLabel" xml:space="preserve">
+    <value>Top {0}</value>
+    <comment>{0} - Top number;</comment>
+  </data>
+  <data name="marketsChangeColumn" xml:space="preserve">
+    <value>+/-</value>
+  </data>
+  <data name="marketsChangeColumnHint" xml:space="preserve">
+    <value>24hr price change %</value>
+  </data>
+  <data name="marketsPriceColumn" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="marketsPriceColumnHint" xml:space="preserve">
+    <value>Last price</value>
+  </data>
+  <data name="marketsShowFavoritesOnlyLabel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="marketsVolColumn" xml:space="preserve">
+    <value>Vol.</value>
+  </data>
+  <data name="marketsVolColumnHint" xml:space="preserve">
+    <value>24hr base volume</value>
+  </data>
+  <data name="menuChat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="ordersRateColumnHint" xml:space="preserve">
+    <value>Price of order</value>
+  </data>
+  <data name="ordersRemainingColumnHint" xml:space="preserve">
+    <value>Coins remaining in order</value>
+  </data>
+  <data name="sellAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="sellAvailableLabel" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="sellButton" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="sellFeeLabel" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="sellHeadline" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="sellMinimumTradeLabel" xml:space="preserve">
+    <value>Minimum trade</value>
+  </data>
+  <data name="sellPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="sellSumLabel" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="sellTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="topMarketColumn" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="balanceEmptyListMessage" xml:space="preserve">
+    <value>No balances found.</value>
+  </data>
+  <data name="historyBuyOrdersEmptyList" xml:space="preserve">
+    <value>No buy orders.</value>
+  </data>
+  <data name="historyMarketEmtpyList" xml:space="preserve">
+    <value>No market history.</value>
+  </data>
+  <data name="historyMyOpenOrdersEmtpyList" xml:space="preserve">
+    <value>You have no open orders.</value>
+  </data>
+  <data name="historyMyOrdersEmtpyList" xml:space="preserve">
+    <value>You have no order history.</value>
+  </data>
+  <data name="historySellOrdersEmptyList" xml:space="preserve">
+    <value>No sell orders.</value>
+  </data>
+  <data name="infoSettingsFailedMessage" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="infoSettingsSavedMessage" xml:space="preserve">
+    <value>Settings Saved</value>
+  </data>
+  <data name="marketPageTitle" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="marketsEmptyListMessage" xml:space="preserve">
+    <value>No markets found.</value>
+  </data>
+  <data name="marketsLoadingMessage" xml:space="preserve">
+    <value>Loading markets...</value>
+  </data>
+  <data name="ordersEmptyListMessage" xml:space="preserve">
+    <value>You have no open orders.</value>
+  </data>
+  <data name="tradeBuyOrderSubmittedMessage" xml:space="preserve">
+    <value>Buy order submitted</value>
+  </data>
+  <data name="tradeInsufficientFundsError" xml:space="preserve">
+    <value>Insufficient {0} funds.</value>
+    <comment>{0} - CurrencySymbol</comment>
+  </data>
+  <data name="tradeNotificationTitle" xml:space="preserve">
+    <value>Trade Notification</value>
+  </data>
+  <data name="tradeSellOrderSubmittedMessage" xml:space="preserve">
+    <value>Sell order submitted</value>
+  </data>
+</root>

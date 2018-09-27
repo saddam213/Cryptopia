@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/TradeService.Notifications" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TradeService.Notifications" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfTradeNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TradeNotification" nillable="true" type="tns:TradeNotification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTradeNotification" nillable="true" type="tns:ArrayOfTradeNotification" />
+  <xs:complexType name="TradeNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Header" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notification" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q1:NotificationLevelType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TradeNotification" nillable="true" type="tns:TradeNotification" />
+  <xs:complexType name="ArrayOfTipNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipNotification" nillable="true" type="tns:TipNotification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipNotification" nillable="true" type="tns:ArrayOfTipNotification" />
+  <xs:complexType name="TipNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ReceiverMessage" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Receivers" nillable="true" type="q2:ArrayOfguid" />
+      <xs:element minOccurs="0" name="Sender" type="ser:guid" />
+      <xs:element minOccurs="0" name="SenderMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipNotification" nillable="true" type="tns:TipNotification" />
+</xs:schema>

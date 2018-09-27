@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - Admintopia</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<link href="~/Content/navbar.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="wrapper" class="active">
+		<div class="navbar navbar-inverse navbar-fixed-top navbar-padding">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					@if (User.Identity.IsAuthenticated)
+					{
+							<div class="navbar-brand">
+								<a id="menu-toggle" href="#" class="glyphicon glyphicon-align-justify btn-menu toggle"></a>
+							</div>
+					}
+					@Html.ActionLink("Admintopia", "Index", "Support", new { area = "" }, new { @class = "navbar-brand" })
+				</div>
+				<div class="navbar-collapse">
+					@Html.Partial("_LoginPartial")
+				</div>
+			</div>
+		</div>
+		<!-- Sidebar -->
+		@if (User.Identity.IsAuthenticated)
+		{
+				<div id="sidebar-wrapper">
+					<nav>
+						<ul class="sidebar-nav nav">
+							<li>@Html.ActionLink("Support", "Index", "Support")</li>
+							<li>@Html.ActionLink("Overview", "Index", "Overview")</li>
+							<li>@Html.ActionLink("Users", "Index", "User")</li>
+							<li>@Html.ActionLink("Currency", "Index", "Currency")</li>
+							<li>@Html.ActionLink("TradePair", "Index", "TradePair")</li>
+							<li>@Html.ActionLink("Approval", "Index", "Approval")</li>
+							<li>@Html.ActionLink("User Verification", "Index", "UserVerification")</li>
+							<li>@Html.ActionLink("Fiat", "Index", "Fiat")</li>
+							<li>@Html.ActionLink("Paytopia", "Index", "Paytopia")</li>
+							<li>@Html.ActionLink("Site Management", "Index", "SiteManagement")</li>
+							<li>@Html.ActionLink("Support Management", "Index", "SupportManagement")</li>
+							<li>@Html.ActionLink("Reprocessing", "Index", "Reprocessing")</li>
+							<li>@Html.ActionLink("Incapsula", "Index", "Incapsula")</li>
+
+							@if (User.IsInRole("BankAdmin"))
+							{
+									<li>@Html.ActionLink("NZDT Uploads", "Index", "Nzdt")</li>
+							}
+
+							@if (User.IsInRole("SuperUser"))
+							{
+									<li>@Html.ActionLink("Reporting", "Index", "ActivityLogging")</li>
+							}
+
+						</ul>
+					</nav>
+				</div>
+		}
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid body-content main-content">
+				@RenderBody()
+			</div>
+		</div>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/site")
+	@Scripts.Render("~/signalr/hubs")
+
+	@RenderSection("scripts", required: false)
+
+	<script>
+		$("#menu-toggle").click(function (e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	</script>
+
+</body>
+</html>

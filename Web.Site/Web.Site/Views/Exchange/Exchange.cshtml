@@ -1,0 +1,1262 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Exchange.ExchangeModel
+@{
+	ViewBag.Title = Resources.Exchange.exchangeTitle;
+	ViewBag.ReturnUrl = "/Exchange";
+	ViewBag.HideFooter = true;
+	var fullSizeChart = ClaimsUser.ChartSettings.MACD || ClaimsUser.ChartSettings.Signal || ClaimsUser.ChartSettings.Histogram;
+}
+
+@Html.AntiForgeryToken()
+<div id="wrapper">
+	@* Sidebar Content*@
+	<div id="vertical-menu">
+		<div id="vertical-menu-social">
+			<div class="btn-group btn-group-vertical btn-group-sm">
+				<a class="btn btn-default vertical-btn" title="Cryptopia Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/Cryptopia_NZ">
+					<i class="fa fa-2x fa-twitter"></i>
+				</a>
+				<a class="btn btn-default vertical-btn" title="Cryptopia Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/cryptopiaexchange">
+					<i class="fa fa-2x fa-facebook "></i>
+				</a>
+				<a class="btn btn-default vertical-btn" title="Cryptopia Linked-in" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/cryptopia-limited">
+					<i class="fa fa-2x fa-linkedin"></i>
+				</a>
+				<a class="btn btn-default vertical-btn" title="Cryptopia Discord" target="_blank" rel="noopener noreferrer" href="https://discord.gg/2kMgEgw">
+					<i class="fa fa-2x fa-comment-o"></i>
+				</a>
+			</div>
+		</div>
+		<div id="vertical-menu-options">
+			<div class="btn-group btn-group-vertical btn-group-sm">
+				<a class="btn btn-default stackmenu-menu-btn vertical-btn menu-btn">
+					<i class="fa fa-2x fa-bars"></i>
+				</a>
+				<a class="btn btn-default stackmenu-menu-btn exchange-menu-btn vertical-btn">
+					<div class="vertical-text"><i class="fa fa-area-chart"></i>@Resources.Exchange.menuMarkets</div>
+				</a>
+				@if (User.Identity.IsAuthenticated)
+				{
+					<a class="btn btn-default stackmenu-menu-btn orders-menu-btn vertical-btn">
+						<div class="vertical-text"><i class="fa icon-exchange-currency"></i>@Resources.Exchange.menuOrders</div>
+					</a>
+					<a class="btn btn-default stackmenu-menu-btn balance-menu-btn vertical-btn">
+						<div class="vertical-text"><i class="fa icon-bitcoin"></i>@Resources.Exchange.menuBalances</div>
+					</a>
+				}
+				<a class="btn btn-default stackmenu-menu-btn chat-menu-btn vertical-btn">
+					<div class="vertical-text"><i class="fa fa-comments-o"></i>@Resources.Exchange.menuChat</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="sidebar-wrapper" class="panelBg">
+		<div id="sidebar">
+			<div class="stackmenu-container">
+				<div class="stackmenu-header">
+					@*Market Header*@
+					<div id="exchange-menu" class="exchange-menu">
+						<div>
+							<div class="stackmenu-btns btn-group btn-group-justified btn-group-sm basecurrency-btn-group">
+								@foreach (var item in Model.BaseCurrencies.OrderBy(x => x.Rank))
+								{
+									<a class="btn btn-default currencyData-btn currencyData-btn-@item.Symbol" data-currency="@item.Symbol">
+										<div style="display:inline-block"><div class="sprite-small @item.Symbol-small-png"></div> @item.Symbol</div>
+									</a>
+								}
+							</div>
+							<div id="market-options" class="input-group">
+								<div class="input-group-btn">
+									<div class="btn-group">
+										<a class="btn btn-default btn-sm dropdown-toggle" aria-expanded="false" href="#" data-toggle="dropdown">
+											<i class="fa fa-cog" aria-hidden="true"></i>
+											<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li>
+												<div style="margin-left:10px">
+													<i class="fa fa-ellipsis-v market-favorite-active" aria-hidden="true" style="font-size:18px"></i>
+													<input id="market-favorite-chk" type="checkbox" value="" />
+													<label style="font-size:12px;vertical-align:text-top">
+														@Resources.Exchange.marketsShowFavoritesOnlyLabel
+													</label>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<input type="text" id="markets-search" class="form-control input-sm" placeholder="@Resources.Exchange.marketsSearchPlaceholder" />
+							</div>
+						</div>
+					</div>
+					@*Market Header*@
+
+					@*Balance Header*@
+					<div class="balance-menu">
+						<div id="balance-options" class="input-group" style="margin:5px">
+							<div class="input-group-btn">
+								<div class="btn-group">
+									<a class="btn btn-default btn-sm dropdown-toggle" aria-expanded="false" href="#" data-toggle="dropdown">
+										<i class="fa fa-cog" aria-hidden="true"></i>
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+											<div style="margin-left:10px">
+												@Html.CheckBox("hide", ClaimsUser.HideZeroBalance, new { id = "sideMenu-balance-hidezero" })
+												<label style="font-size:12px;vertical-align:text-top">
+													@Resources.Exchange.balanceHideZeroBalancesLabel
+												</label>
+											</div>
+										</li>
+										<li>
+											<div style="margin-left:10px">
+												@Html.CheckBox("favorites", ClaimsUser.ShowFavoriteBalance, new { id = "sideMenu-balance-favorites" })
+												<label style="font-size:12px;vertical-align:text-top">
+													@Resources.Exchange.balanceFavoritesOnlyLabel
+												</label>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<input type="text" id="balance-search" class="form-control input-sm" placeholder="@Resources.Exchange.balanceSearchPlaceholder" />
+						</div>
+					</div>
+					@*Balance Header*@
+
+					@*Orders Header*@
+					<div class="orders-menu">
+						<div id="orders-options" class="input-group">
+							<div class="input-group-btn">
+								<div class="btn-group">
+									<a class="btn btn-default btn-sm dropdown-toggle" aria-expanded="false" href="#" data-toggle="dropdown">
+										<i class="fa fa-cog" aria-hidden="true"></i>
+										<span class="caret"></span>
+									</a>
+								</div>
+							</div>
+							<input type="text" id="openorders-search" class="form-control input-sm" placeholder="@Resources.Exchange.ordersSearchPlaceholder" />
+						</div>
+					</div>
+					@*Orders Header*@
+
+					@*Chat Header*@
+					<div class="chat-menu">
+						<div class="chat-header">
+							<div class="chat-title-container">
+								<div>
+									<span class="chat-title"><i class="fa fa-comments-o"></i>@Resources.Chat.chatTrollbox</span>
+								</div>
+								<div class="chat-usersonline">
+									<small>@Resources.Chat.chatUsersOnline: <span class="chat-online-count">0</span></small>
+								</div>
+							</div>
+							<div class="chat-options">
+								<div class="btn-group btn-group-justified btn-group-sm basecurrency-btn-group">
+									<a class="btn btn-default" title="@Resources.Chat.chatTrollboxRulesHint" onclick="openModalGet('@Url.Action("ChatRules", "Chat")')">
+										<i class="fa fa-list-ol"></i>
+									</a>
+									<a class="btn btn-default chat-popout" title="@Resources.Chat.chatOpenTrollboxWindowHint">
+										<i class="fa fa-external-link-square"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					@*Chat Header*@
+
+				</div>
+				<div class="stackmenu-body">
+					<div class="stackmenu-content">
+						@*Market Body*@
+						<div class="exchange-menu">
+							<table class="table table-condensed table-striped" id="market-list" style="width:100%;font-size: 11px!important;cursor:pointer ">
+								<thead>
+									<tr>
+										<th width="5px" style="max-width:5px;padding:0"></th>
+										<th></th>
+										<th></th>
+										<th>@Resources.Exchange.marketsMarketColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.marketsPriceColumnHint">@Resources.Exchange.marketsPriceColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.marketsVolColumnHint">@Resources.Exchange.marketsVolColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.marketsChangeColumnHint">@Resources.Exchange.marketsChangeColumn</th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="10" class="text-center">
+											<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						@*Market Body*@
+
+						@*Balance Body*@
+						<div class="balance-menu" style="overflow:hidden;">
+							<table id="userBalances" class="table table-striped table-hover table-condensed" style="font-size: 10px!important; padding: 0px; ">
+								<thead>
+									<tr>
+										<th width="5px" style="max-width:5px;padding:0"></th>
+										<th>@Resources.Exchange.balanceCoinColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.balanceAvailableColumnHint">@Resources.Exchange.balanceAvailableColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.balanceOrdersColumnHint">@Resources.Exchange.balanceOrdersColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.balanceEstimatedColumnHint">@Resources.Exchange.balanceEstimatedColumn</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						@*Balance Body*@
+
+						@*Orders Body*@
+						<div class="orders-menu" style="overflow-x:hidden">
+							<table id="sideMenuOpenOrders" class="table table-striped table-hover table-condensed" style="font-size: 10px!important; padding: 0px;max-width:100% !important">
+								<thead>
+									<tr>
+										<th>@Resources.Exchange.ordersPairColumn</th>
+										<th>@Resources.Exchange.ordersTypeColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.ordersRateColumnHint">@Resources.Exchange.ordersRateColumn</th>
+										<th style="text-align:right" title="@Resources.Exchange.ordersRemainingColumnHint">@Resources.Exchange.ordersRemainingColumn</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						@*Orders Body*@
+
+
+						@*Chat Body*@
+						<div class="chat-menu" style="overflow:hidden;">
+							<div class="chat-container">
+								<table class="chat-messages table table-striped table-hover tablefixed table-condensed">
+									<tbody>
+										<tr>
+											<td class="text-center">
+												<h4><i class="fa fa-spinner fa-pulse fa-fw"></i> @Cryptopia.Resources.General.LoadingMessage</h4>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="chat-footer">
+								@if (User.Identity.IsAuthenticated)
+								{
+									<div class="form-group">
+										<div class="input-group">
+											<textarea class="chat-message form-control" rows="6" maxlength="500"></textarea>
+											<div class="input-group-btn">
+												<div>
+													<button class="chat-send exchange-chat-send btn btn-info" type="button" value="Send">
+														<i class="fa icon-emailexport"></i>
+													</button>
+												</div>
+												<div>
+													<div class="chat-option-emoticons exchange-chat-option">
+														<button type="button" class="btn btn-info btn-sm">
+															<i class="fa icon-emojismile"></i>
+														</button>
+													</div>
+													<div class="chat-option-tip exchange-chat-option">
+														<button type="button" class="btn btn-info btn-sm">
+															<i class="fa icon-bitcoinalt"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+								else
+								{
+									<div class="login-label text-center">
+										<strong class="stronglargerfont">@Html.ActionLink(Resources.Chat.chatLoginToTrollLink, "Login", "Login", routeValues: new { ReturnUrl = Request.Url }, htmlAttributes: new { })</strong>
+									</div>
+								}
+							</div>
+						</div>
+						@*Chat Body*@
+					</div>
+				</div>
+				<div class="stackmenu-footer">
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+	@* Main Content*@
+	<div id="main-wrapper">
+		<div id="main" style="overflow: visible">
+			<div id="market-main" style="@(Model.Summary == null ? "" : "display:none")">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="exchangeinfo-container pull-left">
+							<img class="exchangeinfo-title-logo" src="/Content/Images/Coins/@(Model.TradePair.Symbol ?? "BTC")-medium.png" />
+							<div class="exchangeinfo-title-container">
+								<div class="exchangeinfo-title"> @Model.TradePair.Name</div>
+								<div class="exchangeinfo-sub"> <span class="tradepair-symbol">@Model.TradePair.Symbol</span> / <span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span></div>
+							</div>
+						</div>
+						<div class="exchangeinfo-ticker-container">
+							<table class="exchangeinfo-ticker-table table-bordered tablefixed">
+								<tr>
+									<td>
+										<b>@Resources.Exchange.infoStatisticsTitle</b>
+										<div class="ticker-label">
+											<b>@Resources.Exchange.infoStatisticsTitle2</b>
+										</div>
+									</td>
+									<td>
+										@Resources.Exchange.infoStatisticsLastPriceLabel
+										<div class="ticker-label">
+											<b class="ticker-last">0.00000000</b>
+										</div>
+									</td>
+									<td>
+										@Resources.Exchange.infoStatisticsChangeLabel
+										<div class="ticker-label">
+											<b class="ticker-change">0.00</b>
+											<b>%</b>
+										</div>
+									</td>
+									<td>
+										@Resources.Exchange.infoStatisticsHighLabel
+										<div class="ticker-label">
+											<b class="ticker-high">0.00000000</b>
+										</div>
+									</td>
+									<td>
+										@Resources.Exchange.infoStatisticsLowLabel
+										<div class="ticker-label">
+											<b class="ticker-low">0.00000000</b>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:2px" colspan="5">
+										<span>@Resources.Exchange.infoStatisticsVolumeLabel: </span>
+										<b class="ticker-basevolume">0.00000000</b>
+										<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										<span> / </span>
+										<b class="ticker-volume">0.00000000</b>
+										<span class="tradepair-symbol">@Model.TradePair.Symbol</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				@* Chart Content*@
+				<div class="col-xs-12 hidden-xs" id="chart-container">
+					<div id="chart-options" class="chart-options-group btn-group btn-group-sm">
+						<a class="btn btn-default dropdown-toggle" href="#" data-toggle="dropdown" style="border-right:none">
+							<i class="fa fa-cog" aria-hidden="true"></i>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="text-center">@Resources.Exchange.infoChartSettingsHeadline</div>
+								<hr style="margin:3px" />
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="2">
+									<input id="chart-extras-volume" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsVolumeLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="0">
+									<input id="chart-extras-stockprice" class="chart-extras" type="checkbox" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsStockPriceLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="1">
+									<input id="chart-extras-candlestick" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsCandlestickLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="6">
+									<input id="chart-extras-macd" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsMacdLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="7">
+									<input id="chart-extras-signal" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsSignalLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="8">
+									<input id="chart-extras-histogram" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsHistogramLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="9">
+									<input id="chart-extras-fibonacci" class="chart-extras" type="checkbox" checked="checked" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsFibonacciLinesLabel
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="3">
+									<input id="chart-extras-sma" class="chart-extras" type="checkbox" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsSmaPeriodLabel:
+									</label>
+									<input id="chart-extras-sma-value" class="chart-extras-value" type="text" value="50" disabled="disabled" />
+									<button class="chart-extras-update btn btn-default btn-sm" disabled="disabled">
+										<i class="fa fa-refresh" aria-hidden="true"></i>
+									</button>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="4">
+									<input id="chart-extras-ema1" class="chart-extras" type="checkbox" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsEma1PeriodLabel:
+									</label>
+									<input id="chart-extras-ema1-value" class="chart-extras-value" type="text" value="30" disabled="disabled" />
+									<button class="chart-extras-update btn btn-default btn-sm" disabled="disabled">
+										<i class="fa fa-refresh" aria-hidden="true"></i>
+									</button>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-trade">
+								<div class="chart-extras-container" data-series="5">
+									<input id="chart-extras-ema2" class="chart-extras" type="checkbox" />
+									<label class="chart-extras-label">
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										@Resources.Exchange.infoChartSettingsEma2PeriodLabel:
+									</label>
+									<input id="chart-extras-ema2-value" class="chart-extras-value" type="text" value="20" disabled="disabled" />
+									<button class="chart-extras-update btn btn-default btn-sm" disabled="disabled">
+										<i class="fa fa-refresh" aria-hidden="true"></i>
+									</button>
+								</div>
+							</li>
+
+							<li class="chart-options-dropdown chart-options-dropdown-distribution" style="display:none">
+								<div class="text-center">@Resources.Exchange.infoDistributionSettingsHeadline</div>
+								<hr style="margin:3px" />
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-distribution" style="display:none">
+								<input id="chart-distribution-10" type="radio" name="chart-distribution-options" value="10">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									@String.Format(Resources.Exchange.infoDistributionSettingsTopLabel, "10");
+								</label>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-distribution" style="display:none">
+								<input id="chart-distribution-100" type="radio" name="chart-distribution-options" value="100" checked="checked">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									@String.Format(Resources.Exchange.infoDistributionSettingsTopLabel, "100");
+								</label>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-distribution" style="display:none">
+								<div class="chart-extras-container">
+									<input id="chart-distribution-1000" type="radio" name="chart-distribution-options" value="1000">
+									<label class="chart-extras-label" style="vertical-align:middle">
+										@String.Format(Resources.Exchange.infoDistributionSettingsTopLabel, "1000");
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-distribution" style="display:none">
+								<input id="chart-distribution-10000" type="radio" name="chart-distribution-options" value="10000">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									@String.Format(Resources.Exchange.infoDistributionSettingsTopLabel, "10000");
+								</label>
+							</li>
+
+
+							<li class="chart-options-dropdown chart-options-dropdown-orderbook" style="display:none">
+								<div class="text-center">@Resources.Exchange.infoDepthSettingsHeadline</div>
+								<hr style="margin:3px" />
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-orderbook" style="display:none">
+								<input type="radio" name="chart-orderbook-options" value="0" checked="checked">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									@Resources.Exchange.infoDepthSettingsAutoLabel
+								</label>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-orderbook" style="display:none">
+								<div class="chart-extras-container">
+									<input type="radio" name="chart-orderbook-options" value="100">
+									<label class="chart-extras-label" style="vertical-align:middle">
+										100%
+									</label>
+								</div>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-orderbook" style="display:none">
+								<input type="radio" name="chart-orderbook-options" value="50">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									50%
+								</label>
+							</li>
+							<li class="chart-options-dropdown chart-options-dropdown-orderbook" style="display:none">
+								<input type="radio" name="chart-orderbook-options" value="25">
+								<label class="chart-extras-label" style="vertical-align:middle">
+									25%
+								</label>
+							</li>
+
+							@if (User.Identity.IsAuthenticated)
+							{
+								<li class="">
+									<button class="btn btn-default btn-xs btnfullwidth chart-options-save">@Resources.Exchange.infoSaveProfileButton</button>
+								</li>
+							}
+						</ul>
+
+						<a class="btn btn-default chart-option-btn chart-option-chart active">@Resources.Exchange.infoChartButton</a>
+						<a class="btn btn-default chart-option-btn chart-option-orderbook">@Resources.Exchange.infoDepthButton</a>
+						<a class="btn btn-default chart-option-btn chart-option-distribution">@Resources.Exchange.infoDistributionButton</a>
+					</div>
+
+
+
+					@*Trade Chart*@
+
+					<div id="chart-trade" class="panel panel-default nopad">
+						<div class="chart-container" style="height:@((fullSizeChart) ? "565px" : "365px")">
+
+							@*Basic Statistics*@
+							<table id="chart-info-date-container">
+								<tr>
+									<td class="chart-item-label">@Resources.Exchange.infoDateLabel:</td>
+									<td class="chart-item-value">
+										<span id="chart-info-date">0.00000000</span>
+									</td>
+									<td class="chart-item-label chart-stockprice-item">@Resources.Exchange.infoPriceLabel: </td>
+									<td class="chart-item-value chart-stockprice-item">
+										<span id="chart-info-price">0.00000000</span>
+									</td>
+									<td class="chart-item-label chart-volume-item">@Resources.Exchange.infoVolLabel:</td>
+									<td class="chart-item-value chart-volume-item">
+										<span id="chart-info-volume">0.00000000</span>
+									</td>
+									<td class="chart-item-label chart-volume-item">@Resources.Exchange.infoBaseLabel:</td>
+									<td class="chart-item-value chart-volume-item">
+										<span id="chart-info-basevolume">0.00000000</span>
+									</td>
+								</tr>
+							</table>
+
+							@*Candlestick Statistics*@
+							<table id="chart-info-candlestick-container" class="chart-candlestick-item">
+								<tr>
+									<td class="chart-item-label">@Resources.Exchange.infoOpenLabel:</td>
+									<td class="chart-item-value">
+										<span id="chart-info-open">0.00000000</span>
+									</td>
+									<td class="chart-item-label">@Resources.Exchange.infoCloseLabel:</td>
+									<td class="chart-item-value">
+										<span id="chart-info-close">0.00000000</span>
+									</td>
+									<td class="chart-item-label">@Resources.Exchange.infoHighLabel:</td>
+									<td class="chart-item-value">
+										<span id="chart-info-high">0.00000000</span>
+									</td>
+									<td class="chart-item-label">@Resources.Exchange.infoLowLabel:</td>
+									<td class="chart-item-value">
+										<span id="chart-info-low">0.00000000</span>
+									</td>
+								</tr>
+							</table>
+
+							@*Advanced Statistics*@
+							<table id="chart-info-macd-container">
+								<tr>
+									<td class="chart-item-label chart-macd-item">@Resources.Exchange.infoMacdLabel:</td>
+									<td class="chart-item-value chart-macd-item">
+										<span id="chart-info-macd">0.00000000</span>
+									</td>
+									<td class="chart-item-label chart-signal-item">@Resources.Exchange.infoSigLabel:</td>
+									<td class="chart-item-value chart-signal-item">
+										<span id="chart-info-signal">0.00000000</span>
+									</td>
+									<td class="chart-item-label chart-histogram-item">@Resources.Exchange.infoHistLabel:</td>
+									<td class="chart-item-value chart-histogram-item">
+										<span id="chart-info-histogram">0.00000000</span>
+									</td>
+								</tr>
+							</table>
+
+							@*Range Options*@
+							<div class="chart-range-group btn-group btn-group-sm">
+								<a class="btn btn-default chart-range-btn0" data-range="0">1@(Cryptopia.Resources.General.unitDayShort)</a>
+								<a class="btn btn-default chart-range-btn1" data-range="1">2@(Cryptopia.Resources.General.unitDayShort)</a>
+								<a class="btn btn-default chart-range-btn2" data-range="2">1@(Cryptopia.Resources.General.unitWeekShort)</a>
+								<a class="btn btn-default chart-range-btn3" data-range="3">2@(Cryptopia.Resources.General.unitWeekShort)</a>
+								<a class="btn btn-default chart-range-btn4" data-range="4">1@(Cryptopia.Resources.General.unitMonthShort)</a>
+								<a class="btn btn-default chart-range-btn5" data-range="5">3@(Cryptopia.Resources.General.unitMonthShort)</a>
+								<a class="btn btn-default chart-range-btn6" data-range="6">6@(Cryptopia.Resources.General.unitMonthShort)</a>
+								<a class="btn btn-default chart-range-btn7" data-range="7">@Cryptopia.Resources.General.All</a>
+							</div>
+
+							@*Candlestick Options*@
+							<div class="chart-candles-group btn-group btn-group-sm">
+								<a class="btn btn-default chart-candles-btn15" data-candles="15">15@(Cryptopia.Resources.General.unitMinuteShort)</a>
+								<a class="btn btn-default chart-candles-btn30" data-candles="30">30@(Cryptopia.Resources.General.unitMinuteShort)</a>
+								<a class="btn btn-default chart-candles-btn60" data-candles="60">1@(Cryptopia.Resources.General.unitHourShort)</a>
+								<a class="btn btn-default chart-candles-btn120" data-candles="120">2@(Cryptopia.Resources.General.unitHourShort)</a>
+								<a class="btn btn-default chart-candles-btn240" data-candles="240">4@(Cryptopia.Resources.General.unitHourShort)</a>
+								<a class="btn btn-default chart-candles-btn720" data-candles="720">12@(Cryptopia.Resources.General.unitHourShort)</a>
+								<a class="btn btn-default chart-candles-btn1440" data-candles="1440">1@(Cryptopia.Resources.General.unitDayShort)</a>
+								<a class="btn btn-default chart-candles-btn10080" data-candles="10080">1@(Cryptopia.Resources.General.unitWeekShort)</a>
+							</div>
+
+							@*Chart Target*@
+							<div id="chartdata">
+							</div>
+							<div class="chart-loading">
+								<b><i class="fa fa-spinner fa-pulse fa-fw"></i> @Cryptopia.Resources.General.LoadingMessage</b>
+							</div>
+							<div class="chart-nodata">
+								<b>@Resources.Exchange.infoChartNoDataMessage</b>
+							</div>
+						</div>
+					</div>
+
+					@*OrderBook Chart*@
+					<div id="chart-orderbook" class="panel panel-default nopad" style="display:none;height:@((fullSizeChart) ? "565px" : "365px")">
+						<div class="chart-container">
+							<div class="text-center" style="position:absolute;width:100%;">
+								<h4 style="margin-top:5px"><span class="tradepair-symbol">@Model.TradePair.Symbol</span>/<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span> @Resources.Exchange.infoDepthHeadline</h4>
+							</div>
+							<div id="depthdata">
+							</div>
+						</div>
+					</div>
+
+					@*Distribution Chart*@
+					<div id="chart-distribution" class="panel panel-default nopad" style="display:none;height:@((fullSizeChart) ? "565px" : "365px")">
+						<div class="chart-container">
+							<div class="text-center" style="position:absolute;width:100%;">
+								<h4 style="margin-top:5px"><span class="tradepair-symbol">@Model.TradePair.Symbol</span> @Resources.Exchange.infoDistributionHeadline</h4>
+							</div>
+							<div id="distributiondata" style="margin-top:26px">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="tradepairStatus" class="col-md-12" style="display:none">
+					<div class="alert">
+						<h4></h4>
+						<p></p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					@* Buy Sell Forms*@
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="padding: 5px">
+									<span><i class="fa fa-plus-square panel-icon"></i>@Resources.Exchange.buyHeadline <span class="tradepair-symbol">@Model.TradePair.Symbol</span></span>
+									@if (User.Identity.IsAuthenticated)
+									{
+										<div style="font-size:12px" class="pull-right">
+											<small>@Resources.Exchange.buyAvailableLabel: </small>
+											<a id="userBalanceBuy">0.00000000</a>
+											<span class="tradepair-basesymbol"> @Model.TradePair.BaseSymbol</span>
+										</div>
+									}
+								</div>
+								<div class="panel-body" style="padding-bottom:0">
+									<div class="input-group trade-input-group">
+										<span id="buy-first-amount" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.buyAmountLabel</span>
+										<input id="buyamount" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-symbol">@Model.TradePair.Symbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span id="buy-first-price" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.buyPriceLabel</span>
+										<input id="buyprice" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span class="input-group-addon trade-input-group-addon cursor-default">@Resources.Exchange.buySumLabel</span>
+										<input id="buytotal" class="form-control input-sm  text-right trade-input-group-addon-disabled" type="text" value="0.00000000" disabled="disabled">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span class="input-group-addon trade-input-group-addon cursor-default">@Resources.Exchange.buyFeeLabel</span>
+										<input id="buyfee" class="form-control input-sm text-right trade-input-group-addon-disabled" type="text" value="0.00000000" disabled="disabled">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<hr style="margin:5px 0px" />
+									<div class="input-group trade-input-group">
+										<span id="buy-total-amount" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.buyTotalLabel</span>
+										<input id="buynettotal" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div style="padding-top:15px">
+										@if (User.Identity.IsAuthenticated)
+										{
+											<button class="btn btn-info btnfullwidth submit-button" id="buysubmit" disabled="disabled">
+												<i class="fa fa-spinner fa-pulse buysell-button-loading" style="display:none"></i>
+												@Resources.Exchange.buyButton <span class="tradepair-symbol">@Model.TradePair.Symbol</span>
+											</button>
+											<span class="btn btn-warning btnfullwidth submit-button-alert" style="display:none;pointer-events:none" disabled="disabled"></span>
+											<div class="text-center" style="position: relative; bottom: 0px">
+												<i style="font-size: 10px">@Resources.Exchange.buyMinimumTradeLabel: <span class="tradepair-basemintrade"></span> <span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span></i>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="nopad col-lg-4 col-md-0 col-sm-0 col-xs-0">
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="padding: 5px">
+									<span><i class="fa fa-minus-square panel-icon"></i>@Resources.Exchange.sellHeadline <span class="tradepair-symbol">@Model.TradePair.Symbol</span></span>
+									@if (User.Identity.IsAuthenticated)
+									{
+										<div style="font-size:12px" class="pull-right">
+											<small>@Resources.Exchange.sellAvailableLabel: </small>
+											<a id="userBalanceSell">0.00000000</a>
+											<span class="tradepair-symbol"> @Model.TradePair.Symbol</span>
+										</div>
+									}
+								</div>
+								<div class="panel-body" style="padding-bottom:0px">
+									<div class="input-group trade-input-group">
+										<span id="sell-first-amount" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.sellAmountLabel</span>
+										<input id="sellamount" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-symbol">@Model.TradePair.Symbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span id="sell-first-price" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.sellPriceLabel</span>
+										<input id="sellprice" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span class="input-group-addon trade-input-group-addon cursor-default">@Resources.Exchange.sellSumLabel</span>
+										<input id="selltotal" class="form-control input-sm  text-right trade-input-group-addon-disabled" type="text" value="0.00000000" disabled="disabled">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div class="input-group trade-input-group">
+										<span class="input-group-addon trade-input-group-addon cursor-default">@Resources.Exchange.sellFeeLabel</span>
+										<input id="sellfee" class="form-control input-sm text-right trade-input-group-addon-disabled" type="text" value="0.00000000" disabled="disabled">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<hr style="margin:5px 0px" />
+									<div class="input-group trade-input-group">
+										<span id="sell-total-amount" class="input-group-addon trade-input-group-addon cursor-pointer">@Resources.Exchange.sellTotalLabel</span>
+										<input id="sellnettotal" class="form-control input-sm text-right" type="text" value="0.00000000">
+										<div class="input-group-addon trade-input-group-addon cursor-default">
+											<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>
+										</div>
+									</div>
+									<div style="padding-top:15px">
+										@if (User.Identity.IsAuthenticated)
+										{
+											<button class="btn btn-info btnfullwidth submit-button" id="sellsubmit" disabled="disabled">
+												<i class="fa fa-spinner fa-pulse buysell-button-loading" style="display:none"></i>
+												@Resources.Exchange.sellButton <span class="tradepair-symbol">@Model.TradePair.Symbol</span>
+											</button>
+											<span class="btn btn-warning btnfullwidth submit-button-alert" style="display:none;pointer-events:none" disabled="disabled"></span>
+											<div class="text-center" style="position: relative; bottom: 0px">
+												<i style="font-size: 10px">@Resources.Exchange.sellMinimumTradeLabel: <span class="tradepair-basemintrade"></span> <span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span></i>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@* Buy Sell Data*@
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="padding: 5px">
+									<span><i class="fa fa-list-ol panel-icon"></i>@Resources.Exchange.historySellTitle</span>
+									<small style="font-size:11px" class="pull-right"><span id="orderbook-total-sell">0.00000000</span> <span class="tradepair-symbol">@Model.TradePair.Symbol</span></small>
+								</div>
+								<div class="panel-body" style="padding: 0px;height:282px">
+									<div class="buysellorders panel-container-sell">
+										<table id="sellorders" class="table table-striped table-condensed orderbook-table">
+											<thead>
+												<tr>
+													<th width="15px" style="max-width:15px;padding:0"></th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyPriceColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyAmountColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyTotalColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historySumColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td colspan="5" class="text-center">
+														<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="padding: 5px">
+									<span><i class="fa fa-list-ol panel-icon"></i>@Resources.Exchange.historyBuyHeadline</span>
+									<small style="font-size:11px" class="pull-right"><span id="orderbook-total-buy">0.00000000</span> <span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span></small>
+								</div>
+								<div class="panel-body" style="padding: 0px;height:282px;">
+									<div class="buysellorders panel-container-buy">
+										<table id="buyorders" class="table table-striped table-condensed orderbook-table">
+											<thead>
+												<tr>
+													<th width="15px" style="max-width:15px;padding:0"></th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyPriceColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyAmountColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyTotalColumn (<span class="tradepair-basesymbol"></span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historySumColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td colspan="5" class="text-center">
+														<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@* Buy Market Data*@
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="padding: 5px">
+									<span><i class="fa fa-history panel-icon"></i>@Resources.Exchange.historyMarketHeadline</span>
+								</div>
+								<div class="panel-body panel-container-markethistory" style="padding: 0px">
+									<table id="markethistory" class="table table-striped table-condensed">
+										<thead>
+											<tr>
+												<th class="table-header">@Resources.Exchange.historyTimestampColumn</th>
+												<th class="table-header">@Resources.Exchange.historyTypeColumn</th>
+												<th style="text-align:right" class="table-header">@Resources.Exchange.historyPriceColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+												<th style="text-align:right" class="table-header">@Resources.Exchange.historyAmountColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+												<th style="text-align:right" class="table-header">@Resources.Exchange.historyTotalColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="5" class="text-center">
+													<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@if (User.Identity.IsAuthenticated)
+					{
+						@* User Orders*@
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="padding: 5px">
+										<span><i class="fa fa-check-square-o panel-icon"></i>@Resources.Exchange.historyMyOpenOrdersHeadline</span>
+									</div>
+									<div class="panel-body panel-container-useropenorders" style="padding: 0px;">
+										<table id="useropenorders" class="table table-striped table-condensed">
+											<thead>
+												<tr>
+													<th class="table-header">@Resources.Exchange.historyTimestampColumn</th>
+													<th class="table-header">@Resources.Exchange.historyTypeColumn</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyPriceColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyAmountColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyRemainingColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyTotalColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="trade-items-remove">
+														<u>@Resources.Exchange.historyMyOpenOrdersCancelLink</u>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td colspan="7" class="text-center">
+														<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						@* User Histroy*@
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="padding: 5px">
+										<span><i class="fa fa-history panel-icon"></i>@Resources.Exchange.historyMyMarketHeadline</span>
+									</div>
+									<div class="panel-body" style="padding: 0px;">
+										<table id="userorderhistory" class="table table-striped table-condensed">
+											<thead>
+												<tr>
+													<th class="table-header">@Resources.Exchange.historyTimestampColumn</th>
+													<th class="table-header">@Resources.Exchange.historyTypeColumn</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyPriceColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyAmountColumn (<span class="tradepair-symbol">@Model.TradePair.Symbol</span>)</th>
+													<th style="text-align:right" class="table-header">@Resources.Exchange.historyTotalColumn (<span class="tradepair-basesymbol">@Model.TradePair.BaseSymbol</span>)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td colspan="5" class="text-center">
+														<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+
+			@if (Model.Summary != null)
+			{
+				var featured = new List<Cryptopia.Common.Exchange.FeaturedCurrency>(Model.Summary.Featured.OrderBy(x => Guid.NewGuid()));
+				<div id="market-summary">
+					<div id="summary-wrapper" class="col-xs-12" style="margin-top:8px" data-basemarket="@Model.BaseMarket">
+						<div class="row">
+							<div class="col-md-4  col-sm-12 col-xs-12">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="padding: 5px">
+										<span><i class="fa fa-star panel-icon"></i>@Resources.Exchange.featuredHeadline</span>
+									</div>
+									<div class="panel-body" style="padding-top: 0px; padding-bottom: 0px; font-size: 12px;min-height:190px" id="featured-currency">
+										<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+											<div class="carousel-inner" role="listbox">
+												@for (int i = 0; i < featured.Count; i++)
+												{
+													<div class="item @(i == 0 ? "active" : "")">
+														<h4>
+															<img src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-medium.png", featured[i].Symbol)" />
+															@string.Format("{0}({1})", featured[i].Name, featured[i].Symbol)
+														</h4>
+														<div><b>@Resources.Exchange.featuredInfoLabel: </b><a href="~/CoinInfo?coin=@featured[i].Symbol">@featured[i].Name Info</a></div>
+														<div><b>@Resources.Exchange.featuredWebsiteLabel: </b><a href="@featured[i].Website" target="_blank" rel="noopener noreferrer">@featured[i].Website</a></div>
+														<p class="ellipsis2" style="max-height: 70px !important;white-space:pre-line"><i>@featured[i].Summary</i></p>
+													</div>
+												}
+											</div>
+										</div>
+									</div>
+									<div class="text-center" style="font-size:10px;position:absolute;bottom:22px;right:22px;">
+										<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-8  col-sm-12 col-xs-12">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="padding: 5px">
+										<span><i class="fa fa-trophy panel-icon"></i>@Resources.Exchange.topHeadline</span>
+									</div>
+									<div class="panel-body" style="padding: 0px; margin: 0px;min-height:190px" id="top-currency">
+										<table class="table table-striped table-hover table-condensed" style="font-size: 12px">
+											<thead>
+												<tr>
+													<th>@Resources.Exchange.topMarketColumn</th>
+													<th style="text-align:right">@Resources.Exchange.topChangeColumn</th>
+													<th style="text-align:right">@Resources.Exchange.topTotalColumn</th>
+													<th style="text-align:right">@Resources.Exchange.topVolumeColumn</th>
+													<th style="text-align:right">@Resources.Exchange.topHighColumn</th>
+													<th style="text-align:right">@Resources.Exchange.topLowColumn</th>
+												</tr>
+											</thead>
+											<tbody id="top-stats">
+												@foreach (var item in Model.Summary.TopMarkets)
+												{
+													<tr class="currencyData-tradepair-@item.TradePairId">
+														<td>
+															<div style="display:inline-block">
+																<div class="sprite-small @item.Symbol-small-png"></div>
+																<a href="@Url.Action("Index", "Exchange", new { market=string.Format("{0}_{1}", item.Symbol, item.BaseSymbol) })">
+																	@string.Format("{0}/{1}", item.Symbol, item.BaseSymbol)
+																</a>
+															</div>
+														</td>
+														<td class="text-right @(item.Change > 0 ? "text-success" : item.Change < 0 ? "text-danger" : "")">@item.Change.ToString("F2")%</td>
+														<td class="text-right">@item.TotalBase.ToString("F8")</td>
+														<td class="text-right">@item.Volume.ToString("F8")</td>
+														<td class="text-right">@item.High.ToString("F8")</td>
+														<td class="text-right">@item.Low.ToString("F8")</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12">
+								<div class="panel panel-primary" style="min-height: 900px">
+									<div class="panel-heading" style="padding: 5px">
+										<span><i class="fa fa-bars panel-icon"></i>@Resources.Exchange.summaryHeadline</span>
+										<div class="pull-right hidden-xs" style="margin-top:-5px">
+											<small style="display:block;font-size:10px">Total Trades: @Model.Summary.TotalTrades</small>
+											<small style="display:block;font-size:10px">Total Markets: @Model.Summary.TotalMarkets</small>
+										</div>
+									</div>
+									<div class="panel-body" style="margin:0;padding:0">
+										<div class="btn-group btn-group-justified btn-group basecurrency-btn-group">
+											@foreach (var currency in Model.Summary.BaseCurrencies.OrderBy(x => x.Rank))
+											{
+												<a class="btn btn-default currencyData-btn currencyData-btn-@currency.Symbol" data-currency="@currency.Symbol" data-currencyid="@currency.CurrencyId">
+													<div style="margin-top:3px !important">
+														<div style="margin-top:2px" class="sprite-small @string.Format("{0}-small-png", currency.Symbol)"></div>
+														<span>@currency.Symbol</span>
+													</div>
+													<small style="font-size:10px">
+														<span id="summary-total-@currency.Symbol">@currency.TotalVolume.ToString("F8")</span> @currency.Symbol
+													</small>
+												</a>
+											}
+										</div>
+										@foreach (var currency in Model.Summary.BaseCurrencies.OrderBy(x => x.Rank))
+										{
+											<div id="currencyData-content-@currency.Symbol" class="currencyData-content" style="display:none">
+												<table id="currencyData-@currency.Symbol" class="table table-striped table-hover table-condensed " style="overflow:hidden;font-size:12px;table-layout:auto;">
+													<thead>
+														<tr>
+															<th></th>
+															<th></th>
+															<th>@Resources.Exchange.summaryCurrencyColumn</th>
+															<th>@Resources.Exchange.summaryMarketColumn</th>
+															<th style="text-align:right">@Resources.Exchange.summaryChangeColumn</th>
+															<th style="text-align:right">@currency.Symbol Volume</th>
+															<th style="text-align:right">@Resources.Exchange.summaryVolumeColumn</th>
+															<th style="text-align:right">@Resources.Exchange.summaryHighColumn</th>
+															<th style="text-align:right">@Resources.Exchange.summaryLowColumn</th>
+															<th style="text-align:right">@Resources.Exchange.summaryLastColumn</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td colspan="10" class="text-center">
+																<span><i class="fa fa-spinner fa-pulse"></i> @Cryptopia.Resources.General.LoadingMessage</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+			@{Html.RenderPartial("_Footer");}
+		</div>
+	</div>
+</div>
+
+@Html.Partial("_ChatTemplates")
+@Html.Partial("_SEOPartial")
+@section Scripts {
+	<script>
+		var selectedChart = 'chart'
+		var enableChartAnimations = false;
+		var candlestickChart = @Json.Encode(ClaimsUser.ChartSettings.Candlestick);
+		var stockPriceChart = @Json.Encode(ClaimsUser.ChartSettings.StockPrice);
+		var volumeChart = @Json.Encode(ClaimsUser.ChartSettings.Volume);
+		var macdChart = @Json.Encode(ClaimsUser.ChartSettings.MACD);
+		var signalChart = @Json.Encode(ClaimsUser.ChartSettings.Signal);
+		var histogramChart = @Json.Encode(ClaimsUser.ChartSettings.Histogram);
+		var smaChart = @Json.Encode(ClaimsUser.ChartSettings.SMA);
+		var smaChartValue = @Json.Encode(ClaimsUser.ChartSettings.SMAValue);
+		var ema1Chart = @Json.Encode(ClaimsUser.ChartSettings.EMA1);
+		var ema1ChartValue = @Json.Encode(ClaimsUser.ChartSettings.EMA1Value);
+		var ema2Chart = @Json.Encode(ClaimsUser.ChartSettings.EMA2);
+		var ema2ChartValue = @Json.Encode(ClaimsUser.ChartSettings.EMA2Value);
+		var fibonacciChart = @Json.Encode(ClaimsUser.ChartSettings.Fibonacci);
+		var orderBookChartPercent = @Json.Encode(ClaimsUser.ChartSettings.OrderBookPercent);
+		var distributionChartCount = @Json.Encode(ClaimsUser.ChartSettings.DistributionCount);
+
+		var actionSubmitTrade = '@Url.Action("SubmitTrade", "Exchange")';
+		var actionTradeChart = '@Url.Action("GetTradePairChart", "Exchange")';
+		var actionTradePairData = '@Url.Action("GetTradePairData", "Exchange")';
+		var actionUserOpenTrades = '@Url.Action("GetUserOpenTrades", "Exchange")';
+		var actionCurrencySummary = '@Url.Action("GetCurrencySummary", "Exchange")';
+		var actionTradePairUserData = '@Url.Action("GetTradePairUserData", "Exchange")';
+		var actionDistributionChart = '@Url.Action("GetCurrencyDistribution", "Exchange")';
+		var actionHideZeroBalances = '@Url.Action("UpdateBalanceHideZero", "UserSettings")';
+		var actionUpdateChartSettings = '@Url.Action("UpdateChartSettings", "UserSettings")';
+		var actionShowFavoriteBalances = '@Url.Action("UpdateBalanceFavoritesOnly", "UserSettings")';
+		var actionTradeBalances = '@Url.Action("GetTradeBalance", "UserBalance")';
+		var actionSetFavoriteBalance = '@Url.Action("SetFavorite", "UserBalance")';
+		var actionTradePairBalance = '@Url.Action("GetTradePairBalance", "UserBalance")';
+
+
+		var selectedMarket = '@string.Format("{0}/{1}", Model.TradePair.Symbol, Model.TradePair.BaseSymbol)';
+		var currentBaseMarket = '@(Model.TradePair.BaseSymbol ?? Model.BaseMarket)';
+		var selectedTradePair = {
+			BaseFee: @Json.Encode(Model.TradePair.BaseFee),
+			BaseMinTrade: @Json.Encode(Model.TradePair.BaseMinTrade),
+			TradePairId:  @Json.Encode(Model.TradePair.TradePairId),
+		};
+
+		var fullChart = @Json.Encode(fullSizeChart);
+		var marketSummaryView = @Json.Encode(Model.Summary != null);
+		var showZeroBalances = @Json.Encode(!ClaimsUser.HideZeroBalance);
+		var showFavoriteBalances = @Json.Encode(ClaimsUser.ShowFavoriteBalance);
+		var isAuthenticated = @Json.Encode(User.Identity.IsAuthenticated);
+
+		$(function () {
+			$('#carousel-example-generic').carousel();
+		})
+
+		var Resources = Resources || {};
+		Resources.Exchange = {
+			MarketPageTitle: '@Resources.Exchange.marketPageTitle',
+			MarketsLoadingMessage: '@Resources.Exchange.marketsLoadingMessage',
+			MarketsEmptyListMessage: '@Resources.Exchange.marketsEmptyListMessage',
+			MarketsSearchPlaceholder: '@Resources.Exchange.marketsSearchPlaceholder',
+			BalanceEmptyListMessage: '@Resources.Exchange.balanceEmptyListMessage',
+			OrdersEmptyListMessage: '@Resources.Exchange.ordersEmptyListMessage',
+			HistorySellOrdersEmptyList: '@Resources.Exchange.historySellOrdersEmptyList',
+			HistoryBuyOrdersEmptyList: '@Resources.Exchange.historyBuyOrdersEmptyList',
+			HistoryMarketEmtpyList: '@Resources.Exchange.historyMarketEmtpyList',
+			HistoryMyOpenOrdersEmtpyList: '@Resources.Exchange.historyMyOpenOrdersEmtpyList',
+			HistoryMyOrdersEmtpyList: '@Resources.Exchange.historyMyOrdersEmtpyList',
+			TradeNotificationTitle: '@Resources.Exchange.tradeNotificationTitle',
+			TradeMinPriceError: '@Resources.Exchange.tradeMinPriceError',
+			TradeMinTotalError: '@Resources.Exchange.tradeMinTotalError',
+			TradeInsufficientFundsError: '@Resources.Exchange.tradeInsufficientFundsError',
+			TradeBuyOrderSubmittedMessage: '@Resources.Exchange.tradeBuyOrderSubmittedMessage',
+			TradeSellOrderSubmittedMessage: '@Resources.Exchange.tradeSellOrderSubmittedMessage',
+			InfoSettingsSavedMessage: '@Resources.Exchange.infoSettingsSavedMessage',
+			InfoSettingsFailedMessage: '@Resources.Exchange.infoSettingsFailedMessage'
+		};
+	</script>	
+	@Scripts.Render("~/Scripts/highstock.min.js")
+	@Scripts.Render("~/Scripts/Project/technical-indicators.src.min.js")
+	@Scripts.Render("~/Scripts/Project/Chat.min.js")
+	@Scripts.Render("~/Scripts/Project/Exchange/exchange.min.js?v=4")
+}
+
+
+<script id="orderTemplate" type="text/html">
+	<tr class="{{highlight}}">
+		<td>
+			<div class="orderbook-indicator" data-price="{{price}}"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+		</td>
+		<td><div class="text-right">{{price}}</div></td>
+		<td><div class="text-right">{{amount}}</div></td>
+		<td><div class="text-right">{{total}}</div></td>
+		<td><div class="text-right">0.00000000</div></td>
+	</tr>
+</script>
+
+
+<script id="tradeHistoryTemplate" type="text/html">
+	<tr class="{{highlight}}" role="row">
+		<td><div style="margin-left:8px;white-space: nowrap;">{{time}}</div></td>
+		<td>{{type}}</td>
+		<td><div class="text-right">{{rate}}</div></td>
+		<td><div class="text-right">{{amount}}</div></td>
+		<td><div class="text-right">{{total}}</div></td>
+	</tr>
+</script>
+
+
+<script id="orderbookTooltipTemplate" type="text/html">
+	<span style="font-size:15px;">
+		{{Symbol}}/{{BaseSymbol}} @Resources.Exchange.infoDepthTooltipHeadline
+	</span>
+	<br />
+	<span>
+		@Resources.Exchange.infoDepthTooltipPriceLabel: <b>{{Price}}</b> {{BaseSymbol}}
+	</span>
+	<br />
+	<span>
+		@Resources.Exchange.infoDepthTooltipDepthLabel: <b>{{Depth}}</b> {{BaseSymbol}}
+	</span>
+	<br />
+	<span>
+		@Resources.Exchange.infoDepthTooltipVolumeLabel: <b>{{Volume}}</b> {{Symbol}}
+	</span>
+	<br />
+</script>

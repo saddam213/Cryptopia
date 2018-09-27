@@ -1,0 +1,79 @@
+﻿.modalform { }
+
+.modalform input, .modalform select, .modalform textarea {
+    float: right;
+    line-height: 100%;
+    margin: 0px;
+    padding: 1px;
+    width: 450px;
+}
+
+.modalform input.button {
+    width: 300px;
+}
+
+.modalform textarea {
+    clear: both;
+    height: 100px;
+}
+
+.modalform .field {
+    border-bottom: dotted 1px #333;
+    clear: both;
+    font-weight: bold;
+    margin: 3px 0;
+    padding: 2px;
+    width: 500px;
+}
+
+.modalform .field span { font-weight: normal; }
+
+.modalform .buttons input {
+    border-radius: 6px;
+    float: right;
+    margin: 10px 0 0 10px;
+    padding: 5px;
+    text-align: center;
+    width: 250px;
+}
+
+
+.modalform ul.messages {
+    height: 150px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.modalform .messages li {
+    border: dotted 1px #777;
+    display: block;
+    font-weight: normal;
+    margin: 0 5px 10px 5px;
+    padding: 5px;
+    width: 90%;
+    clear: both;
+    border-radius: 5px;
+}
+
+.modalform .messages li strong {
+    font-size: 110%;
+}
+
+.modalform .messages li.admin {
+    float: right;
+    border: solid 2px #008000 !important;
+}
+
+.modalform .messages p {
+    font-size: 80%;
+    margin: 0;
+    padding: 0;
+    line-height: 110%;
+}
+
+.modalform .messages span {
+    font-size: 90%;
+    font-style: italic;
+}
+
+#DepositAddress { font-size: 80%; }

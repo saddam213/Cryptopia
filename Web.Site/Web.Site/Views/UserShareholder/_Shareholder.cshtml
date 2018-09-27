@@ -1,0 +1,164 @@
+﻿@model Cryptopia.Common.Shareholder.ShareholderModel
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.UserData.shareholderHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row" >
+	<div class="col-md-7">
+
+		<h4>@Resources.UserData.shareholderInfoHeadline</h4>
+		<table class="table table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>@Resources.UserData.shareholderPayoutPeriodColumn</th>
+					<th>@Resources.UserData.shareholderSharesColumn</th>
+					<th>@Resources.UserData.shareholderSharePercentColumn</th>
+					<th>@Resources.UserData.shareholderTotalSharesColumn</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>@Model.LastPayout.ToShortDateString() - @Model.NextPayout.ToShortDateString()</td>
+					<td>@Model.ShareCount</td>
+					<td>@(((double)Model.ShareCount / (double)Model.TotalShares * 100.0).ToString("0.0##"))%</td>
+					<td>@Model.TotalShares</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+
+		<h4>@Resources.UserData.shareholderTradeDividendsHeadline</h4>
+		<table class="table table-striped table-condensed" style="margin-bottom:0">
+			<thead>
+				<tr>
+					<th titel="the currency of the fees collected">@Resources.UserData.shareholderCurrencyColumn</th>
+					<th title="Total trade fees collected in for this period">@Resources.UserData.shareholderFeeIncomeColumn</th>
+					<th title="Site expenses for this period (Servers, Licensing, Staff)">@Resources.UserData.shareholderExpensesColumn</th>
+					<th title="Amount of dividends per share for this period">@Resources.UserData.shareholderPerShareColumn</th>
+					<th title="Your total of dividends per for this period  ">@Resources.UserData.shareholderYourDividendsColumn</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.FeeInfo)
+				{
+					<tr>
+						<td>
+							<img src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-small.png", item.Symbol)" />
+							@item.Name
+						</td>
+						<td>@item.TotalFees.ToString("F8")</td>
+						<td>@(item.Expenses.ToString("F8"))</td>
+						<td>@(item.SharePrice.ToString("F8"))</td>
+						<td>@((item.SharePrice * Model.ShareCount).ToString("F8")) @item.Symbol</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="text-center">
+			<small style="font-size:10px;vertical-align:top"><i><b>@Resources.UserData.shareholderDividendCalculationLabel:</b> @Resources.UserData.shareholderDividendCalculationText</i></small>
+		</div>
+		<hr />
+
+		<h4>@Resources.UserData.shareholderPaytopiaDividendsHeadline</h4>
+		<table class="table table-striped table-condensed" style="margin-bottom:0">
+			<thead>
+				<tr>
+					<th titel="the currency of the fees collected">@Resources.UserData.shareholderCurrencyColumn</th>
+					<th title="Total Paytopia income collected in for this period">@Resources.UserData.shareholderFeeIncomeColumn</th>
+					<th title="Site Expenses (Referrals etc.)">@Resources.UserData.shareholderExpensesColumn</th>
+					<th title="Amount of dividends per share for this period">@Resources.UserData.shareholderPerShareColumn</th>
+					<th title="Your total of dividends per for this period  ">@Resources.UserData.shareholderYourDividendsColumn</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.PaytopiaInfo)
+				{
+					<tr>
+						<td>
+							<img src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-small.png", item.Symbol)" />
+							@item.Name
+						</td>
+						<td>@item.TotalFees.ToString("F8")</td>
+						<td>@item.Expenses.ToString("F8")</td>
+						<td>@(item.SharePrice.ToString("F8"))</td>
+						<td>@((item.SharePrice * Model.ShareCount).ToString("F8")) @item.Symbol</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="text-center">
+			<small style="font-size:10px;vertical-align:top"><i><b>@Resources.UserData.shareholderDividendCalculationLabel:</b> @Resources.UserData.shareholderPaytopiaDividendCalculationText</i></small>
+		</div>
+		<hr />
+
+
+		<h4>@Resources.UserData.shareholderPaytopiaHistoryHeadline</h4>
+		<table id="paytopiaHistory" class="table table-striped table-condensed" data-action="@Url.Action("GetPaytopiaHistory")"  data-action-info="@Url.Action("GetPayment")">
+			<thead>
+				<tr>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryIdColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryCurrencyIdColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistorySymbolColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryCurrencyColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryAmountColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryItemTypeColumn</th>
+					<th>@Resources.UserData.shareholderPaytopiaHistoryTimestampColumn</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+		<hr />
+
+	</div>
+
+	<div class="col-md-5">
+		<h4>@Resources.UserData.shareholderSiteExpensesHeadline</h4>
+		<table id="expenses" class="table table-striped table-condensed" style="margin-bottom:0">
+			<thead>
+				<tr>
+					<th>@Resources.UserData.shareholderSiteExpensesDescriptionColumn</th>
+					<th>@Resources.UserData.shareholderSiteExpensesPriceUsdColumn</th>
+					<th>@Resources.UserData.shareholderSiteExpensesPriceBtcColumn</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var expense in Model.SiteExpenses)
+				{
+					<tr>
+						<td>@expense.Name</td>
+						<td>$@expense.Price.ToString("F2")</td>
+						<td>@expense.BTCPrice.ToString("F8") BTC</td>
+					</tr>
+				}
+				<tr>
+					<td><b>@Resources.UserData.shareholderSiteExpensesTotalLabel</b></td>
+					<td><b>$@Model.TotalExpense.ToString("F2")</b></td>
+					<td><b>@Model.TotalBTCExpense.ToString("F8") BTC</b></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<small style="font-size:10px;vertical-align:top"><i><b>$USD = </b> <span id="btc-dollar">@Model.BTCDollar.ToString("F8")</span> BTC</i></small>
+		</div>
+		<hr />
+
+		<h4>@Resources.UserData.shareholderPayoutHistoryHeadline</h4>
+		<table id="payoutHistory" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetPayoutHistory", "UserShareholder")">
+			<thead>
+				<tr>
+					<th>@Resources.UserData.shareholderPayoutHistoryIdColumn</th>
+					<th>@Resources.UserData.shareholderPayoutHistoryCurrencyColumn</th>
+					<th>@Resources.UserData.shareholderPayoutHistoryAmountColumn</th>
+					<th>@Resources.UserData.shareholderPayoutHistoryTimestampColumn</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Project/User/userShareholder.min.js")

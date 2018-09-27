@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="TransactionRawData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="blockhash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="blocktime" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" name="confirmations" type="xs:int" />
+      <xs:element minOccurs="0" name="hex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="locktime" type="xs:int" />
+      <xs:element minOccurs="0" name="time" type="xs:unsignedInt" />
+      <xs:element minOccurs="0" name="txid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="version" type="xs:int" />
+      <xs:element minOccurs="0" name="vin" nillable="true" type="tns:ArrayOfVin" />
+      <xs:element minOccurs="0" name="vout" nillable="true" type="tns:ArrayOfVout" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransactionRawData" nillable="true" type="tns:TransactionRawData" />
+  <xs:complexType name="ArrayOfVin">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Vin" nillable="true" type="tns:Vin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVin" nillable="true" type="tns:ArrayOfVin" />
+  <xs:complexType name="Vin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="coinbase" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="scriptSig" nillable="true" type="tns:ScriptSig" />
+      <xs:element minOccurs="0" name="sequence" type="xs:long" />
+      <xs:element minOccurs="0" name="txid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vout" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Vin" nillable="true" type="tns:Vin" />
+  <xs:complexType name="ScriptSig">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="asm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hex" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ScriptSig" nillable="true" type="tns:ScriptSig" />
+  <xs:complexType name="ArrayOfVout">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Vout" nillable="true" type="tns:Vout" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVout" nillable="true" type="tns:ArrayOfVout" />
+  <xs:complexType name="Vout">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="n" type="xs:int" />
+      <xs:element minOccurs="0" name="scriptPubKey" nillable="true" type="tns:ScriptPubKey" />
+      <xs:element minOccurs="0" name="value" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Vout" nillable="true" type="tns:Vout" />
+  <xs:complexType name="ScriptPubKey">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="addresses" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="asm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="reqSigs" type="xs:int" />
+      <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ScriptPubKey" nillable="true" type="tns:ScriptPubKey" />
+  <xs:complexType name="GetInfoData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Hashrate" type="xs:double" />
+      <xs:element minOccurs="0" name="balance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="blocks" type="xs:int" />
+      <xs:element minOccurs="0" name="connections" type="xs:int" />
+      <xs:element minOccurs="0" name="difficulty" type="xs:double" />
+      <xs:element minOccurs="0" name="errors" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="version" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetInfoData" nillable="true" type="tns:GetInfoData" />
+  <xs:complexType name="ArrayOfPeerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PeerInfo" nillable="true" type="tns:PeerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPeerInfo" nillable="true" type="tns:ArrayOfPeerInfo" />
+  <xs:complexType name="PeerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="addr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="startingheight" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PeerInfo" nillable="true" type="tns:PeerInfo" />
+  <xs:complexType name="BlockData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bits" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="confirmations" type="xs:int" />
+      <xs:element minOccurs="0" name="difficulty" type="xs:double" />
+      <xs:element minOccurs="0" name="hash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="height" type="xs:int" />
+      <xs:element minOccurs="0" name="merkleroot" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nextblockhash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nonce" type="xs:long" />
+      <xs:element minOccurs="0" name="previousblockhash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="size" type="xs:int" />
+      <xs:element minOccurs="0" name="time" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="tx" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="version" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BlockData" nillable="true" type="tns:BlockData" />
+</xs:schema>

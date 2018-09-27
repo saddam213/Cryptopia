@@ -1,0 +1,121 @@
+﻿@model Cryptopia.Common.PoolWorker.AdminPoolWorkerUpdateModel
+@using Cryptopia.Enums;
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Worker</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("UpdateWorker", "AdminPoolWorker", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Id)
+				@Html.HiddenFor(m => m.DefaultDiff)
+				<div class="form-margin">
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Name, new { @class = "form-control input-sm", @readonly = "readonly" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.AlgoType, "Algorithm", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.AlgoType, new { @class = "form-control input-sm", @readonly = "readonly" })
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Password, new { @class = "form-control input-sm" })
+							</div>
+							<div class="col-md-6" style="padding-top:23px">
+								@Html.CheckBoxFor(m => m.IsAutoSwitch)
+								@Html.LabelFor(m => m.IsAutoSwitch, "Auto Profit Switch", new { @class = "control-label" })
+							</div>
+							<div class="col-md-12">
+								@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" id="difficulty-container">
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.DifficultyOption, "Miner Difficulty", new { @class = "control-label" })
+								@Html.DropDownListFor(m => m.DifficultyOption, new SelectList(Model.DifficultyOptions), "-Please Select-", new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.DifficultyOption, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.TargetDifficulty, "Difficulty", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.TargetDifficulty, new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.TargetDifficulty, "", new { @class = "text-danger", style = "font-size:12px", @min = Model.DefaultDiff })
+								<div style="font-size:11px">
+									<p id="difficultySummary">Please select a difficulty for you miner</p>
+									<p id="fixedDiffSummary">@Html.Raw(Model.FixedDiffSummary)</p>
+									<p id="varDiffLowSummary">@Html.Raw(Model.VarDiffLowSummary)</p>
+									<p id="varDiffMediumSummary">@Html.Raw(Model.VarDiffMediumSummary)</p>
+									<p id="varDiffHighSummary">@Html.Raw(Model.VarDiffHighSummary)</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								@Html.LabelFor(m => m.TargetPool, new { @class = "control-label" })
+								@Html.DropDownListFor(m => m.TargetPool, new SelectList(Model.Pools, "Symbol", "Symbol"), "-Please Select-", new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.TargetPool, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({Cancel: true});">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+
+	$("#DifficultyOption").on("change", function () {
+		var selection = $(this).val();
+		if (!selection) {
+			$("#difficultySummary").show();
+			$("#TargetDifficulty, #varDiffLowSummary, #varDiffHighSummary, #varDiffLowSummary,#varDiffMediumSummary, #fixedDiffSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_FIXEDDIFF') {
+			$("#TargetDifficulty").val('@Model.TargetDifficulty' > '@Model.DefaultDiff' ? '@Model.TargetDifficulty' : '@Model.DefaultDiff');
+			$("#TargetDifficulty, #fixedDiffSummary").show();
+			$("#difficultySummary, #varDiffHighSummary,#varDiffMediumSummary, #varDiffLowSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFLOW') {
+			$("#varDiffLowSummary").show();
+			$("#difficultySummary, #varDiffHighSummary, #fixedDiffSummary,#varDiffMediumSummary, #TargetDifficulty").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFHIGH') {
+			$("#varDiffHighSummary").show();
+			$("#difficultySummary, #varDiffLowSummary, #fixedDiffSummary,#varDiffMediumSummary, #TargetDifficulty").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFMEDIUM') {
+			$("#varDiffMediumSummary").show();
+			$("#difficultySummary, #varDiffLowSummary,#varDiffHighSummary, #fixedDiffSummary, #TargetDifficulty").hide();
+		}
+	}).trigger('change');
+</script>

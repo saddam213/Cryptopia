@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{57A8B09C-71BF-437E-968D-387744BE2B90}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.Infrastructure.Incapsula.Common</RootNamespace>
+    <AssemblyName>Cryptopia.Infrastructure.Incapsula.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppConfiguration\ApplicationConfiguration.cs" />
+    <Compile Include="AppConfiguration\IApplicationConfiguration.cs" />
+    <Compile Include="Classes\AclRule.cs" />
+    <Compile Include="Classes\Acls.cs" />
+    <Compile Include="Classes\AdRulesData.cs" />
+    <Compile Include="Classes\AdvancedCachingRules.cs" />
+    <Compile Include="Classes\AllRules.cs" />
+    <Compile Include="Classes\DataCenters.cs" />
+    <Compile Include="Classes\DebugInfo.cs" />
+    <Compile Include="Classes\Dn.cs" />
+    <Compile Include="Classes\DomainApproverInformation.cs" />
+    <Compile Include="Classes\Forward.cs" />
+    <Compile Include="Classes\GeneratedCertificate.cs" />
+    <Compile Include="Classes\IncapRulesData.cs" />
+    <Compile Include="Classes\IPBlacklist.cs" />
+    <Compile Include="Classes\LoginProtect.cs" />
+    <Compile Include="Classes\OriginalDn.cs" />
+    <Compile Include="Classes\OriginServer.cs" />
+    <Compile Include="Classes\PerformanceConfiguration.cs" />
+    <Compile Include="Classes\Redirect.cs" />
+    <Compile Include="Classes\ResponseData.cs" />
+    <Compile Include="Classes\Rule.cs" />
+    <Compile Include="Classes\SealLocation.cs" />
+    <Compile Include="Classes\Security.cs" />
+    <Compile Include="Classes\Server.cs" />
+    <Compile Include="Classes\Site.cs" />
+    <Compile Include="Classes\SiteDualFactorSettings.cs" />
+    <Compile Include="Classes\SiteListInformation.cs" />
+    <Compile Include="Classes\SiteReport.cs" />
+    <Compile Include="Classes\SiteRules.cs" />
+    <Compile Include="Classes\SiteStatistics.cs" />
+    <Compile Include="Classes\SiteStatus.cs" />
+    <Compile Include="Classes\SiteVisits.cs" />
+    <Compile Include="Classes\Ssl.cs" />
+    <Compile Include="Classes\Stats\BandwidthData.cs" />
+    <Compile Include="Classes\Stats\BandwidthTimeSerie.cs" />
+    <Compile Include="Classes\Stats\Caching.cs" />
+    <Compile Include="Classes\Stats\CachingData.cs" />
+    <Compile Include="Classes\Stats\CachingTimeSerie.cs" />
+    <Compile Include="Classes\Stats\GeoDistributionData.cs" />
+    <Compile Include="Classes\Stats\GeoDistributionSummary.cs" />
+    <Compile Include="Classes\Stats\HitsData.cs" />
+    <Compile Include="Classes\Stats\HitsTimeSerie.cs" />
+    <Compile Include="Classes\Stats\IDataPoint.cs" />
+    <Compile Include="Classes\Stats\Threat.cs" />
+    <Compile Include="Classes\Stats\VisitData.cs" />
+    <Compile Include="Classes\Stats\VisitDistributionData.cs" />
+    <Compile Include="Classes\Stats\VisitsDistributionSummary.cs" />
+    <Compile Include="Classes\Stats\VisitsTimeserie.cs" />
+    <Compile Include="Classes\Visits\Action.cs" />
+    <Compile Include="Classes\Visits\SecuritySummary.cs" />
+    <Compile Include="Classes\Visits\Threat.cs" />
+    <Compile Include="Classes\Visits\Visit.cs" />
+    <Compile Include="Classes\Waf.cs" />
+    <Compile Include="Constants\EnvironmentConstants.cs" />
+    <Compile Include="Constants\StringConstants.cs" />
+    <Compile Include="Enums\AclRule.cs" />
+    <Compile Include="Enums\ResponseCode.cs" />
+    <Compile Include="Enums\SecurityRule.cs" />
+    <Compile Include="Enums\SiteAccessRule.cs" />
+    <Compile Include="Enums\StatisticGranularity.cs" />
+    <Compile Include="Enums\StatisticsValue.cs" />
+    <Compile Include="Enums\TargetSite.cs" />
+    <Compile Include="Enums\TimeRange.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\EnumerationExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\AccountRulesRequest.cs" />
+    <Compile Include="Requests\BlacklistIPRequest.cs" />
+    <Compile Include="Requests\DataCenterListRequest.cs" />
+    <Compile Include="Requests\DomainAproverEmailAddressesRequest.cs" />
+    <Compile Include="Requests\PurgeSiteCacheRequest.cs" />
+    <Compile Include="Requests\RequestBase.cs" />
+    <Compile Include="Requests\SiteListRequest.cs" />
+    <Compile Include="Requests\SiteReportRequest.cs" />
+    <Compile Include="Requests\SiteRulesRequest.cs" />
+    <Compile Include="Requests\SiteStatisticsRequest.cs" />
+    <Compile Include="Requests\SiteStatusRequest.cs" />
+    <Compile Include="Requests\SiteVisitsRequest.cs" />
+    <Compile Include="Responses\DataCenterListResponse.cs" />
+    <Compile Include="Responses\DomainApproverInformationResponse.cs" />
+    <Compile Include="Responses\ResponseBase.cs" />
+    <Compile Include="Responses\SiteListInformationResponse.cs" />
+    <Compile Include="Responses\SiteReportResponse.cs" />
+    <Compile Include="Responses\SiteStatisticsResponse.cs" />
+    <Compile Include="Responses\SiteStatusResponse.cs" />
+    <Compile Include="Responses\SiteVisitsResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

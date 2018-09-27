@@ -1,0 +1,150 @@
+﻿@model Cryptopia.Common.Paytopia.PoolListingModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Paytopia.poolListingHeadline</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("PoolListing", "Paytopia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Price)
+				@Html.HiddenFor(m => m.Balance)
+				@Html.HiddenFor(m => m.Currency)
+				@Html.HiddenFor(m => m.Description)
+				<div class="form-margin">
+
+					<div class="row">
+
+						<div class="col-md-6" style="padding-top:23px">
+							@Html.CheckBoxFor(m => m.IsListed)
+							@Html.LabelFor(m => m.IsListed, new { @class = "control-label" })
+						</div>
+						<div class="col-md-12 existinglisting" style="display:none">
+							@Html.LabelFor(m => m.ItemId, new { @class = "control-label" })
+							@Html.DropDownListFor(m => m.ItemId, new SelectList(Model.Items, "Id", "Name"), new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 newlisting">
+							@Html.LabelFor(m => m.ListingName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingName, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingName, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-4 newlisting">
+							@Html.LabelFor(m => m.ListingSymbol, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingSymbol, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingSymbol, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 newlisting">
+							@Html.LabelFor(m => m.ListingAlgoType, new { @class = "control-label" })
+							@Html.DropDownListFor(m => m.ListingAlgoType, new SelectList(Model.SupportedAlgos), new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingAlgoType, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 newlisting">
+							@Html.LabelFor(m => m.ListingWebsite, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingWebsite, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingWebsite, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-6 newlisting">
+							@Html.LabelFor(m => m.ListingSource, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingSource, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingSource, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 newlisting">
+							@Html.LabelFor(m => m.ListingBlockExplorer, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingBlockExplorer, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingBlockExplorer, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-6 newlisting">
+							@Html.LabelFor(m => m.ListingLaunchForum, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ListingLaunchForum, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ListingLaunchForum, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 newlisting">
+							@Html.LabelFor(m => m.ListingExtraInfo, new { @class = "control-label" })
+							@Html.TextAreaFor(m => m.ListingExtraInfo, new { @class = "form-control", rows = 4 })
+							@Html.ValidationMessageFor(model => model.ListingExtraInfo, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12" style="margin-top:12px">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaPriceLabel:</small></b> @Model.Price.ToString("F8") @Model.Currency
+									</span>
+								</div>
+								<div class="col-md-12">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaAvailableLabel:</small></b>
+										<span class="@(Model.Price > Model.Balance ? "text-danger":"text-info")">@Model.Balance.ToString("F8")</span> @Model.Currency
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12 text-center newlisting" style="margin-top:15px">
+							<span style="font-size:12px">@Resources.Paytopia.poolListingBuyNowInfoText</span>
+						</div>
+						<div class="col-md-12 text-center existinglisting" style="display:none;margin-top:15px">
+							<span style="font-size:12px">@Resources.Paytopia.poolListingExtendInfoText</span>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button @(Model.Price > Model.Balance ? "disabled='disabled'":"") id="submit" class="btn btn-primary button-180" type="submit">@Resources.Paytopia.paytopiaBuyNowButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+
+	$("#IsListed").click(function () {
+		var chkbox = $(this);
+		var checked = chkbox.is(":checked");
+		if (!checked) {
+			$(".newlisting").show();
+			$(".existinglisting").hide();
+		} else {
+			$(".existinglisting").show();
+			$(".newlisting").hide();
+		}
+
+	});
+</script>

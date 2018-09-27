@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8678271-885A-4839-897F-5882703704BD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.IntegrationService</RootNamespace>
+    <AssemblyName>Cryptopia.IntegrationService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exchanges\BittrexExchange.cs" />
+    <Compile Include="Exchanges\BleutradeExchange.cs" />
+    <Compile Include="Exchanges\CcexExchange.cs" />
+    <Compile Include="Exchanges\CoinExchange.cs" />
+    <Compile Include="Exchanges\CryptopiaExchange.cs" />
+    <Compile Include="Exchanges\LiveCoinExchange.cs" />
+    <Compile Include="Exchanges\NovaExchange.cs" />
+    <Compile Include="Exchanges\PoloniexExchange.cs" />
+    <Compile Include="Implementation\CEFSProcessor.cs" />
+    <Compile Include="Implementation\ExchangeProcessor.cs" />
+    <Compile Include="Implementation\IExchange.cs" />
+    <Compile Include="Implementation\IExchangeMarket.cs" />
+    <Compile Include="Implementation\IncapsulaProcessor.cs" />
+    <Compile Include="Implementation\IProcessor.cs" />
+    <Compile Include="Implementation\ProcessorBase.cs" />
+    <Compile Include="Implementation\ReferralProcessor.cs" />
+    <Compile Include="Implementation\PaytopiaProcessor.cs" />
+    <Compile Include="IntegrationService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IntegrationService.Designer.cs">
+      <DependentUpon>IntegrationService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Implementation\NzdtProcessor.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TradeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Service References\TradeService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Enums1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.CancelExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.CancelTradeItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.CompleteExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.CreateExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitLottoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitPoolPaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitTipResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitTradeItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitTransferResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.IntegrationService.TradeService.SubmitWithdrawResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\service1.wsdl" />
+    <None Include="Service References\TradeService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\TradeService.DataObjects1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\TradeService.Notifications1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Base\Cryptopia.Base.csproj">
+      <Project>{434e7159-fec5-4cf3-8bad-bffb2f1c6dae}</Project>
+      <Name>Cryptopia.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Common\Cryptopia.Common.csproj">
+      <Project>{e52b1491-8a60-48b6-b551-834e159867ab}</Project>
+      <Name>Cryptopia.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Data\Cryptopia.Data.csproj">
+      <Project>{3d4008ac-2457-4190-b36d-2343f9abc6b3}</Project>
+      <Name>Cryptopia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Entity\Cryptopia.Entity.csproj">
+      <Project>{6c3292dd-2ae8-4025-925c-bdd2c10dc741}</Project>
+      <Name>Cryptopia.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6e49b123-5cc9-4b9d-bbd6-feeb8fa4ce39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Client\Cryptopia.Infrastructure.Incapsula.Client.csproj">
+      <Project>{c3067e36-e67c-48b8-9cde-91d78f745e91}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Common\Cryptopia.Infrastructure.Incapsula.Common.csproj">
+      <Project>{57a8b09c-71bf-437e-968d-387744be2b90}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WalletAPI\WalletAPI.csproj">
+      <Project>{D5F13BBB-2FA7-48A8-AE79-5EFE8BAA6E02}</Project>
+      <Name>WalletAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TradeService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

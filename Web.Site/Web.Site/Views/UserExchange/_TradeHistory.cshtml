@@ -1,0 +1,30 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.tradesHistoryHeadline</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="tradehistory" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetTradeHistory", "UserExchange")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>@Resources.UserData.tradesMarketColumn</th>
+			<th>@Resources.UserData.tradesTypeColumn</th>
+			<th>@Resources.UserData.tradesRateColumn</th>
+			<th>@Resources.UserData.tradesAmountColumn</th>
+			<th>@Resources.UserData.tradesTotalColumn</th>
+			<th>@Resources.UserData.tradesFeeColumn</th>
+			<th>@Resources.UserData.tradesTimestampColumn</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.TradeHistory = {
+		EmptyListMessage: '@Resources.UserData.tradesHistoryEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Bundle/dataExport_bundle.min.js")
+@Scripts.Render("~/Scripts/Project/User/userTradeHistory.min.js")

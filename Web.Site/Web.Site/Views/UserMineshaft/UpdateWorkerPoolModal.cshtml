@@ -1,0 +1,55 @@
+﻿@model Cryptopia.Common.PoolWorker.PoolWorkerUpdatePoolModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Change Pool</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("UpdateWorkerPool", "UserMineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Id)
+				@Html.HiddenFor(m => m.AlgoType)
+				<div class="form-margin">
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.Name, "Worker Name",new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Name, new { @class = "form-control  input-sm", @readonly="readonly" })
+					</div>
+
+					<div class="form-group">
+							<div class="row">
+								<div class="col-md-12">
+									@Html.LabelFor(m => m.TargetPool, "Select Pool", new { @class = "control-label" })
+									@Html.DropDownListFor(m => m.TargetPool, new SelectList(Model.Pools, "Symbol", "Symbol"), "-Please Select-", new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.TargetPool, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+							</div>
+						</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Change Pool</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

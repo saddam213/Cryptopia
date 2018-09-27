@@ -1,0 +1,152 @@
+﻿@model Cryptopia.Common.Mineshaft.MineshaftSummary
+@{
+	var topPoolData = Model.TopPools.OrderByDescending(x => x.Miners).FirstOrDefault();
+	var featured = new List<Cryptopia.Common.Mineshaft.FeaturedPool>(Model.Featured.OrderBy(x => Guid.NewGuid()));
+}
+
+<div id="summary-wrapper" class="col-xs-12" style="margin-top:8px" data-algotype="@Model.AlgoType">
+	<div class="row">
+
+		<div class="col-md-4  col-sm-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa fa-star panel-icon"></i>Featured Pools</span>
+				</div>
+				<div class="panel-body" style="padding-top: 0px; padding-bottom: 0px; font-size: 12px" id="featured-pool">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner" role="listbox">
+							@for (int i = 0; i < featured.Count; i++)
+							{
+								<div class="item @(i == 0 ? "active" : "")">
+									<h4>
+										<img src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-medium.png", featured[i].Pool.Symbol)" />
+										@featured[i].Pool.Name
+									</h4>
+									<div><b>Algorithm: </b>@featured[i].Pool.AlgoType</div>
+									<p class="ellipsis2" style="max-height: 100px !important"><i>@featured[i].Pool.Summary</i></p>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+				<div class="text-center" style="font-size:10px;position:absolute;bottom:22px;right:22px;">
+					<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-8  col-sm-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa fa-trophy panel-icon"></i>Top Pools</span>
+				</div>
+				<div class="panel-body" style="padding: 0px; margin: 0px;" id="top-pool">
+					<table class="table table-striped table-hover table-condensed" style="font-size: 12px">
+						<thead>
+							<tr>
+								<th>Pool</th>
+								<th>Algorithm</th>
+								<th>Hashrate</th>
+								<th>Miners</th>
+								<th>Blocks  Found</th>
+								<th>Luck</th>
+							</tr>
+						</thead>
+						<tbody id="top-stats">
+							@if (!Model.TopPools.Any())
+							{
+								<tr>
+									<td colspan="6"><i>No top pools found.</i></td>
+								</tr>
+							}
+							else
+							{
+								foreach (var item in Model.TopPools)
+								{
+									<tr class="algoData-pool-@item.PoolId">
+										<td>
+											<div style="display:inline-block">
+												<div class="sprite-small small/@item.Symbol-small.png"></div>
+												<a href="@Url.Action("Index", "Mineshaft", new { pool= item.Symbol, algo=item.AlgoType })">@string.Format("{0} ({1})", item.Name, item.Symbol)</a>
+											</div>
+										</td>
+										<td>@item.AlgoType</td>
+										<td class="hashrate-pool-@item.PoolId">@Cryptopia.Base.Extensions.PoolExtensions.GetHashrateLabel(item.Hashrate)</td>
+										<td class="minercount-pool-@item.PoolId">@item.Miners</td>
+										<td>@item.BlocksFound</td>
+										<td class="@(item.Luck > 100 || item.Luck == 0 ? "" : "text-success")">@item.Luck.ToString("F2")%</td>
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="panel panel-primary" style="min-height: 900px">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa fa-bars panel-icon"></i>Pool Summary</span>
+					<div class="pull-right hidden-xs" style="margin-top:-5px">
+						<small style="display:block;font-size:10px">Total Pools: @Model.TotalPools</small>
+						<small style="display:block;font-size:10px">Total Hashrate: @Cryptopia.Base.Extensions.PoolExtensions.GetHashrateLabel(Model.TotalHashrate)</small>
+					</div>
+				</div>
+				<div class="panel-body" style="margin:0;padding:0">
+
+					@foreach (var batch in Model.AlgoTypes.Batch(5))
+					{
+						<div class="btn-group btn-group-justified btn-group basecurrency-btn-group">
+							@foreach (var algoInfo in batch)
+							{
+								<a href="#" id="algoData-btn-@algoInfo.AlgoType" class="btn btn-default algoData-btn" data-algo="@algoInfo.AlgoType" style="padding:2px 12px">
+									<div style="margin-top:3px !important">
+										<div style="margin-top:2px" class="sprite-small small/@algoInfo.TopPoolSymbol-small.png"></div>
+										<span>@algoInfo.Name</span>
+									</div>
+									<small style="font-size:10px">
+										<span id="summary-total-@algoInfo.AlgoType">@Cryptopia.Base.Extensions.PoolExtensions.GetHashrateLabel(algoInfo.TotalHashrate)</span>
+									</small>
+								</a>
+							}
+						</div>
+					}
+
+					@foreach (var algoInfo in Model.AlgoTypes)
+					{
+						<div id="algoData-content-@algoInfo.AlgoType" class="algoData-content" style="display:none">
+							<table id="algoData-@algoInfo.AlgoType" class="table table-striped table-hover table-condensed " style="overflow:hidden;font-size:12px;table-layout:auto;">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Name</th>
+										<th>Symbol</th>
+										<th>Algorithm</th>
+										<th>Miners</th>
+										<th>Difficulty</th>
+										<th>Hashrate</th>
+										<th>Network Hashrate</th>
+										<th>
+											BTC Mh/hr
+											<a style="font-size:11px" href="#" data-container="body" data-toggle="popover" data-placement="left" title="Estimated BTC/Mhs/Hour" data-html="true" data-content="<small>This is the estimated profitability per <b>Mh/s</b> per hour in BTC.<br /> <br />This is calculated to a market depth of 0.1 BTC the calculation includes LTC maket calculations.<br /><br /><div class='text-center'><i class='text-danger'><b>Estimate Only!</b><i/></div></small>">
+												<i style="font-size:14px" class="fa fa-question-circle" aria-hidden="true"></i>
+											</a>
+										</th>
+										<th>Status</th>
+										<th>Sort</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+@Scripts.Render("~/Scripts/Project/Mineshaft/mineshaftSummary.min.js")

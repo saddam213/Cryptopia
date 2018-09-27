@@ -1,0 +1,22 @@
+﻿CREATE INDEX I_UserId ON Deposit (UserId)
+CREATE INDEX I_UserId ON Balance (UserId)
+CREATE INDEX I_UserId ON [Address] (UserId)
+CREATE INDEX I_UserId ON Withdraw (UserId)
+CREATE INDEX I_UserId ON Trade (UserId)
+CREATE INDEX I_UserId ON TradeHistory (UserId)
+CREATE INDEX I_ToUserId ON TradeHistory (ToUserId)
+
+CREATE INDEX I_CurrencyId ON [Address] (CurrencyId)
+CREATE INDEX I_CurrencyId ON Balance (CurrencyId)
+CREATE INDEX I_CurrencyId ON Deposit (CurrencyId)
+CREATE INDEX I_CurrencyId ON Withdraw (CurrencyId)
+CREATE INDEX I_CurrencyId ON TradeHistory (CurrencyId)
+CREATE INDEX I_CurrencyId ON CurrencyAbout (CurrencyId)
+
+CREATE INDEX I_CurrencyId2 ON TradePair (CurrencyId2)
+CREATE INDEX I_CurrencyId1 ON TradePair (CurrencyId1)
+CREATE INDEX I_TradePairId ON TradeHistory (TradePairId)
+CREATE INDEX I_TradePairId ON Trade (TradePairId)
+
+CREATE INDEX I_TypeId ON Trade (TradeTypeId)
+CREATE INDEX I_ParentId ON Location (ParentId)

@@ -1,0 +1,196 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+   /*max-width: 280px;*/
+}
+
+.main-content {
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.left-content {
+	border-right: solid 1px #c8c8c8;
+	position: absolute;
+	left:0px;
+	width:400px;
+	top: 0px;
+	bottom: 0px;
+	overflow-y:auto;
+}
+
+.right-content {
+	position: absolute;
+	right: 0px;
+	left: 400px;
+	top: 0px;
+	bottom: 0px;
+	overflow-y:auto;
+}
+
+.modal-dialog {
+	overflow: hidden !important;
+}
+
+#simplemodal-overlay {
+	background-color: #000;
+	cursor: not-allowed;
+}
+
+#modal {
+}
+
+.modal-body {
+}
+
+.modal-large {
+	width: 90%;
+}
+
+.modal-large .modal-dialog {
+	width: 100%;
+}
+
+.modal-medium {
+	width: 60%;
+}
+
+.modal-medium .modal-dialog {
+	width: 100%;
+}
+
+.left-content-user {
+	width: 500px;
+}
+
+.right-content-user {
+	left: 500px;
+}
+
+.pagination {
+	margin-top: 0;
+	float: right;
+}
+
+.nav-tabs > li > a {
+	border-radius: 0 !important;
+	color: #333;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	background-color: #c4e3f3;
+	color: black;
+	border: solid 1px #c8c8c8;
+}
+
+.nav-tabs a:hover, .nav-tabs a:focus {
+	color: black;
+	outline: none;
+}
+
+/*.dataTables_filter > label {
+	width: 100% !important;
+}
+
+.dataTables_filter > label > input {
+	width: 100% !important;
+	max-width: 100% !important;
+}*/
+
+.dataTables_wrapper .row > .col-sm-12 {
+	overflow-x: auto;
+}
+
+.dataTables_wrapper div.dataTables_filter {
+	text-align: left !important;
+}
+
+.dataTables_filter .form-control {
+	width: 100% !important;
+	margin-left: 0 !important;
+}
+
+.dataTables_filter label {
+	width: 100% !important;
+}
+
+.table {
+	font-size: 12px;
+}
+
+.table.dataTable {
+	margin-top: 0 !important;
+}
+
+#user-table > tbody > tr > td {
+	cursor: pointer;
+}
+
+#user-target {
+	margin-top: 15px;
+}
+
+.table-edit-row {
+	width: 50px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.alert-tfa {
+	background-color: #dff0d8;
+}
+
+.alert-tfa-None {
+	background-color: #f2dede;
+}
+
+.alert-red-true-true {
+	background-color: #f2dede;
+}
+
+.alert-red-false-false {
+	background-color: #f2dede;
+}
+
+.alert-green-true-true {
+	background-color: #dff0d8;
+}
+
+.alert-green-false-false {
+	background-color: #dff0d8;
+}
+
+	.alert-amber-true-true {
+	background-color: #fcf8e3;
+}
+
+
+    .alert-threat-ok {
+        background-color: #dff0d8;
+    }
+
+    .alert-threat-warning {
+        background-color: #f2dede;
+    }

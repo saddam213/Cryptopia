@@ -1,0 +1,292 @@
+﻿@using Cryptopia.Enums;
+@model Cryptopia.Common.Transfer.TransferCurrencyModel
+@{
+	ViewBag.Title = String.Format(Resources.UserWallet.transferCreatePageTitle, Model.Symbol);
+	ViewBag.IsFullPage = true;
+}
+@using (Html.BeginForm("Create", "Transfer", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(x => x.CurrencyId)
+	@Html.HiddenFor(m => m.Type)
+	@Html.HiddenFor(m => m.Symbol)
+	@Html.HiddenFor(m => m.ReturnUrl)
+	<div class="row withdraw-wrapper">
+		<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad withdraw-container">
+			<div class="col-md-12">
+				<div class="text-xs-center text-sm-left withdraw-title-wrapper">
+					<img class="pull-left-lg pull-left-md pull-left-sm" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-medium.png", Model.Symbol)" />
+					<div class="pull-left-lg pull-left-md pull-left-sm withdraw-title-container">
+						<h3>@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferCreateHeadline), 
+					                                String.Format("<b>{0}</b>", @Model.Symbol)))</h3>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<hr style="margin:0;margin-bottom:5px" />
+				@if (Model.HasWithdrawLimit)
+				{
+					<div>
+						<div class="progress" style="margin-bottom:0;padding-bottom:0;">
+							<div class="progress-bar progress-current" style="width: @(Model.WithdrawPercent)%;"></div>
+							<div class="progress-bar progress-bar-success progress-new" style="width: 0%;"></div>
+						</div>
+						<div class="text-center">
+							@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferDailyLimitInfoText),
+								Model.WithdrawTotal.ToString("F2"),
+								Model.WithdrawLimit.ToString("F2"),
+								String.Format("<a href=\"/UserVerification\">{0}</a>", Resources.UserWallet.transferDailyLimitLink)
+							))
+						</div>
+					</div>
+				}
+			</div>
+
+			<div class="row">
+				<div class="col-md-12" style="font-size:12px">
+					@Html.ModelValidationSummary()
+					<div id="tfaCodeMessage" class="alert alert-success text-center" style="display: none">
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+
+				@*----------User Select----------*@
+				<div class="row">
+
+					<div class="col-xs-12">
+						<label class="control-label">@Resources.UserWallet.transferSearchLabel</label>
+						<div id="search-container" class="input-group input-group-sm">
+							@Html.TextBoxFor(m => m.UserName, new { @class = "form-control   input-sm" })
+							<div class="input-group-btn">
+								<button id="check" class="btn btn-primary" type="button" style="min-width: 200px">@Resources.UserWallet.transferVerifyUserButton</button>
+							</div>
+						</div>
+						@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger", id = "check-message" })
+					</div>
+
+					<div id="transfer-message" class="col-md-12">
+						<div class="alert alert-warning col-md-12" style="font-size:11px;margin-bottom:0;margin-top:10px">
+							<p>
+								<i class="fa icon-warning-sign"></i> 
+								@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferToAccountInfoText),
+														String.Format("<a href=\"/Withdraw/Create?currency={0}\"><i class=\"fa icon-uploadalt\"></i><b>{1}</b></a>",
+								                                      Model.Symbol, Html.Encode(Resources.UserWallet.transferToAccountLink))))
+							</p>
+							<p>
+								<i class="fa icon-warning-sign"></i> 
+								@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.transferConvertInfoText),
+														String.Format("<a href=\"/Exchange\"><i class=\"fa icon-barchartasc\"></i><b>{0}</b></a>",
+																	  Html.Encode(Resources.UserWallet.transferConvertLink))))
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div id="transfer-content" class="col-md-12" style="display:none">
+				<hr>
+				<div class="col-md-5 col-sm-5">
+					<div class="profile-sidebar-header transfer-profile">
+						<div class="profile-userpic">
+							<img src="@User.Identity.GetAvatar()" class="img-responsive" alt="">
+						</div>
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name">
+								@User.Identity.Name
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-2 col-sm-2">
+					<h1 style="text-align: center"><i class="fa glyphicon glyphicon-transfer"></i> </h1>
+				</div>
+				<div id="transfer-receiver" class="col-md-5 col-sm-5">
+
+					<div class="profile-sidebar-header transfer-profile">
+						<div class="profile-userpic">
+							<img id="transfer-avatar" src="@CdnHelper.RenderImage("/Content/Images/Avatar.png")" class="img-responsive" alt="" onerror="this.src='@CdnHelper.RenderImage("/Content/Images/Avatar.png")'">
+						</div>
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name">
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="row">
+
+					<div class="col-md-12">
+						<hr />
+						<label class="control-label">Balance</label>
+						<div>
+							<a id="balance">@Model.Balance.ToString("F8")</a> @Model.Symbol
+						</div>
+					</div>
+				</div>
+
+				@*----------Amount----------*@
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Amount, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Amount, new { @class = "form-control   input-sm", min = 0.00000001 })
+					</div>
+					<div style="margin-top: 8px;font-size:14px" class="col-xs-6">
+						<div>
+							<strong>@Resources.UserWallet.transferFeeLabel: </strong>
+							<span class="feeamount">0.00000000</span>
+							<span> @Model.Symbol</span>
+						</div>
+						<div>
+							<strong>@Resources.UserWallet.transferNetLabel: </strong>
+							<span>
+								<span id="netamount">0.00000000</span>
+								<span> @Model.Symbol <small style="white-space:nowrap">($<span id="nzdamount">0.00</span> NZD)</small></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-md-12">
+						@Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+				@*----------Two Factor----------*@
+				@if (Model.Type != Cryptopia.Enums.TwoFactorType.None)
+				{
+					<label class="control-label">@Model.UnlockSummary</label>
+					if (Model.Type == Cryptopia.Enums.TwoFactorType.Question)
+					{
+						<div>
+							@Html.LabelFor(m => m.Question1, new { @class = "control-label" })
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">Q.</span>
+								@Html.TextBoxFor(m => m.Question1, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">A.</span>
+								@Html.PasswordFor(model => model.Answer1, new { @class = "form-control  input-sm" })
+							</div>
+						</div>
+							<div>
+								@Html.LabelFor(m => m.Question2, new { @class = "control-label" })
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">Q.</span>
+									@Html.TextBoxFor(m => m.Question2, new { @class = "form-control  input-sm", @disabled = "disabled" })
+								</div>
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">A.</span>
+									@Html.PasswordFor(model => model.Answer2, new { @class = "form-control  input-sm" })
+								</div>
+								<div>@Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })</div>
+								<div>@Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })</div>
+							</div>
+					}
+					else
+					{
+						switch (Model.Type)
+						{
+							case Cryptopia.Enums.TwoFactorType.EmailCode:
+								<div class="input-group input-group-sm">
+									@Html.PasswordFor(m => m.EmailCode, new { @class = "form-control  input-sm" })
+									<span class="input-group-btn">
+										<button id="sendtfacode" class="btn btn-default" type="button">Send Email Code</button>
+									</span>
+								</div>
+									@Html.ValidationMessageFor(model => model.EmailCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.GoogleCode:
+								@Html.TextBoxFor(m => m.GoogleCode, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.GoogleCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.CryptopiaCode:
+								@Html.TextBoxFor(m => m.CryptopiaCode, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.CryptopiaCode, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.PinCode:
+								@Html.PasswordFor(m => m.Pin, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+								break;
+							case Cryptopia.Enums.TwoFactorType.Password:
+								@Html.PasswordFor(m => m.Password, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+								break;
+							default:
+								break;
+						}
+					}
+					@Html.ValidationMessage("TwoFactorError", new { @class = "text-danger" })
+				}
+			</div>
+			<div class="col-md-12">
+				<div class="text-center withdraw-button-container">
+					<div class="row">
+						<div class="col-md-6">
+							<a id="cancel" class="btn btn-default btnfullwidth" href="@(string.IsNullOrEmpty(Model.ReturnUrl) ? "/Transfer" : Model.ReturnUrl)">@Cryptopia.Resources.General.Cancel</a>
+						</div>
+						<div class="col-md-6">
+							<button id="submit" type="submit" class="btn btn-success btnfullwidth" disabled="disabled">@Cryptopia.Resources.General.Next <i class="fa glyphicon icon-chevron-right"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12 text-center withdraw-container-link">
+				<a href="@Url.RouteUrl("TransferHistory")"><i class="fa fa-history"></i>@Resources.UserWallet.transferHistoryLink</a>
+			</div>
+
+		
+		</div>
+	</div>
+}
+
+@section Scripts {
+
+	<script>
+		var searchParam = '@Model.UserName';
+		var pricePerCoin = +'@Model.EstimatedCoinNZD';
+		var withdrawTotal = +'@Model.WithdrawTotal';
+		var withdrawPercent = +'@Model.WithdrawPercent';
+		var withdrawLimit = +'@Model.WithdrawLimit';
+		var tfaCodeAction = '@Url.Action("SendUnlockTwoFactorCode", "TwoFactor")';
+		$("#Amount").on("change keyup paste", function () {
+			var amount = $(this).val();
+			var newAmount = +(amount * pricePerCoin);
+			var currentLimit = +withdrawTotal;
+			var newLimit = (currentLimit + newAmount);
+			var percentage = Math.abs((newLimit / withdrawLimit) * 100);
+			var newpercentage = ~~(percentage - withdrawPercent);
+			var totalPercent = (newpercentage + withdrawPercent);
+			$("#nzdamount").text((newAmount || 0).toFixed(2));
+			if (totalPercent > 100) {
+				$("#submit").attr("disabled", "disabled");
+				$(".progress-new").css({ "width": "0%" });
+				$(".progress-current").addClass("progress-bar-danger").css({ "width": "100%" });
+			}
+			else {
+				$("#submit").removeAttr("disabled");
+				$(".progress-new").css({ "width": newpercentage + "%" });
+				$(".progress-current").removeClass("progress-bar-danger").css({ "width": withdrawPercent + "%" });
+			}
+		});
+
+		var Resources = Resources || {};
+		Resources.TransferCreate = {
+			SendingCodeMessage: '@Resources.UserWallet.transferSendingCodeMessage',
+			SendingCodeSuccessMessage: '@Resources.UserWallet.transferSendingCodeSuccessMessage',
+			SendingCodeFailureMessage: '@Resources.UserWallet.transferSendingCodeFailureMessage',
+			VerifyUserButton: '@Resources.UserWallet.transferVerifyUserButton',
+			VerifyUserDoneButton: '@Resources.UserWallet.transferVerifyUserDoneButton',
+			VerifyUserNotFoundButton: '@Resources.UserWallet.transferVerifyUserNotFoundButton'
+		};
+	</script>
+
+	@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+	@Scripts.Render("~/Scripts/Project/Transfer/create.min.js")
+}

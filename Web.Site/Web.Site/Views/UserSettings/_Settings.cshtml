@@ -1,0 +1,154 @@
+﻿@using Web.Site.Helpers;
+@model Cryptopia.Common.User.UserSettingsModel
+@{
+}
+
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.User.menuSettingsLabel</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row">
+	@using (Ajax.BeginForm("UpdateSettings", "UserSettings", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "settingsTarget", InsertionMode = InsertionMode.Replace }))
+	{
+		for (int i = 0; i < Model.IgnoreTipList.Count; i++)
+		{
+			@Html.HiddenFor(m => Model.IgnoreTipList[i])
+		}
+		for (int i = 0; i < Model.IgnoreChatList.Count; i++)
+		{
+			@Html.HiddenFor(m => Model.IgnoreChatList[i])
+		}
+
+		@Html.WriterValidationSummary()
+		<div class="panel-body">
+			@Html.AntiForgeryToken()
+			<div class="row">
+				<div class="col-md-4 col-xs-12">
+					<div>
+						<b>@Resources.User.settingsSiteThemeLabel:</b>
+						@Html.EnumDropDownListFor(m => m.Theme, new { @class = "form-control  input-sm" })
+					</div>
+					<br />
+					<div>
+						<b>@Resources.User.settingsChatSettingsHeadline:</b>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableChatEmoticons)
+							<span>@Resources.User.settingsChatDisableEmoticonsLabel</span>
+						</div>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableTips)
+							<span>@Resources.User.settingsChatDisableTippingLabel</span>
+						</div>
+					</div>
+					<br />
+					<div>
+						<b>@Resources.User.settingsOtherSettingsHeadline:</b>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableLogonEmail)
+							<span>@Resources.User.settingsDisableLogonEmailLabel</span>
+						</div>
+					</div>
+					<br />
+				</div>
+
+				<div class="col-md-8 col-xs-12">
+					<div>
+						<b>@Resources.User.settingsRewardsHeadline:</b>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableRewards)
+							<span>@Resources.User.settingsRewardsDisableLable</span>
+						</div>
+						<small>
+							<i>
+								@Html.Raw(String.Format(Html.Encode(Resources.User.settingsRewardsInfoText),
+						                                String.Format("<a href=\"{0}\">{1}</a>", 
+														              Url.Action("Index", "Reward"), 
+																	  Resources.User.settingsRewardsInfoLink)))
+								
+							</i>
+						</small>
+					</div>
+					<br />
+					<div>
+						<b>@Resources.User.settingsNotificationHeadline:</b>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableTipNotify)
+							<span>@Resources.User.settingsNotificationDisableTipLabel</span>
+						</div>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableKarmaNotify)
+							<span>@Resources.User.settingsNotificationDisableKarmaLabel</span>
+						</div>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableFaucetNotify)
+							<span>@Resources.User.settingsNotificationDisableRewardLabel</span>
+						</div>
+						<div>
+							@Html.CheckBoxFor(m => m.DisablePoolNotify)
+							<span>@Resources.User.settingsNotificationDisableMineshaftLabel</span>
+						</div>
+						<div>
+							@Html.CheckBoxFor(m => m.DisableMarketplaceNotify)
+							<span>@Resources.User.settingsNotificationDisableMarketplaceLabel</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="padding-top: 5px" class="pull-left">
+				<button class="btn btn-default btn-sm button-180" type="submit">@Resources.User.settingsSaveButton</button>
+			</div>
+
+		</div>
+
+	}
+	<hr />
+
+	<div class="col-md-4 col-sm-6 col-xs-12">
+		<h4>@Resources.User.settingsChatIgnoreHeadline</h4>
+		<hr />
+		<div id="chatErroralert" class="alert alert-danger text-center" style="display: none">
+			<p></p>
+		</div>
+		<div id="chatSuccessalert" class="alert alert-success text-center" style="display: none">
+			<p></p>
+		</div>
+		<div>
+			@Html.ListBox("IgnoreChats", new SelectList(Model.IgnoreChatList), new { @class = "form-control input-sm", size = 15, style = "height:100%!important" })
+		</div>
+		<div>
+			@Html.Label(Resources.User.settingsChatIgnoreLabel, new { @class = "control-label" })
+			<div class="input-group input-group-sm">
+				@Html.TextBox("IgnoreChat", "", new { id = "ignore-chat", @class = "form-control  input-sm" })
+				<div class="input-group-btn">
+					<button id="ignore-chat-btn" class="btn btn-default" data-action="@Url.Action("SubmitChatIgnore", "UserSettings")">@Cryptopia.Resources.General.Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4 col-sm-6 col-xs-12">
+		<h4>@Resources.User.settingsTipIgnoreHeadline</h4>
+		<hr />
+		<div id="tipErroralert" class="alert alert-danger text-center" style="display: none">
+			<p></p>
+		</div>
+		<div id="tipSuccessalert" class="alert alert-success text-center" style="display: none">
+			<p></p>
+		</div>
+		<div>
+			@Html.ListBox("IgnoreTips", new SelectList(Model.IgnoreTipList, "", ""), new { @class = "form-control input-sm", size = 15, style = "height:100%!important" })
+		</div>
+		<div>
+			@Html.Label(Resources.User.settingsTipIgnoreLabel, new { @class = "control-label" })
+			<div class="input-group input-group-sm">
+				@Html.TextBox("IgnoreTip", "", new { id = "ignore-tip", @class = "form-control  input-sm" })
+				<div class="input-group-btn">
+					<button id="ignore-tip-btn" class="btn btn-default" data-action="@Url.Action("SubmitTipIgnore", "UserSettings")">@Cryptopia.Resources.General.Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Project/User/userSettings.min.js")

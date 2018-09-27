@@ -1,0 +1,79 @@
+﻿@using hbehr.recaptcha
+@model Web.Site.Models.SupportModel
+@{
+	ViewBag.Title = Resources.Support.supportPageTitle;
+}
+
+<div>
+
+	@if (!string.IsNullOrEmpty(Model.Result))
+	{
+	<div id="alert" class="alert alert-dismissable shadow text-center @(Model.IsError ? "alert-danger" : "alert-success")">
+		<button class="close" type="button" data-dismiss="alert">×</button>
+		<h4>@Model.Result</h4>
+	</div>
+	}
+
+	<div class="col-lg-6">
+
+		@using (Html.BeginForm("SendSupportRequest", "Support", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+		{
+		@Html.AntiForgeryToken()
+			<div class="form-margin">
+				<h2>@ViewBag.Title</h2>
+				<hr />
+
+				<div>
+					@Html.Raw(Resources.Support.supportSummaryHtml)
+				</div>
+				<hr />
+
+				@Html.ValidationSummary(true)
+
+				<div>
+					@Html.LabelFor(m => m.Email, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Email, new { @id = "email", @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+
+				<div>
+					@Html.LabelFor(m => m.Subject, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Subject, new { @id = "subject", @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+				</div>
+
+				<div>
+					@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Message, new { @class = "form-control", @rows = 8 })
+					@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+				</div>
+				<br />
+				<div class="text-center">
+					@ReCaptcha.GetCaptcha()
+				</div>
+				<br />
+				<input class="btn btn-info " type="submit" value="@Resources.Support.supportButton" />
+				<br />
+			</div>
+		}
+	</div>
+	<div class="clearfix"></div>
+	<br />
+</div>
+
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		$('#submit').click(function () {
+			if ($('.form-horizontal').valid()) {
+				$.blockUI({ message: '@Resources.Support.supportSendingMessage' });
+			}
+		});
+
+		if ($('#alert').css('display') != 'none') {
+			setTimeout(function () { $('#alert').fadeTo(500, 0).slideUp(500, function () { $('#alert').hide() }); }, 8000);
+		}
+	});
+</script>

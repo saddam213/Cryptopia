@@ -1,0 +1,25 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">TradePairs</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="table-tradepair" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetTradePairs", "AdminTradePair")" data-action-update="@Url.Action("UpdateTradePair", "AdminTradePair")" data-action-create="@Url.Action("CreateTradePair", "AdminTradePair")">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td>Name</td>
+			<td>Currency</td>
+			<td>BaseCurrency</td>
+			<td>Status</td>
+			<td>StatusMessage</td>
+			<td>
+				<button class="btn btn-primary btn-xs pull-right" style="min-width:80px" onclick="createTradePair();">Create</button>
+			</td>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+@Scripts.Render("~/Scripts/Project/Admin/tradepair.js")
+

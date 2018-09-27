@@ -1,0 +1,74 @@
+﻿@model Cryptopia.Common.TermDeposits.UserTermDepositModel
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.UserData.termDepositsHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-warning text-center">
+			<p>@Resources.UserData.termDepositsDotInfoText</p>
+			<p>@Resources.UserData.termDepositsDot2infoText</p>
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+		<div>
+			<div class="table-header-container col-md-12 " style="padding-top:15px">
+				<h4 class="table-header">@Resources.UserData.termDepositsPaymentsHeadline</h4>
+				<hr class="table-seperator" />
+			</div>
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="paymentTermsDeposit" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetPayments", "UserTermDeposit")">
+				<thead>
+					<tr>
+						<th>@Resources.UserData.termDepositsIdColumn</th>
+						<th>@Resources.UserData.termDepositsTermDepositIdColumn</th>
+						<th>@Resources.UserData.termDepositsInvestmentColumn</th>
+						<th>@Resources.UserData.termDepositsInterestRateColumn</th>
+						<th>@Resources.UserData.termDepositsPaymentColumn</th>
+						<th>@Resources.UserData.termDepositsTypeColumn</th>
+						<th>@Resources.UserData.termDepositsTimestampColumn</th>
+						<th>@Resources.UserData.termDepositsTransactionIdColumn</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+		<div>
+			<div class="table-header-container col-md-12 " style="padding-top:15px">
+				<h4 class="table-header">@Resources.UserData.termDepositsClosedHeadline</h4>
+				<hr class="table-seperator" />
+			</div>
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="closedTermsDeposit" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetClosed", "UserTermDeposit")">
+				<thead>
+					<tr>
+						<th>@Resources.UserData.termDepositsIdColumn</th>
+						<th>@Resources.UserData.termDepositsWithdrawIdColumn</th>
+						<th>@Resources.UserData.termDepositsTermColumn</th>
+						<th>@Resources.UserData.termDepositsInvestmentColumn</th>
+						<th>@Resources.UserData.termDepositsInterestRateColumn</th>
+						<th>@Resources.UserData.termDepositsStartedColumn</th>
+						<th>@Resources.UserData.termDepositsClosedColumn</th>
+						<th>@Resources.UserData.termDepositsStatusColumn</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.TermDeposit = {
+		PaymentEmptyList: '@Resources.UserData.termDepositsPaymentEmptyListMessage',
+		ClosedEmptyListMessage: '@Resources.UserData.termDepositsClosedEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userTermDeposit.min.js")

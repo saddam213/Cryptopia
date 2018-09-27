@@ -1,0 +1,98 @@
+﻿@model Cryptopia.Admin.Common.Support.UpdateTicketModel
+@{
+		ViewBag.Title = "Update Ticket";
+		Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
+
+<style>
+	.bootstrap-tagsinput {
+		width: 100%
+	}
+</style>
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Ticket</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateTicket", "Support", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+				<div class="modal-body">
+
+					@Html.AntiForgeryToken()
+					@Html.WriterValidationSummary()
+					@Html.HiddenFor(m => m.TicketId)
+
+					<div class="form-horizontal">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+								@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(model => model.Category, new SelectList(Model.CategoryDictionary, "Key", "Value"), new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.QueueId, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(model => model.QueueId, new SelectList(Model.QueueDictionary, "Key", "Value"), new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.QueueId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								<input type="text" id="Tags" name="Tags" class="form-control" value="@Model.Tags" data-role="tagsinput" />
+								@Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+					<button id="submit" value="Save" class="btn btn-success button-180" type="submit">Submit</button>
+				</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+@section Scripts {
+<script src="~/Scripts/bootstrap-tagsinput.min.js"></script>
+<script type="text/javascript">
+
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>
+}
+

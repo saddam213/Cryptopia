@@ -1,0 +1,55 @@
+﻿<h2 style="margin-top:0">
+	Term Deposits
+</h2>
+<hr style="margin-top:0px" />
+<div id="message-alert" class="alert text-center" style="display: none;margin-left:15px;margin-right:15px">
+	<p></p>
+</div>
+
+<h3 id="termdeposit-container" style="margin-top:0px;margin-bottom:0px" data-action-update="@Url.Action("UpdatePayment", "AdminTermDeposit")">
+	Active Term Deposits
+</h3>
+<table id="termsDeposits" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetDeposits", "AdminTermDeposit")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>WithdrawId</th>
+			<th>Term</th>
+			<th>Investment</th>
+			<th>InterestRate</th>
+			<th>Started</th>
+			<th>Ends</th>
+			<th>NextPayout</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<hr />
+
+<h3 style="margin-top:0px;margin-bottom:0px">
+	Term Deposit Payments
+</h3>
+<table id="termDepositPayments" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetPayments", "AdminTermDeposit")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>TermDepositId</th>
+			<th>UserName</th>
+			<th>Investment</th>
+			<th>InterestRate</th>
+			<th>Payment</th>
+			<th>Type</th>
+			<th>Timestamp</th>
+			<th>TransactionId</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+
+
+@Scripts.Render("~/Scripts/Project/Admin/termDeposit.js")
+

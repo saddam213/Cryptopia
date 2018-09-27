@@ -1,0 +1,293 @@
+﻿
+@{
+    ViewBag.Title = "Reprocessing";
+}
+
+@Html.AntiForgeryToken()
+
+<style>
+    .btn {
+        margin: 10px;
+        min-width: 80px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div id="message-alert" class="alert text-center" style="display: none">
+        <p></p>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#general" data-toggle="tab"><h4>General</h4></a>
+        </li>
+        <li>
+            <a href="#approvals" data-toggle="tab"><h4>Approvals</h4></a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="general">
+
+            <div class="col-xs-12">
+                <button class="btn btn-default btn-sm pull-right" onclick="showOptions()">Options</button>
+            </div>
+
+            <div class="col-xs-6">
+                <h3>Withdrawals</h3>
+                <hr style="margin-top:15px;margin-bottom:15px" />
+                <table id="incomplete-withdrawals-table" class="table table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>User</th>
+                            <th>Currency</th>
+                            <th>Amount</th>
+                            <th>Address</th>
+                            <th>Confirmed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-6">
+                <h3>Wallet Transactions</h3>
+                <hr style="margin-top:15px;margin-bottom:15px" />
+                <table id="walletTxTable" class="table table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>TxId</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="approvals">
+            <div class="col-xs-12">
+                <h3>Approvals</h3>
+                <hr style="margin-top:15px;margin-bottom:15px" />
+                <table id="approvalsTable" class="table table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Type</th>
+                            <th>User</th>
+                            <th>RequestBy</th>
+                            <th>Requested</th>
+                            <th>Status</th>
+                            <th>Approved</th>
+                            <th>ApprovedBy</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Variables
+        var selectedWithdrawalId = '';
+        var selectedCurrency = '';
+        var selectedAddress = '';
+        var blockLength = 15000;
+        var withdrawalTable = $('#incomplete-withdrawals-table');
+        var walletTxTable = $('#walletTxTable');
+        var approvalsTable = $('#approvalsTable');
+
+        var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+        // Actions
+        var actionGetIncompleteWithdrawals = '@Url.Action("GetIncompleteWithdrawals")';
+        var actionGetWalletTx = '@Url.Action("GetWalletTransactions")';
+        var tableActionUpdate = '@Url.Action("UpdateWithdrawalTxId")';
+        var tableActionApprove = '@Url.Action("ApproveWithdrawalReprocessing")';
+        var actionGetPageOptions = '@Url.Action("GetPageOptions")';
+        var actionGetPendingApprovals = '@Url.Action("GetPendingApprovals")';
+
+        // Tables
+        var incompleteWithdrawalsTable = withdrawalTable.DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "asc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": false,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "sAjaxSource": actionGetIncompleteWithdrawals,
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "There are no withdrawals to reprocess"
+            },
+            "columnDefs": [{
+                "targets": 0,
+                "visible": false
+                }, {
+                "targets": [4],
+                "render": function (data, type, full, meta) {
+                        return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+                    }
+                }, {
+                "targets": 6,
+                "visible": true,
+                "orderable": false,
+                "render": function (data, type, full, meta) {
+                    if (data == "0")
+                        return '<button class="btn btn-default btn-sm pull-right" style="min-width=80px" onclick="updateWithdrawalTxId(' + full[0] + ')">Update</button>';
+
+                    return '';
+                }
+            }]
+        });
+
+        var walletTxTable = walletTxTable.DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "desc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": false,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "deferLoading": 0,
+            "sAjaxSource": actionGetWalletTx,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "Id", "value": selectedWithdrawalId });
+                aoData.push({ "name": "Currency", "value": selectedCurrency });
+                aoData.push({ "name": "Address", "value": selectedAddress });
+                aoData.push({ "name": "BlockLength", "value": blockLength});
+            },
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "There are no items"
+            },
+            "columnDefs": [{
+                "targets": [3],
+                "render": function (data, type, full, meta) {
+                    return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+                }
+            }]
+        });
+
+        $('#walletTxTable').on('xhr.dt', function () {
+            $.unblockUI();
+        });
+
+        var approvalsTable = approvalsTable.DataTable({
+            "dom": tableOptionsLayout,
+            "order": [[0, "asc"]],
+            "searchDelay": 1500,
+            "lengthChange": false,
+            "processing": false,
+            "bServerSide": true,
+            "searching": false,
+            "scrollCollapse": true,
+            "scrollX": false,
+            "width": "100%",
+            "paging": true,
+            "info": true,
+            "iDisplayLength": 20,
+            "sAjaxSource": actionGetPendingApprovals,
+            "sServerMethod": "POST",
+            "language": {
+                "emptyTable": "There are no withdrawals to reprocess"
+            },
+            "columnDefs": [{
+                "targets": [0, 1, 6, 7],
+                "visible": false
+            }, {
+				"targets": 8,
+				"searchable": false,
+				"orderable": false,
+				"render": function (data, type, full, meta) {
+
+					if (full[1] === "@Cryptopia.Enums.ApprovalQueueType.WithdrawalReprocessing.ToString()") {
+						return '<button class="btn btn-xs btn-info pull-right btn-approve-reprocessWithdrawal" data-id="' + full[0] + '">Details</button>';
+					}else {
+						return '<div class="text-danger">not implemented</div>';
+					}
+				}
+			}]
+        });
+
+        // Functions
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href").replace('#', ''); // activated tab
+            if (target == 'general') {
+                incompleteWithdrawalsTable.ajax.reload();
+            }
+            else if (target == 'approvals') {
+                approvalsTable.ajax.reload();
+            }
+        });
+
+        $('#incomplete-withdrawals-table tbody').on('click', 'tr', function () {
+            $.blockUI({ message: 'Retrieving transactions...' });
+            var row = $(this).closest('tr');
+            var tableData = withdrawalTable.dataTable().fnGetData(row);
+
+            selectedWithdrawalId = tableData[0];
+            selectedCurrency = tableData[2];
+            selectedAddress = tableData[4];
+
+            walletTxTable.ajax.reload();
+        });
+
+        function updateWithdrawalTxId(id) {
+            
+            event.stopPropagation();
+            openModalGet(tableActionUpdate, { id: id }, function (modalData) {
+                if (modalData && modalData.Success) {
+                    incompleteWithdrawalsTable.ajax.reload();
+                }
+
+                showMessage(modalData);
+                
+            });
+        }
+
+        function showOptions() {
+            openModalGet(actionGetPageOptions, { blockLength: blockLength}, function (modalData) {
+                if (modalData && modalData.Success) {
+                    blockLength = modalData.WalletBlockLength;
+                }
+            });
+        }
+
+        approvalsTable.on("click", ".btn-approve-reprocessWithdrawal", function () {
+			var id = $(this).data('id');
+			openModalGet(tableActionApprove, {id: id }, function (modalData) {
+				if (modalData && modalData.Success) {
+                    approvalsTable.ajax.reload();
+                }
+
+				showMessage(modalData);
+			});
+		});
+
+    </script>
+}
+

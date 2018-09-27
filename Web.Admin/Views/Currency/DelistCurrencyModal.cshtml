@@ -1,0 +1,73 @@
+﻿@model Cryptopia.Common.Currency.UpdateListingStatusModel
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery-ui.css"/>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+            <h3 class="modal-title">Delist @Model.Name</h3>
+        </div>
+        @using (Ajax.BeginForm("BeginDelistingCurrency", "AdminCurrency", new AjaxOptions {HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace}, new {@class = "form-horizontal"}))
+        {
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.WriterValidationSummary()
+                @Html.HiddenFor(m => m.CurrencyId)
+                @Html.HiddenFor(m => m.Name)
+                @Html.HiddenFor(m => m.Symbol)
+                @Html.HiddenFor(m => m.ListingStatus)
+                <div class="row">
+                    <div class="col-xs-6">
+                        @Html.LabelFor(m => m.DelistOn, new {@class = "control-label"})
+                        @Html.EditorFor(m => m.DelistOn)
+                        @Html.ValidationMessageFor(model => model.DelistOn, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-xs-12">
+                        <div style="padding-top: 25px">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <Label class="control-label">Delist Reason</Label>
+                        @Html.TextAreaFor(m => m.StatusMessage, new {@class = "form-control input", rows = 4})
+                        @Html.ValidationMessageFor(model => model.StatusMessage, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="col-xs-12">
+                        @Html.LabelFor(m => m.TwoFactorCode, new {@class = "control-label"})
+                        @Html.EditorFor(m => m.TwoFactorCode, new {@class = "form-control input", rows = 4})
+                        @Html.ValidationMessageFor(model => model.TwoFactorCode, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default simplemodal-close button-180" type="button" onclick="OnModalClose()">Cancel</button>
+                <button id="submit" class="btn btn-success button-180" type="submit">Delist</button>
+            </div>
+        }
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $("#submit").on("click",
+        function() {
+            var valid = $(".form-horizontal").valid();
+            if (valid) {
+                $('.modal-dialog').block({ message: 'Submitting...' });
+            }
+        }
+    );
+
+    var OnModalClose = function() {
+        $("#DelistOn").datepicker("destroy");
+        $.modal.close({ Cancel: true });
+    };
+
+    $("#DelistOn").datepicker({
+        dateFormat: "yy/mm/dd"
+    });
+</script>

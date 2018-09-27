@@ -1,0 +1,1684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{693B0A63-791B-4F34-B592-3272A102B61C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web.Site</RootNamespace>
+    <AssemblyName>Web.Site</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <ExcludeFilesFromDeployment>Web.config</ExcludeFilesFromDeployment>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeFilesFromDeployment>Web.config</ExcludeFilesFromDeployment>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.6.41832, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AngleSharp.0.9.6\lib\net45\AngleSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr4.Runtime, Version=4.5.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr4.Runtime.4.5.3\lib\net45\Antlr4.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Base32, Version=1.1.0.2, Culture=neutral, PublicKeyToken=3427d4dc8cee30c6, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Base32.1.1.0.2\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Base32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations, Version=2.3.0.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ExpressiveAnnotations.2.5.0\lib\net45\ExpressiveAnnotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations.MvcUnobtrusive, Version=2.3.0.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ExpressiveAnnotations.2.5.0\lib\net45\ExpressiveAnnotations.MvcUnobtrusive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="hbehr.recaptcha, Version=1.3.0.39782, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ReCaptcha-AspNet.1.3.0\lib\net451\hbehr.recaptcha.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlSanitizer.3.2.105\lib\net45\HtmlSanitizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ITSecurity">
+      <HintPath>..\..\ITSecurity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Redis, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Redis.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SqlServer, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SqlServer.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OtpSharp, Version=1.3.0.4, Culture=neutral, PublicKeyToken=1ec2a4a54aeffc1e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OtpSharp.1.3.0.4\lib\net40\OtpSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis.StrongName, Version=1.2.3.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StackExchange.Redis.StrongName.1.2.3\lib\net45\StackExchange.Redis.StrongName.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebApi.OutputCache.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Strathweb.CacheOutput.WebApi2.0.10.0\lib\net45\WebApi.OutputCache.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebApi.OutputCache.V2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Strathweb.CacheOutput.WebApi2.0.10.0\lib\net45\WebApi.OutputCache.V2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebApiThrottle, Version=1.5.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebApiThrottle.1.5.0.3\lib\net45\WebApiThrottle.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionFilters\ETagFilter.cs" />
+    <Compile Include="ActionFilters\WhitespaceFilter.cs" />
+    <Compile Include="ActionFilters\CompressFilter.cs" />
+    <Compile Include="ActionResults\JsonNetResult.cs" />
+    <Compile Include="ActionResults\CloseModalResult.cs" />
+    <Compile Include="ActionResults\DataTablesResult.cs" />
+    <Compile Include="Api\Controllers\ApiPrivateController.cs" />
+    <Compile Include="Api\Implementation\ApiAuthenticationAttribute.cs" />
+    <Compile Include="Api\Implementation\ApiResultWithChallenge.cs" />
+    <Compile Include="Api\Implementation\ApiAuthKey.cs" />
+    <Compile Include="Api\Implementation\ApiThrottleHandler.cs" />
+    <Compile Include="Api\Implementation\ApiErrorResponse.cs" />
+    <Compile Include="Api\Models\ApiTransaction.cs" />
+    <Compile Include="Api\Models\BalanceRequest.cs" />
+    <Compile Include="Api\Models\ApiHistory.cs" />
+    <Compile Include="Api\Models\ApiOpenOrders.cs" />
+    <Compile Include="Api\Models\ApiSubmitTip.cs" />
+    <Compile Include="Api\Models\ApiCancelTrade.cs" />
+    <Compile Include="Api\Models\ApiSubmitTrade.cs" />
+    <Compile Include="Api\Models\ApiDepositAddress.cs" />
+    <Compile Include="Api\Models\ApiSubmitWithdraw.cs" />
+    <Compile Include="Api\Models\ApiSubmitTransfer.cs" />
+    <Compile Include="Resources\Arbitrage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Arbitrage.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Authorization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Authorization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Chat.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Chat.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CoinInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoinInfo.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Exchange.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exchange.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Forum.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Forum.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Home.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Home.resx</DependentUpon>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </Compile>
+    <Compile Include="Resources\Layout.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Layout.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Cache\ChatCache.cs" />
+    <Compile Include="Cache\RedisThrottleRepository.cs" />
+    <Compile Include="Cache\StaticDataCache.cs" />
+    <Compile Include="Controllers\TransferController.cs" />
+    <Compile Include="Controllers\UserVerificationController.cs" />
+    <Compile Include="Controllers\WithdrawController.cs" />
+    <Compile Include="Controllers\DepositController.cs" />
+    <Compile Include="Controllers\UserReferralController.cs" />
+    <Compile Include="Controllers\AdminReferralController.cs" />
+    <Compile Include="Controllers\AdminEmoticonController.cs" />
+    <Compile Include="Controllers\AdminPaytopiaController.cs" />
+    <Compile Include="Controllers\AdminPoolWorkerController.cs" />
+    <Compile Include="Controllers\AdminLottoController.cs" />
+    <Compile Include="Controllers\AdminMineshaftController.cs" />
+    <Compile Include="Controllers\AdminCurrencyController.cs" />
+    <Compile Include="Controllers\AdminNewsController.cs" />
+    <Compile Include="Controllers\AdminTradePairController.cs" />
+    <Compile Include="Controllers\AdminTermDepositController.cs" />
+    <Compile Include="Controllers\AdminSupportController.cs" />
+    <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\AdminSettingsController.cs" />
+    <Compile Include="Controllers\AdminDepositController.cs" />
+    <Compile Include="Controllers\AdminWithdrawController.cs" />
+    <Compile Include="Controllers\AdminTransferController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\KarmaController.cs" />
+    <Compile Include="Controllers\BalanceController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CoinInfoController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Api\Controllers\ApiPublicController.cs" />
+    <Compile Include="Controllers\ArbitrageController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
+    <Compile Include="Controllers\LottoController.cs" />
+    <Compile Include="Controllers\PaytopiaController.cs" />
+    <Compile Include="Controllers\RewardController.cs" />
+    <Compile Include="Controllers\TwoFactorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ExchangeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MineShaftController.cs" />
+    <Compile Include="Controllers\MarketPlaceController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\AdminChatController.cs" />
+    <Compile Include="Controllers\AdminSecurityController.cs" />
+    <Compile Include="Controllers\UserPaytopiaController.cs" />
+    <Compile Include="Controllers\UserShareholderController.cs" />
+    <Compile Include="Controllers\UserKarmaController.cs" />
+    <Compile Include="Controllers\UserDepositController.cs" />
+    <Compile Include="Controllers\UserMessageController.cs" />
+    <Compile Include="Controllers\UserNotificationController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="Controllers\UserSettingsController.cs" />
+    <Compile Include="Controllers\UserTermDepositController.cs" />
+    <Compile Include="Helpers\CdnHelper.cs" />
+    <Compile Include="Helpers\ChatHelper.cs" />
+    <Compile Include="Helpers\ClaimsHelper.cs" />
+    <Compile Include="Helpers\CustomDropDownList.cs" />
+    <Compile Include="Helpers\ImageHelpers.cs" />
+    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\AuthorizeLocalAttribute.cs" />
+    <Compile Include="Helpers\Localization.cs" />
+    <Compile Include="Resources\Lotto.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lotto.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Market.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Market.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\News.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>News.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Paytopia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Paytopia.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Reward.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reward.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Support.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Support.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\User.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>User.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserData.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserWallet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserWallet.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClaimsViewPage.cs" />
+    <EmbeddedResource Include="Resources\Arbitrage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Arbitrage.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Arbitrage.ru.resx" />
+    <EmbeddedResource Include="Resources\Chat.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Chat.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Chat.ru.resx" />
+    <EmbeddedResource Include="Resources\CoinInfo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CoinInfo.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CoinInfo.ru.resx" />
+    <Content Include="Resources\Files\Home\Privacy.html">
+      <BrowseToURL>
+      </BrowseToURL>
+    </Content>
+    <Content Include="Resources\Files\Home\Privacy.ru.html">
+      <BrowseToURL>
+      </BrowseToURL>
+    </Content>
+    <Content Include="Resources\Files\Home\Terms.html" />
+    <Content Include="Resources\Files\Home\Terms.ru.html" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Bundle\site_bundle.css" />
+    <Content Include="Content\Bundle\site_bundle.min.css">
+      <DependentUpon>site_bundle.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Bundle\site_bundle2.css" />
+    <Content Include="Content\Bundle\site_bundle2.min.css">
+      <DependentUpon>site_bundle2.css</DependentUpon>
+    </Content>
+    <Content Include="Content\buttons.bootstrap.css" />
+    <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\dataTables.bootstrap4.css" />
+    <Content Include="Content\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\webhostinghub-glyphs.svg" />
+    <Content Include="Content\Images\Cryptopia-Dark.png" />
+    <Content Include="Content\Images\Cryptopia-Dark2x.png" />
+    <Content Include="Content\Images\Cryptopia-Light.png" />
+    <Content Include="Content\Images\Cryptopia-Light2x.png" />
+    <Content Include="Content\Images\CryptopiaDevice_Back.png" />
+    <Content Include="Content\Images\CryptopiaDevice_Front.png" />
+    <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\finance.jpg" />
+    <Content Include="Content\Images\graph.png" />
+    <Content Include="Content\Images\green50.png" />
+    <Content Include="Content\Images\home.png" />
+    <Content Include="Content\Images\intro-exchange.png" />
+    <Content Include="Content\Images\intro-explorers.png" />
+    <Content Include="Content\Images\intro-marketplace.png" />
+    <Content Include="Content\Images\intro-mineshaft.png" />
+    <Content Include="Content\Images\intro-screen-exchange.png" />
+    <Content Include="Content\Images\intro-screen-market.png" />
+    <Content Include="Content\Images\intro-screen-news.png" />
+    <Content Include="Content\Images\MarketCarousel.png" />
+    <Content Include="Content\Images\MarketItem.png" />
+    <Content Include="Content\Images\red-25.png" />
+    <Content Include="Content\Images\ScannedId.png" />
+    <Content Include="Content\Images\sort_asc.png" />
+    <Content Include="Content\Images\sort_asc_disabled.png" />
+    <Content Include="Content\Images\sort_both.png" />
+    <Content Include="Content\Images\sort_desc.png" />
+    <Content Include="Content\Images\sort_desc_disabled.png" />
+    <Content Include="Content\Images\transfer.png" />
+    <Content Include="Content\Images\UserWithId.jpg" />
+    <Content Include="Content\jquery.countdown.css" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\fontAwesome.css" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Content\theme.Dark.css" />
+    <Content Include="Content\theme.Light.css" />
+    <Content Include="Content\tl_transp.gif" />
+    <Content Include="Content\whhg.css" />
+    <Compile Include="Extensions\AspIdentityExtensions.cs" />
+    <Compile Include="Extensions\AuthorizeAjaxAttribute.cs" />
+    <Compile Include="Extensions\HtmlHelpers.cs" />
+    <Compile Include="Extensions\ImageHelpers.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ValidationHelpers.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\ModelStateHelpers.cs" />
+    <Compile Include="Migrations\201509130501019_Forums.cs" />
+    <Compile Include="Migrations\201509130501019_Forums.Designer.cs">
+      <DependentUpon>201509130501019_Forums.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelBinders\DataTablesModelBinder.cs" />
+    <Compile Include="Models\Chat\ChatEmoticonModel.cs" />
+    <Compile Include="Models\Chat\ChatSettingsModel.cs" />
+    <Compile Include="Models\Arbitrage\ArbitrageModel.cs" />
+    <Compile Include="Models\Arbitrage\ArbitrageMarketModel.cs" />
+    <Compile Include="Models\Balance\ChatPayBanModel.cs" />
+    <Compile Include="Models\Reward\RewardDonateModel.cs" />
+    <Compile Include="Models\Forum\ForumModel.cs" />
+    <Compile Include="Models\Home\ContactModel.cs" />
+    <Compile Include="Models\Authentication\VerifyLockoutTwoFactorModel.cs" />
+    <Compile Include="Models\Authentication\SecurityQuestionModel.cs" />
+    <Compile Include="Models\Authentication\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\Authentication\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\Authentication\VerifyLoginTwoFactorModel.cs" />
+    <Compile Include="Models\Authentication\RegisterViewModel.cs" />
+    <Compile Include="Models\Authentication\LoginViewModel.cs" />
+    <Compile Include="Models\DataTableInput.cs" />
+    <Compile Include="Models\GenericMessageViewModel.cs" />
+    <Compile Include="Models\MarketPlace\MarketPlaceModel.cs" />
+    <Compile Include="Models\ResultOverrides.cs" />
+    <Compile Include="Models\Support\SupportModel.cs" />
+    <Compile Include="Controllers\UserBalanceController.cs" />
+    <Compile Include="Controllers\UserExchangeController.cs" />
+    <Compile Include="Controllers\UserMarketplaceController.cs" />
+    <Compile Include="Controllers\UserMineshaftController.cs" />
+    <Compile Include="Models\User\UnlockTwofactorModel.cs" />
+    <Compile Include="Controllers\UserSecurityController.cs" />
+    <Compile Include="Controllers\UserTransferController.cs" />
+    <Compile Include="Models\User\UserTwoFactorModel.cs" />
+    <Compile Include="Controllers\UserWithdrawController.cs" />
+    <Compile Include="Models\User\VerifyTwoFactorCodeViewModel.cs" />
+    <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Hubs\HubIdentityProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Content Include="Resources\Files\Home\ContactUs.html" />
+    <Content Include="Resources\Files\Home\ContactUs.ru.html" />
+    <Content Include="Resources\Files\Chat\Rules.html" />
+    <Content Include="Resources\Files\Chat\Rules.ru.html" />
+    <EmbeddedResource Include="Resources\Forum.ru.resx" />
+    <EmbeddedResource Include="Resources\Forum.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Forum.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Lotto.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lotto.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Lotto.ru.resx" />
+    <EmbeddedResource Include="Resources\Market.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Market.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Market.ru.resx" />
+    <EmbeddedResource Include="Resources\News.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>News.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\News.ru.resx" />
+    <EmbeddedResource Include="Resources\Paytopia.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Paytopia.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Paytopia.ru.resx" />
+    <EmbeddedResource Include="Resources\Reward.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Reward.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Reward.ru.resx" />
+    <EmbeddedResource Include="Resources\Support.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Support.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Support.ru.resx" />
+    <EmbeddedResource Include="Resources\User.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>User.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User.ru.resx" />
+    <EmbeddedResource Include="Resources\UserData.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserData.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserData.ru.resx" />
+    <EmbeddedResource Include="Resources\UserWallet.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserWallet.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserWallet.ru.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\Cryptopia.css" />
+    <Content Include="Content\Images\animated-overlay.gif" />
+    <Content Include="Content\Images\Avatar.png" />
+    <Content Include="Content\Images\back_disabled.png" />
+    <Content Include="Content\Images\back_enabled.png" />
+    <Content Include="Content\Images\back_enabled_hover.png" />
+    <Content Include="Content\Images\cross48.png" />
+    <Content Include="Content\Images\Emoticonset\1.gif" />
+    <Content Include="Content\Images\Emoticonset\10.gif" />
+    <Content Include="Content\Images\Emoticonset\100.gif" />
+    <Content Include="Content\Images\Emoticonset\101.gif" />
+    <Content Include="Content\Images\Emoticonset\102.gif" />
+    <Content Include="Content\Images\Emoticonset\103.gif" />
+    <Content Include="Content\Images\Emoticonset\104.gif" />
+    <Content Include="Content\Images\Emoticonset\105.gif" />
+    <Content Include="Content\Images\Emoticonset\106.gif" />
+    <Content Include="Content\Images\Emoticonset\107.gif" />
+    <Content Include="Content\Images\Emoticonset\108.gif" />
+    <Content Include="Content\Images\Emoticonset\109.gif" />
+    <Content Include="Content\Images\Emoticonset\11.gif" />
+    <Content Include="Content\Images\Emoticonset\110.gif" />
+    <Content Include="Content\Images\Emoticonset\111.gif" />
+    <Content Include="Content\Images\Emoticonset\112.gif" />
+    <Content Include="Content\Images\Emoticonset\113.gif" />
+    <Content Include="Content\Images\Emoticonset\114.gif" />
+    <Content Include="Content\Images\Emoticonset\115.gif" />
+    <Content Include="Content\Images\Emoticonset\12.gif" />
+    <Content Include="Content\Images\Emoticonset\13.gif" />
+    <Content Include="Content\Images\Emoticonset\14.gif" />
+    <Content Include="Content\Images\Emoticonset\15.gif" />
+    <Content Include="Content\Images\Emoticonset\16.gif" />
+    <Content Include="Content\Images\Emoticonset\17.gif" />
+    <Content Include="Content\Images\Emoticonset\18.gif" />
+    <Content Include="Content\Images\Emoticonset\19.gif" />
+    <Content Include="Content\Images\Emoticonset\2.gif" />
+    <Content Include="Content\Images\Emoticonset\20.gif" />
+    <Content Include="Content\Images\Emoticonset\21.gif" />
+    <Content Include="Content\Images\Emoticonset\22.gif" />
+    <Content Include="Content\Images\Emoticonset\23.gif" />
+    <Content Include="Content\Images\Emoticonset\24.gif" />
+    <Content Include="Content\Images\Emoticonset\25.gif" />
+    <Content Include="Content\Images\Emoticonset\26.gif" />
+    <Content Include="Content\Images\Emoticonset\27.gif" />
+    <Content Include="Content\Images\Emoticonset\28.gif" />
+    <Content Include="Content\Images\Emoticonset\29.gif" />
+    <Content Include="Content\Images\Emoticonset\3.gif" />
+    <Content Include="Content\Images\Emoticonset\30.gif" />
+    <Content Include="Content\Images\Emoticonset\31.gif" />
+    <Content Include="Content\Images\Emoticonset\32.gif" />
+    <Content Include="Content\Images\Emoticonset\33.gif" />
+    <Content Include="Content\Images\Emoticonset\34.gif" />
+    <Content Include="Content\Images\Emoticonset\35.gif" />
+    <Content Include="Content\Images\Emoticonset\36.gif" />
+    <Content Include="Content\Images\Emoticonset\37.gif" />
+    <Content Include="Content\Images\Emoticonset\38.gif" />
+    <Content Include="Content\Images\Emoticonset\39.gif" />
+    <Content Include="Content\Images\Emoticonset\4.gif" />
+    <Content Include="Content\Images\Emoticonset\40.gif" />
+    <Content Include="Content\Images\Emoticonset\41.gif" />
+    <Content Include="Content\Images\Emoticonset\42.gif" />
+    <Content Include="Content\Images\Emoticonset\43.gif" />
+    <Content Include="Content\Images\Emoticonset\44.gif" />
+    <Content Include="Content\Images\Emoticonset\45.gif" />
+    <Content Include="Content\Images\Emoticonset\46.gif" />
+    <Content Include="Content\Images\Emoticonset\47.gif" />
+    <Content Include="Content\Images\Emoticonset\48.gif" />
+    <Content Include="Content\Images\Emoticonset\49.gif" />
+    <Content Include="Content\Images\Emoticonset\5.gif" />
+    <Content Include="Content\Images\Emoticonset\50.gif" />
+    <Content Include="Content\Images\Emoticonset\51.gif" />
+    <Content Include="Content\Images\Emoticonset\52.gif" />
+    <Content Include="Content\Images\Emoticonset\53.gif" />
+    <Content Include="Content\Images\Emoticonset\54.gif" />
+    <Content Include="Content\Images\Emoticonset\55.gif" />
+    <Content Include="Content\Images\Emoticonset\56.gif" />
+    <Content Include="Content\Images\Emoticonset\57.gif" />
+    <Content Include="Content\Images\Emoticonset\58.gif" />
+    <Content Include="Content\Images\Emoticonset\59.gif" />
+    <Content Include="Content\Images\Emoticonset\6.gif" />
+    <Content Include="Content\Images\Emoticonset\60.gif" />
+    <Content Include="Content\Images\Emoticonset\61.gif" />
+    <Content Include="Content\Images\Emoticonset\62.gif" />
+    <Content Include="Content\Images\Emoticonset\63.gif" />
+    <Content Include="Content\Images\Emoticonset\64.gif" />
+    <Content Include="Content\Images\Emoticonset\65.gif" />
+    <Content Include="Content\Images\Emoticonset\66.gif" />
+    <Content Include="Content\Images\Emoticonset\67.gif" />
+    <Content Include="Content\Images\Emoticonset\68.gif" />
+    <Content Include="Content\Images\Emoticonset\69.gif" />
+    <Content Include="Content\Images\Emoticonset\7.gif" />
+    <Content Include="Content\Images\Emoticonset\70.gif" />
+    <Content Include="Content\Images\Emoticonset\71.gif" />
+    <Content Include="Content\Images\Emoticonset\72.gif" />
+    <Content Include="Content\Images\Emoticonset\73.gif" />
+    <Content Include="Content\Images\Emoticonset\74.gif" />
+    <Content Include="Content\Images\Emoticonset\75.gif" />
+    <Content Include="Content\Images\Emoticonset\76.gif" />
+    <Content Include="Content\Images\Emoticonset\77.gif" />
+    <Content Include="Content\Images\Emoticonset\78.gif" />
+    <Content Include="Content\Images\Emoticonset\79.gif" />
+    <Content Include="Content\Images\Emoticonset\8.gif" />
+    <Content Include="Content\Images\Emoticonset\9.gif" />
+    <Content Include="Content\Images\Emoticonset\pirate.gif" />
+    <Content Include="Content\Images\Emoticonset\transformer.gif" />
+    <Content Include="Content\Images\forward_disabled.png" />
+    <Content Include="Content\Images\forward_enabled.png" />
+    <Content Include="Content\Images\forward_enabled_hover.png" />
+    <Content Include="Content\Images\ie9\button.svg" />
+    <Content Include="Content\Images\images.jpg" />
+    <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\Logo-large.png" />
+    <Content Include="Content\Images\overlay.png" />
+    <Content Include="Content\Images\check48.png" />
+    <Content Include="Content\Images\toggle.svg" />
+    <Content Include="Content\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\Images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\Images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\Images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\Images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\Images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\Images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\Images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Images\x.png" />
+    <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\Modal.css" />
+    <Content Include="Content\PIE.htc" />
+    <Content Include="EmailTemplates\TwoFactorReset-302.html" />
+    <Content Include="EmailTemplates\UserAccountRejected-301.html" />
+    <Content Include="EmailTemplates\Registration-0.html" />
+    <Content Include="EmailTemplates\LogonSuccess-1.html" />
+    <Content Include="EmailTemplates\LogonFail-2.html" />
+    <Content Include="EmailTemplates\Lockout-3.html" />
+    <Content Include="EmailTemplates\PasswordReset-4.html" />
+    <Content Include="EmailTemplates\TwoFactorLogin-40.html" />
+    <Content Include="EmailTemplates\TwoFactorSettingsUnlock-41.html" />
+    <Content Include="EmailTemplates\TwoFactorWithdraw-42.html" />
+    <Content Include="EmailTemplates\TwoFactorTransfer-43.html" />
+    <Content Include="EmailTemplates\TwoFactorTip-44.html" />
+    <Content Include="EmailTemplates\LockoutWithReset-5.html" />
+    <Content Include="EmailTemplates\LockoutByUser-6.html" />
+    <Content Include="EmailTemplates\LockoutByUserWithReset-7.html" />
+    <Content Include="EmailTemplates\ConfirmWithdraw-20.html" />
+    <Content Include="EmailTemplates\AccountActivated-303.html" />
+    <Content Include="EmailTemplates\UserAccountVerified-300.html" />
+    <Content Include="Errors\400.html" />
+    <Content Include="Errors\404.aspx" />
+    <Content Include="Errors\404.html" />
+    <Content Include="Errors\500.aspx" />
+    <Content Include="Errors\500.html" />
+    <Content Include="Errors\GenericError.aspx" />
+    <Content Include="Errors\GenericError.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\additional-methods.min.js" />
+    <Content Include="Scripts\ba-emotify.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\Bundle\dataExport_bundle.js" />
+    <Content Include="Scripts\Bundle\dataExport_bundle.min.js">
+      <DependentUpon>dataExport_bundle.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Bundle\jq_bundle.min.js">
+      <DependentUpon>jq_bundle.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Bundle\site_bundle.min.js">
+      <DependentUpon>site_bundle.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Bundle\validation_bundle.js" />
+    <Content Include="Scripts\Bundle\validation_bundle.min.js">
+      <DependentUpon>validation_bundle.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\buttons.bootstrap.js" />
+    <Content Include="Scripts\buttons.html5.js" />
+    <Content Include="Scripts\buttons.print.js" />
+    <Content Include="Scripts\croppie.js" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\dataTables.buttons.js" />
+    <Content Include="Scripts\decimal.js" />
+    <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\Gruntfile.min.js">
+      <DependentUpon>Gruntfile.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Gruntfile.min.js.map">
+      <DependentUpon>Gruntfile.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\highstock.js" />
+    <Content Include="Scripts\highstock.min.js">
+      <DependentUpon>highstock.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\history.js" />
+    <Content Include="Scripts\html5shiv.min.js">
+      <DependentUpon>html5shiv.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\html5shiv.min.js.map">
+      <DependentUpon>html5shiv.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\init.min.js">
+      <DependentUpon>init.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\init.min.js.map">
+      <DependentUpon>init.js</DependentUpon>
+    </Content>
+    <None Include="app_offline.htm.off" />
+    <Content Include="Content\Images\Sorting icons.psd" />
+    <None Include="bundleconfig.json" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\webhostinghub-glyphs.eot" />
+    <Content Include="Content\fonts\webhostinghub-glyphs.ttf" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\Bundle\jq_bundle.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jszip.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\mustache.js" />
+    <Content Include="Scripts\pdfmake.js" />
+    <Content Include="Scripts\Project\Admin\admin.js" />
+    <Content Include="Scripts\Project\Admin\currency.js" />
+    <Content Include="Scripts\Project\Admin\news.js" />
+    <Content Include="Scripts\Project\Admin\referral.js" />
+    <Content Include="Scripts\Project\Admin\emoticon.js" />
+    <Content Include="Scripts\Project\Admin\paytopia.js" />
+    <Content Include="Scripts\Project\Admin\poolWorker.js" />
+    <Content Include="Scripts\Project\Admin\mineshaft.js" />
+    <Content Include="Scripts\Project\Admin\tradepair.js" />
+    <Content Include="Scripts\Project\Admin\user.js" />
+    <Content Include="Scripts\Project\Admin\settings.js" />
+    <Content Include="Scripts\Project\Admin\chat.js" />
+    <Content Include="Scripts\Project\Admin\security.js" />
+    <Content Include="Scripts\Project\Admin\lotto.js" />
+    <Content Include="Scripts\Project\Admin\termDeposit.js" />
+    <Content Include="Scripts\Project\Admin\withdraw.js" />
+    <Content Include="Scripts\Project\Admin\transfer.js" />
+    <Content Include="Scripts\Project\Admin\deposit.js" />
+    <Content Include="Scripts\Project\Chat.js" />
+    <Content Include="Scripts\Project\Chat.min.js">
+      <DependentUpon>Chat.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\CoinInfo\coinInfo.js" />
+    <Content Include="Scripts\Project\CoinInfo\coinInfo.min.js">
+      <DependentUpon>coinInfo.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Cryptopia.Math.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\expressive.annotations.validate.js" />
+    <Content Include="Scripts\jquery.blockUI.min.js">
+      <DependentUpon>jquery.blockUI.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.countdown.js" />
+    <Content Include="Scripts\jquery.countdown.min.js">
+      <DependentUpon>jquery.countdown.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.plugin.js" />
+    <Content Include="Scripts\jquery.qrcode.min.js">
+      <DependentUpon>jquery.qrcode.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.min.js">
+      <DependentUpon>MicrosoftAjax.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftAjax.min.js">
+      <DependentUpon>MicrosoftAjax.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.min.js">
+      <DependentUpon>MicrosoftMvcAjax.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcAjax.min.js">
+      <DependentUpon>MicrosoftMvcAjax.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.min.js">
+      <DependentUpon>MicrosoftMvcValidation.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcValidation.min.js">
+      <DependentUpon>MicrosoftMvcValidation.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Project\datatables.extensions.js" />
+    <Content Include="Scripts\Project\Deposit\display.js" />
+    <Content Include="Scripts\Project\Deposit\display.min.js">
+      <DependentUpon>display.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Deposit\index.js" />
+    <Content Include="Scripts\Project\Deposit\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Exchange\exchange.min.js">
+      <DependentUpon>exchange.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Lotto\lotto.min.js">
+      <DependentUpon>lotto.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Mineshaft\mineshaft.min.js">
+      <DependentUpon>mineshaft.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Mineshaft\mineshaftCharts.min.js">
+      <DependentUpon>mineshaftCharts.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Mineshaft\mineshaftInfo.min.js">
+      <DependentUpon>mineshaftInfo.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Mineshaft\mineshaftSummary.min.js">
+      <DependentUpon>mineshaftSummary.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Mineshaft\user-mineshaft.min.js">
+      <DependentUpon>user-mineshaft.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\News\news.min.js">
+      <DependentUpon>news.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Paytopia\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\technical-indicators.src.min.js">
+      <DependentUpon>technical-indicators.src.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Transfer\create.js" />
+    <Content Include="Scripts\Project\Transfer\create.min.js">
+      <DependentUpon>create.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Transfer\index.js" />
+    <Content Include="Scripts\Project\Transfer\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\TwoFactor\twoFactorCreate.min.js">
+      <DependentUpon>twoFactorCreate.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\user.min.js">
+      <DependentUpon>user.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userAddressBook.min.js">
+      <DependentUpon>userAddressBook.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userApiSettings.min.js">
+      <DependentUpon>userApiSettings.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userBalance.min.js">
+      <DependentUpon>userBalance.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userDeposit.min.js">
+      <DependentUpon>userDeposit.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userKarma.min.js">
+      <DependentUpon>userKarma.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userMarketplace.min.js">
+      <DependentUpon>userMarketplace.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userMarketplaceHistory.min.js">
+      <DependentUpon>userMarketplaceHistory.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userMessage.min.js">
+      <DependentUpon>userMessage.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userMineshaft.min.js">
+      <DependentUpon>userMineshaft.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userMineshaftHistory.min.js">
+      <DependentUpon>userMineshaftHistory.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userNotification.min.js">
+      <DependentUpon>userNotification.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userPaytopia.min.js">
+      <DependentUpon>userPaytopia.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userProfile.min.js">
+      <DependentUpon>userProfile.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userReferral.min.js">
+      <DependentUpon>userReferral.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userSecurity.min.js">
+      <DependentUpon>userSecurity.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userSettings.min.js">
+      <DependentUpon>userSettings.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userShareholder.min.js">
+      <DependentUpon>userShareholder.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userTermDeposit.min.js">
+      <DependentUpon>userTermDeposit.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userTradeHistory.min.js">
+      <DependentUpon>userTradeHistory.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userTrades.min.js">
+      <DependentUpon>userTrades.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userTransfer.min.js">
+      <DependentUpon>userTransfer.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\User\userWithdraw.min.js">
+      <DependentUpon>userWithdraw.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Withdraw\create.js" />
+    <Content Include="Scripts\Project\Withdraw\create.min.js">
+      <DependentUpon>create.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Withdraw\index.js" />
+    <Content Include="Scripts\Project\Withdraw\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Project\Lotto\lotto.js" />
+    <Content Include="Scripts\Project\Mineshaft\mineshaftCharts.js" />
+    <Content Include="Scripts\Project\Mineshaft\mineshaftInfo.js" />
+    <Content Include="Scripts\Project\Mineshaft\mineshaftSummary.js" />
+    <Content Include="Scripts\Project\Mineshaft\mineshaft.js" />
+    <Content Include="Scripts\Project\Mineshaft\user-mineshaft.js" />
+    <Content Include="Scripts\Project\News\news.js" />
+    <Content Include="Scripts\Project\Paytopia\index.js" />
+    <Content Include="Scripts\Project\simplemodal.js" />
+    <Content Include="Scripts\Project\technical-indicators.src.js" />
+    <Content Include="Scripts\Project\TwoFactor\twoFactorCreate.js" />
+    <Content Include="Scripts\Project\User\userReferral.js" />
+    <Content Include="Scripts\Project\User\userPaytopia.js" />
+    <Content Include="Scripts\Project\User\userShareholder.js" />
+    <Content Include="Scripts\Project\User\userAddressBook.js" />
+    <Content Include="Scripts\Project\User\userApiSettings.js" />
+    <Content Include="Scripts\Project\User\userKarma.js" />
+    <Content Include="Scripts\Project\User\userMarketplaceHistory.js" />
+    <Content Include="Scripts\Project\User\userMineshaftHistory.js" />
+    <Content Include="Scripts\Project\User\userTermDeposit.js" />
+    <Content Include="Scripts\Project\User\userTradeHistory.js" />
+    <Content Include="Scripts\Project\User\userWithdraw.js" />
+    <Content Include="Scripts\Project\User\userTransfer.js" />
+    <Content Include="Scripts\Project\User\userMessage.js" />
+    <Content Include="Scripts\Project\User\userBalance.js" />
+    <Content Include="Scripts\Project\User\userDeposit.js" />
+    <Content Include="Scripts\Project\User\userTrades.js" />
+    <Content Include="Scripts\Project\User\userMarketplace.js" />
+    <Content Include="Scripts\Project\User\userMineshaft.js" />
+    <Content Include="Scripts\Project\User\userNotification.js" />
+    <Content Include="Scripts\Project\User\userSecurity.js" />
+    <Content Include="Scripts\Project\User\userSettings.js" />
+    <Content Include="Scripts\Project\User\userProfile.js" />
+    <Content Include="Scripts\Project\User\user.js" />
+    <Content Include="Scripts\Project\Exchange\exchange.js" />
+    <Content Include="Scripts\qrcode.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\jquery.blockUI.min.js.map">
+      <DependentUpon>jquery.blockUI.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.countdown.min.js.map">
+      <DependentUpon>jquery.countdown.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.qrcode.min.js.map">
+      <DependentUpon>jquery.qrcode.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftAjax.debug.min.js.map">
+      <DependentUpon>MicrosoftAjax.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftAjax.min.js.map">
+      <DependentUpon>MicrosoftAjax.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.min.js.map">
+      <DependentUpon>MicrosoftMvcAjax.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcAjax.min.js.map">
+      <DependentUpon>MicrosoftMvcAjax.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.min.js.map">
+      <DependentUpon>MicrosoftMvcValidation.debug.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MicrosoftMvcValidation.min.js.map">
+      <DependentUpon>MicrosoftMvcValidation.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\css\dialog.css" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\buttons.png" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\icons.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\items.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\progress.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\validate.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example\dialog.html" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\address.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\article.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\aside.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\blockquote.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\div.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\dl.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\figure.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h1.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h2.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h3.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h4.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h5.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h6.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\hgroup.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ol.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\p.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\pre.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\section.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ul.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.js" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.min.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\tinymce\tinymce.js" />
+    <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\vfs_fonts.js" />
+    <Content Include="Scripts\_references.min.js">
+      <DependentUpon>_references.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\_references.min.js.map">
+      <DependentUpon>_references.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Scripts\jquery.sticky.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Scripts\Bundle\site_bundle.js" />
+    <Content Include="Views\Balance\TipCurrency.cshtml" />
+    <Content Include="Views\Forum\Forum.cshtml" />
+    <Content Include="Views\Forum\Category.cshtml" />
+    <Content Include="Views\Forum\Thread.cshtml" />
+    <Content Include="Views\Forum\CreateThread.cshtml" />
+    <Content Include="Views\Forum\CreatePost.cshtml" />
+    <Content Include="Views\Forum\CreateForum.cshtml" />
+    <Content Include="Views\Forum\CreateCategory.cshtml" />
+    <Content Include="Views\Forum\UpdatePost.cshtml" />
+    <Content Include="Views\Forum\UpdateThread.cshtml" />
+    <Content Include="Views\Forum\UpdateCategory.cshtml" />
+    <Content Include="Views\Forum\UpdateForum.cshtml" />
+    <Content Include="Views\Arbitrage\Arbitrage.cshtml" />
+    <Content Include="Views\Arbitrage\_ArbitrageMarket.cshtml" />
+    <Content Include="Views\Forum\ReportPost.cshtml" />
+    <Content Include="Views\Forum\SearchResult.cshtml" />
+    <Content Include="Views\MarketPlace\MarketFeedback.cshtml" />
+    <Content Include="Views\Support\UserSupport.cshtml" />
+    <Content Include="Views\Support\SupportTicket.cshtml" />
+    <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Privacy.cshtml" />
+    <Content Include="Views\MarketPlace\EditMarketItem.cshtml" />
+    <Content Include="Views\MarketPlace\CreateMarketItem.cshtml" />
+    <Content Include="Views\MarketPlace\BuySellItem.cshtml" />
+    <Content Include="Views\MarketPlace\AuctionItem.cshtml" />
+    <Content Include="Views\MarketPlace\Questions.cshtml" />
+    <Content Include="Views\MarketPlace\Details.cshtml" />
+    <Content Include="Views\MarketPlace\Feedback.cshtml" />
+    <Content Include="Views\MarketPlace\Images.cshtml" />
+    <Content Include="Views\Shared\StarRating.cshtml" />
+    <Content Include="Views\MarketPlace\BreadCrumbs.cshtml" />
+    <Content Include="Views\MarketPlace\WantedItem.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Social.cshtml" />
+    <Content Include="Views\Shared\_FooterFull.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\ViewMessage.cshtml" />
+    <Content Include="Views\UserNotification\_NotificationMenu.cshtml" />
+    <Content Include="Views\UserProfile\UpdateAvatarModal.cshtml" />
+    <Content Include="Views\UserProfile\_Profile.cshtml" />
+    <Content Include="Views\UserSecurity\_Security.cshtml" />
+    <Content Include="Views\UserNotification\_Notification.cshtml" />
+    <Content Include="Views\UserMessage\_MessageItem.cshtml" />
+    <Content Include="Views\UserDeposit\_Deposits.cshtml" />
+    <Content Include="Views\UserWithdraw\_Withdrawals.cshtml" />
+    <Content Include="Views\UserExchange\_Trades.cshtml" />
+    <Content Include="Views\UserTransfer\_Transfers.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
+    <Content Include="Views\UserSettings\_Settings.cshtml" />
+    <Content Include="Views\Shared\ViewMessageModal.cshtml" />
+    <Content Include="Views\Chat\Chat.cshtml" />
+    <Content Include="Views\UserSecurity\CreateAddressBookModal.cshtml" />
+    <Content Include="Views\Reward\Reward.cshtml" />
+    <Content Include="Views\Lotto\Index.cshtml" />
+    <Content Include="Views\Chat\_ChatSettingsPartial.cshtml" />
+    <Content Include="Views\Chat\ChatEmoticonModal.cshtml" />
+    <Content Include="Views\Shared\_GoogleAdsense.cshtml" />
+    <Content Include="Views\UserSecurity\_UpdatePassword.cshtml" />
+    <Content Include="Views\UserSecurity\_UpdateApi.cshtml" />
+    <Content Include="Views\UserSecurity\_UpdateAddressBook.cshtml" />
+    <Content Include="Views\TwoFactor\Remove.cshtml" />
+    <Content Include="Views\TwoFactor\Create.cshtml" />
+    <Content Include="Views\TwoFactor\_ViewPartial.cshtml" />
+    <Content Include="Views\UserExchange\_TradeHistory.cshtml" />
+    <Content Include="Views\UserMessage\_Messages.cshtml" />
+    <Content Include="Views\UserMineshaft\_History.cshtml" />
+    <Content Include="Views\UserMineshaft\_Miners.cshtml" />
+    <Content Include="Views\UserMarketplace\_History.cshtml" />
+    <Content Include="Views\UserMarketplace\_MarketItems.cshtml" />
+    <Content Include="Views\UserMessage\ReportMessageModal.cshtml" />
+    <Content Include="Views\UserMessage\CreateMessageModal.cshtml" />
+    <Content Include="Views\UserMessage\ReplyMessageModal.cshtml" />
+    <Content Include="Views\TwoFactor\Verify.cshtml" />
+    <Content Include="Views\UserSecurity\_UnlockSecurity.cshtml" />
+    <Content Include="Views\UserMineshaft\CreateWorkerModal.cshtml" />
+    <Content Include="Views\UserBalance\_Balances.cshtml" />
+    <Content Include="Views\UserKarma\_Karma.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\AdminTransfer\_Transfers.cshtml" />
+    <Content Include="Views\AdminDeposit\_Deposits.cshtml" />
+    <Content Include="Views\AdminSettings\_Settings.cshtml" />
+    <Content Include="Views\AdminSettings\UpdateSiteSettingsModal.cshtml" />
+    <Content Include="Views\AdminChat\_ChatAdmin.cshtml" />
+    <Content Include="Views\AdminUser\_UserAdmin.cshtml" />
+    <Content Include="Views\AdminUser\UpdateUserModal.cshtml" />
+    <Content Include="Views\AdminSecurity\_Security.cshtml" />
+    <Content Include="Views\AdminLotto\_Lotto.cshtml" />
+    <Content Include="Views\AdminLotto\UpdateLottoItemModal.cshtml" />
+    <Content Include="Views\AdminLotto\CreateLottoItemModal.cshtml" />
+    <Content Include="Views\AdminTermDeposit\_TermDeposits.cshtml" />
+    <Content Include="Views\AdminTermDeposit\UpdatePayment.cshtml" />
+    <Content Include="Views\AdminPoolWorker\_PoolWorker.cshtml" />
+    <Content Include="Views\AdminPoolWorker\UpdateWorkerModal.cshtml" />
+    <Content Include="Views\AdminMineshaft\_Mineshaft.cshtml" />
+    <Content Include="Views\AdminMineshaft\UpdatePoolModal.cshtml" />
+    <Content Include="Views\AdminMineshaft\UpdateWorkerPoolModal.cshtml" />
+    <Content Include="Views\AdminMineshaft\UpdatePoolConnectionModal.cshtml" />
+    <Content Include="Views\AdminMineshaft\UpdateSettingsModal.cshtml" />
+    <Content Include="Views\AdminPaytopia\_Paytopia.cshtml" />
+    <Content Include="Views\AdminPaytopia\PaymentInfoModal.cshtml" />
+    <Content Include="Views\AdminPaytopia\UpdatePaymentModal.cshtml" />
+    <Content Include="Views\AdminCurrency\_Currencies.cshtml" />
+    <Content Include="Views\AdminCurrency\UpdateCurrencyModal.cshtml" />
+    <Content Include="Views\AdminTradePair\_TradePairs.cshtml" />
+    <Content Include="Views\AdminTradePair\UpdateTradePairModal.cshtml" />
+    <Content Include="Views\AdminTradePair\CreateTradePairModal.cshtml" />
+    <Content Include="Views\AdminMineshaft\_MineshaftPayments.cshtml" />
+    <Content Include="Views\AdminEmoticon\_Emoticons.cshtml" />
+    <Content Include="Views\AdminEmoticon\UpdateEmoticonModal.cshtml" />
+    <Content Include="Views\AdminEmoticon\CreateEmoticonModal.cshtml" />
+    <Content Include="Views\AdminWithdraw\_Withdrawals.cshtml" />
+    <Content Include="Views\Chat\BanHammerModal.cshtml" />
+    <Content Include="Views\CoinInfo\UpdateInfoModal.cshtml" />
+    <Content Include="Views\Chat\RulesModal.cshtml" />
+    <Content Include="Views\Shared\_SEOPartial.cshtml" />
+    <Content Include="Views\UserShareholder\_Shareholder.cshtml" />
+    <Content Include="Views\Lotto\CreateLottoTicketModal.cshtml" />
+    <Content Include="Views\Home\Theme.cshtml" />
+    <Content Include="Views\UserTermDeposit\_TermDeposit.cshtml" />
+    <Content Include="Views\Support\CreateReplyModal.cshtml" />
+    <Content Include="Views\Support\AdminCreateReplyModal.cshtml" />
+    <Content Include="Views\Support\AdminSupportTicket.cshtml" />
+    <Content Include="Views\CoinInfo\PeerInfoModal.cshtml" />
+    <Content Include="Views\UserMineshaft\UpdateWorkerPoolModal.cshtml" />
+    <Content Include="Views\UserMineshaft\UpdateWorkerModal.cshtml" />
+    <Content Include="Views\MineShaft\_MineshaftInfo.cshtml" />
+    <Content Include="Views\MineShaft\_MineshaftSummary.cshtml" />
+    <Content Include="Views\MineShaft\Mineshaft.cshtml" />
+    <Content Include="Views\MineShaft\ChangePoolModal.cshtml" />
+    <Content Include="Views\MineShaft\GettingStartedModal.cshtml" />
+    <Content Include="Views\Paytopia\Index.cshtml" />
+    <Content Include="Views\Paytopia\ExchangeListingModal.cshtml" />
+    <Content Include="Views\Paytopia\PoolListingModal.cshtml" />
+    <Content Include="Views\Paytopia\LottoSlotModal.cshtml" />
+    <Content Include="Views\Paytopia\TipSlotModal.cshtml" />
+    <Content Include="Views\Paytopia\RewardSlotModal.cshtml" />
+    <Content Include="Views\Paytopia\FeaturedCurrencySlotModal.cshtml" />
+    <Content Include="Views\Paytopia\FeaturedPoolSlotModal.cshtml" />
+    <Content Include="Views\UserPaytopia\_Paytopia.cshtml" />
+    <Content Include="Views\UserPaytopia\PaymentInfoModal.cshtml" />
+    <Content Include="Views\Paytopia\SharesModal.cshtml" />
+    <Content Include="Views\UserShareholder\PaymentInfoModal.cshtml" />
+    <Content Include="Views\Paytopia\ExchangeComboListingModal.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\AdminNews\_News.cshtml" />
+    <Content Include="Views\AdminNews\CreateNewsModal.cshtml" />
+    <Content Include="Views\AdminNews\UpdateNewsModal.cshtml" />
+    <Content Include="Views\AdminReferral\_Referral.cshtml" />
+    <Content Include="Views\UserReferral\_Referral.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\AdminUser\UpdateProfileModal.cshtml" />
+    <Content Include="Views\AdminUser\UpdateSettingsModal.cshtml" />
+    <Content Include="Views\AdminUser\UpdateApiModal.cshtml" />
+    <Content Include="Views\Deposit\Display.cshtml" />
+    <Content Include="Views\Deposit\Index.cshtml" />
+    <Content Include="Views\Withdraw\Index.cshtml" />
+    <Content Include="Views\Withdraw\Create.cshtml" />
+    <Content Include="Views\Withdraw\Summary.cshtml" />
+    <Content Include="Views\Withdraw\Error.cshtml" />
+    <Content Include="Views\Transfer\Create.cshtml" />
+    <Content Include="Views\Transfer\Error.cshtml" />
+    <Content Include="Views\Transfer\Index.cshtml" />
+    <Content Include="Views\Transfer\Summary.cshtml" />
+    <Content Include="Views\Withdraw\Success.cshtml" />
+    <Content Include="Views\UserVerification\Index.cshtml" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\ZeroClipboard.swf" />
+    <Content Include="Content\Images\Emoticonset\Emoticons.plist" />
+    <Content Include="Scripts\Project\Cryptopia.js" />
+    <Content Include="Scripts\Gruntfile.js" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\init.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Content\jquery.jgrowl.css" />
+    <Content Include="Scripts\jquery.jgrowl.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.qrcode.js" />
+    <Content Include="Scripts\Project\modal.js" />
+    <Content Include="Scripts\raphael.2.1.0.min.js" />
+    <Content Include="Scripts\skel-panels.min.js" />
+    <Content Include="Scripts\skel.min.js" />
+    <Content Include="Scripts\ZeroClipboard.Core.js" />
+    <Content Include="Scripts\ZeroClipboard.Core.min.js" />
+    <Content Include="Scripts\ZeroClipboard.js" />
+    <Content Include="Scripts\ZeroClipboard.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\ZeroClipboard.Core.min.map" />
+    <Content Include="Scripts\ZeroClipboard.min.map" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Support\Support.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Modal\Invalid.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\VerifyLoginTwoFactor.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Support\CreateTicketModal.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\MarketPlace\MarketPlace.cshtml" />
+    <Content Include="Views\Exchange\Exchange.cshtml" />
+    <Content Include="Views\CoinInfo\CoinInfo.cshtml" />
+    <Content Include="Views\Login\VerifyLockoutTwoFactor.cshtml" />
+    <Content Include="Views\UserShareholder\_Placeholder.cshtml" />
+    <Content Include="Views\Paytopia\TwoFactorModal.cshtml" />
+    <Content Include="Views\Shared\_ChatTemplates.cshtml" />
+    <Content Include="Views\Deposit\NotVerified.cshtml" />
+    <Content Include="Views\Deposit\Error.cshtml" />
+    <Content Include="Views\Withdraw\NotVerified.cshtml" />
+    <Content Include="Views\Shared\_SharedTemplates.cshtml" />
+    <Content Include="Views\Shared\_LanguageMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Avatar\" />
+    <Folder Include="Content\Images\Coins\" />
+    <Folder Include="Content\Sprites\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Authorization.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Authorization.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Authorization.ru.resx" />
+    <EmbeddedResource Include="Resources\Exchange.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Exchange.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Exchange.ru.resx" />
+    <EmbeddedResource Include="Resources\Home.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Home.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Home.ru.resx" />
+    <EmbeddedResource Include="Resources\Layout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Layout.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509130501019_Forums.resx">
+      <DependentUpon>201509130501019_Forums.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cryptopia.Admin.Common\Cryptopia.Admin.Common.csproj">
+      <Project>{2fe7f4a1-9ab7-46fd-9e7d-7b02ffd3820a}</Project>
+      <Name>Cryptopia.Admin.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Base\Cryptopia.Base.csproj">
+      <Project>{434E7159-FEC5-4CF3-8BAD-BFFB2F1C6DAE}</Project>
+      <Name>Cryptopia.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Cache\Cryptopia.Cache.csproj">
+      <Project>{21480099-3347-4273-9e5a-e7632e624ad8}</Project>
+      <Name>Cryptopia.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Common\Cryptopia.Common.csproj">
+      <Project>{e52b1491-8a60-48b6-b551-834e159867ab}</Project>
+      <Name>Cryptopia.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Data\Cryptopia.Data.csproj">
+      <Project>{3d4008ac-2457-4190-b36d-2343f9abc6b3}</Project>
+      <Name>Cryptopia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.DependencyInjection\Cryptopia.DependencyInjection.csproj">
+      <Project>{2372d989-6012-4bc3-8ecd-54969b512383}</Project>
+      <Name>Cryptopia.DependencyInjection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Entity\Cryptopia.Entity.csproj">
+      <Project>{6c3292dd-2ae8-4025-925c-bdd2c10dc741}</Project>
+      <Name>Cryptopia.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6e49b123-5cc9-4b9d-bbd6-feeb8fa4ce39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Infrastructure\Cryptopia.Infrastructure.csproj">
+      <Project>{4A51F4E4-0D9D-4B2F-8A56-1EDC088B8F05}</Project>
+      <Name>Cryptopia.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptopia.Resources\Cryptopia.Resources.csproj">
+      <Project>{ba77649b-fdfb-45b3-84b9-669bf8ea3783}</Project>
+      <Name>Cryptopia.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,133 @@
+﻿@model Cryptopia.Common.User.UserMessagesModel
+@{
+
+}
+
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.UserData.messagesHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+@Html.WriterValidationSummary()
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+
+<div class="inbox-toolbar">
+
+	<div class="message-searchbar col-xs-4 nopad">
+		<div class="btn-group btn-group-sm btn-group-justified">
+			<a id="selection-inbox" class="btn btn-default btn-sm message-btn">
+				<span><i class="icon-inbox panel-icon"></i>@Resources.UserData.messagesInboxTab</span>
+			</a>
+			<a id="selection-outbox" class="btn btn-default btn-sm message-btn">
+				<span><i class="icon-outbox panel-icon"></i>@Resources.UserData.messagesOutboxTab</span>
+			</a>
+		</div>
+		<input id="message-search" type="search" placeholder="@Resources.UserData.messagesInboxTabSearchPlaceholder" class="form-control input-sm" />
+	</div>
+
+	<div class="col-xs-8 message-menu">
+
+		<div class="pull-left">
+			<span class="message-type">@Resources.UserData.messagesInboxHeadline</span>
+		</div>
+
+		@*Delete menu*@
+		<div class="pull-right">
+			<div class="btn-group btn-group-sm btn-group-vertical">
+				<button id="message-delete" title="@Resources.UserData.messagesDeleteButtonHint" class="btn btn-danger message-btn" disabled="disabled" data-action="@Url.Action("DeleteMessage")">
+					<span><i class="fa fa-trash-o panel-icon"></i>@Resources.UserData.messagesDeleteButton</span>
+				</button>
+				<button id="message-deleteaall" title="@Resources.UserData.messagesDeleteAllButtonHint" class="btn btn-danger message-btn" data-action="@Url.Action("DeleteAllMessage")">
+					<span><i class="fa fa-trash-o panel-icon"></i>@Resources.UserData.messagesDeleteAllButton</span>
+				</button>
+			</div>
+		</div>
+
+		@*Inbox menu*@
+		<div class="pull-right">
+			<div class="btn-group btn-group-sm btn inbox-btns" style="display: none">
+				<button id="message-new" title="@Resources.UserData.messagesNewButtonHint" class="btn btn-success btn-sm message-btn" data-action="@Url.Action("CreateMessage")">
+					<span><i class="icon-mailbox panel-icon"></i>@Resources.UserData.messagesNewButton</span>
+				</button>
+				<button id="message-reply" title="@Resources.UserData.messagesReplyButtonHint" class="btn btn-info btn-sm message-btn" disabled="disabled" data-action="@Url.Action("ReplyMessage")">
+					<span><i class="fa fa-reply panel-icon"></i>@Resources.UserData.messagesReplyButton</span>
+				</button>
+				<button id="message-report" title="@Resources.UserData.messagesReportButton" class="btn btn-warning btn-sm message-btn" disabled="disabled" data-action="@Url.Action("ReportMessage")">
+					<span><i class="icon-report panel-icon"></i>@Resources.UserData.messagesReportButton</span>
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="clearfix"></div>
+<div id="inbox-container">
+
+	<div class="col-xs-4 panel panel-default nopad list-message-container">
+		<div class="text-center" >
+			<i id="emptyListMessage-inbox" style="display:none">@Resources.UserData.messagesInboxEmptyListMessage</i>
+			<i id="emptyListMessage-outbox" style="display:none">@Resources.UserData.messagesOutboxEmptyListMessage</i>
+		</div>
+		<ul id="list-message" class="nav list-group" data-isinbox="True" data-action="@Url.Action("GetMessage")">
+			@foreach (var c in Model.Messages)
+			{
+				<li data-inbox="@c.IsInbound" data-messageid="@c.Id" data-unread="@(!c.IsRead)" class="list-group-item inbox-item @(!c.IsRead && c.IsInbound ? "text-bold" : "")">
+					<div>
+						<span>
+						<i class="msg-icon fa @(!c.IsRead && c.IsInbound ? "fa-envelope" : "fa-envelope-o") panel-icon"></i>
+						<span class="msg-from search-data">@(c.IsInbound ? c.Sender : c.Recipiants)</span>
+					</span>
+						<small style="font-size: 10px" class="pull-right">
+							@(c.Timestamp.AddHours(12) < DateTime.UtcNow ? c.Timestamp.ToString() : c.Timestamp.ElapsedTime())
+						</small>
+					</div>
+					<span class="msg-title search-data">@c.Subject</span>
+				</li>
+			}
+		</ul>
+	</div>
+
+	<div class="col-xs-8 message-section">
+		<div class="panel panel-default message-target-container">
+			<div class="alert alert-dismissible alert-warning">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				@Html.Raw(Resources.UserData.messagesWarningHtml)
+			</div>
+			<div id="message-target">
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserMessages = {
+		MessagesDeleteQuestionTitle: '@Resources.UserData.messagesDeleteQuestionTitle',
+		MessagesDeleteQuestion: '@Resources.UserData.messagesDeleteQuestion',
+		MessagesDeleteAllInboxQuestion: '@Resources.UserData.messagesDeleteAllInboxQuestion',
+		MessagesDeleteAllOutboxQuestion: '@Resources.UserData.messagesDeleteAllOutboxQuestion',
+		MessagesDeleteAllInboxQuestionTitle: '@Resources.UserData.messagesDeleteAllInboxQuestionTitle',
+		MessagesDeleteAllOutboxQuestionTitle: '@Resources.UserData.messagesDeleteAllOutboxQuestionTitle',
+		MessagesInboxTabSearchPlaceholder: '@Resources.UserData.messagesInboxTabSearchPlaceholder',
+		MessagesOutboxTabSearchPlaceholder: '@Resources.UserData.messagesOutboxTabSearchPlaceholder',
+		MessagesJustNowLabel: '@Resources.UserData.messagesJustNowLabel'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userMessage.min.js")
+<script id="messageTemplate" type="text/html">
+	<li data-inbox="{{IsInbound}}" data-messageid="{{MessageId}}" data-unread="{{Unread}}" class="list-group-item inbox-item {{TextClass}}">
+		<div>
+			<span>
+				<i class="msg-icon fa {{IconClass}} panel-icon"></i>
+				<span class="msg-from search-data">{{Sender}}</span>
+			</span>
+			<small style="font-size: 10px" class="pull-right">
+				{{Time}}
+			</small>
+		</div>
+		<span class="msg-title search-data">{{Subject}}</span>
+	</li>
+</script>

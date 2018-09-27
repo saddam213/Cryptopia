@@ -1,0 +1,49 @@
+This document is intended to help the front end and back end 
+coordinate on the order to implement areas of functionality.
+
+Please ensure that each area is functionally complete 
+before moving on to the next. 
+This includes backend processes, schema, objects, stored procs, 
+api calls, front end calls and front-end display/javascript.
+
+
+Account functionality
+- register
+- login
+- logout
+- change pass
+- view balances
+- deposit coin
+- withdraw coin
+- view transaction history
+- view subscription level
+- upgrade subscription level
+
+Trade Functionality
+- view open orders by pair
+- place order by pair
+- cancel existing order
+
+Trade Bot Functionality
+- view current rules and rule limit
+- add rule
+- edit rule
+- delete rule
+
+Support Functionality
+- view my tickets
+- create ticket
+
+Admin Section
+- admin view tickets
+- admin respond to tickets
+- admin edit tickets
+- admin reset user password
+- admin enable/disable account
+- admin cancel trade orders
+- admin enable/disable market (specific tradepair)temporarily
+- admin enable/disable entire market (maintenance mode)
+
+
+
+!!! Feel free to add to or edit this document as needed !!!

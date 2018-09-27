@@ -1,0 +1,73 @@
+﻿@{
+	ViewBag.Title = "Site Management Admin";
+}
+
+<div class="container-fluid">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a aria-expanded="true" href="#news" data-toggle="tab">
+				<h4>News</h4>
+			</a>
+		</li>
+		<li>
+			<a aria-expanded="false" href="#lockedout" data-toggle="tab">
+				<h4>Locked Out Users</h4>
+			</a>
+		</li>
+		<li>
+			<a aria-expanded="false" href="#referrals" data-toggle="tab">
+				<h4>Referrals</h4>
+			</a>
+		</li>
+	</ul>
+	<div class="tab-content" style="padding-top:15px">
+		<div class="tab-pane fade active in" id="news">
+			@Html.Partial("_NewsPartial")
+		</div>
+		<div class="tab-pane fade in" id="lockedout">
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="lockedUserTable" class="table table-striped table-hover datatable" data-action="@Url.Action("GetLockedOutUsers", "SiteManagement")" data-action-unlock="@Url.Action("UnlockUser", "SiteManagement")">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Email</th>
+						<th>Endtime</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade in" id="referrals">
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="referralTable" class="table table-striped table-hover datatable" data-action="@Url.Action("GetReferrals", "SiteManagement")">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>RoundId</th>
+						<th>UserName</th>
+						<th>RefCount</th>
+						@*<th>ActivityAmount</th>*@
+						<th>TradeFeeAmount</th>
+						<th>Status</th>
+						<th>TransferId</th>
+						<th>LastUpdate</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/Scripts/project/SiteManagement/news.js"></script>
+	<script src="~/Scripts/project/SiteManagement/security.js"></script>
+	<script src="~/Scripts/project/SiteManagement/referral.js"></script>
+	<script>
+	</script>
+}

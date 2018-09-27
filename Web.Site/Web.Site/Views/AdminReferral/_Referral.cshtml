@@ -1,0 +1,24 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Referrals</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="referrals" class="table table-striped table-hover datatable" data-action="@Url.Action("GetReferrals", "AdminReferral")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>RoundId</th>
+			<th>UserName</th>
+			<th>RefCount</th>
+			@*<th>ActivityAmount</th>*@
+			<th>TradeFeeAmount</th>
+			<th>Status</th>
+			<th>TransferId</th>
+			<th>LastUpdate</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/referral.js")
+

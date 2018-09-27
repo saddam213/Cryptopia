@@ -1,0 +1,25 @@
+﻿<h2 style="margin-top:0">
+	Mineshaft Payments
+</h2>
+<hr style="margin-top:0px" />
+<table id="payments" class="table table-striped table-hover datatable" data-action="@Url.Action("GetPayments", "AdminMineshaft")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>UserName</th>
+			<th>Pool</th>
+			<th>Height</th>
+			<th>Amount</th>
+			<th>Status</th>
+			<th>Shares</th>
+			<th>Transfer #</th>
+			<th>Timestamp</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+@Scripts.Render("~/Scripts/Project/Admin/mineshaft.js")
+
+
+

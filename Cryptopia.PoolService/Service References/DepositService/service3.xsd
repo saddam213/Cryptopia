@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cryptopia.InboundService.DataObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cryptopia.InboundService.DataObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" />
+  <xs:complexType name="GetWalletTransactionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="TxId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletTransactionRequest" nillable="true" type="tns:GetWalletTransactionRequest" />
+  <xs:complexType name="GetWalletTransactionResponse">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="TransactionData" nillable="true" type="q1:TransactionRawData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletTransactionResponse" nillable="true" type="tns:GetWalletTransactionResponse" />
+  <xs:complexType name="GetWalletInfoResponse">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="InfoData" nillable="true" type="q2:GetInfoData" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="PeerInfo" nillable="true" type="q3:ArrayOfPeerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletInfoResponse" nillable="true" type="tns:GetWalletInfoResponse" />
+  <xs:complexType name="GetWalletBlockRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BlockHash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BlockHeight" type="xs:int" />
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletBlockRequest" nillable="true" type="tns:GetWalletBlockRequest" />
+  <xs:complexType name="GetWalletBlockResponse">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="BlockData" nillable="true" type="q4:BlockData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletBlockResponse" nillable="true" type="tns:GetWalletBlockResponse" />
+  <xs:complexType name="GetWalletFeeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fee" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetWalletFeeResponse" nillable="true" type="tns:GetWalletFeeResponse" />
+</xs:schema>

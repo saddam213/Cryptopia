@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WalletInboundService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.InboundService.DataObjects" />
+      <xsd:import schemaLocation="http://localhost:8000/CryptopiaInbound/service?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWalletInbound_CreateAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAddress" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_CreateAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_ValidateAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAddress" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_ValidateAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfo" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetBlock_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBlock" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetBlock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetWalletFee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletFee" />
+  </wsdl:message>
+  <wsdl:message name="IWalletInbound_GetWalletFee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWalletFeeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWalletInbound">
+    <wsdl:operation name="CreateAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/CreateAddress" message="tns:IWalletInbound_CreateAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/CreateAddressResponse" message="tns:IWalletInbound_CreateAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/ValidateAddress" message="tns:IWalletInbound_ValidateAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/ValidateAddressResponse" message="tns:IWalletInbound_ValidateAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/GetTransaction" message="tns:IWalletInbound_GetTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/GetTransactionResponse" message="tns:IWalletInbound_GetTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/GetInfo" message="tns:IWalletInbound_GetInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/GetInfoResponse" message="tns:IWalletInbound_GetInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBlock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/GetBlock" message="tns:IWalletInbound_GetBlock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/GetBlockResponse" message="tns:IWalletInbound_GetBlock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletFee">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWalletInbound/GetWalletFee" message="tns:IWalletInbound_GetWalletFee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWalletInbound/GetWalletFeeResponse" message="tns:IWalletInbound_GetWalletFee_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWalletInbound" type="tns:IWalletInbound">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateAddress">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/CreateAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAddress">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/ValidateAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/GetInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlock">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/GetBlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletFee">
+      <soap:operation soapAction="http://tempuri.org/IWalletInbound/GetWalletFee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WalletInboundService">
+    <wsdl:port name="BasicHttpBinding_IWalletInbound" binding="tns:BasicHttpBinding_IWalletInbound">
+      <soap:address location="http://localhost:8000/CryptopiaInbound/service" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,70 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminUserUpdateModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Edit User Settings</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateUser", "AdminUser", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+		@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.Id)
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-md-6" style="padding-top:23px">
+							@Html.CheckBoxFor(m => m.EmailConfirmed)
+							@Html.LabelFor(m => m.EmailConfirmed, "Email Confirmed", new { @class = "control-label" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.RoleCss, "Chat Flair", new { @class = "control-label" })
+							<span style="margin-left:15px" id="preview"></span>
+							@Html.TextBoxFor(m => m.RoleCss, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.RoleCss, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6 text-center">
+							<a  href="https://fortawesome.github.io/Font-Awesome/icons/" target="_blank" rel="noopener noreferrer">Font Awesome</a>
+						</div>
+						<div class="col-xs-6 text-center">
+							<a href="http://www.webhostinghub.com/glyphs/" target="_blank" rel="noopener noreferrer">WebHosting Hub</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<input id="submit" class="btn btn-success button-180" type="submit" value="Update" />
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".datepicker").datepicker();
+		$("#RoleCss").on("change keyup paste", populatePreview);
+		function populatePreview() {
+			$("#preview").empty();
+			var flairString = $("#RoleCss").val();
+			if (flairString) {
+				var flairs = flairString.split("|");
+				for (var i = 0; i < flairs.length; i++) {
+					var flair = flairs[i];
+					$("#preview").append('<i class="' + flair + '"></i>')
+				}
+			}
+		}
+		populatePreview();
+	});
+</script>

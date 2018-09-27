@@ -1,0 +1,106 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Chat.ChatAdminModel
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">Chat Admin</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row chat-page-content" style="margin-top:15px">
+
+
+	<div class="col-md-8">
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="settings-page-header-container">
+					<h3 class="settings-page-header">ChatBot</h3>
+					<hr class="settings-page-seperator" />
+				</div>
+				<div>
+					<div>
+						@Html.Label("Bot Name", new { @class = "control-label" })
+						@Html.TextBox("ChatbotSender", "Chatbot", new { @class = "form-control input-sm" })
+					</div>
+					<div>
+						@Html.Label("Message", new { @class = "control-label" })
+						@Html.TextArea("ChatbotMsg", new { rows = 3, @class = "form-control" })
+					</div>
+					<br />
+					<button class="btn btn-default btn-sm button-180" id="chatbotSend" data-action="@Url.Action("SubmitChatbotMessage", "AdminChat")">Send Message</button>
+				</div>
+			</div>
+		</div>
+	
+
+
+		<div style="margin-top: 30px">
+			<div class="table-header-container">
+				<h3 class="table-header">Chat History</h3>
+				<hr class="table-seperator" />
+			</div>
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="chatHistory" class="table table-striped table-hover datatable" data-action="@Url.Action("GetChatHistory", "AdminChat")">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Chat Handle</th>
+						<th>Username</th>
+						<th>Message</th>
+						<th>Timestamp</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="settings-page-header-container">
+			<h3 class="settings-page-header">Ban Hammer</h3>
+			<hr class="settings-page-seperator" />
+		</div>
+		<div>
+			<div>
+				@Html.Label("User", new { @class = "control-label " })
+				@Html.DropDownList("chatBanList", new SelectList(Model.ChatUsers, "UserId", "ChatHandle"), new { rows = 3, @class = "form-control input-sm" })
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.Label("Ban Type", new { @class = "control-label" })
+					@Html.DropDownList("chatBanType", EnumHelper.GetSelectList(typeof(ChatBanType)), new { @class = "form-control input-sm", @type = "number" })
+				</div>
+				<div class="col-xs-6">
+					@Html.Label("Time (seconds)", new { @class = "control-label" })
+					@Html.TextBox("chatBanTime", 0, new { @class = "form-control input-sm", @type = "number" })
+				</div>
+			</div>
+			<div>
+			</div>
+			<div>
+				@Html.Label("Ban Message", new { @class = "control-label" })
+				@Html.TextArea("chatBanMessage", new { rows = 3, @class = "form-control" })
+			</div>
+			<br />
+			<button class="btn btn-default btn-sm button-180" id="chatBanSend" data-action="@Url.Action("SubmitChatBan", "AdminChat")">Ban User</button>
+		</div>
+		<div style="margin-top:30px">
+			<div class="table-header-container ">
+				<h3 class="table-header">Ban List</h3>
+				<hr class="table-seperator" />
+			</div>
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="bannedUsers" class="table table-striped table-hover datatable" data-action="@Url.Action("GetBannedUsers", "AdminChat")">
+				<thead>
+					<tr>
+						<th>Chat handle</th>
+						<th>Ban End</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+@Scripts.Render("~/Scripts/Project/Admin/chat.js")

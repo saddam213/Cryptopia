@@ -1,0 +1,99 @@
+﻿@model Cryptopia.Common.Paytopia.LottoSlotModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Paytopia.lottoHeadline</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("LottoSlot", "Paytopia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Price)
+				@Html.HiddenFor(m => m.Balance)
+				@Html.HiddenFor(m => m.Currency)
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.ItemId, new { @class = "control-label" })
+							@Html.DropDownListFor(m => m.ItemId, new SelectList(Model.Items, "Id", "Name"), "-Please Select-", new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.LottoName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.LottoName, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.LottoName, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+					</div>
+					<div class="row">
+						
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.LottoPrice, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.LottoPrice,"{0:F8}", new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.LottoPrice, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-12">
+							@Html.LabelFor(m => m.LottoDescription, new { @class = "control-label" })
+							@Html.TextAreaFor(m => m.LottoDescription, new { @class = "form-control", rows=4})
+							@Html.ValidationMessageFor(model => model.LottoDescription, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+
+						<div class="col-md-12" style="margin-top:12px">
+							<span>
+								<b><small>@Resources.Paytopia.paytopiaPriceLabel:</small></b> @Model.Price.ToString("F8") @Model.Currency
+							</span>
+						</div>
+						<div class="col-md-12">
+							<span>
+								<b><small>@Resources.Paytopia.paytopiaAvailableLabel:</small></b>
+								<span class="@(Model.Price > Model.Balance ? "text-danger":"text-info")">@Model.Balance.ToString("F8")</span> @Model.Currency
+							</span>
+						</div>
+
+						<div id="msg-nonexisting" class="col-md-12 text-center" style="margin-top:15px">
+							<span style="font-size:12px">
+								@Html.Raw(String.Format(Html.Encode(Resources.Paytopia.lottoBuyNowInfoText), "<span class=\"expire-time\"></span>"))
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">@Resources.Paytopia.paytopiaBuyNowButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+
+	$(".expire-time").html(toLocalDate('@DateTime.UtcNow.AddDays(30)'))
+	$("#Items").on("change", function () {
+		$("#msg-existing").hide();
+		$("#msg-nonexisting").show();
+		var item = $(this).find("option:selected");
+		var expires = item.data("expires");
+		var newexpiry = item.data("newexpiry");
+		var isexpired = item.data("isexpired");
+		if (isexpired == "False") {
+			$("#msg-existing").show();
+			$("#msg-nonexisting").hide();
+		}
+		$(".expire-time").html(toLocalDate(newexpiry))
+	});
+</script>

@@ -1,0 +1,24 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Site News</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="news" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetNews", "AdminNews")" data-action-update="@Url.Action("UpdateNews", "AdminNews")" data-action-create="@Url.Action("CreateNews", "AdminNews")">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td>Title</td>
+			<td>Author</td>
+			<td>Status</td>
+			<td>Timestamp</td>
+			<td>
+				<button class="btn btn-primary btn-xs pull-right" style="min-width:80px" onclick="createNews();">Create</button>
+			</td>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+@Scripts.Render("~/Scripts/Project/Admin/news.js")
+

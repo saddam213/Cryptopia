@@ -1,0 +1,39 @@
+﻿@{
+	ViewBag.Title = Resources.UserWallet.withdrawNotVerifiedPageTitle;
+	ViewBag.IsFullPage = true;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad withdraw-container">
+		<div class="col-md-12" style="padding-top:15px">
+			<div class="alert alert-warning">
+				<h4>
+					<b>@Resources.UserWallet.withdrawNotVerifiedHeadline</b>
+				</h4>
+				<p>@Resources.UserWallet.withdrawNotVerifiedInfoText</p>
+				<p>
+					@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.withdrawInstructionInfoText),
+											String.Format("<a href=\"/UserVerification\">{0}</a>", 
+														  Html.Encode(Resources.UserWallet.withdrawInstructionLink))))
+				</p>
+				<div class="text-center">
+					<br />
+					<small><i>@Resources.UserWallet.withdrawVerificationInfoText</i></small>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" style="margin-bottom:15px">
+			<div class="text-center">
+				<div class="row">
+					<div class="col-md-6">
+						<a id="cancel" class="btn btn-default btnfullwidth" href="/Withdraw">@Cryptopia.Resources.General.Back</a>
+					</div>
+					<div class="col-md-6">
+						<a id="cancel" class="btn btn-success btnfullwidth" href="/UserVerification">@Resources.UserWallet.withdrawVerifyButton</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

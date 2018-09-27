@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="depositCurrencyNotFoundError" xml:space="preserve">
+    <value>Currency {0} not found.</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="depositDeisplayReturnToMenuLink" xml:space="preserve">
+    <value>Deposit Menu</value>
+  </data>
+	<data name="depositDisplayAddressError" xml:space="preserve">
+    <value>If problems persist please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="depositDisplayAddressErrorTitle" xml:space="preserve">
+    <value>{0} Address Error!</value>
+    <comment>{0} - Address;</comment>
+  </data>
+	<data name="depositDisplayAddressIsRequiredLabel" xml:space="preserve">
+    <value>(required)</value>
+  </data>
+	<data name="depositDisplayAddressLabel" xml:space="preserve">
+    <value>Your {0} Token Address</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="depositDisplayBankAccountLabel" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+	<data name="depositDisplayBankReferenceLabel" xml:space="preserve">
+    <value>Bank Reference</value>
+  </data>
+	<data name="depositDisplayCopiedToClipboardMessage" xml:space="preserve">
+    <value>{0} copied to clipboard!</value>
+  </data>
+	<data name="depositDisplayCreatingAddressMessage" xml:space="preserve">
+    <value>Creating address...</value>
+  </data>
+	<data name="depositDisplayCryptopiaAccountLabel" xml:space="preserve">
+    <value>Cryptopia {0} Account</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="depositDisplayCryptopiaAddressLabel" xml:space="preserve">
+    <value>Cryptopia {0} Address</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="depositDisplayDepositAddressLabel" xml:space="preserve">
+    <value>Deposit Address</value>
+  </data>
+	<data name="depositDisplayDoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+	<data name="depositDisplayInfoMessage" xml:space="preserve">
+    <value>Please use the address below to deposit new funds.</value>
+  </data>
+	<data name="depositDisplayInstructionsLabel" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+	<data name="depositDisplayPageTitle" xml:space="preserve">
+    <value>Deposit {0}</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="depositDisplayQrCodeLabel" xml:space="preserve">
+    <value>QR Code</value>
+  </data>
+	<data name="depositDisplayReturnLink" xml:space="preserve">
+    <value>Return To {0}</value>
+    <comment>{0} - Target page name;</comment>
+  </data>
+	<data name="depositDisplayTypeBankLabel" xml:space="preserve">
+    <value>Bank Deposit</value>
+  </data>
+	<data name="depositDisplayTypeTokenLabel" xml:space="preserve">
+    <value>Token Deposit</value>
+  </data>
+	<data name="depositDisplayWarningLabel" xml:space="preserve">
+    <value>WARNING!</value>
+  </data>
+	<data name="depositDisplayWarningMessage" xml:space="preserve">
+    <value>Please do not mine to your Cryptopia addresses, We do not support transactions from pools like P2Pool etc.</value>
+  </data>
+	<data name="depositErrorHeadline" xml:space="preserve">
+    <value>Deposit Error</value>
+  </data>
+	<data name="depositErrorMessage" xml:space="preserve">
+    <value>If problems persist please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="depositErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+	<data name="depositHeadline" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+	<data name="depositHistoryLink" xml:space="preserve">
+    <value>View Deposit History</value>
+  </data>
+	<data name="depositInfoText" xml:space="preserve">
+    <value>Please select the currency you would like to deposit to your Cryptopia account.</value>
+  </data>
+	<data name="depositPageTitle" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+	<data name="depositSelectCurrencyLabel" xml:space="preserve">
+    <value>Select a currency</value>
+  </data>
+	<data name="notVerifiedHeadline" xml:space="preserve">
+    <value>Not Verified</value>
+  </data>
+	<data name="notVerifiedInfoText" xml:space="preserve">
+    <value>You need to have ID verification to use NZDT/Bank services</value>
+  </data>
+	<data name="notVerifiedInstructionText" xml:space="preserve">
+    <value>To become verified please visit our {0} page and fill in the required details, once your information has been verified you will have full access to our range of banking services.</value>
+    <comment>{0} - Verification link;</comment>
+  </data>
+	<data name="notVerifiedPageTitle" xml:space="preserve">
+    <value>Not Verified</value>
+  </data>
+	<data name="notVerifiedVerificationInfoText" xml:space="preserve">
+    <value>(Verification process can take up to 48 hours to complete)</value>
+  </data>
+	<data name="notVerifiedVerificationLink" xml:space="preserve">
+    <value>UserVerification</value>
+  </data>
+	<data name="notVerifiedVerifyLink" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+	<data name="tipBanError" xml:space="preserve">
+    <value>You are currently banned from tipping for {0} seconds</value>
+    <comment>{0} - Seconds;</comment>
+  </data>
+	<data name="tipChatHandleIsRequiredError" xml:space="preserve">
+    <value>ChatHandle is required</value>
+  </data>
+	<data name="tipChatHandleNotFoundError" xml:space="preserve">
+    <value>ChatHandle not found.</value>
+  </data>
+	<data name="tipChatResponseMessage" xml:space="preserve">
+    <value>Tipped {0} users {1} {2} each</value>
+    <comment>{0} - Tipped user count; {1} - Amount; {2} - Currency;</comment>
+  </data>
+	<data name="tipChatTipbotMessage" xml:space="preserve">
+    <value>{0} tipped the last {1} users {2} {3} each. {4}</value>
+    <comment>{0} - User; {1} - Tipped user count; {2} - Amount; {3} Currency; {4} - Reason placeholder;</comment>
+  </data>
+	<data name="tipCurrencyAmountEachLabel" xml:space="preserve">
+    <value>({0} each)</value>
+    <comment>{0} - Amount each;</comment>
+  </data>
+	<data name="tipCurrencyAmountLabel" xml:space="preserve">
+    <value>Amount to tip user</value>
+  </data>
+	<data name="tipCurrencyAvailableLabel" xml:space="preserve">
+    <value>Available</value>
+  </data>
+	<data name="tipCurrencyFailureMessage" xml:space="preserve">
+    <value>An unknown error has occured, if problems persist please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="tipCurrencyHeadline" xml:space="preserve">
+    <value>Tipping</value>
+  </data>
+	<data name="tipCurrencyInfoMessage" xml:space="preserve">
+    <value>Tip users some {0} for fun, help or just to be awesome.</value>
+    <comment>{0} - Currency;</comment>
+  </data>
+	<data name="tipCurrencyIsDisabledError" xml:space="preserve">
+    <value>Currency is not enabled for tipping.</value>
+  </data>
+	<data name="tipCurrencyLoadingBalanceMessage" xml:space="preserve">
+    <value>Loading Balance...</value>
+  </data>
+	<data name="tipCurrencyMinAmountLabel" xml:space="preserve">
+    <value>Minimum Tip</value>
+  </data>
+	<data name="tipCurrencyNumberOfUsersLabel" xml:space="preserve">
+    <value>Amount of users to tip</value>
+  </data>
+	<data name="tipCurrencyPayoutChatInfoMessage" xml:space="preserve">
+    <value>Tip all users active in chat</value>
+  </data>
+	<data name="tipCurrencyPayoutChatInstructionMessage" xml:space="preserve">
+    <value>Please enter the amount of users that you would like to tip.</value>
+  </data>
+	<data name="tipCurrencyPayoutUserInfoMessage" xml:space="preserve">
+    <value>Tip a specific user</value>
+  </data>
+	<data name="tipCurrencyPayoutUserInstuctionMessage" xml:space="preserve">
+    <value>Please enter the Amount and ChatHandle of the user you would like to tip.</value>
+  </data>
+	<data name="tipCurrencyPayoutUserListInfoMesage" xml:space="preserve">
+    <value>Tip specific users</value>
+  </data>
+	<data name="tipCurrencyPayoutUserListInstructionMessage" xml:space="preserve">
+    <value>Please enter the ChatHandle's seperated by ',' that you would like to tip.</value>
+  </data>
+	<data name="tipCurrencySendingCodeMessage" xml:space="preserve">
+    <value>Sending code...</value>
+  </data>
+	<data name="tipCurrencySendingCodeSuccessMessage" xml:space="preserve">
+    <value>Email successfully sent to your two factor address.</value>
+  </data>
+	<data name="tipCurrencySendTipButton" xml:space="preserve">
+    <value>Send Tip</value>
+  </data>
+	<data name="tipCurrencyTipSubmittedHeadline" xml:space="preserve">
+    <value>Tip Submitted.</value>
+  </data>
+	<data name="tipCurrencyTotalAmountLabel" xml:space="preserve">
+    <value>Total Amount to tip</value>
+  </data>
+	<data name="tipCurrnecySendingCodeFailureMessage" xml:space="preserve">
+    <value>Failed to send email code to you two factor address, if problems persist please contact {0}</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="tipMaxUserCountError" xml:space="preserve">
+    <value>Maximum users to tip is {0}.</value>
+    <comment>{0} - Max count</comment>
+  </data>
+	<data name="tipMinAmountError" xml:space="preserve">
+    <value>Minimum tip amount is {0} {1} per user.</value>
+    <comment>{0} - Amount; {1} - Currency;</comment>
+  </data>
+	<data name="tipMultiResponseMessage" xml:space="preserve">
+    <value>Tipped {0} {1} {2} each.</value>
+    <comment>{0} - Tipped User List; {1} - Amount; {2} - Currency;</comment>
+  </data>
+	<data name="tipMultiTipbotMessage" xml:space="preserve">
+    <value>{0} tipped {1} {2} {3} {4} each</value>
+    <comment>{0} - User; {1} - Tipped User List; {2} - Amount; {3} - Currency; {4} - Reason placeholder;</comment>
+  </data>
+	<data name="tipNoValidUserError" xml:space="preserve">
+    <value>No valid users found to tip</value>
+  </data>
+	<data name="tipResponseMessage" xml:space="preserve">
+    <value>Tipped {0} {1} {2}</value>
+    <comment>{0} - Tipped User; {1} - Amount; {2} - Currency;</comment>
+  </data>
+	<data name="tipTipbotMessage" xml:space="preserve">
+    <value>{0} tipped {1} {2} {3} {4}</value>
+    <comment>{0} - User; {1} - Tipped User; {2} - Amount; {3} - Currency; {4} - Reason placeholder;</comment>
+  </data>
+	<data name="tipTipbotReasonMessage" xml:space="preserve">
+    <value>, Reason: {0}</value>
+    <comment>{0} - Reason;</comment>
+  </data>
+	<data name="tipTwoFactorError" xml:space="preserve">
+    <value>The TwoFactor code entered was incorrect or has expired, please try again.</value>
+  </data>
+	<data name="tipUserDisabledError" xml:space="preserve">
+    <value>User has tips disabled.</value>
+  </data>
+	<data name="tipUserIsBannedError" xml:space="preserve">
+    <value>User is currently banned from tips.</value>
+  </data>
+	<data name="tipUserIsIgnoredError" xml:space="preserve">
+    <value>User is currently on your ignore list.</value>
+  </data>
+	<data name="transferConvertInfoText" xml:space="preserve">
+    <value>If you want to convert one currency to another, use the {0} to trade between currency pairs.</value>
+    <comment>{0} - Link placeholder</comment>
+  </data>
+	<data name="transferConvertLink" xml:space="preserve">
+    <value>exchange</value>
+  </data>
+	<data name="transferCreateErrorMessage" xml:space="preserve">
+    <value>Unfortunately we are unable to process your transfer at this time.</value>
+  </data>
+	<data name="transferCreateHeadline" xml:space="preserve">
+    <value>Transfer {0} to another user</value>
+  </data>
+	<data name="transferCreatePageTitle" xml:space="preserve">
+    <value>Transfer {0}</value>
+  </data>
+	<data name="transferCreateReasonLabel" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+	<data name="transferCreateStatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+	<data name="transferCreateUnknownError" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+	<data name="transferCurrencyNotFoundError" xml:space="preserve">
+    <value>Currency {0} not found.</value>
+    <comment>{0} - Currency;</comment>
+  </data>
+	<data name="transferDailyLimitInfoText" xml:space="preserve">
+    <value>You have used {0} of your {1} NZD {2}.</value>
+    <comment>{0} - Used amount; {1} - Daily limit; {2} - Daily limit link;</comment>
+  </data>
+	<data name="transferDailyLimitLink" xml:space="preserve">
+    <value>daily limit</value>
+  </data>
+	<data name="transferErrorHeadline" xml:space="preserve">
+    <value>Transfer Error</value>
+  </data>
+	<data name="transferErrorMessage" xml:space="preserve">
+    <value>If problems persist please contact {0}</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="transferErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+	<data name="transferFeeLabel" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+	<data name="transferHeadline" xml:space="preserve">
+    <value>Transfer between Cryptopia users</value>
+  </data>
+	<data name="transferHistoryLink" xml:space="preserve">
+    <value>View Transfer History</value>
+  </data>
+	<data name="transferInfoText" xml:space="preserve">
+    <value>Select currency you would like to transfer to another user's {0} account.</value>
+    <comment>{0} - Cryptopia label placeholder</comment>
+  </data>
+	<data name="transferMinAmountError" xml:space="preserve">
+    <value>Transfer amount must be greater than {0} {1}</value>
+    <comment>{0} - Min amount; {1} - Currency;</comment>
+  </data>
+	<data name="transferNetLabel" xml:space="preserve">
+    <value>Net</value>
+  </data>
+	<data name="transferNotFoundError" xml:space="preserve">
+    <value>Transfer #{0} not found.</value>
+    <comment>{0} - TransferId</comment>
+  </data>
+	<data name="transferPageTitle" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+	<data name="transferSearchLabel" xml:space="preserve">
+    <value>Search</value>
+  </data>
+	<data name="transferSelectCurrencyPlaceholder" xml:space="preserve">
+    <value>Select a currency</value>
+  </data>
+	<data name="transferSendingCodeFailureMessage" xml:space="preserve">
+    <value>Failed to send email code to you two factor address, if problems persist please contact {0}</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="transferSendingCodeMessage" xml:space="preserve">
+    <value>Sending code...</value>
+  </data>
+	<data name="transferSendingCodeSuccessMessage" xml:space="preserve">
+    <value>Email successfully sent to your registered two factor email address.</value>
+  </data>
+	<data name="transferSummaryAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+	<data name="transferSummaryDoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+	<data name="transferSummaryHeadline" xml:space="preserve">
+    <value>Transfer Complete</value>
+  </data>
+	<data name="transferSummaryInfoText" xml:space="preserve">
+    <value>Successfully transfered funds to another Cryptopia account.</value>
+  </data>
+	<data name="transferSummaryPageTitle" xml:space="preserve">
+    <value>Transfer Summary</value>
+  </data>
+	<data name="transferSummaryReceiverLabel" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
+	<data name="transferToAccountInfoText" xml:space="preserve">
+    <value>If you want to send crypto to an account at another site or wallet, use the {0}.</value>
+    <comment>{0} - Link placeholder</comment>
+  </data>
+	<data name="transferToAccountLink" xml:space="preserve">
+    <value>withdraw page</value>
+  </data>
+	<data name="transferTwoFactorFailedError" xml:space="preserve">
+    <value>The TFA code entered was incorrect or has expired, please try again.</value>
+  </data>
+	<data name="transferUserIgnoredError" xml:space="preserve">
+    <value>Transfer must be to another Cryptopia user</value>
+  </data>
+	<data name="transferUserNotFoundError" xml:space="preserve">
+    <value>No user found with the UserName '{0}'</value>
+    <comment>{0} - UserName;</comment>
+  </data>
+	<data name="transferVerifyUserButton" xml:space="preserve">
+    <value>Verify User</value>
+  </data>
+	<data name="transferVerifyUserDoneButton" xml:space="preserve">
+    <value>User Verified</value>
+  </data>
+	<data name="transferVerifyUserNotFoundButton" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+	<data name="withdrawCreateAddressBookEmptyPlaceholder" xml:space="preserve">
+    <value>You have no address book entries for {0}</value>
+    <comment>{0} - Name</comment>
+  </data>
+	<data name="withdrawCreateAddressBookLabel" xml:space="preserve">
+    <value>Address Book</value>
+  </data>
+	<data name="withdrawCreateAddressBookPlaceholder" xml:space="preserve">
+    <value>Please Select</value>
+  </data>
+	<data name="withdrawCreateAddressTitle" xml:space="preserve">
+    <value>{0} Address</value>
+    <comment>{0} - Address</comment>
+  </data>
+	<data name="withdrawCreateBalanceLabel" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+	<data name="withdrawCreateBankAccountLabel" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+	<data name="withdrawCreateBankAccountRequired" xml:space="preserve">
+    <value>Please enter a valid {0} address.</value>
+    <comment>{0} - Currency;</comment>
+  </data>
+	<data name="withdrawCreateBankReferenceLabel" xml:space="preserve">
+    <value>Bank Reference</value>
+  </data>
+	<data name="withdrawCreateDailyLimitLink" xml:space="preserve">
+    <value>daily limit</value>
+  </data>
+	<data name="withdrawCreateDailyLimitText" xml:space="preserve">
+    <value>You have used {0} of your {1} NZD {2}.</value>
+    <comment>{0} - Current amount; {1} - Daily limit; {2} - Daily limit info link;</comment>
+  </data>
+	<data name="withdrawCreateDecimalInfo" xml:space="preserve">
+    <value>Note: {0} supports {1} decimal places.</value>
+    <comment>{0} - Currency; {1} - Supported decimal places;</comment>
+  </data>
+	<data name="withdrawCreateFeeLabel" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+	<data name="withdrawCreateInfoText" xml:space="preserve">
+    <value>Please select the address and amount below to withdraw.</value>
+  </data>
+	<data name="withdrawCreateNetLabel" xml:space="preserve">
+    <value>Net</value>
+  </data>
+	<data name="withdrawCreatePageTitle" xml:space="preserve">
+    <value>Withdraw {0}</value>
+    <comment>{0} - Currency</comment>
+  </data>
+	<data name="withdrawCreateSendingCodeFailureMessage" xml:space="preserve">
+    <value>Failed to send email code to you two factor address, if problems persist please contact {0}</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="withdrawCreateSendingCodeMessage" xml:space="preserve">
+    <value>Sending code...</value>
+  </data>
+	<data name="withdrawCreateSendingCodeSuccessMessage" xml:space="preserve">
+    <value>Email successfully sent to your registered two factor email address.</value>
+  </data>
+	<data name="withdrawCreateTypeBankText" xml:space="preserve">
+    <value>Bank Withdraw (New Zealand Only)</value>
+  </data>
+	<data name="withdrawCreateTypeTokenText" xml:space="preserve">
+    <value>Token Withdraw</value>
+  </data>
+	<data name="withdrawEmailInstructionText" xml:space="preserve">
+    <value>Please click the secure link in the email to authorize this withdrawal.</value>
+  </data>
+	<data name="withdrawEmailSentMessage" xml:space="preserve">
+    <value>A confirmation email has been sent to {0}</value>
+    <comment>{0} - Email address;</comment>
+  </data>
+	<data name="withdrawErrorHeadline" xml:space="preserve">
+    <value>Withdrawal Error</value>
+  </data>
+	<data name="withdrawErrorInfoText" xml:space="preserve">
+    <value>If problems persist please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+	<data name="withdrawErrorPageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+	<data name="withdrawHeadline" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+	<data name="withdrawHistoryLink" xml:space="preserve">
+    <value>View Withdraw History</value>
+  </data>
+	<data name="withdrawInfoText" xml:space="preserve">
+    <value>Please select the currency you would like to withdraw from your Cryptopia account.</value>
+  </data>
+	<data name="withdrawInstructionInfoText" xml:space="preserve">
+    <value>To become verified please visit our {0} page and fill in the required details, once your information has been verified you will have full access to our range of banking services.</value>
+    <comment>{0} - Verification link;</comment>
+  </data>
+	<data name="withdrawInstructionLink" xml:space="preserve">
+    <value>UserVerification</value>
+  </data>
+	<data name="withdrawNotVerifiedHeadline" xml:space="preserve">
+    <value>Not Verified</value>
+  </data>
+	<data name="withdrawNotVerifiedInfoText" xml:space="preserve">
+    <value>You need to have ID verification to use NZDT/Bank services</value>
+  </data>
+	<data name="withdrawNotVerifiedPageTitle" xml:space="preserve">
+    <value>Not Verified</value>
+  </data>
+	<data name="withdrawPageTitle" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+	<data name="withdrawSelectCurrencyPlaceholder" xml:space="preserve">
+    <value>Select a currency</value>
+  </data>
+	<data name="withdrawSuccessHeadline" xml:space="preserve">
+    <value>Withdraw Success</value>
+  </data>
+	<data name="withdrawSuccessPageTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+	<data name="withdrawSummaryAddressLabel" xml:space="preserve">
+    <value>Address</value>
+  </data>
+	<data name="withdrawSummaryAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+	<data name="withdrawSummaryDoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+	<data name="withdrawSummaryFeeLabel" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+	<data name="withdrawSummaryHeadline" xml:space="preserve">
+    <value>Withdrawal Submitted</value>
+  </data>
+	<data name="withdrawSummaryNetAmountLabel" xml:space="preserve">
+    <value>Net Amount</value>
+  </data>
+	<data name="withdrawSummaryPageTitle" xml:space="preserve">
+    <value>Withdraw Summary</value>
+  </data>
+	<data name="withdrawSummaryPaymentIdNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+	<data name="withdrawSummarySuccessMessage" xml:space="preserve">
+    <value>Your withdrawal has been sucessfully submitted and will be processed shortly.</value>
+  </data>
+	<data name="withdrawVerificationInfoText" xml:space="preserve">
+    <value>(Verification process can take up to 48 hours to complete)</value>
+  </data>
+	<data name="withdrawVerifyButton" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+</root>

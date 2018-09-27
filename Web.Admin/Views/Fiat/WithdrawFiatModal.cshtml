@@ -1,0 +1,60 @@
+﻿@model Cryptopia.Admin.Common.Fiat.WithdrawFiatModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Withdraw Users NZDT</h3>
+		</div>
+		@using (Ajax.BeginForm("CreateWithdraw", "Fiat", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.WriterValidationSummary()
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.UserName, new { @class = "form-control  input-sm" , @readonly="readonly"})
+							@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Reference, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Reference, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Amount, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Amount, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.TwoFactorCode, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.TwoFactorCode, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.TwoFactorCode, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<input id="submit" class="btn btn-success button-180" type="submit" value="Submit" />
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(document).ready(function () {
+	
+	});
+</script>

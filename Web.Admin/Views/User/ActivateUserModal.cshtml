@@ -1,0 +1,60 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminActivateUserModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Activate User</h3>
+		</div>
+		@using (Ajax.BeginForm("ActivateUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.WriterValidationSummary()
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.UserName, new { @class = "form-control  input-sm", @readonly = "readonly" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control  input-sm", @readonly = "readonly" })
+						</div>
+						<div class="col-xs-12">
+							@if (Model.IsActivated)
+							{
+								<h3 class="text-success">User is already activated!</h3>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				@if (!Model.IsActivated)
+				{
+					<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+					<input id="submit" class="btn btn-success button-180" type="submit" value="Activate" />
+				}
+				else
+				{
+					<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Close</button>
+				}
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+</script>

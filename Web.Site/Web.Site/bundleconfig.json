@@ -1,0 +1,366 @@
+[
+  {
+    "outputFileName": "Scripts/Bundle/jq_bundle.min.js",
+    "inputFiles": [
+      "Scripts/Bundle/jq_bundle.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Bundle/site_bundle.min.css",
+    "inputFiles": [
+      "Content/Bundle/site_bundle.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Bundle/jq_bundle.js",
+    "inputFiles": [
+      "Scripts/jquery-2.2.3.js",
+      "Scripts/modernizr-2.8.3.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Bundle/site_bundle.js",
+			"inputFiles": [
+				"Scripts/bootstrap.js",
+				"Scripts/respond.js",
+				"Scripts/jquery.blockUI.js",
+				"Scripts/qrcode.js",
+				"Scripts/jquery.qrcode.js",
+				"Scripts/jquery.jgrowl.js",
+				"Scripts/jquery.plugin.js",
+				"Scripts/jquery.signalR-2.2.2.js",
+				"Scripts/jquery.unobtrusive-ajax.js",
+				"Scripts/ba-emotify.js",
+				"Scripts/jquery.dataTables.js",
+				"Scripts/dataTables.bootstrap.js",
+				"Scripts/moment.js",
+				"Scripts/bootstrap-datetimepicker.js",
+				"Scripts/history.js",
+				"Scripts/mustache.js",
+				"Scripts/select2.js",
+				"Scripts/Project/modal.js",
+				"Scripts/Project/simplemodal.js",
+				"Scripts/Project/datatables.extensions.js",
+				"Scripts/jquery.maskedinput.js",
+				"Scripts/Project/Cryptopia.js"
+			]
+  },
+  {
+    "outputFileName": "Scripts/Project/Deposit/index.min.js",
+    "inputFiles": [
+      "Scripts/Project/Deposit/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Deposit/display.min.js",
+    "inputFiles": [
+      "Scripts/Project/Deposit/display.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Withdraw/index.min.js",
+    "inputFiles": [
+      "Scripts/Project/Withdraw/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Withdraw/create.min.js",
+    "inputFiles": [
+      "Scripts/Project/Withdraw/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Transfer/create.min.js",
+    "inputFiles": [
+      "Scripts/Project/Transfer/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Transfer/index.min.js",
+    "inputFiles": [
+      "Scripts/Project/Transfer/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userBalance.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userBalance.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Bundle/site_bundle.css",
+    "inputFiles": [
+      "Content/Modal.css",
+      "Content/jquery.jgrowl.css",
+      "Content/jquery-ui-1.10.4.custom.min.css",
+      "Content/dataTables.bootstrap.css",
+      "Content/buttons.bootstrap.css",
+      "Content/bootstrap-datetimepicker.css",
+      "Content/select2.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Bundle/validation_bundle.js",
+    "inputFiles": [
+      "Scripts/jquery.validate.js",
+      "Scripts/additional-methods.min.js",
+      "Scripts/jquery.validate.unobtrusive.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Bundle/dataExport_bundle.js",
+    "inputFiles": [
+      "Scripts/jszip.js",
+      "Scripts/pdfmake.js",
+      "Scripts/vfs_fonts.js",
+      "Scripts/dataTables.buttons.js",
+      "Scripts/buttons.bootstrap.js",
+      "Scripts/buttons.html5.js",
+      "Scripts/buttons.print.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/CoinInfo/coinInfo.min.js",
+    "inputFiles": [
+      "Scripts/Project/CoinInfo/coinInfo.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Exchange/exchangeData.min.js",
+    "inputFiles": [
+      "Scripts/Project/Exchange/exchangeData.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Exchange/exchangeCharts.min.js",
+    "inputFiles": [
+      "Scripts/Project/Exchange/exchangeCharts.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/highstock.min.js",
+    "inputFiles": [
+      "Scripts/highstock.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/technical-indicators.src.min.js",
+    "inputFiles": [
+      "Scripts/Project/technical-indicators.src.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Exchange/exchange.min.js",
+    "inputFiles": [
+      "Scripts/Project/Exchange/exchange.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Lotto/lotto.min.js",
+    "inputFiles": [
+      "Scripts/Project/Lotto/lotto.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Mineshaft/mineshaftCharts.min.js",
+    "inputFiles": [
+      "Scripts/Project/Mineshaft/mineshaftCharts.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Mineshaft/mineshaftInfo.min.js",
+    "inputFiles": [
+      "Scripts/Project/Mineshaft/mineshaftInfo.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Mineshaft/mineshaftSummary.min.js",
+    "inputFiles": [
+      "Scripts/Project/Mineshaft/mineshaftSummary.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Mineshaft/mineshaft.min.js",
+    "inputFiles": [
+      "Scripts/Project/Mineshaft/mineshaft.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Mineshaft/user-mineshaft.min.js",
+    "inputFiles": [
+      "Scripts/Project/Mineshaft/user-mineshaft.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/News/news.min.js",
+    "inputFiles": [
+      "Scripts/Project/News/news.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Paytopia/index.min.js",
+    "inputFiles": [
+      "Scripts/Project/Paytopia/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/TwoFactor/twoFactorCreate.min.js",
+    "inputFiles": [
+      "Scripts/Project/TwoFactor/twoFactorCreate.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/user.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/user.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userDeposit.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userDeposit.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userTradeHistory.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userTradeHistory.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userTrades.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userTrades.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userKarma.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userKarma.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userMarketplaceHistory.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userMarketplaceHistory.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userMarketplace.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userMarketplace.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userAddressBook.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userAddressBook.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userApiSettings.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userApiSettings.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userMessage.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userMessage.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userMineshaft.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userMineshaft.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userMineshaftHistory.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userMineshaftHistory.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userNotification.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userNotification.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userPaytopia.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userPaytopia.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userProfile.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userProfile.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userReferral.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userReferral.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userSecurity.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userSecurity.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userSettings.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userSettings.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userShareholder.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userShareholder.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userTermDeposit.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userTermDeposit.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userTransfer.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userTransfer.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/User/userWithdraw.min.js",
+    "inputFiles": [
+      "Scripts/Project/User/userWithdraw.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Bundle/site_bundle2.css",
+    "inputFiles": [
+      "Content/Modal.css",
+      "Content/jquery.jgrowl.css",
+      "Content/jquery-ui-1.10.4.custom.min.css",
+      "Content/dataTables.bootstrap.css",
+      "Content/buttons.bootstrap.css",
+      "Content/bootstrap-datetimepicker.css",
+      "Content/select2.css",
+      "Content/fontAwesome.css",
+      "Content/bootstrap.css",
+      "Content/whhg.css",
+      "Content/Cryptopia.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Project/Chat.min.js",
+    "inputFiles": [
+      "Scripts/Project/Chat.js"
+    ]
+  }
+]

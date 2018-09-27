@@ -1,0 +1,38 @@
+﻿@model Cryptopia.Common.User.UserMessageReportModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close();">×</button>
+			<h3 class="modal-title">@Resources.UserData.messagesReportHeadline</h3>
+		</div>
+		@using (Ajax.BeginForm("ReportMessage", "UserMessage", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.MessageId)
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Reason, Resources.UserData.messagesReportReasonLabel, new { @class = "control-label" })
+						@Html.EnumDropDownListFor(m => m.Reason, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(m => m.Reason, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Comment, Resources.UserData.messagesReportCommentLabel, new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.Comment, new { @class = "form-control  input", rows = 6 })
+						@Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close();">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-info " type="submit">@Cryptopia.Resources.General.Submit</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")

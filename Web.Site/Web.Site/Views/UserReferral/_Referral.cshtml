@@ -1,0 +1,30 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.referralHistoryHeadline</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="referrals" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetReferrals", "UserReferral")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>@Resources.UserData.referralHistoryRoundIdColumn</th>
+			<th>@Resources.UserData.referralHistoryRefCountColumn</th>
+			@*<th>ActivityAmount</th>*@
+			<th>@Resources.UserData.referralHistoryTradeFeeAmountColumn</th>
+			<th>@Resources.UserData.referralHistoryStatusColumn</th>
+			<th>@Resources.UserData.referralHistoryTransferIdColumn</th>
+			<th>@Resources.UserData.referralHistoryLastUpdateColumn</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserReferral = {
+		EmptyListMessage: '@Resources.UserData.referralHistoryEmptyListMessage'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userReferral.min.js")
+

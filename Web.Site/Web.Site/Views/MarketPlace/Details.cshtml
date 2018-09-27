@@ -1,0 +1,95 @@
+﻿@model Web.Site.Models.MarketItemModel
+@{
+   
+}
+
+
+    <!-- Details -->
+    <strong class="text-info marketplace-item-heading">@Resources.Market.itemListingDetailsLabel:</strong>
+    <div>
+        <div>
+            <span>
+                <strong>@Resources.Market.itemClosesLabel:</strong>
+                @Model.CloseDate.GetTimeToGo()
+            </span>
+        </div>
+        <div>
+            <span>
+                <strong>@Resources.Market.itemLocationLabel:</strong>
+                @Model.Location
+            </span>
+        </div>
+    </div>
+    <br />
+
+    <!-- shipping -->
+    <strong class="text-info marketplace-item-heading">@Resources.Market.itemShippingDetailsLabel:</strong>
+    @if (Model.PickupOnly)
+    {
+        <div>
+            <span>
+                <strong>@Resources.Market.itemShippingPickupLabel:</strong>
+                <span class="text-warning">@Resources.Market.itemShippingTypePickupOnly</span>
+            </span>
+        </div>
+    }
+    else
+    {
+        <div>
+            <div>
+                <span>
+                    <strong>@Resources.Market.itemShippingPickupLabel:</strong>
+                    @(Model.AllowPickup ? Resources.Market.itemShippingTypeAllowedPickup : Resources.Market.itemShippingTypeNoPickup)
+                </span>
+            </div>
+
+            @if (Model.ShippingNational)
+            {
+                <div>
+                    <span>
+                        <strong>@Resources.Market.itemShippingNationalLabel:</strong>
+                        @string.Format("{0} {1} - {2}", Model.ShippingNationalPrice, Model.Symbol, Model.ShippingNationalDetails)
+                    </span>
+                </div>
+            }
+
+            @if (Model.ShippingInternational)
+            {
+                <div>
+                    <span>
+                        <strong>@Resources.Market.itemShippingInternationalLabel:</strong>
+                        @string.Format("{0} {1} - {2}", Model.ShippingInternationalPrice, Model.Symbol, Model.ShippingInternationalDetails)
+                    </span>
+                </div>
+            }
+
+            @if (Model.ShippingBuyerArrange)
+            {
+                <div>
+                    <strong>@Resources.Market.itemShippingTypeByBuyer</strong>
+                </div>
+            }
+        </div>
+    }
+
+
+<br />
+
+<!-- Seller details -->
+<strong class="text-info marketplace-item-heading">@Resources.Market.itemSellerDetailsLabel:</strong>
+<div>
+    <div>
+        <span>
+            <strong>@Resources.Market.itemSellerLabel:</strong>
+            @Model.UserName
+        </span>
+    </div>
+    <div>
+        <span>
+            <strong>@Resources.Market.itemUserTrustRatingLabel:</strong>
+             @{Html.RenderPartial("StarRating", Model.SellersTrustRating);}
+        </span>
+    </div>
+    <a href="/MarketFeedback/@Model.UserName">@Resources.Market.itemSellersFeedbackLink</a>
+</div>
+<div class="clearfix"></div>

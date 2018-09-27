@@ -1,0 +1,29 @@
+﻿<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<div class="table-header-container">
+	<h2 class="table-header">Lotto Items</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="lottoitems" class="table table-striped table-hover datatable" data-action="@Url.Action("GetLottoItems", "AdminLotto")" data-create="@Url.Action("CreateLottoItem", "AdminLotto")" data-update="@Url.Action("UpdateLottoItem", "AdminLotto")" data-delete="@Url.Action("DeleteLottoItem", "AdminLotto")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Symbol</th>
+			<th>Type</th>
+			<th>Status</th>
+			<th>NextDraw</th>
+			<th>DrawId</th>
+			<th>Tickets</th>
+			<th>
+				<button class="btn btn-default btn-sm pull-right" style="width:120px" onclick="createLottoItem();">Create Lotto Item</button>
+			</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Html.AntiForgeryToken()
+@Scripts.Render("~/Scripts/Project/Admin/lotto.js")

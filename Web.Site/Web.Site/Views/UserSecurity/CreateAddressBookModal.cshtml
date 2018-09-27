@@ -1,0 +1,108 @@
+﻿@model Cryptopia.Common.Address.AddressBookModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Success: false });">×</button>
+			<h3 class="modal-title">@Resources.User.securityAddressBookCreateHeadline</h3>
+		</div>
+		@using (Ajax.BeginForm("CreateAddressBook", "UserSecurity", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+		@Html.AntiForgeryToken()
+			@Html.ValidationSummary(true)
+			@Html.WriterValidationSummary()
+			<div class="modal-body">
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.CurrencyId, Resources.User.securityAddressBookCreateCurrencyIdLabel, new { @class = "control-label" })
+							@Html.ExtendedDropDownListFor(m => m.CurrencyId, Model.Currencies.Select(x => new CustomSelectListItem(x.CurrencyId, x.Symbol, new { data_addresstype = x.AddressType })).OrderBy(x => x.Text), "Please select", new { @class = "form-control  input-sm" })
+						</div>
+
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Label, Resources.User.securityAddressBookCreateLabelLabel, new { @class = "control-label " })
+							@Html.TextBoxFor(m => m.Label, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Label, "", new { @class = "text-danger" })
+						</div>
+
+						<div class="col-xs-12 bank-data" style="display:none">
+							@Html.LabelFor(m => m.BankAccount, Resources.User.securityAddressBookCreateBankAccountNumberLabel, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.BankAccount, new { @class = "form-control  input-sm " })
+							@Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
+						</div>
+
+						<div class="col-xs-12 bank-data" style="display:none">
+							@Html.LabelFor(m => m.BankReference, Resources.User.securityAddressBookCreateBankReferenceLabel, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.BankReference, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.BankReference, "", new { @class = "text-danger" })
+							<hr style="margin-bottom:0" />
+							<div class="text-center">
+								<small class="bank-data">@Resources.User.securityAddressBookCreateWavesMessage</small>
+							</div>
+						</div>
+
+						<div class="col-xs-12 address-data" style="display:none">
+							@Html.LabelFor(m => m.Address, Resources.User.securityAddressBookCreateAddressLabel, new { @class = "control-label address-data-label" })
+							@Html.TextBoxFor(m => m.Address, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-12 extra-data" style="display:none">
+							@Html.LabelFor(m => m.PaymentId, Resources.User.securityAddressBookCreatePaymentIdLabel, new { @class = "control-label extra-data-label" })
+							@Html.TextBoxFor(m => m.PaymentId, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.PaymentId, "", new { @class = "text-danger" })
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close({ Success: false });">@Cryptopia.Resources.General.Cancel</button>
+				<input id="submit" class="btn btn-info " type="submit" value="@Resources.User.securityAddressBookCreateButton" />
+			</div>
+		}
+
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	var nzdtId = '@Cryptopia.Enums.Constant.NZDT_ID';
+	$("#CurrencyId").on("change", function () {
+		$(".extra-data, .bank-data, .address-data").hide();
+		var item = $(this).find("option:selected");
+		if (!item.val()) return;
+
+		var addressType = item.data("addresstype");
+		if (addressType != 'Standard') {
+			$(".extra-data-label").text(addressType);
+			if (addressType == 'Reference') {
+				$(".bank-data").show();
+				$(".address-data").show();
+				$(".address-data-label").html("@Resources.User.securityAddressBookCreateWavesLabel")
+			}
+			else {
+				$(".address-data").show();
+				$(".extra-data").show();
+			}
+		}
+		else if (addressType == 'Standard') {
+			$(".address-data").show();
+			$(".address-data-label").html("@Resources.User.securityAddressBookCreateAddressLabel")
+		}
+	}).trigger("change");
+
+	$(".form-horizontal").on("submit", function () {
+		var _this = $(this);
+		var valid = _this.valid();
+		if (valid) {
+			$("#submit, #cancel").attr("disabled", "disabled");
+			$("#submit").html('<span><i class="fa fa-spinner fa-pulse fa-fw"></i> @Cryptopia.Resources.General.ProcessingMessage</span>');
+		}
+	});
+
+	$("#BankAccount").mask("99-9999-9999999-99?9");
+</script>

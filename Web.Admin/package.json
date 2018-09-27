@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "name": "admintopia",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.71",
+    "@types/react": "^15.0.39",
+    "@types/react-dom": "^15.5.1",
+    "@types/react-redux": "^4.4.47",
+    "@types/redux": "^3.6.0",
+    "@types/redux-actions": "^1.2.7",
+    "@types/redux-thunk": "^2.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "ts-loader": "^2.3.1",
+    "typescript": "^2.4.2",
+    "webpack": "^3.10.0"
+  }
+}

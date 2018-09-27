@@ -1,0 +1,22 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Site Transfers</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="transfers" class="table table-striped table-hover datatable" data-action="@Url.Action("GetTransfers", "AdminTransfer")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Currency</th>
+			<th>Amount</th>
+			<th>Sender</th>
+			<th>Receiver</th>
+			<th>Type</th>
+			<th>Timestamp</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/transfer.js")
+

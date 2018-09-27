@@ -1,0 +1,217 @@
+﻿@using Web.Site.Helpers;
+@model Cryptopia.Common.User.UserProfileModel
+@{
+}
+
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.User.profileHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row">
+	@using (Ajax.BeginForm("UpdateProfile", "UserProfile", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "accountTarget", InsertionMode = InsertionMode.Replace }))
+	{
+		@*Profile Details*@
+		<div class="col-md-6 col-xs-12">
+			<h4>@Resources.User.prifileDetailsHeadline</h4>
+			<hr />
+			@Html.WriterValidationSummary()
+			@Html.AntiForgeryToken()
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<div class="inline-block">
+						@Html.Label(Resources.User.profileAvatarLabel, new { @class = "control-label" })
+						<div title="@Resources.User.profileChangeAvatarHint">
+							<img width="24" src="@(User.Identity.GetAvatar())" />
+							<button type="button" class="btn btn-default btn-xs button-180" onclick="openModalGet('@Url.Action("UpdateAvatar", "UserProfile")');"><i class="fa fa-pencil-square-o panel-icon"></i>@Resources.User.profileChangeAvatarButton</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<div>
+						@Html.HiddenFor(m => m.AccountEmail)
+						@Html.LabelFor(m => m.AccountEmail, new { @class = "control-label" })
+						<div class="input-group input-group-sm">
+							@Html.TextBoxFor(m => m.AccountEmail, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							<span class="input-group-btn">
+								<button class="btn btn-default" onclick="notify('@Resources.User.profileCannotChangeEmailMessageTitle', '@Resources.User.profileCannotChangeEmailMessage')" type="button">?</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.ChatHandle, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.ChatHandle, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.ChatHandle, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.MiningHandle, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.MiningHandle, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.MiningHandle, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.LastName, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Gender, new { @class = "control-label" })
+					@Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Unknown", "Male", "Female", "Other" }), new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Birthday, "{0:d}", new { @class = "form-control  input-sm", id = "bday" })
+					@Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Country, new { @class = "control-label" })
+					@Html.DropDownListFor(m => m.Country, new SelectList(Web.Site.Cache.StaticDataCache.Countries), new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.City, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.City, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.State, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.State, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Postcode, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(m => m.Postcode, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					@Html.LabelFor(m => m.Address, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Address, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Occupation, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Occupation, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Education, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Education, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					@Html.LabelFor(m => m.AboutMe, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.AboutMe, new { @class = "form-control", rows = 5 })
+					@Html.ValidationMessageFor(model => model.AboutMe, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Website, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Website, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Twitter, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Twitter, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Twitter, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.LinkedIn, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.LinkedIn, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.LinkedIn, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					@Html.LabelFor(m => m.Facebook, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Facebook, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Facebook, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" style="padding-top:24px">
+					<button class="btn btn-default btn-sm pull-left button-180" style="margin-right:15px" type="submit">@Resources.User.profileSaveButton</button>
+					<div class="pull-left">
+						<span>@Html.CheckBoxFor(m => m.IsPublic, new { }) @Cryptopia.Resources.User.profileIsPublicLabel</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@*@Referral Details*@
+		<div style="padding-top:50px">
+			<h4>@Resources.User.profileReferralHeadline</h4>
+			<hr style="margin-bottom:5px" />
+			<div class="">
+				<p style="font-size:12px">
+					@String.Format(Resources.User.profileReferralText, Model.ReferralDetails.TradePercent)					
+				</p>
+
+				<div class="text-center">
+					<a onclick="notify('@Resources.User.profileReferralLinkNotificationTitle', 'https://www.cryptopia.co.nz/Register?referrer=@User.Identity.Name');">https://www.cryptopia.co.nz/Register?referrer=@User.Identity.Name</a>
+				</div>
+				<br />
+				<table class="">
+					<tbody>
+						<tr>
+							<td><b style="margin-right:10px">@Resources.User.profileReferralCountLabel:</b></td>
+							<td>@Model.ReferralDetails.RefCount</td>
+						</tr>
+						<tr>
+							<td><b style="margin-right:10px">@Resources.User.profileReferralTradeFeesBonusLabel:</b></td>
+							<td>@Model.ReferralDetails.TradeFeeAmount.ToString("F8") DOT</td>
+						</tr>
+						@*<tr>
+								<td><b style="margin-right:10px">Active User Bonus:</b></td>
+								<td>@Model.ReferralDetails.ActivityAmount.ToString("F8") DOT</td>
+							</tr>*@
+						@if (!string.IsNullOrEmpty(Model.ReferralDetails.Referrer) && Model.ReferralDetails.Referrer != "System")
+						{
+							<tr>
+								<td><b style="margin-right:10px">@Resources.User.profileReferralReferredByLabel:</b></td>
+								<td>@Model.ReferralDetails.Referrer</td>
+							</tr>
+						}
+						<tr>
+							<td colspan="2"><a href="@Url.RouteUrl("ReferralHistory")">@Resources.User.profileReferralHistoryLink</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>
+
+			}
+</div>
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+@Scripts.Render("~/Scripts/Project/User/userProfile.min.js")

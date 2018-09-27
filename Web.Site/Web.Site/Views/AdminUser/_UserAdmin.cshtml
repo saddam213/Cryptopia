@@ -1,0 +1,26 @@
+﻿<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+
+<div class="table-header-container" data-admin="@User.IsInRole("Admin")">
+	<h2 class="table-header">Site Users</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="users" class="table table-striped table-hover datatable" data-action="@Url.Action("GetUsers", "AdminUser")" data-action-view="@Url.Action("ViewUser", "AdminUser")" data-action-update="@Url.Action("UpdateUser", "AdminUser")" data-action-lock="@Url.Action("LockUser", "AdminSecurity")">
+	<thead>
+		<tr>
+			<th>UserName</th>
+			<th>Chat Handle</th>
+			<th>Mining Handle</th>
+			<th>Email</th>
+			<th>Referrer</th>
+			<th>Theme</th>
+			<th>Registered</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/user.js")

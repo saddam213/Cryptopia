@@ -1,0 +1,55 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Chat.ChatBanModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Chat.banHeadline</h3>
+			<small>@Resources.Chat.banInfoText</small>
+		</div>
+		@using (Ajax.BeginForm("BanChatUser", "Chat", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			<div class="modal-body">
+				<div>
+					@Html.Label(Resources.Chat.banUserLabel, new { @class = "control-label " })
+					@Html.DropDownList("BanUserId", new SelectList(Model.ChatUsers, "UserId", "ChatHandle", Model.UserId), new { rows = 3, @class = "form-control input-sm" })
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.Label(Resources.Chat.banTypeLabel, new { @class = "control-label" })
+						@Html.DropDownList("BanType", EnumHelper.GetSelectList(typeof(ChatBanType)), new { @class = "form-control input-sm", @type = "number" })
+					</div>
+					<div class="col-xs-6">
+						@Html.Label(Resources.Chat.banSecondsLabel, new { @class = "control-label" })<small><i> @Resources.Chat.banUnbanTimerLabel</i></small>
+						@Html.TextBox("Seconds", 0, new { @class = "form-control input-sm", @type = "number" })
+					</div>
+				</div>
+				<div>
+					@Html.Label(Resources.Chat.banMessageLabel, new { @class = "control-label" })
+					@Html.TextArea("Message", new { rows = 3, @class = "form-control" })
+				</div>
+				<br />
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<input id="submit" class="btn btn-info " type="submit" value="@Resources.Chat.banButton" />
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	function success(data) {
+		if (data.Success) {
+			$.modal.close();
+		} else {
+			$('#errorMessage').html(data.Error);
+		}
+	}
+</script>

@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[User] (
+    [Id]           UNIQUEIDENTIFIER  NOT NULL,
+    [UserName]     NVARCHAR(256)     NOT NULL,
+    [Email]        NVARCHAR(256)     NOT NULL,
+    [ChatHandle]   NVARCHAR(256)	 NOT NULL,
+    [MiningHandle] NVARCHAR(256)	 NOT NULL, 
+	[Referrer]	   NVARCHAR(256) NOT NULL,
+    [TrustRating]  FLOAT NOT NULL, 
+	[RegisterDate] DATETIME2 NULL, 
+	[DisableRewards] BIT NOT NULL DEFAULT 1, 
+    [DisableTipNotify] BIT NOT NULL DEFAULT 0, 
+    [DisablePoolNotify] BIT NOT NULL DEFAULT 0, 
+    [DisableExchangeNotify] BIT NOT NULL DEFAULT 0, 
+    [DisableFaucetNotify] BIT NOT NULL DEFAULT 0, 
+    [DisableMarketplaceNotify] BIT NOT NULL DEFAULT 0, 
+    [IsDisabled] BIT NOT NULL DEFAULT 0, 
+    [DisableWithdrawEmailConfirmation] BIT NOT NULL DEFAULT 0, 
+    CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([Id] ASC), 
+);
+

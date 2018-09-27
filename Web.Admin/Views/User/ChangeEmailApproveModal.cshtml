@@ -1,0 +1,127 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminChangeEmailApproveModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Approve Email Change</h3>
+		</div>
+		@if (string.IsNullOrEmpty(Model.Approver))
+		{
+			using (Ajax.BeginForm("ApproveChangeEmail", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+			{
+			@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.ApprovalId)
+				@Html.WriterValidationSummary()
+				<div class="modal-body">
+					<div class="text-center">
+						<b id="errorMessage" class="text-danger"></b>
+					</div>
+					<div class="form-margin">
+						<div class="row">
+							<div class="col-xs-6">
+								@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.UserName, new { @class = "form-control  input-sm", @readonly = "readonly" })
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6">
+								@Html.LabelFor(m => m.OldEmailAddress, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.OldEmailAddress, new { @class = "form-control  input-sm", @readonly = "readonly" })
+							</div>
+							<div class="col-xs-6">
+								@Html.LabelFor(m => m.NewEmailAddress, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.NewEmailAddress, new { @class = "form-control  input-sm", @readonly = "readonly" })
+							</div>
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-xs-6">
+								@Html.LabelFor(m => m.Requestor, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Requestor, new { @class = "form-control  input-sm", @readonly = "readonly" })
+							</div>
+							<div class="col-xs-6">
+								@Html.LabelFor(m => m.Requested, "Requested", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Requested, new { @class = "form-control  input-sm", @readonly = "readonly" })
+							</div>
+							<div class="col-xs-12">
+								@Html.LabelFor(m => m.Status, new { @class = "control-label" })
+								@Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control  input-sm" })
+							</div>
+							<div class="col-xs-12">
+								@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+								@Html.TextAreaFor(m => m.Message, new { @class = "form-control  input-sm", rows = 3 })
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+					<input id="submit" class="btn btn-success button-180" type="submit" value="Approve" />
+				</div>
+			}
+		}
+		else
+		{
+		<div class="modal-body">
+			<div class="form-margin">
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.UserName, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.OldEmailAddress, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.OldEmailAddress, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.NewEmailAddress, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.NewEmailAddress, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Status, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Status, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Requestor, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Requestor, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Requested, "Requested", new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Requested, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Approver, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Approver, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.Approved, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Approved, new { @class = "form-control  input-sm", @readonly = "readonly" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.Message, new { @class = "form-control  input-sm", rows = 3, @readonly = "readonly" })
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Close</button>
+		</div>
+		}
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+
+	});
+</script>

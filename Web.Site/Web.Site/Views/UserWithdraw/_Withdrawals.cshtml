@@ -1,0 +1,41 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.withdrawHeadline</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="withdrawals" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetWithdrawals", "UserWithdraw")" data-action-resend="@Url.Action("ResendWithdrawConfirmation", "Withdraw")" data-action-cancel="@Url.Action("CancelWithdraw", "Withdraw")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>@Resources.UserData.withdrawCurrencyColumn</th>
+			<th>@Resources.UserData.withdrawAmountColumn</th>
+			<th>@Resources.UserData.withdrawFeeColumn</th>
+			<th>@Resources.UserData.withdrawStatusColumn</th>
+			<th>@Resources.UserData.withdrawTransactionIdColumn</th>
+			<th>@Resources.UserData.withdrawAddressColumn</th>
+			<th>@Resources.UserData.withdrawTimestampColumn</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserWithdraw = {
+		EmptyListMessage: '@Resources.UserData.withdrawEmptyListMessage' + '#',
+		ResendEmailButton: '@Resources.UserData.withdrawResendEmailButton',
+		ResendEmailQuestionTitle: '@Resources.UserData.withdrawResendEmailQuestionTitle',
+		ResendEmailQuestion: '@Resources.UserData.withdrawResendEmailQuestion',
+		ResendingEmailMessage: '@Resources.UserData.withdrawResendingEmailMessage',
+		ResendEmailErrorMessageTitle: '@Resources.UserData.withdrawResendEmailErrorMessageTitle',
+		ResendEmailSuccessMessageTitle: '@Resources.UserData.withdrawResendEmailSuccessMessageTitle',
+		CancelQuestionTitle: '@Resources.UserData.withdrawCancelQuestionTitle',
+		CancelQuestion: '@Resources.UserData.withdrawCancelQuestion',
+		CancelingMessage: '@Resources.UserData.withdrawCancelingMessage',
+		CancelSuccessMessageTitle: '@Resources.UserData.withdrawCancelSuccessMessageTitle',
+		CancelErrorMessageTitle: '@Resources.UserData.withdrawCancelErrorMessageTitle'
+	};
+</script>
+@Scripts.Render("~/Scripts/Bundle/dataExport_bundle.min.js")
+@Scripts.Render("~/Scripts/Project/User/userWithdraw.min.js")

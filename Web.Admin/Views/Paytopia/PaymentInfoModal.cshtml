@@ -1,0 +1,368 @@
+﻿@model Cryptopia.Common.Paytopia.PaytopiaPaymentModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({Cancel:true});">×</button>
+			<h3 class="modal-title">Payment Information</h3>
+		</div>
+
+		<div class="modal-body">
+			<div class="form-margin">
+				<div class="row">
+					@if ((Model.Type == Cryptopia.Enums.PaytopiaItemType.ExchangeListing || Model.Type == Cryptopia.Enums.PaytopiaItemType.ComboListing) || (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId == 0))
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Timestamp</td>
+										<td>@Model.Timestamp</td>
+									</tr>
+									<tr>
+										<td>Name</td>
+										<td>@requestData.Name</td>
+									</tr>
+									<tr>
+										<td>Symbol</td>
+										<td>@requestData.Symbol</td>
+									</tr>
+									<tr>
+										<td>Source</td>
+										<td>@requestData.Source</td>
+									</tr>
+									<tr>
+										<td>AlgoType</td>
+										<td>@requestData.AlgoType</td>
+									</tr>
+									<tr>
+										<td>NetworkType</td>
+										<td>@requestData.NetworkType</td>
+									</tr>
+									<tr>
+										<td>BlockExplorer</td>
+										<td>@requestData.BlockExplorer</td>
+									</tr>
+									<tr>
+										<td>LaunchForum</td>
+										<td>@requestData.LaunchForum</td>
+									</tr>
+									<tr>
+										<td>Website</td>
+										<td>@requestData.Website</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div style="padding-left:4px">
+								<span style="font-size:12px">ExtraInfo</span>
+								<div>
+									<pre style="border-radius:0">@requestData.ExtraInfo</pre>
+								</div>
+							</div>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId > 0)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Type</td>
+										<td>Extension</td>
+									</tr>
+									<tr>
+										<td>Pool</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.LottoSlot)
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Currency</td>
+										<td>@requestData.Symbol</td>
+									</tr>
+									<tr>
+										<td>Name</td>
+										<td>@requestData.Name</td>
+									</tr>
+									<tr>
+										<td>TicketPrice</td>
+										<td>@requestData.TicketPrice.ToString("F8")</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="padding-left:8px">
+								<span style="font-size:12px">Description</span>
+								<div>
+									<pre style="border-radius:0">@requestData.Description</pre>
+								</div>
+							</div>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedCurrency)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedPool)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Pool</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.RewardSlot)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.TipSlot)
+					{
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@Model.UserName</td>
+									</tr>
+									<tr>
+										<td>Currency</td>
+										<td>@Model.ReferenceSymbol</td>
+									</tr>
+									<tr>
+										<td>Algorithm</td>
+										<td>@Model.ReferenceAlgo</td>
+									</tr>
+									<tr>
+										<td>Period Begins</td>
+										<td>@Model.Begins.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<td>Period Ends</td>
+										<td>@Model.Ends.ToString("dd/MM/yyyy")</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.Shares)
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@requestData.UserName</td>
+									</tr>
+									<tr>
+										<td>Existing Shareholder</td>
+										<td>@requestData.IsShareholder</td>
+									</tr>
+									<tr>
+										<td>Shares Purchased</td>
+										<td>@requestData.ShareCount</td>
+									</tr>
+									<tr>
+										<td>FirstName</td>
+										<td>@requestData.FirstName</td>
+									</tr>
+									<tr>
+										<td>MiddleName</td>
+										<td>@requestData.MiddleName</td>
+									</tr>
+									<tr>
+										<td>LastName</td>
+										<td>@requestData.LastName</td>
+									</tr>
+									<tr>
+										<td>Email</td>
+										<td>@requestData.Email</td>
+									</tr>
+									<tr>
+										<td>Street</td>
+										<td>@requestData.Street</td>
+									</tr>
+									<tr>
+										<td>City</td>
+										<td>@requestData.City</td>
+									</tr>
+									<tr>
+										<td>PostCode</td>
+										<td>@requestData.PostCode</td>
+									</tr>
+									<tr>
+										<td>Country</td>
+										<td>@requestData.Country</td>
+									</tr>
+									<tr>
+										<td>Phone</td>
+										<td>@requestData.Phone</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+					else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.TwoFactor)
+					{
+						var requestData = Json.Decode(Model.RequestData);
+						<div class="col-md-12">
+							<h4>Submission</h4>
+							<table class="table table-condensed table-striped" style="margin-bottom:0">
+								<tbody>
+									<tr>
+										<td>UserName</td>
+										<td>@requestData.UserName</td>
+									</tr>
+									<tr>
+										<td>Recipient</td>
+										<td>@requestData.Recipient</td>
+									</tr>
+									<tr>
+										<td>Street</td>
+										<td>@requestData.Street</td>
+									</tr>
+									<tr>
+										<td>City</td>
+										<td>@requestData.City</td>
+									</tr>
+									<tr>
+										<td>PostCode</td>
+										<td>@requestData.PostCode</td>
+									</tr>
+									<tr>
+										<td>Country</td>
+										<td>@requestData.Country</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-primary button-180" onclick="$.modal.close({ Cancel: true });">Close</button>
+		</div>
+
+	</div>
+</div>
+
+<script>
+
+</script>

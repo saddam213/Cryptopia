@@ -1,0 +1,65 @@
+﻿@model Cryptopia.Common.Withdraw.WithdrawModel
+@{
+	ViewBag.IsFullPage = true;
+	ViewBag.Title = Resources.UserWallet.withdrawSummaryPageTitle;
+	var address = Model.Address.TrimEnd(':');
+	var paymentId = Resources.UserWallet.withdrawSummaryPaymentIdNone;
+	var addressParts = Model.Address.Split(':');
+	if (addressParts.Length == 2)
+	{
+		address = addressParts[0];
+		paymentId = addressParts[1];
+	}
+	var message = Model.DisableWithdrawEmailConfirmation
+		? Resources.UserWallet.withdrawSummarySuccessMessage
+		: String.Format(Html.Encode(Resources.UserWallet.withdrawEmailSentMessage),
+						String.Format("<b>{0}</b>", Model.Email)) +
+		  "<br />" +
+		  Resources.UserWallet.withdrawEmailInstructionText;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad withdraw-container">
+		<div class="col-md-12" style="padding-top:15px">
+			<div class="alert alert-success" style="margin-bottom:0">
+				<h4><b>@Resources.UserWallet.withdrawSummaryHeadline</b></h4>
+				<p>@Html.Raw(message)</p>
+				<br />
+				<table class="table table-condensed" style="table-layout:fixed;margin-bottom:0">
+					<tr>
+						<td width="80px">@Resources.UserWallet.withdrawSummaryAddressLabel:</td>
+						<td style="display: block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;">@address</td>
+					</tr>
+					@if (Model.AddressType != Cryptopia.Enums.AddressType.Standard)
+					{
+					<tr>
+						<td>@Model.AddressType.ToString()</td>
+						<td style="display: block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;">@paymentId</td>
+					</tr>
+					}
+					<tr>
+						<td>@Resources.UserWallet.withdrawSummaryAmountLabel:</td>
+						<td>@Model.Amount.ToString("F8") @Model.Currency</td>
+					</tr>
+					<tr>
+						<td>@Resources.UserWallet.withdrawSummaryFeeLabel:</td>
+						<td>@Model.Fee.ToString("F8") @Model.Currency</td>
+					</tr>
+					<tr>
+						<td>@Resources.UserWallet.withdrawSummaryNetAmountLabel:</td>
+						<td>@((Model.Amount - Model.Fee).ToString("F8")) @Model.Currency</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="text-center withdraw-button-container" >
+				<a class="btn btn-success btnfullwidth" href="@(string.IsNullOrEmpty(Model.ReturnUrl) ? "/Withdraw" : Model.ReturnUrl)">@Resources.UserWallet.withdrawSummaryDoneButton</a>
+			</div>
+		</div>
+		<div class="col-md-12 text-center withdraw-container-link">
+			<a href="@Url.RouteUrl("WithdrawHistory")">@Resources.UserWallet.withdrawHistoryLink</a>
+		</div>
+	</div>
+</div>

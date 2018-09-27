@@ -1,0 +1,48 @@
+﻿@model Web.Site.Models.UpdateCategoryModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button">×</button>
+			<h3 class="modal-title">@Resources.Forum.categoryUpdateHeadline</h3>
+		</div>
+		<div id="errorMessage" class="alert alert-danger text-center" style="display: none">
+			<p></p>
+		</div>
+		@using (Html.BeginForm("SubmitUpdateCategory", "Forum"))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(x => x.CategoryId)
+				<div>
+					@Html.LabelFor(m => m.Title, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Title, new { @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+				</div>
+				<div>
+					@Html.LabelFor(m => m.Order, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Order, new { @class = "form-control  input-sm", @type = "number" })
+					@Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+				</div>
+				<div>
+					@Html.LabelFor(m => m.Description, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Description, new { @class = "form-control ", rows = "2" })
+					@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-info" type="submit">@Cryptopia.Resources.General.Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	
+</script>

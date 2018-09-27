@@ -1,0 +1,439 @@
+﻿
+@{
+    ViewBag.Title = "Incapsula API Support and Statistics";
+}
+
+
+
+<style>
+    .left-content-user {
+        width: 475px;
+    }
+
+    .right-content-user {
+        left: 475px;
+    }
+
+    .number-cell {
+        text-align: center
+    }
+
+    .block-ip {
+        width: 300px;
+        height: 100px;
+        background-color: darkblue;
+        color: white;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .button-text {
+        text-align: center;
+    }
+</style>
+
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#overview" data-toggle="tab"><h4>Overview</h4></a>
+        </li>
+        <li>
+            <a href="#stats" data-toggle="tab"><h4>Statistics</h4></a>
+        </li>
+        <li>
+            <a href="#admin" data-toggle="tab"><h4>Administration</h4></a>
+        </li>
+    </ul>
+    
+    <div id="message-alert" class="alert text-center" style="display: none">
+        <p></p>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="overview">
+            <div id="visit-distribution-target"></div>
+        </div>
+
+        <div class="tab-pane fade" id="stats">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="text-center">Visits</h4>
+                    <div id="visits-target" class=" pie-graph">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-center">Hits</h4>
+                    <div id="hits-target" ></div>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-center">Threats</h4>
+                    <div id="threats-target"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h4></h4>
+                <h4 class="text-center">Geographical Distribution</h4>
+                <div id="geo-dist-target"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="admin">
+            @*Some admin type stuff goes here...*@
+            <div class="block-ip" id="block-ip-button">
+                <h3 class="button-text">Block Ip Address</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/Scripts/project/Incapsula/highstock.src.js"></script>
+    <script src="~/Scripts/project/Incapsula/highcharts-more.src.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+    <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+    <script>
+
+      var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+          "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+        var actionRefreshVisits = '@Url.Action("RefreshVisitStatistics", "Incapsula")';
+        var actionRefreshHits = '@Url.Action("RefreshHitStatistics", "Incapsula")';
+        var actionRefreshThreats = '@Url.Action("RefreshThreatStatistics", "Incapsula")';
+        var actionRefreshVisitDistribution = '@Url.Action("RefreshVisitDistribution", "Incapsula")';
+        var actionRefreshGeoDistribution = '@Url.Action("RefreshGeoDistribution", "Incapsula")';
+        var actionBlockIpAddress = '@Url.Action("BlockIpAddress", "Incapsula")';
+
+        $(function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href").replace('#', ''); // activated tab
+                if (target == 'overview') {
+                    buildWorldMap();
+                }
+                else if (target == 'stats') {
+                    buildStatsGraphs();
+                }
+                else if (target == 'admin') {
+
+                }
+            }).trigger('shown.bs.tab');
+        });
+
+        function buildWorldMap() {
+            postJson(actionRefreshVisitDistribution, null, function (data) {
+                buildVisitsByCountryGraph(data);
+            });
+
+            chartVisitsByCountry.redraw();
+        }
+
+        function buildStatsGraphs() {
+            postJson(actionRefreshVisits, null, function (data) {
+                buildVisitsSummaryGraph(data);
+            });
+
+            postJson(actionRefreshHits, null, function (data) {
+                buildHitsSummaryGraph(data);
+            });
+
+            postJson(actionRefreshThreats, null, function (data) {
+                buildThreatsGraph(data);
+            });
+
+            postJson(actionRefreshGeoDistribution, null, function (data) {
+                buildGeoDistributionGraph(data);
+            });
+        }
+
+        function buildVisitsSummaryGraph(data) {
+            var newSeries = [];
+
+            $.each(data.Visits, function (i, v) {
+                if (v.Number <= 0)
+                    return true;
+
+                newSeries.push({ name: v.Name, y: v.Number });
+            });
+
+            chartVisits.series[0].setData(newSeries);
+        }
+
+        function buildHitsSummaryGraph(data) {
+            var newSeries = [];
+
+            $.each(data.Hits, function (i, v) {
+                if (v.Number <= 0)
+                    return true;
+
+                newSeries.push({ name: v.Name, y: v.Number });
+            });
+
+            chartHits.series[0].setData(newSeries);
+        };
+
+        function buildThreatsGraph(data) {
+            var threatSeries = [];
+
+            $.each(data.Threats, function (i, v) {
+                if (v.Number <= 0)
+                    return true;
+
+                threatSeries.push([v.Name, v.Number]);
+            });
+
+            chartThreats.series[0].setData(threatSeries);
+        }
+
+        function buildGeoDistributionGraph(data) {
+            var newSeries = [];
+
+            $.each(data.Distribution, function (i, v) {
+                chartGeoDistribution.xAxis[0].categories.push(v.Location);
+                newSeries.push(v.Number);
+            });
+
+            chartGeoDistribution.series[0].setData(newSeries);
+        }
+
+        function buildVisitsByCountryGraph(data) {
+            var series = [];
+
+            $.each(data.VisitsByCountry, function (i, v) {
+                if (v.CountryCode.length = 0)
+                    return true;
+
+                $.each(chartVisitsByCountry.series[0].points, function (a, b) {
+                    if (b['hc-key'] != v.CountryCode)
+                        return true;
+
+                    b.update({ 'value': v.Number }, false);
+                    return true;
+                });
+
+            });
+
+            chartVisitsByCountry.redraw();
+        }
+
+        $('#block-ip-button').on('click', function (e) {
+            openModalGet(actionBlockIpAddress, null, function (modalData) {
+                if (modalData && modalData.Success) {
+                    
+                }
+
+                showMessage(modalData);
+            });
+        });
+
+        var chartVisits = Highcharts.chart('visits-target', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.3f}%</b> ({point.y})'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point.percentage:.3f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Hits by source',
+                colorByPoint: true,
+                data: [],
+                showInLegend: true
+            }]
+        });
+
+        var chartHits = Highcharts.chart('hits-target', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.3f}%</b> ({point.y})'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}</b>: {point.percentage:.3f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Hits by source',
+                colorByPoint: true,
+                data: [],
+                showInLegend: true
+            }]
+        });
+
+        var chartThreats = Highcharts.chart('threats-target', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.3f}%</b> ({point.y})'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        format: '<b>{point.name}:</b> {point.percentage:.3f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Threat type',
+                colorByPoint: true,
+                data: [],
+                showInLegend: true
+            }]
+        });
+
+        var chartVisitsByCountry = Highcharts.mapChart('visit-distribution-target', {
+            chart: {
+                map: 'custom/world',
+                height:(((9 / 16) * 100)* 0.85) + "%"
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Visits By Country'
+            },
+            exporting: {
+                enabled: false
+            },
+            mapNavigation: {
+                enabled: false,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+            colorAxis: {
+                min: 0,
+                tickPixelInterval: 100
+            },
+            series: [{
+                data: [],
+                name: 'Visits',
+                states: {
+                    hover: {
+                        color: '#BADA55'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }]
+        });
+
+        var chartGeoDistribution = Highcharts.chart('geo-dist-target', {
+            chart: {
+                type: 'column'
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            exporting: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [[""]],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Visits'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [[0]]
+        });
+
+    </script>
+}

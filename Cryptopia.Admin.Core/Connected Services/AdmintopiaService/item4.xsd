@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Enums" />
+  <xs:complexType name="IPBlacklist">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseData">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BlockedIpAddresses" nillable="true" type="q1:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="IPBlacklist" nillable="true" type="tns:IPBlacklist" />
+  <xs:complexType name="ResponseData">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Enums" minOccurs="0" name="ResponseCode" type="q2:ResponseCode" />
+      <xs:element minOccurs="0" name="ResponseMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseData" nillable="true" type="tns:ResponseData" />
+</xs:schema>

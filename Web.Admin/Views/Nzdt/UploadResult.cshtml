@@ -1,0 +1,27 @@
+﻿@model Cryptopia.Admin.Common.Nzdt.NzdtUploadResultModel
+
+@{
+	ViewBag.Title = "Upload Result";
+}
+
+@if (Model != null)
+{
+		<div class="panel panel-success" style="margin-top: 5px;">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					Upload Results
+				</h4>
+			</div>
+			<div class="panel-body">
+
+				<h2 class="text-center text-info">Total Transactions: @Model.TotalCount</h2>
+
+				<h2 class="text-center text-success">Existing Transactions: @Model.ExistingCount</h2>
+
+				<h2 class="text-center text-warning">Uploaded Transactions: @Model.ReadyForProcessingCount</h2>
+
+				<h2 class="text-center text-danger">Uploaded Transactions with Errors: @Model.ErroredCount</h2>
+
+			</div>
+		</div>
+}

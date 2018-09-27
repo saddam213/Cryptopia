@@ -1,0 +1,46 @@
+﻿@{
+	bool isMobile = (bool?)this.ViewData["IsMobile"] ?? false;
+}
+
+@if (Localization.EnabledLanguages.Count > 1)
+{
+	if (isMobile)
+	{
+		@** show in mobile menu when top menu is hidden *@
+		var activeLang = Localization.EnabledLanguages.FirstOrDefault(l => l.Key == Localization.CurrentCulture);
+		<li class="visible-xs"><a href="#" class="parent-nav"><i class="fa fa-globe"></i> @activeLang.Value</a></li>
+
+		foreach (var lang in Localization.EnabledLanguages.Where(l => l.Key != Localization.CurrentCulture))
+		{
+			<li class="visible-xs">
+				<a href="@Url.Action("SetLanguage", "Home", new { lang = lang.Key })" class="child-nav"><i class="fa fa-globe"></i> @lang.Value</a>
+			</li>
+		}
+	}
+	else
+	{
+		@* top menu item and subitems *@
+		<li class="pull-right has-sub" title="@Resources.Layout.menuSelectLanguageHint">
+			<a style="height:46px;min-width:35px;line-height:normal;text-align:center">
+				<div style="margin-top:5px;">
+					<div>
+						<span>
+							<i class="fa fa-globe"></i>
+						</span>
+					</div>
+					<div>
+						<span>
+							@Html.CurrentThreadCulture()
+						</span>
+					</div>
+				</div>
+			</a>
+			<ul style="width:@(119 * Localization.EnabledLanguages.Count)px;">
+				@foreach (var lang in Localization.EnabledLanguages)
+				{
+				<li><a href="@Url.Action("SetLanguage", "Home", new { lang = lang.Key })">@lang.Value</a></li>
+				}
+			</ul>
+		</li>
+	}
+}

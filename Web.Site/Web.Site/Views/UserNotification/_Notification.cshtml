@@ -1,0 +1,51 @@
+﻿@model Cryptopia.Common.User.UserNotificationModel
+@{
+	bool hasNotifications = Model.Notifications.Any();
+}
+
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.UserData.notificationsHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="notification-toolbar">
+	<div class="btn-group btn-group-sm">
+		<button id="notify-dismiss" class="btn btn-default" data-action="@Url.Action("Clear", "UserNotification")">
+			<i class="fa fa-book panel-icon"></i>
+			@Resources.UserData.notificationsDismissAllButton
+		</button>
+		<button id="notify-deleteall" class="btn btn-danger" data-action="@Url.Action("Delete", "UserNotification")">
+			<i class="fa fa-trash panel-icon"></i>
+			@Resources.UserData.notificationsDeleteAllButton
+		</button>
+	</div>
+</div>
+
+<div id="notification-container">
+	<div class="notification-container-scroll col-xs-12 nopad panel">
+		<small><i>@Resources.UserData.notificationsList1000InfoText</i></small>
+		<ul id="notification-list" class="nav list-group nopad msg-list">
+			@if (hasNotifications)
+			{
+				foreach (var c in Model.Notifications.OrderByDescending(x => x.Timestamp))
+				{
+					<li class="list-group-item messageitem">
+						<div>@string.Format("#{0} - {1}: {2}: {3}", c.Id, c.Timestamp, c.Title, c.Notification)</div>
+					</li>
+				}
+			}
+			else
+			{
+				<li class="text-center"><i>@Resources.UserData.notificationsEmptyListInfoText</i></li>
+			}
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.UserNotifications = {
+		NotificationsDeletingMessage: '@Resources.UserData.notificationsDeletingMessage',
+		NotificationsEmptyListInfoText: '@Resources.UserData.notificationsEmptyListInfoText'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userNotification.min.js")

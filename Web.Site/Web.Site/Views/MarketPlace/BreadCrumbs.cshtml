@@ -1,0 +1,18 @@
+﻿@model Web.Site.Models.MarketPlaceModel
+@{
+   
+}
+
+<div>
+    <ul class="breadcrumb inline-block marketplace-breadcrumb-list" style="margin:0px">
+        <li><a href="/MarketPlace"><i class="fa fa-home"></i> @Resources.Market.marketTitle</a></li>
+        @foreach (var item in Model.BreadCrumbs())
+        {
+            <li><a href="/MarketPlace?categoryId=@item.Id&currencyId=@Model.CurrencyId&locationId=@Model.LocationId&sortBy=@Model.SortBy&type=@Model.ItemType">@item.DisplayName</a></li>
+        }
+        @if (Model.IsItemMode)
+        {
+            <li><a href="/MarketItem/@Model.MarketItem.Id">@Model.MarketItem.Title</a></li>
+        }
+    </ul>
+</div>

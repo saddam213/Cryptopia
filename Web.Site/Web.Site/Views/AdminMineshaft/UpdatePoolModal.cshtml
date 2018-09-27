@@ -1,0 +1,79 @@
+﻿@model Cryptopia.Common.Pool.AdminUpdatePoolModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Pool</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdatePool", "AdminMineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Id)
+				@Html.WriterValidationSummary()
+			
+				<div class="row">
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.Status, new { @class = "control-label" })
+						@Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.StatusMessage, "Status Message", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.StatusMessage, new { @class = "form-control", rows=3 })
+						@Html.ValidationMessageFor(model => model.StatusMessage, "", new { @class = "text-danger" })
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-3">
+								@Html.LabelFor(m => m.BlockTime, "Block Time", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.BlockTime, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.BlockTime, "", new { @class = "text-danger" })
+							</div>
+							<div class="col-xs-3">
+								@Html.LabelFor(m => m.WalletFee, "Wallet Fee", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.WalletFee, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.WalletFee, "", new { @class = "text-danger" })
+							</div>
+							<div class="col-xs-3">
+								@Html.LabelFor(m => m.BlockReward, "Block Reward", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.BlockReward, new { @class = "form-control  input-sm" })
+								@Html.ValidationMessageFor(model => model.BlockReward, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div style="margin-top:22px">
+							@Html.CheckBoxFor(m => m.IsForkCheckDisabled)
+							@Html.LabelFor(m => m.IsForkCheckDisabled, "Disable Fork Check", new { @class = "control-label" })
+						</div>
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.SpecialInstructions, "Special Instructions", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.SpecialInstructions, new { @class = "form-control", rows = 3 })
+						@Html.ValidationMessageFor(model => model.SpecialInstructions, "", new { @class = "text-danger" })
+					</div>
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA5EEA6F-6FC3-4144-A738-E8134FA59113}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.Core</RootNamespace>
+    <AssemblyName>Cryptopia.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.6.41832, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.6\lib\net45\AngleSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlSanitizer.3.2.105\lib\net45\HtmlSanitizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis.StrongName, Version=1.2.3.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.StrongName.1.2.3\lib\net45\StackExchange.Redis.StrongName.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressBook\AddressBookWriter.cs" />
+    <Compile Include="AddressBook\AddressBookReader.cs" />
+    <Compile Include="Address\AddressReader.cs" />
+    <Compile Include="Api\ApiPrivateService.cs" />
+    <Compile Include="Api\ApiPublicService.cs" />
+    <Compile Include="Arbitrage\ArbitrageReader.cs" />
+    <Compile Include="Balance\BalanceEstimationService.cs" />
+    <Compile Include="Balance\BalanceReader.cs" />
+    <Compile Include="Cache\CacheService.cs" />
+    <Compile Include="Chat\ChatReader.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Currency\CurrencyWriter.cs" />
+    <Compile Include="Currency\CurrencyReader.cs" />
+    <Compile Include="Deposit\DepositReader.cs" />
+    <Compile Include="Deposit\DepositService.cs" />
+    <Compile Include="Emoticons\EmoticonReader.cs" />
+    <Compile Include="Emoticons\EmoticonWriter.cs" />
+    <Compile Include="Exchange\ExchangeReader.cs" />
+    <Compile Include="External\ExternalApiService.cs" />
+    <Compile Include="Image\ImageService.cs" />
+    <Compile Include="Karma\KarmaReader.cs" />
+    <Compile Include="Karma\KarmaWriter.cs" />
+    <Compile Include="Location\LocationReader.cs" />
+    <Compile Include="Lotto\LottoReader.cs" />
+    <Compile Include="Lotto\LottoWriter.cs" />
+    <Compile Include="Marketplace\MarketplaceReader.cs" />
+    <Compile Include="Marketplace\MarketplaceWriter.cs" />
+    <Compile Include="Mineshaft\MineshaftWriter.cs" />
+    <Compile Include="Mineshaft\MineshaftReader.cs" />
+    <Compile Include="News\NewsWriter.cs" />
+    <Compile Include="News\NewsReader.cs" />
+    <Compile Include="Notifications\NotificationService.cs" />
+    <Compile Include="Paytopia\PaytopiaReader.cs" />
+    <Compile Include="Paytopia\PaytopiaWriter.cs" />
+    <Compile Include="PoolWorker\PoolWorkerWriter.cs" />
+    <Compile Include="PoolWorker\PoolWorkerReader.cs" />
+    <Compile Include="Pool\PoolReader.cs" />
+    <Compile Include="Pool\PoolWriter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Referral\ReferralReader.cs" />
+    <Compile Include="Rewards\RewardReader.cs" />
+    <Compile Include="Security\SecurityReader.cs" />
+    <Compile Include="Service References\DepositService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TradeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Shareholder\ShareholderReader.cs" />
+    <Compile Include="Shareholder\ShareholderWriter.cs" />
+    <Compile Include="SiteSettings\SiteSettingsWriter.cs" />
+    <Compile Include="SiteSettings\SiteSettingsReader.cs" />
+    <Compile Include="Support\SupportReader.cs" />
+    <Compile Include="Support\SupportWriter.cs" />
+    <Compile Include="TermDeposits\TermDepositReader.cs" />
+    <Compile Include="TermDeposits\TermDepositWriter.cs" />
+    <Compile Include="TradePair\TradePairReader.cs" />
+    <Compile Include="TradePair\TradePairWriter.cs" />
+    <Compile Include="Trade\TradeService.cs" />
+    <Compile Include="Transfer\TransferReader.cs" />
+    <Compile Include="UserVerification\UserVerificationWriter.cs" />
+    <Compile Include="User\UserBalanceReader.cs" />
+    <Compile Include="User\UserBalanceWriter.cs" />
+    <Compile Include="User\UserDepositReader.cs" />
+    <Compile Include="User\UserDepositWriter.cs" />
+    <Compile Include="User\UserExchangeReader.cs" />
+    <Compile Include="User\UserExchangeWriter.cs" />
+    <Compile Include="User\UserMarketplaceReader.cs" />
+    <Compile Include="User\UserMarketplaceWriter.cs" />
+    <Compile Include="User\UserMessageReader.cs" />
+    <Compile Include="User\UserMessageWriter.cs" />
+    <Compile Include="User\UserMineshaftReader.cs" />
+    <Compile Include="User\UserMineshaftWriter.cs" />
+    <Compile Include="User\UserReader.cs" />
+    <Compile Include="User\UserSyncService.cs" />
+    <Compile Include="User\UserSettingsReader.cs" />
+    <Compile Include="User\UserSettingsWriter.cs" />
+    <Compile Include="User\UserSecurityWriter.cs" />
+    <Compile Include="User\UserTransferReader.cs" />
+    <Compile Include="User\UserTransferWriter.cs" />
+    <Compile Include="User\UserWithdrawReader.cs" />
+    <Compile Include="User\UserWithdrawWriter.cs" />
+    <Compile Include="User\UserProfileReader.cs" />
+    <Compile Include="User\UserProfileWriter.cs" />
+    <Compile Include="User\UserNotificationReader.cs" />
+    <Compile Include="User\UserNotificationWriter.cs" />
+    <Compile Include="User\UserWriter.cs" />
+    <Compile Include="Utilities\EncryptionService.cs" />
+    <Compile Include="UserVerification\UserVerificationReader.cs" />
+    <Compile Include="Withdraw\WithdrawReader.cs" />
+    <Compile Include="Withdraw\WithdrawWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Base\Cryptopia.Base.csproj">
+      <Project>{32001df5-3f4d-4584-a68f-94bbdff681c7}</Project>
+      <Name>Cryptopia.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Cache\Cryptopia.Cache.csproj">
+      <Project>{21480099-3347-4273-9e5a-e7632e624ad8}</Project>
+      <Name>Cryptopia.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Common\Cryptopia.Common.csproj">
+      <Project>{e52b1491-8a60-48b6-b551-834e159867ab}</Project>
+      <Name>Cryptopia.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Entity\Cryptopia.Entity.csproj">
+      <Project>{6c3292dd-2ae8-4025-925c-bdd2c10dc741}</Project>
+      <Name>Cryptopia.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6e49b123-5cc9-4b9d-bbd6-feeb8fa4ce39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Resources\Cryptopia.Resources.csproj">
+      <Project>{ba77649b-fdfb-45b3-84b9-669bf8ea3783}</Project>
+      <Name>Cryptopia.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Service References\DepositService\Cryptopia.Core.DepositService.GetWalletBlockResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DepositService\Cryptopia.Core.DepositService.GetWalletFeeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DepositService\Cryptopia.Core.DepositService.GetWalletInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DepositService\Cryptopia.Core.DepositService.GetWalletTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DepositService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DepositService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DepositService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DepositService\service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DepositService\service4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DepositService\WalletInboundService.wsdl" />
+    <None Include="Service References\TradeService\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.CancelExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.CancelTradeItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.CompleteExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.CreateExternalTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitLottoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitPoolPaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitTipResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitTradeItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitTransferResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Core.TradeService.SubmitWithdrawResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TradeService\Cryptopia.Enums1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\service1.wsdl" />
+    <None Include="Service References\TradeService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\TradeService.DataObjects1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TradeService\TradeService.Notifications1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\DepositService\" />
+    <WCFMetadataStorage Include="Service References\TradeService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DepositService\service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DepositService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DepositService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DepositService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TradeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Email\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

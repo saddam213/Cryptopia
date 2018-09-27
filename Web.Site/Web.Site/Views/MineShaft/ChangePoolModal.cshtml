@@ -1,0 +1,98 @@
+﻿@model Cryptopia.Common.Mineshaft.ChangePoolModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+	var IsSingleWorker = Model.Workers.Count == 1;
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header" style="padding-bottom:4px">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close();">×</button>
+			<h3 class="modal-title" >Change Pool</h3>
+			<small style="margin-left:2px;" class="modal-title">Change your miners to the @string.Format("{0}({1})", Model.PoolName, Model.PoolSymbol) pool</small>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("ChangeUserPool", "Mineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.PoolId)
+				@Html.HiddenFor(m => m.AlgoType)
+				@Html.HiddenFor(m => m.PoolName)
+				@Html.HiddenFor(m => m.PoolSymbol)
+				<div class="form-margin" style="margin-top:5px">
+					@if (IsSingleWorker)
+					{
+						@Html.Hidden("AllWorkers", true)
+						<div class="row">
+							<div class="col-md-12 text-center">
+								Are you sure you want to switch your miner to the <b>@Model.PoolSymbol</b> pool?
+								<br />
+								<br />
+							</div>
+						</div>
+					}
+					else
+					{
+						<div class="row">
+							<div class="col-md-12">
+								Please choose the miners you would like to switch to the <b>@Model.PoolSymbol</b> pool
+								<hr style="margin-top:5px;margin-bottom:15px" />
+							</div>
+							<div class="col-md-12">
+								<div class="" style="margin-bottom:5px">
+									@Html.CheckBoxFor(m => m.AllWorkers)
+									@Html.LabelFor(m => m.AllWorkers, "All Miners", new { @class = "control-label" })
+								</div>
+								<div class="row" style="max-height:200px;overflow:auto;margin-left:5px">
+									@foreach (var worker in Model.Workers.OrderBy(x => x.Name))
+									{
+										<div class="col-md-6">
+											<label class="control-label">
+												<input class="worker-select" type="checkbox" disabled="disabled" checked="checked" name="SelectedWorkers" value="@worker.Id" />
+												<span>@worker.Name.Replace(User.Identity.Name + ".", "")</span>
+												@if (worker.IsActive)
+												{
+													<small style="font-weight:100;margin-left:5px">
+														<i>(Mining @worker.TargetPool)</i>
+													</small>
+												}
+											</label>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close();">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Start Mining</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+
+	$("#AllWorkers").click(function () {
+		var chkbox = $(this);
+		var isSelected = chkbox.is(":checked");
+		if (isSelected) {
+			$(".worker-select").attr('checked', true);
+			$(".worker-select").attr('disabled', 'disabled');
+		} else {
+			$(".worker-select").removeAttr('disabled');
+		}
+	});
+
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

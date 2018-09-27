@@ -1,0 +1,170 @@
+﻿@using Cryptopia.Enums
+@model Web.Site.Models.MarketItemModel
+@{
+   
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12  col-xs-12">
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h3>@Model.Title</h3>
+        <div>
+            <p class="marketplace-item-desc">@Model.Description</p>
+        </div>
+        <hr />
+        <div>
+            @if (Model.Status == MarketItemStatus.Closed)
+            {
+                <h3 class="text-danger">@Resources.Market.itemStatusClosedHeadline</h3>
+            }
+            else if (Model.Status == MarketItemStatus.Complete)
+            {
+                if (Model.IsUserListing)
+                {
+                <h3 class="text-success">@Resources.Market.itemStatusCompletedHeadline</h3>
+                <p>@Resources.Market.itemStatusCompletedText</p>
+                <!-- Buyer details -->
+                <strong class="text-info marketplace-item-heading">@Resources.Market.itemBuyerDetailLabel:</strong>
+                <div>
+                    <div>
+                        <span>
+                            <strong>@Resources.Market.itemBuyerLabel:</strong>
+                            @Model.BuyerUserName
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong>@Resources.Market.itemBuyersTrustRatingLabel:</strong>
+                            @{Html.RenderPartial("StarRating", Model.BuyersTrustRating);}
+                        </span>
+                    </div>
+                    <a href="/MarketFeedback/@Model.BuyerUserName">@Resources.Market.itemBuyersFeedbackLink</a>
+                </div>
+                }
+                else if (Model.IsUserBuyer)
+                {
+					<h3 class="text-success">@Resources.Market.itemStatusCompletedByYouHeadline</h3>
+					<p>@Resources.Market.itemStatusCompletedByYouText</p>
+                }
+                else
+                {
+					<h3 class="text-success">@Resources.Market.itemStatusCompletedByUserHeadline</h3>
+                }
+
+                if (Model.IsUserBuyer || Model.IsUserListing)
+                {
+                <small style="font-style: italic;">
+					@Html.Raw(String.Format(Resources.Market.itemItemCompletedWarningHtml,
+								"<a href=\"/Support/Support\">" + Cryptopia.Resources.General.CryptopiaSupportLink + "</a>"))
+				</small>
+                }
+                
+                <hr />
+                
+                <!-- Feedback -->
+                { Html.RenderPartial("Feedback", Model); }
+            }
+
+
+            <!-- Price -->
+            <strong class="text-info marketplace-item-heading">@Resources.Market.itemPriceLabel:</strong>
+            <div class="marketplace-item-price">@string.Format("{0} {1}", Model.AskingPrice, Model.Symbol)<span class="pull-right"> </span></div>
+        </div>
+        <br />
+
+        <!-- Details -->
+        @{Html.RenderPartial("Details", Model);}
+
+        <hr />
+
+
+        <!-- Buy Edit buttons -->
+        <div>			
+            @if (Model.Status == MarketItemStatus.Active)
+            {
+                if (Model.IsUserListing)
+                {
+                    using (Html.BeginForm("EditMarketItem", "MarketPlace", FormMethod.Get, new { @class = "inline-block" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						@Html.Hidden("isRelisting", false)
+						<input type="submit" class="btn btn-warning marketplace-item-user-btn" value="@Resources.Market.itemEditListingButton" />
+                    }
+                    using (Html.BeginForm("CancelMarketItem", "MarketPlace", FormMethod.Post, new { @class = "inline-block", @id = "form-cancel" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						<input id="submit-cancel" type="submit" class="btn btn-danger marketplace-item-user-btn" value="@Resources.Market.itemCancelListingButton" />
+                    }
+                }
+                else
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("SubmitBid", "MarketPlace", FormMethod.Post, new { @id = "form-buy" }))
+                        {
+							@Html.AntiForgeryToken()
+							@Html.Hidden("MarketItemId", Model.Id)
+							@Html.Hidden("MarketItemType", Model.Type)
+							@Html.Hidden("Currency", Model.Symbol)
+							@Html.Hidden("MarketItemTitle", Model.Title)
+							@Html.Hidden("BidAmount", Model.AskingPrice) 
+							<input id="submit-buy" type="submit" class="btn btn-info marketplace-item-buy-btn" value="@Resources.Market.itemBuyNowButton" />
+                        }
+                    }
+                    else
+                    {
+						<a href="/Login?ReturnUrl=%2FMarketItem/@Model.Id" class="btn btn-info marketplace-item-buy-btn">@Resources.Market.itemBuyNowButton</a>
+                    }
+                }
+                <hr />
+            }
+			else
+            {
+                if (Model.IsUserListing)
+                {
+                    using (Html.BeginForm("RelistMarketItem", "MarketPlace", FormMethod.Post, new { @class = "inline-block" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						<input type="submit" class="btn btn-info marketplace-item-user-btn" value="@Resources.Market.itemRelistButton" />
+                    }
+                }
+                <hr />   
+            }
+        </div>
+
+
+        <!-- Question Answer section -->
+        @{Html.RenderPartial("Questions", Model);}
+
+        <hr />
+    </div>
+
+    <!-- Images -->
+    @{Html.RenderPartial("Images", Model);}
+</div>
+<div class="clearfix"></div>
+<script>
+    $(document).ready(function () {
+
+        $('#submit-buy').click(function (e) {
+			e.preventDefault();			
+			var message = '@string.Format(Resources.Market.itemConfirmBuyQuestion, Model.Title, Model.AskingPrice, Model.Symbol)';
+			confirm("@Resources.Market.itemConfirmBuyQuestionTitle", message, function () {
+				$.blockUI({ message: '@Cryptopia.Resources.General.PleaseWaitMessage' });
+				$('#form-buy').submit();
+			});
+		});
+
+		$('#submit-cancel').click(function (e) {
+			e.preventDefault();
+			var message = "@Resources.Market.itemCancelQuestion";
+			confirm("@Resources.Market.itemCancelQuestionTitle", message, function () {
+				$.blockUI({ message: '@Cryptopia.Resources.General.PleaseWaitMessage' });
+				$('#form-cancel').submit();
+			});
+		});
+	});
+</script>

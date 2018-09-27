@@ -1,0 +1,40 @@
+﻿@model Cryptopia.Admin.Common.Reprocessing.ReprocessingOptionsModel
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+            <h3 class="modal-title">Reprocessing Options</h3>
+        </div>
+        @using (Ajax.BeginForm("UpdatePageOptions", "Reprocessing", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+        {
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.WriterValidationSummary()
+                <div class="row">
+                    <div class="col-xs-12">
+                        @Html.LabelFor(m => m.WalletSearchBlockLength, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.WalletSearchBlockLength, new { @class = "form-control input" })
+                        @Html.ValidationMessageFor(model => model.WalletSearchBlockLength, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+                <button id="submit" class="btn btn-success button-180" type="submit">Submit</button>
+            </div>}
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>
+

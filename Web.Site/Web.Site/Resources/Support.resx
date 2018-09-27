@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="createSubmitingMessage" xml:space="preserve">
+    <value>Submitting...</value>
+  </data>
+  <data name="createTitle" xml:space="preserve">
+    <value>Create Support Ticket</value>
+  </data>
+  <data name="replyTitle" xml:space="preserve">
+    <value>Support Reply</value>
+  </data>
+  <data name="supportButton" xml:space="preserve">
+    <value>Send Request</value>
+  </data>
+  <data name="supportEmailLabel" xml:space="preserve">
+    <value>Reply Email</value>
+  </data>
+  <data name="supportEmailRequiredError" xml:space="preserve">
+    <value>You must supply a valid reply email address</value>
+  </data>
+  <data name="supportFailedError" xml:space="preserve">
+    <value>Failed to send email, please try again.</value>
+  </data>
+  <data name="supportMessageLabel" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="supportMessageRequiredError" xml:space="preserve">
+    <value>You must supply a message</value>
+  </data>
+  <data name="supportPageTitle" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="supportReCaptchaError" xml:space="preserve">
+    <value>Invalid reCaptcha</value>
+  </data>
+  <data name="supportSendingMessage" xml:space="preserve">
+    <value>Sending request...</value>
+  </data>
+  <data name="supportSubjectLabel" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="supportSubjectRequiredError" xml:space="preserve">
+    <value>You must supply a message subject</value>
+  </data>
+  <data name="supportSuccessMessage" xml:space="preserve">
+    <value>Your support ticket was logged successfully.</value>
+  </data>
+  <data name="supportSummaryHtml" xml:space="preserve">
+    <value>&lt;h4&gt;Having problems logging in, or have questions about the site?&lt;/h4&gt;
+					&lt;h4&gt;Send us a support request and one of our staff will be happy to assist.&lt;/h4&gt;</value>
+  </data>
+  <data name="tickectNotFoundMessage" xml:space="preserve">
+    <value>Support ticket #{ticketId} not found.</value>
+    <comment>{ticketId} - Ticket ID placeholder</comment>
+  </data>
+  <data name="tickectNotFoundMessageTitle" xml:space="preserve">
+    <value>Not Found!</value>
+  </data>
+  <data name="ticketAwaitingStatus" xml:space="preserve">
+    <value>Awaiting admin reply.</value>
+  </data>
+  <data name="ticketCategoryLabel" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="ticketCloseButton" xml:space="preserve">
+    <value>Close Ticket</value>
+  </data>
+  <data name="ticketClosedLabel" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ticketClosedStatus" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ticketCloseQuestion" xml:space="preserve">
+    <value>Are you sure you want to close support ticket #{0}?</value>
+    <comment>{0} - Ticket ID</comment>
+  </data>
+  <data name="ticketCloseQuestionTitle" xml:space="preserve">
+    <value>Close support ticket?</value>
+  </data>
+  <data name="ticketClosingMessage" xml:space="preserve">
+    <value>Closing ticket...</value>
+  </data>
+  <data name="ticketDescriptionLabel" xml:space="preserve">
+    <value>Ticket description</value>
+  </data>
+  <data name="ticketHistoryLabel" xml:space="preserve">
+    <value>Ticket History</value>
+  </data>
+  <data name="ticketInfoHeadline" xml:space="preserve">
+    <value>Ticket Information:</value>
+  </data>
+  <data name="ticketNewStatus" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="ticketOpenedLabel" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="ticketPageTitle" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="ticketRepliedStatus" xml:space="preserve">
+    <value>Admin replied.</value>
+  </data>
+  <data name="ticketReplyButton" xml:space="preserve">
+    <value>Reply Ticket</value>
+  </data>
+  <data name="ticketReturnButton" xml:space="preserve">
+    <value>Return To Support</value>
+  </data>
+  <data name="ticketSenderLabel" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="ticketStatusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="ticketUpdatedLabel" xml:space="preserve">
+    <value>Last Update</value>
+  </data>
+  <data name="ticketViewButton" xml:space="preserve">
+    <value>View Ticket</value>
+  </data>
+  <data name="userClosedTicketsEmptyListMessage" xml:space="preserve">
+    <value>You have no closed support tickets.</value>
+  </data>
+  <data name="userClosedTicketsHeadline" xml:space="preserve">
+    <value>Closed Support Tickets</value>
+  </data>
+  <data name="userCreateTicketButton" xml:space="preserve">
+    <value>Create New Ticket</value>
+  </data>
+  <data name="userOpenTicketsEmptyListMessage" xml:space="preserve">
+    <value>You have no open support tickets.</value>
+  </data>
+  <data name="userOpenTicketsHeadline" xml:space="preserve">
+    <value>Open Support Tickets</value>
+  </data>
+  <data name="userPageTitle" xml:space="preserve">
+    <value>User Support And Communications</value>
+  </data>
+  <data name="userSummaryText" xml:space="preserve">
+    <value>Having problems? Want to contact the team? Create a support ticket and one of our staff will be happy to assist.</value>
+  </data>
+</root>

@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="infoAlgoColumn" xml:space="preserve">
+    <value>Algo</value>
+  </data>
+  <data name="infoBlockHeightColumn" xml:space="preserve">
+    <value>Block Height</value>
+  </data>
+  <data name="infoConnectionsColumn" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="infoCurrencyListEmptyMessage" xml:space="preserve">
+    <value>No currencies found.</value>
+  </data>
+  <data name="infoEditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="infoHeadline" xml:space="preserve">
+    <value>Coin Information</value>
+  </data>
+  <data name="infoInfoAlgorithmLabel" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="infoInfoAnnualPosRateLabel" xml:space="preserve">
+    <value>Annual POS Rate</value>
+  </data>
+  <data name="infoInfoBlockRewardLabel" xml:space="preserve">
+    <value>Block Reward</value>
+  </data>
+  <data name="infoInfoBlockTimeLabel" xml:space="preserve">
+    <value>Block Time</value>
+  </data>
+  <data name="infoInfoDifficultyRetargetLabel" xml:space="preserve">
+    <value>Difficulty Retarget</value>
+  </data>
+  <data name="infoInfoHeadline" xml:space="preserve">
+    <value>{{name}} Information</value>
+    <comment>{{name}} - Coin name placeholder</comment>
+  </data>
+  <data name="infoInfoMaxStakeAgeLabel" xml:space="preserve">
+    <value>Maximum Stake Age</value>
+  </data>
+  <data name="infoInfoMinStakeAgeLabel" xml:space="preserve">
+    <value>Minimum Stake Age</value>
+  </data>
+  <data name="infoInfoNetworkLabel" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="infoInformationPath" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="infoInfoTotalCoinsLabel" xml:space="preserve">
+    <value>Total Coins</value>
+  </data>
+  <data name="infoLinksCryptopiaForumLabel" xml:space="preserve">
+    <value>Cryptopia Forum</value>
+  </data>
+  <data name="infoLinksExplorerLabel" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="infoLinksHeadline" xml:space="preserve">
+    <value>{{name}} Links</value>
+    <comment>{{name}} - Coin name placeholder</comment>
+  </data>
+  <data name="infoLinksLaunchForumLabel" xml:space="preserve">
+    <value>Launch Forum</value>
+  </data>
+  <data name="infoLinksPath" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="infoLinksSourceCodeLabel" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="infoLinksWebsiteLabel" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="infoListingStatusColumn" xml:space="preserve">
+    <value>Listing Status</value>
+  </data>
+  <data name="infoNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="infoNetworkColumn" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="infoPageTitle" xml:space="preserve">
+    <value>CoinInfo</value>
+  </data>
+  <data name="infoRatingBlockExplorerLabel" xml:space="preserve">
+    <value>Block Explorer</value>
+  </data>
+  <data name="infoRatingColumn" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="infoRatingCryptopiaForumLabel" xml:space="preserve">
+    <value>Cryptopia Forum</value>
+  </data>
+  <data name="infoRatingHeadline" xml:space="preserve">
+    <value>{{name}} Rating</value>
+    <comment>{{name}} - Coin name placeholder</comment>
+  </data>
+  <data name="infoRatingLinuxWalletLabel" xml:space="preserve">
+    <value>Linux Wallet</value>
+  </data>
+  <data name="infoRatingMacWalletLabel" xml:space="preserve">
+    <value>Mac Wallet</value>
+  </data>
+  <data name="infoRatingMobileWalletLabel" xml:space="preserve">
+    <value>Mobile Wallet</value>
+  </data>
+  <data name="infoRatingPath" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="infoRatingPremineLabel" xml:space="preserve">
+    <value>Premine</value>
+  </data>
+  <data name="infoRatingText" xml:space="preserve">
+    <value>Currently Rated {0}/5</value>
+    <comment>{0} - Rating</comment>
+  </data>
+  <data name="infoRatingTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="infoRatingUnratedText" xml:space="preserve">
+    <value>Currently Unrated</value>
+  </data>
+  <data name="infoRatingWebPaperWalletLabel" xml:space="preserve">
+    <value>Web/Paper Wallet</value>
+  </data>
+  <data name="infoRatingWebsiteLabel" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="infoRatingWindowsWalletLabel" xml:space="preserve">
+    <value>Windows Wallet</value>
+  </data>
+  <data name="infoSettingsDepositConfirmationsLabel" xml:space="preserve">
+    <value>Deposit Confirmations</value>
+  </data>
+  <data name="infoSettingsHeadline" xml:space="preserve">
+    <value>{{name}} Settings</value>
+    <comment>{{name}} - Coin name placeholder</comment>
+  </data>
+  <data name="infoSettingsMaxWithdrawalLabel" xml:space="preserve">
+    <value>Maximum Withdrawal</value>
+  </data>
+  <data name="infoSettingsMinTipAmountLabel" xml:space="preserve">
+    <value>Minimum Tip Amount</value>
+  </data>
+  <data name="infoSettingsMinWithdrawalLabel" xml:space="preserve">
+    <value>Minimum Withdrawal</value>
+  </data>
+  <data name="infoSettingsPath" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="infoSettingsPoolFeeLabel" xml:space="preserve">
+    <value>Pool Fee</value>
+  </data>
+  <data name="infoSettingsRewardExpiresLabel" xml:space="preserve">
+    <value>Reward Expires</value>
+  </data>
+  <data name="infoSettingsTippingExpiresLabel" xml:space="preserve">
+    <value>Tipping Expires</value>
+  </data>
+  <data name="infoSettingsTradeFeeLabel" xml:space="preserve">
+    <value>Trade Fee</value>
+  </data>
+  <data name="infoSettingsWithdrawalFeeLabel" xml:space="preserve">
+    <value>Withdrawal Fee</value>
+  </data>
+  <data name="infoStatusMessageColumn" xml:space="preserve">
+    <value>Status Message</value>
+  </data>
+  <data name="infoSupportMessage" xml:space="preserve">
+    <value>If you believe any of this data is inaccurate please contact {0}.</value>
+    <comment>{0} - Support link</comment>
+  </data>
+  <data name="infoSymbolColumn" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="infoVersionColumn" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="infoWalletStatusColumn" xml:space="preserve">
+    <value>Wallet Status</value>
+  </data>
+  <data name="infoWalletStatusMaintenanceMessage" xml:space="preserve">
+    <value>Wallet is currently in maintenance mode.</value>
+  </data>
+  <data name="infoWalletStatusMessageTitle" xml:space="preserve">
+    <value>Status Message</value>
+  </data>
+  <data name="peerHeadline" xml:space="preserve">
+    <value>{0}({1}) Node info!</value>
+    <comment>{0} - Coin name; {1} - Currency</comment>
+  </data>
+  <data name="updateHeadline" xml:space="preserve">
+    <value>Update {0} Info</value>
+    <comment>{0} - Coin name placeholder</comment>
+  </data>
+  <data name="updateSummaryLabel" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="infoCurrencyNotFoundMessage" xml:space="preserve">
+    <value>Currency '{0}' not found</value>
+    <comment>{0} - placeholder</comment>
+  </data>
+  <data name="infoCurrencyNotFoundMessageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="infoStatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+</root>

@@ -1,0 +1,167 @@
+﻿@model Web.Site.Models.ForumCategoryModel
+@{
+	ViewBag.Title = Resources.Forum.forumPageTitle;
+	ViewBag.HideFooter = false;
+	bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+
+@Html.Partial("_GoogleAdsense")
+
+<div class="row">
+	<div class=" col-lg-9 col-md-8 col-sm-6 col-xs-12">
+		<ul class="breadcrumb" style="margin-top: 10px">
+			<li><a href="@Url.Action("Index")">@Resources.Forum.forumPathRootLink</a></li>
+			<li><a href="@Url.Action("Index")">@Model.Forum.Name</a></li>
+			<li><a href="@Url.Action("Category", new { id = Model.Id })">@Model.Name</a></li>
+		</ul>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+		@using (Html.BeginForm("SearchResult", "Forum", FormMethod.Get))
+		{
+			@Html.AntiForgeryToken()
+			<div style="padding-top: 10px">
+				<div class="input-group input-group-sm">
+					@Html.TextBox("SearchText", "", new { @class = "form-control  input-sm", placeholder = Resources.Forum.forumSearchFieldPlaceholder })
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+				<div>
+					<span class="pull-right">
+						@Html.CheckBox("SearchPosts", true, new { })
+						<small>@Resources.Forum.forumSearchPostCheckbox</small>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<hr style="padding: 5px; margin: 0px" />
+
+
+<div class="row">
+	<div class=" col-lg-9 col-md-8 col-sm-6 col-xs-12">
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-primary nopad" style="margin-bottom: 0px; padding-bottom: 0px">
+					<div class="panel-heading" style="padding: 5px">
+						<span style="font-size: 16px"><i class="@(string.IsNullOrEmpty(Model.Icon) ? "fa fa-newspaper-o" : Model.Icon) panel-icon"></i>@Model.Name</span>
+						@if (User.Identity.IsAuthenticated)
+						{
+							using (Html.BeginForm("CreateThread", "Forum", FormMethod.Post, new { @class = "pull-right", name="form" }))
+							{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("categoryId", Model.Id)
+							<span onclick="form.submit()" class="btn btn-sm btn-link pull-right" >@Resources.Forum.threadCreateButton</span>
+							}
+						}
+						@if (isAdmin)
+						{
+							<span id="update-category" class="update-forum btn btn-sm btn-link pull-right">@Resources.Forum.categoryEditButton</span>
+							<span id="delete-category" class="delete-forum btn btn-sm btn-link pull-right">@Resources.Forum.categoryDeleteButton</span>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			@foreach (var thread in Model.Threads)
+			{
+				<div class="col-xs-12">
+
+					<div style="padding: 5px" class="row">
+						<div class="col-lg-8">
+							<a class="ellipsis" style="font-size:16px;" href="@Url.Action("Thread", new { id = thread.Id })">
+								<i style="font-size: 25px;min-width: 30px;" class="@(thread.IsPinned ? "fa fa-thumb-tack text-success" : string.IsNullOrEmpty(thread.Icon) ? "fa fa-file-text-o text-primary" : thread.Icon) panel-icon"></i>@thread.Name</a>
+						</div>
+						<div class="col-lg-4">
+							<div>
+								@if (isAdmin)
+								{
+									<span title="@Resources.Forum.threadPinHint" data-threadid="@thread.Id" class="thread-pin fa fa-thumb-tack text-danger" style="cursor:pointer"></span>
+								}
+								<span>@Resources.Forum.postCountLabel: @thread.PostCount</span>
+							</div>
+							<div>
+								<small>@Resources.Forum.threadLastPostLabel: <a href="@Url.Action("Thread", new { id = thread.Id, postId = thread.LastPost.Id })">@thread.LastPost.User.Name, @thread.LastPost.Timestamp.ToForumTime()</a></small>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<hr style="margin: 0px;" />
+				</div>
+			}
+		</div>
+
+	</div>
+
+
+	<div class=" col-lg-3 col-md-4 col-sm-6 col-xs-12">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-primary nopad" style="margin-bottom: 0px; padding-bottom: 0px">
+					<div class="panel-heading panel-primary" style="padding: 5px">
+						<span style="font-size: 16px">
+							<i class="fa fa-history"></i>
+							<span style="padding-left: 3px">@Resources.Forum.forumLastPostsHeadline</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			@foreach (var post in Model.LatestPosts)
+			{
+				<div class="col-xs-12">
+					<div style="padding: 5px">
+						<div>
+							<a style="font-size:14px" href="@Url.Action("Thread", new { id = post.ThreadId })">@post.ThreadTitle</a>
+						</div>
+						<div>
+							<small>@Resources.Forum.threadLabel: <a href="@Url.Action("Thread", new { id = post.ThreadId })" >@post.ForumName</a></small>
+						</div>
+						<div style="max-height: 70px; overflow: hidden">
+							<p style="font-size:12px; white-space: pre-line;">@Html.Raw(post.Message)</p>
+						</div>
+						<hr style="margin: 0px;" />
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+	
+</div>
+@Html.Partial("_SEOPartial")
+@Html.Partial("_GoogleAdsense")
+
+<script>
+	$(document).ready(function () {
+		@if (isAdmin)
+		{
+			<text>
+			$('#update-category').on('click', function () {
+				openModal('@Url.Action("UpdateCategory", "Forum", new { categoryId = Model.Id })', '@Cryptopia.Resources.General.LoadingMessage', {}, function () { });
+			});
+			$('.thread-pin').on('click', function () {
+				var threadId = $(this).data('threadid');
+				if (threadId) {
+					getJson('@Url.Action("PinThread", "Forum")', { threadId: threadId }, function () {
+						location.reload()
+					});
+				}
+			});
+			$('#delete-category').on('click', function () {
+				confirm("@Resources.Forum.categoryDeleteQuestionTitle", "@Resources.Forum.categoryDeleteQuestion", function () {
+					getJson('@Url.Action("DeleteCategory", "Forum", new { categoryId = Model.Id })', {}, function () {
+						location = '@Url.Action("Index")';
+					});
+				});
+				return false;
+			});
+			</text>
+		}
+	});
+</script>

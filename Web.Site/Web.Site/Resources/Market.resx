@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="itemAcceptButton" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="itemAcceptorDetailsLabel" xml:space="preserve">
+    <value>Acceptor details</value>
+  </data>
+  <data name="itemAcceptorLabel" xml:space="preserve">
+    <value>Acceptor</value>
+  </data>
+  <data name="itemAcceptQuestion" xml:space="preserve">
+    <value>Are you sure you want to accept this item: '{0}' for {1} {2}?</value>
+    <comment>{0} - Item title; {1} - Price; {2} - Currency;</comment>
+  </data>
+  <data name="itemAcceptQuestionTitle" xml:space="preserve">
+    <value>Confirm Accept</value>
+  </data>
+  <data name="itemAskingPriceLabel" xml:space="preserve">
+    <value>Asking Price</value>
+  </data>
+  <data name="itemBuyerDetailLabel" xml:space="preserve">
+    <value>Buyer details</value>
+  </data>
+  <data name="itemBuyerLabel" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="itemBuyersFeedbackLink" xml:space="preserve">
+    <value>View buyers feedback</value>
+  </data>
+  <data name="itemBuyersTrustRatingLabel" xml:space="preserve">
+    <value>Trust rating</value>
+  </data>
+  <data name="itemBuyNowButton" xml:space="preserve">
+    <value>Buy Now</value>
+  </data>
+  <data name="itemCancelListingButton" xml:space="preserve">
+    <value>Cancel Listing</value>
+  </data>
+  <data name="itemCancelQuestion" xml:space="preserve">
+    <value>Are you sure you want to cancel this listing?</value>
+  </data>
+  <data name="itemCancelQuestionTitle" xml:space="preserve">
+    <value>Cancel Listing</value>
+  </data>
+  <data name="itemClosesLabel" xml:space="preserve">
+    <value>Closes</value>
+  </data>
+  <data name="itemConfirmBidQuestion" xml:space="preserve">
+    <value>Are you sure you want to place a bid of {0} {1} for this '{2}'?</value>
+    <comment>{0} - Amount; {1} - Currency; {2} - Item title</comment>
+  </data>
+  <data name="itemConfirmBidQuestionTitle" xml:space="preserve">
+    <value>Confirm Bid</value>
+  </data>
+  <data name="itemConfirmBuyQuestion" xml:space="preserve">
+    <value>Are you sure you want to buy this '{0}' for {1} {2}?</value>
+    <comment>{0} - Item title; {1} - Price; {2} - Currency</comment>
+  </data>
+  <data name="itemConfirmBuyQuestionTitle" xml:space="preserve">
+    <value>Confirm Buy</value>
+  </data>
+  <data name="itemCurrentBidLabel" xml:space="preserve">
+    <value>Current Bid</value>
+  </data>
+  <data name="itemEditListingButton" xml:space="preserve">
+    <value>Edit Listing</value>
+  </data>
+  <data name="itemEnquirerDetails" xml:space="preserve">
+    <value>Enquirer details</value>
+  </data>
+  <data name="itemHistoryAmountColumn" xml:space="preserve">
+    <value>Bid Amount</value>
+  </data>
+  <data name="itemHistoryEmptyListMessage" xml:space="preserve">
+    <value>There have been no bids for this item.</value>
+  </data>
+  <data name="itemHistoryHeadline" xml:space="preserve">
+    <value>Bid History</value>
+  </data>
+  <data name="itemHistoryRatingColumn" xml:space="preserve">
+    <value>Trust rating</value>
+  </data>
+  <data name="itemHistoryUserColumn" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="itemItemCompletedWarningHtml" xml:space="preserve">
+    <value>Cryptopia Ltd. are not responsible for payment, escrow or delivery for any item brought or sold in the Cryptopia MarketPlace. It is the responsibility of the buyer/seller to organize payment, delivery and further correspondence, if a user does not complete their side of the transaction please contact {0} so we can investigate further.</value>
+    <comment>{0} - Html link placeholder</comment>
+  </data>
+  <data name="itemListingDetailsLabel" xml:space="preserve">
+    <value>Listing details</value>
+  </data>
+  <data name="itemLocationLabel" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="itemPlaceBidButton" xml:space="preserve">
+    <value>Place Bid</value>
+  </data>
+  <data name="itemPlaceBidLabel" xml:space="preserve">
+    <value>Place a bid</value>
+  </data>
+  <data name="itemPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="itemRelistButton" xml:space="preserve">
+    <value>Relist Item</value>
+  </data>
+  <data name="itemSellersFeedbackLabel" xml:space="preserve">
+    <value>View sellers feedback</value>
+  </data>
+  <data name="itemStatusAcceptedByUserHeadline" xml:space="preserve">
+    <value>This item has been accepted by another user.</value>
+  </data>
+  <data name="itemStatusAcceptedByYouHeadline" xml:space="preserve">
+    <value>You accepted this item.</value>
+  </data>
+  <data name="itemStatusAcceptedByYouText" xml:space="preserve">
+    <value>An email with the enquirers details has been sent to your registered email address.</value>
+  </data>
+  <data name="itemStatusAcceptedHeadline" xml:space="preserve">
+    <value>This item has been accepted by a user.</value>
+  </data>
+  <data name="itemStatusAcceptedText" xml:space="preserve">
+    <value>An email with the acceptor details has been sent to your registered email address. The acceptor has also been sent your contact details.</value>
+  </data>
+  <data name="itemStatusClosedHeadline" xml:space="preserve">
+    <value>This item did not sell.</value>
+  </data>
+  <data name="itemStatusCompletedByUserHeadline" xml:space="preserve">
+    <value>This item has been sold.</value>
+  </data>
+  <data name="itemStatusCompletedByYouHeadline" xml:space="preserve">
+    <value>You purchased this item</value>
+  </data>
+  <data name="itemStatusCompletedByYouText" xml:space="preserve">
+    <value>An email with the sellers details and payment instructions has been sent to your registered email address.</value>
+  </data>
+  <data name="itemStatusCompletedHeadline" xml:space="preserve">
+    <value>This item has been sold.</value>
+  </data>
+  <data name="itemStatusCompletedText" xml:space="preserve">
+    <value>An email with the buyers details has been sent to your registered email address. The buyer has also been sent your contact details.</value>
+  </data>
+  <data name="itemUserLabel" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="itemUserTrustRatingLabel" xml:space="preserve">
+    <value>Trust rating</value>
+  </data>
+  <data name="marketEmptyListMessage" xml:space="preserve">
+    <value>No items found.</value>
+  </data>
+  <data name="marketFeaturedTypeAuction" xml:space="preserve">
+    <value>Featured Auction</value>
+  </data>
+  <data name="marketFeaturedTypeBuySell" xml:space="preserve">
+    <value>Featured Buy/Sell</value>
+  </data>
+  <data name="marketFeaturedTypeWanted" xml:space="preserve">
+    <value>Featured Wanted</value>
+  </data>
+  <data name="marketItemAuctionClosesLabel" xml:space="preserve">
+    <value>Closes</value>
+  </data>
+  <data name="marketItemAuctionNoReserveTitle" xml:space="preserve">
+    <value>No reserve auction.</value>
+  </data>
+  <data name="marketItemAuctionReserveMetTitle" xml:space="preserve">
+    <value>Reserve has been met.</value>
+  </data>
+  <data name="marketItemAuctionReserveNotMetTitle" xml:space="preserve">
+    <value>Reserve has not been met.</value>
+  </data>
+  <data name="marketItemCreateButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="marketItemCreateLabel" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="marketItemCurrencyAll" xml:space="preserve">
+    <value>All Currencies</value>
+  </data>
+  <data name="marketItemLocationsAll" xml:space="preserve">
+    <value>All Locations</value>
+  </data>
+  <data name="marketItemSortyByClosingSoon" xml:space="preserve">
+    <value>Closing Soon</value>
+  </data>
+  <data name="marketItemSortyByHighestPrice" xml:space="preserve">
+    <value>Highest Price</value>
+  </data>
+  <data name="marketItemSortyByLowestPrice" xml:space="preserve">
+    <value>Lowest Price</value>
+  </data>
+  <data name="marketItemSortyByNewest" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="marketItemSortyByTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="marketSearchByCategoryLabel" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="marketSearchByCurrencyLabel" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="marketSearchByLocationLabel" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="marketSearchByTypeLabel" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="marketSearchLabel" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="marketSearchPlaceholder" xml:space="preserve">
+    <value>Search Marketplace</value>
+  </data>
+  <data name="marketSearchSortByLabel" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="marketTitle" xml:space="preserve">
+    <value>MarketPlace</value>
+  </data>
+  <data name="createItemAlternateImagesLabel" xml:space="preserve">
+    <value>Alternate Images</value>
+  </data>
+  <data name="createItemAuctionDurationLabel" xml:space="preserve">
+    <value>Auction Duration</value>
+  </data>
+  <data name="createItemAuctionDurationRangeError" xml:space="preserve">
+    <value>Auction must be between {1} and {2} days.</value>
+    <comment>{0} - Field name; {1} - Min value; {2} - Max value;</comment>
+  </data>
+  <data name="createItemAuctionDurationUnit" xml:space="preserve">
+    <value>(days)</value>
+  </data>
+  <data name="createItemCategoryLabel" xml:space="preserve">
+    <value>Category!</value>
+  </data>
+  <data name="createItemCategoryRequiredError" xml:space="preserve">
+    <value>{0} is required.!</value>
+    <comment>{0} - Field name (main, sub category...);</comment>
+  </data>
+  <data name="createItemCheckReminderText" xml:space="preserve">
+    <value>Please ensure all details are correct before submitting your listing.</value>
+  </data>
+  <data name="createItemCountryLabel" xml:space="preserve">
+    <value>Listing Country</value>
+  </data>
+  <data name="createItemCurrencyLabel" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="createItemDescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="createItemDetailsHeadline" xml:space="preserve">
+    <value>Listing Details</value>
+  </data>
+  <data name="createItemEditHeadline" xml:space="preserve">
+    <value>Edit MarketPlace Listing.</value>
+  </data>
+  <data name="createItemEditPageTitle" xml:space="preserve">
+    <value>Edit Listing</value>
+  </data>
+  <data name="createItemHeadline" xml:space="preserve">
+    <value>Create MarketPlace Listing.</value>
+  </data>
+  <data name="createItemImageFormatError" xml:space="preserve">
+    <value>Image must be one of the following image formats: {1}</value>
+    <comment>{1} - Image formats</comment>
+  </data>
+  <data name="createItemImagesHeadline" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="createItemListingHeadline" xml:space="preserve">
+    <value>Listing</value>
+  </data>
+  <data name="createItemMainCategoryLabel" xml:space="preserve">
+    <value>Main Category!</value>
+  </data>
+  <data name="createItemMainImageLabel" xml:space="preserve">
+    <value>Main Image</value>
+  </data>
+  <data name="createItemNoCategoriesOption" xml:space="preserve">
+    <value>No categories.</value>
+  </data>
+  <data name="createItemNoCitiesOption" xml:space="preserve">
+    <value>No cities.</value>
+  </data>
+  <data name="createItemPageTitle" xml:space="preserve">
+    <value>New Listing</value>
+  </data>
+  <data name="createItemPayPriceLabel" xml:space="preserve">
+    <value>Pay Price!</value>
+  </data>
+  <data name="createItemPricingHeadline" xml:space="preserve">
+    <value>Listing Pricing</value>
+  </data>
+  <data name="createItemRegionLabel" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="createItemRelistButton" xml:space="preserve">
+    <value>Relist Item</value>
+  </data>
+  <data name="createItemRemoveImageLink" xml:space="preserve">
+    <value>Remove Image</value>
+  </data>
+  <data name="createItemReservePriceLabel" xml:space="preserve">
+    <value>Reserve Price</value>
+  </data>
+  <data name="createItemSellPriceLabel" xml:space="preserve">
+    <value>Sell Price!</value>
+  </data>
+  <data name="createItemShippingAllowedPickupLabel" xml:space="preserve">
+    <value>Buyer can pickup</value>
+  </data>
+  <data name="createItemShippingByBuyerLabel" xml:space="preserve">
+    <value>Buyer to arrange shipping</value>
+  </data>
+  <data name="createItemShippingDetailsEgText" xml:space="preserve">
+    <value>(e.g. Fedex - Overnight)</value>
+  </data>
+  <data name="createItemShippingDetailsLabel" xml:space="preserve">
+    <value>Shipping details</value>
+  </data>
+  <data name="createItemShippingInternationalLabel" xml:space="preserve">
+    <value>International Shipping</value>
+  </data>
+  <data name="createItemShippingNationalLabel" xml:space="preserve">
+    <value>National shipping</value>
+  </data>
+  <data name="createItemShippingOptionsHeadline" xml:space="preserve">
+    <value>Shipping Options</value>
+  </data>
+  <data name="createItemShippingPickupOnlyLabel" xml:space="preserve">
+    <value>Pickup only</value>
+  </data>
+  <data name="createItemShippingPriceLabel" xml:space="preserve">
+    <value>Shipping price</value>
+  </data>
+  <data name="createItemStateCityLabel" xml:space="preserve">
+    <value>State/City</value>
+  </data>
+  <data name="createItemSubCategoryLabel" xml:space="preserve">
+    <value>Sub-Category!</value>
+  </data>
+  <data name="createItemSubmitButton" xml:space="preserve">
+    <value>Submit Listing</value>
+  </data>
+  <data name="createItemTitleLabel" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="createItemTypeLabel" xml:space="preserve">
+    <value>Listing Type#</value>
+  </data>
+  <data name="createItemUpdateButton" xml:space="preserve">
+    <value>Update Listing</value>
+  </data>
+  <data name="createItemWarningText" xml:space="preserve">
+    <value>Offensive or obscene images will be removed by Cryptopia moderators.</value>
+  </data>
+  <data name="feedbackCommendLabel" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="feedbackCommentLabel" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="feedbackDateLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="feedbackEmtpyListMessage" xml:space="preserve">
+    <value>{0} has no MarketPlace feedback.</value>
+    <comment>{0} - UserName</comment>
+  </data>
+  <data name="feedbackFromUserLabel" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="feedbackHeadline" xml:space="preserve">
+    <value>MarketPlace Feedback</value>
+  </data>
+  <data name="feedbackListHeadline" xml:space="preserve">
+    <value>All Feedback for {0}</value>
+    <comment>{0} - UserName</comment>
+  </data>
+  <data name="feedbackMarketItemLabel" xml:space="preserve">
+    <value>Market Item</value>
+  </data>
+  <data name="feedbackPlaceFeedbackHtml" xml:space="preserve">
+    <value>Please place feedback for {0} once the trade is completed.</value>
+    <comment>{0} - User link</comment>
+  </data>
+  <data name="feedbackPlaceFeedbackLabel" xml:space="preserve">
+    <value>Place feedback</value>
+  </data>
+  <data name="feedbackRatingLabel" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="feedbackSubmitForBuyerButton" xml:space="preserve">
+    <value>Submit feedback for buyer</value>
+  </data>
+  <data name="feedbackSubmitForSellerButton" xml:space="preserve">
+    <value>Submit feedback for seller</value>
+  </data>
+  <data name="feedbackUserLabel" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="itemAnswerShortLabel" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="itemQuestionActiveLabel" xml:space="preserve">
+    <value>Do you have a question about this item?, ask the seller a question.</value>
+  </data>
+  <data name="itemQuestionAwaitingAnswerMessage" xml:space="preserve">
+    <value>Awaiting sellers response...</value>
+  </data>
+  <data name="itemQuestionEmptyListMessage" xml:space="preserve">
+    <value>There are no questions for this item.</value>
+  </data>
+  <data name="itemQuestionForYouLabel" xml:space="preserve">
+    <value>Questions about your item.</value>
+  </data>
+  <data name="itemQuestionLabel" xml:space="preserve">
+    <value>Questions for this item</value>
+  </data>
+  <data name="itemQuestionShortLabel" xml:space="preserve">
+    <value>Q</value>
+  </data>
+  <data name="itemQuestionSubmitAnswerButton" xml:space="preserve">
+    <value>Submit Answer</value>
+  </data>
+  <data name="itemQuestionSubmitQuestionButton" xml:space="preserve">
+    <value>Submit Question</value>
+  </data>
+  <data name="itemSellerDetailsLabel" xml:space="preserve">
+    <value>Seller details</value>
+  </data>
+  <data name="itemSellerLabel" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="itemSellersFeedbackLink" xml:space="preserve">
+    <value>View sellers feedback</value>
+  </data>
+  <data name="itemShippingDetailsLabel" xml:space="preserve">
+    <value>Shipping details</value>
+  </data>
+  <data name="itemShippingInternationalLabel" xml:space="preserve">
+    <value>International</value>
+  </data>
+  <data name="itemShippingNationalLabel" xml:space="preserve">
+    <value>National</value>
+  </data>
+  <data name="itemShippingPickupLabel" xml:space="preserve">
+    <value>Pickup</value>
+  </data>
+  <data name="itemShippingTypeAllowedPickup" xml:space="preserve">
+    <value>Seller allows pickup.</value>
+  </data>
+  <data name="itemShippingTypeByBuyer" xml:space="preserve">
+    <value>Buyer to arrange shipping.</value>
+  </data>
+  <data name="itemShippingTypeNoPickup" xml:space="preserve">
+    <value>No pickup.</value>
+  </data>
+  <data name="itemShippingTypePickupOnly" xml:space="preserve">
+    <value>Pickup only.</value>
+  </data>
+  <data name="createItemCancelErrorMessage" xml:space="preserve">
+    <value>Failed to cancel market item, if problem persists</value>
+  </data>
+  <data name="createItemErrorMessage" xml:space="preserve">
+    <value>Failed to create market item, if problem persists</value>
+  </data>
+  <data name="createItemImageRemovedMessage" xml:space="preserve">
+    <value>Image Removed!</value>
+  </data>
+  <data name="createItemRelistErrorMessage" xml:space="preserve">
+    <value>Failed to relist market item, if problem persists</value>
+  </data>
+  <data name="createItemUpdateErrorMessage" xml:space="preserve">
+    <value>Failed to update market item, if problem persists</value>
+  </data>
+  <data name="itemActionErrorMessageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="itemActionSuccessMessageTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="itemAnswerPostErrorMessage" xml:space="preserve">
+    <value>Failed to create market item answer, if problem persists</value>
+  </data>
+  <data name="itemAnswerPostSuccessMessage" xml:space="preserve">
+    <value>Answer submitted.</value>
+  </data>
+  <data name="itemBidErrorMessage" xml:space="preserve">
+    <value>Failed to create market item bid, if problem persists</value>
+  </data>
+  <data name="itemQuestionPostErrorMessage" xml:space="preserve">
+    <value>Failed to create market item question, if problem persists</value>
+  </data>
+</root>

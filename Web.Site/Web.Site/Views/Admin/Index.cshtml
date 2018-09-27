@@ -1,0 +1,211 @@
+﻿@{
+	ViewBag.Title = "Admin";
+}
+
+<style>
+	.nav > li > a{
+		padding:6px 5px;
+	}
+</style>
+
+<div class="col-sm-2 col-xs-4 nopad user-tabmenu">
+	<div class="profile-sidebar">
+		<div class="profile-usermenu">
+			<ul class="nav" id="tabcontrol" data-default="@ViewBag.Section">
+				<li>
+					<a href="#AdminSettings" data-section="AdminSettings" data-toggle="tab" data-div="#adminSettingsTarget" data-action="@Url.Action("GetSettings", "AdminSettings")">
+						<i class="icon-settingstwo-gearalt pull-right"></i>
+						Settings
+					</a>
+				</li>
+				<li>
+					<a href="#AdminUser" data-section="AdminUser" data-toggle="tab" data-div="#adminUserTarget" data-action="@Url.Action("GetUserAdmin", "AdminUser")">
+						<i class="icon-useralt pull-right"></i>
+						Users
+					</a>
+				</li>
+				<li>
+					<a href="#AdminSecurity" data-section="AdminSecurity" data-toggle="tab" data-div="#adminSecurityTarget" data-action="@Url.Action("GetSecurity", "AdminSecurity")">
+						<i class="icon-police pull-right"></i>
+						Security
+					</a>
+				</li>
+				<li><br /></li>
+				<li>
+					<a href="#AdminDeposit" data-section="AdminDeposit" data-toggle="tab" data-div="#adminDepositTarget" data-action="@Url.Action("GetDeposits", "AdminDeposit")">
+						<i class="icon-download-alt pull-right"></i>
+						Deposits
+					</a>
+				</li>
+				<li>
+					<a href="#AdminWithdraw" data-section="AdminWithdraw" data-toggle="tab" data-div="#adminWithdrawTarget" data-action="@Url.Action("GetWithdrawals", "AdminWithdraw")">
+						<i class="icon-uploadalt pull-right"></i>
+						Withdrawals
+					</a>
+				</li>
+				<li>
+					<a href="#AdminTransfer" data-section="AdminTransfer" data-toggle="tab" data-div="#adminTransferTarget" data-action="@Url.Action("GetTransfers", "AdminTransfer")">
+						<i class="icon-resize-horizontal pull-right"></i>
+						Transfers
+					</a>
+				</li>
+				<li>
+					<a href="#AdminCurrency" data-section="AdminCurrency" data-toggle="tab" data-div="#adminCurrencyTarget" data-action="@Url.Action("GetCurrencies", "AdminCurrency")">
+						<i class="icon-exchange-currency pull-right"></i>
+						Currency
+					</a>
+				</li>
+				<li>
+					<a href="#AdminTradePair" data-section="AdminTradePair" data-toggle="tab" data-div="#adminTradePairTarget" data-action="@Url.Action("GetTradePairs", "AdminTradePair")">
+						<i class="icon-barchartasc pull-right"></i>
+						TradePair
+					</a>
+				</li>
+				<li><br /></li>
+				<li>
+					<a href="#AdminMineshaft" data-section="AdminMineshaft" data-toggle="tab" data-div="#adminMineshaftTarget" data-action="@Url.Action("GetMineshaft", "AdminMineshaft")">
+						<i class="icon-pickaxe pull-right"></i>
+						Mineshaft
+					</a>
+				</li>
+				<li>
+					<a href="#AdminPoolWorker" data-section="AdminPoolWorker" data-toggle="tab" data-div="#adminPoolWorkerTarget" data-action="@Url.Action("GetPoolWorkers", "AdminPoolWorker")">
+						<i class="icon-appointment-agenda pull-right"></i>
+						Mineshaft Workers
+					</a>
+				</li>
+				<li>
+					<a href="#AdminMineshaftPayment" data-section="AdminMineshaftPayment" data-toggle="tab" data-div="#adminMineshaftPaymentTarget" data-action="@Url.Action("GetMineshaftPayments", "AdminMineshaft")">
+						<i class="icon-moneybag pull-right"></i>
+						Mineshaft Payments
+					</a>
+				</li>
+				<li><br /></li>
+				<li>
+					<a href="#AdminPaytopia" data-section="AdminPaytopia" data-toggle="tab" data-div="#adminPaytopiaTarget" data-action="@Url.Action("GetPaytopia", "AdminPaytopia")">
+						<i class="icon-creditcard pull-right"></i>
+						Paytopia
+					</a>
+				</li>
+				<li>
+					<a href="#AdminChat" data-section="AdminChat" data-toggle="tab" data-div="#adminChatTarget" data-action="@Url.Action("GetChatAdmin", "AdminChat")">
+						<i class="icon-chat pull-right"></i>
+						Chat
+					</a>
+				</li>
+				<li>
+					<a href="#AdminEmoticon" data-section="AdminEmoticon" data-toggle="tab" data-div="#adminEmoticonTarget" data-action="@Url.Action("GetEmoticons", "AdminEmoticon")">
+						<i class="icon-chat pull-right"></i>
+						Emoticons
+					</a>
+				</li>
+				<li>
+					<a href="#AdminLotto" data-section="AdminLotto" data-toggle="tab" data-div="#adminLottoTarget" data-action="@Url.Action("GetLottoItems", "AdminLotto")">
+						<i class="icon-die-dice pull-right"></i>
+						Lotto
+					</a>
+				</li>
+				<li>
+					<a href="#AdminTermDeposit" data-section="AdminTermDeposit" data-toggle="tab" data-div="#adminTermDepositTarget" data-action="@Url.Action("GetTermDeposits", "AdminTermDeposit")">
+						<i class="icon-appointment-agenda pull-right"></i>
+						Term Deposit
+					</a>
+				</li>
+				<li>
+					<a href="#AdminNews" data-section="AdminNews" data-toggle="tab" data-div="#adminNewsTarget" data-action="@Url.Action("GetNews", "AdminNews")">
+						<i class="fa fa-newspaper-o pull-right"></i>
+						News
+					</a>
+				</li>
+				<li>
+					<a href="#AdminReferral" data-section="AdminReferral" data-toggle="tab" data-div="#adminReferralTarget" data-action="@Url.Action("GetReferrals", "AdminReferral")">
+						<i class="icon-appointment-agenda pull-right"></i>
+						Referrals
+					</a>
+				</li>
+			
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="col-sm-10 col-xs-8">
+	<div class="tab-content" style="padding-top: 10px">
+
+		<div class="tab-pane fade" id="AdminSettings">
+			<div id="adminSettingsTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminUser">
+			<div id="adminUserTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminSecurity">
+			<div id="adminSecurityTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminDeposit">
+			<div id="adminDepositTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminWithdraw">
+			<div id="adminWithdrawTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminTransfer">
+			<div id="adminTransferTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminChat">
+			<div id="adminChatTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminEmoticon">
+			<div id="adminEmoticonTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminLotto">
+			<div id="adminLottoTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminTermDeposit">
+			<div id="adminTermDepositTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminMineshaft">
+			<div id="adminMineshaftTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminPoolWorker">
+			<div id="adminPoolWorkerTarget"></div>
+		</div>
+		
+		<div class="tab-pane fade" id="AdminMineshaftPayment">
+			<div id="adminMineshaftPaymentTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminPaytopia">
+			<div id="adminPaytopiaTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminCurrency">
+			<div id="adminCurrencyTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminTradePair">
+			<div id="adminTradePairTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminNews">
+			<div id="adminNewsTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="AdminReferral">
+			<div id="adminReferralTarget"></div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/jquery.easing.1.3.js")
+  @Scripts.Render("~/Scripts/Project/Admin/admin.js")
+}

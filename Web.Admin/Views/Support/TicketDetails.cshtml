@@ -1,0 +1,55 @@
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNet.Identity;
+@model Cryptopia.Admin.Common.Support.TicketDetailsViewModel
+
+@{
+	ViewBag.Title = "Ticket - " + Model.Ticket.Id.ToString();
+}
+
+<style>
+	pre {
+		white-space: pre-wrap;
+	}
+	span {
+		margin-left: 5px;
+	}
+	/* Overrides list-group-item from Bootstrap */
+	.item-small {
+		padding: 3px 10px
+	}
+
+</style>
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<div id="ticket-app"></div>
+
+@section Scripts {
+	<script>
+		
+		@{
+	var razorJsonModel = new
+	{
+		ticketViewModel = Model,
+		userId = User.Identity.GetUserId(),
+		userName = User.Identity.Name,
+		closeTicketAction = Url.Action("CloseTicket"),
+		reopenTicketAction = Url.Action("ReopenTicket"),
+		getTicketDetailsAction = Url.Action("GetTicketDetails"),
+		createMessageAction = Url.Action("CreateMessage"),
+		deleteMessageAction = Url.Action("DeleteMessage"),
+		editMessageAction = Url.Action("EditMessage"),
+		publishMessageAction = Url.Action("PublishMessage"),
+		updateTicketAction = Url.Action("UpdateTicket"),
+		userAction = Url.Action("Index", "User"),
+		ticketDetailsAction = Url.Action("TicketDetails")
+};
+		}
+
+		window.razorJsonModel = JSON.stringify(@Html.Raw(Json.Encode(razorJsonModel)));
+	
+	</script>
+
+	<script src="~/Scripts/project/support/ticket.bundle.js"></script>
+}

@@ -1,0 +1,94 @@
+﻿@model Cryptopia.Common.Paytopia.TipSlotModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Paytopia.tipSlotHeadline</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("TipSlot", "Paytopia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Price)
+				@Html.HiddenFor(m => m.Balance)
+				@Html.HiddenFor(m => m.Currency)
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.ItemId, Resources.Paytopia.tipSlotCurrencyLabel, new { @class = "control-label" })
+							@Html.ExtendedDropDownListFor(m => m.ItemId, Model.Items.Select(x => new CustomSelectListItem { Value = x.Id.ToString(), Text = x.Name, HtmlAttributes = new { data_expires = x.Expires, data_newexpiry = x.NewExpiry, data_isexpired = x.IsExpired } }), "-Please Select-", new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger", style = "font-size:12px" })
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12" style="margin-top:12px">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaPriceLabel:</small></b> @Model.Price.ToString("F8") @Model.Currency
+									</span>
+								</div>
+								<div class="col-md-12">
+									<span>
+										<b><small>@Resources.Paytopia.paytopiaAvailableLabel:</small></b>
+										<span class="@(Model.Price > Model.Balance ? "text-danger":"text-info")">@Model.Balance.ToString("F8")</span> @Model.Currency
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div id="msg-existing" class="col-md-12 text-center" style="display:none;margin-top:15px">
+							<span style="font-size:12px">
+								<b class="text-danger">@Resources.Paytopia.tipSlotExtendInfoLabel:</b>
+								@Html.Raw(String.Format(Html.Encode(Resources.Paytopia.tipSlotExtendInfoText), "<b class=\"expire-time\"></b>"))
+							</span>
+						</div>
+						<div id="msg-nonexisting" class="col-md-12 text-center" style="display:none;margin-top:15px">
+							<span style="font-size:12px">
+								@Html.Raw(String.Format(Html.Encode(Resources.Paytopia.tipBuyNowInfoText), "<b class=\"expire-time\"></b>"))
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button @(Model.Price > Model.Balance ? "disabled='disabled'":"") id="submit" class="btn btn-primary button-180" type="submit">@Resources.Paytopia.paytopiaBuyNowButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+
+	$(".expire-time").html(toLocalDate('@DateTime.UtcNow'))
+	$("#ItemId").on("change", function () {
+		var item = $(this).find("option:selected");
+		if (!item) {
+			$("#msg-existing, #msg-nonexisting").hide();
+			return;
+		}
+		$("#msg-existing").hide();
+		$("#msg-nonexisting").show();
+		var expires = item.data("expires");
+		var newexpiry = item.data("newexpiry");
+		var isexpired = item.data("isexpired");
+		if (isexpired == "False") {
+			$("#msg-existing").show();
+			$("#msg-nonexisting").hide();
+		}
+		$(".expire-time").html(toLocalDate(newexpiry))
+	});
+</script>

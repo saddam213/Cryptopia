@@ -1,0 +1,132 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminUserProfileUpdateModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update User Profile</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateProfile", "AdminUser", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.Id)
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.LastName, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Birthday, new { @class = "form-control  input-sm datepicker" })
+							@Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Gender, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Gender, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Address, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Address, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.City, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.City, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-8">
+							@Html.LabelFor(m => m.State, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.State, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-4">
+							@Html.LabelFor(m => m.Postcode, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Postcode, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Country, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Country, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Occupation, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Occupation, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.Education, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Education, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+						</div>
+					
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.Hobbies, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Hobbies, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Hobbies, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.AboutMe, new { @class = "control-label" })
+							@Html.TextAreaFor(m => m.AboutMe, new { @class = "form-control", @rows=3 })
+							@Html.ValidationMessageFor(model => model.AboutMe, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.LinkedIn, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.LinkedIn, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.LinkedIn, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Twitter, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Twitter, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Twitter, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Website, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Website, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+						</div>
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Facebook, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Facebook, new { @class = "form-control  input-sm" })
+							@Html.ValidationMessageFor(model => model.Facebook, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<input id="submit" class="btn btn-success button-180" type="submit" value="Update" />
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".datepicker").datepicker();
+	});
+</script>

@@ -1,0 +1,384 @@
+﻿@model Web.Site.Models.MarketPlaceModel
+@{
+	ViewBag.Title = Resources.Market.marketTitle;
+	ViewBag.ReturnUrl = "/MarketPlace";
+
+}
+@using Cryptopia.Enums
+@using PagedList.Mvc;
+@using PagedList;
+
+@Html.AntiForgeryToken()
+@Html.Partial("_GoogleAdsense")
+
+@if (!ViewData.ModelState.IsValid)
+{
+	<div id="alert" class="alert alert-dismissable shadow text-center @(ViewData.ModelState["Success"] != null ? "alert-success" : "alert-warning")">
+		<button class="close" type="button" data-dismiss="alert">×</button>
+		<h4>@ViewData.ModelState.FirstError()</h4>
+	</div>
+}
+
+
+@if (Model.IsItemMode)
+{
+@**************************Item********************************@
+	{ Html.RenderPartial("BreadCrumbs", Model); }
+	if (Model.MarketItem.Type == MarketItemType.Auction)
+	{
+		{ Html.RenderPartial("AuctionItem", Model.MarketItem); }
+	}
+	else if (Model.MarketItem.Type == MarketItemType.BuySell)
+	{
+		{ Html.RenderPartial("BuySellItem", Model.MarketItem); }
+	}
+	else if (Model.MarketItem.Type == MarketItemType.Wanted)
+	{
+		{ Html.RenderPartial("WantedItem", Model.MarketItem); }
+	}
+}
+else
+{
+@**************************List********************************@
+  
+
+@**************************Navagation********************************@
+
+	{ Html.RenderPartial("BreadCrumbs", Model); }
+
+	<div class="col-lg-12">
+
+		<div class="col-lg-12 panel panel-default">
+
+			<div class="panel-body">
+
+				<!-- Add New -->
+				<div class="col-lg-1 col-md-1 col-sm-3 col-xs-4">
+					<div style="font-style: italic; font-size: small; color: transparent !important">@Resources.Market.marketItemCreateLabel:</div>
+					<div>
+						<a class="btn btn-success btn-sm" style="width: 100%" href="/MarketPlace/CreateMarketItem">
+							<i class="fa fa-plus" style="padding-right: 5px"></i>@Resources.Market.marketItemCreateButton
+						</a>
+					</div>
+				</div>
+
+				<!-- Search -->
+				<div class="col-lg-4 col-md-3 col-sm-9 col-xs-8">
+					<div style="font-style: italic; font-size: small">@Resources.Market.marketSearchLabel:</div>
+					<div>
+						@using (Html.BeginRouteForm("MarketPlace", FormMethod.Get))
+						{
+							@Html.HiddenFor(m => m.CategoryId)
+							@Html.HiddenFor(m => m.CurrencyId)
+							@Html.HiddenFor(m => m.LocationId)
+							@Html.HiddenFor(m => m.SortBy)
+							<div class="nopad col-xs-10">
+								@Html.TextBoxFor(mbox => mbox.SearchTerm, new { @class = "form-control input-sm", @placeholder = Resources.Market.marketSearchPlaceholder, style = "width:100%;border-radius:2px 0px 0px 2px !important" })
+							</div>
+							<div class="nopad col-xs-2">
+								<button class="btn btn-primary btn-sm" style="border-radius: 0px 2px 2px 0px !important; width: 100%" type="submit">
+									<i style="font-size: larger" class="fa fa-search"></i>
+								</button>
+							</div>  
+						}
+					</div>
+				</div>
+
+				<!-- Filters -->
+				<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12 nopad">
+
+					<!-- Type -->
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<div style="font-style: italic; font-size: small">@Resources.Market.marketSearchByTypeLabel:</div>
+						<div>
+							<a class="btn btn-primary btn-sm dropdown-toggle" style="text-align: left; width: 100%" href="#" data-toggle="dropdown">@Model.ItemType<span style="margin-right: 5px" class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+							<ol class="dropdown-menu" style="margin-left: 15px">
+								@foreach (var item in Model.ItemTypes)
+								{
+									<li class="@(item == Model.ItemType ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=@Model.CurrencyId&locationId=@Model.LocationId&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@item">
+										<span class="fa fa-check-circle-o @(item == Model.ItemType ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@item</a>
+									</li>
+								}
+							</ol>
+						</div>
+
+					</div>
+
+					<!-- Sort By -->
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<div style="font-style: italic; font-size: small">@Resources.Market.marketSearchSortByLabel:</div>
+						<div>
+							<a class="btn btn-primary btn-sm dropdown-toggle" style="text-align: left; width: 100%" href="#" data-toggle="dropdown">@Model.SortBy<span style="margin-right: 5px" class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+							<ol class="dropdown-menu" style="margin-left: 15px">
+								@foreach (var item in Model.SortBys)
+								{
+									<li class="@(item == Model.SortBy ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=@Model.CurrencyId&locationId=@Model.LocationId&sortBy=@item&searchTerm=@Model.SearchTerm&type=@Model.ItemType">
+										<span class="fa fa-check-circle-o @(item == Model.SortBy ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@item</a>
+									</li>
+								}
+							</ol>
+						</div>
+
+					</div>
+
+					<!-- Currency -->
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<div style="font-style: italic; font-size: small">@Resources.Market.marketSearchByCurrencyLabel:</div>
+						<div>
+							<a class="btn btn-primary btn-sm dropdown-toggle" style="text-align: left; width: 100%" href="#" data-toggle="dropdown">@Model.Currency.Name<span style="margin-right: 5px" class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+							<ol class="dropdown-menu" style="margin-left: 15px">
+
+								<li class="@(Model.CurrencyId == 0 ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=&locationId=@Model.LocationId&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType">
+									<span  class="fa fa-check-circle-o @(Model.CurrencyId == 0 ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@Resources.Market.marketItemCurrencyAll</a>
+								</li>
+
+								@foreach (var item in Model.Currencies)
+								{
+									<li class="@(item.CurrencyId == Model.CurrencyId ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=@item.CurrencyId&locationId=@Model.LocationId&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType">
+										<span class="fa fa-check-circle-o @(item.CurrencyId == Model.CurrencyId ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@item.Name</a>
+									</li>
+								}
+							</ol>
+						</div>
+					</div>
+
+					<!-- Location -->
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<div style="font-style: italic; font-size: small">@Resources.Market.marketSearchByLocationLabel:</div>
+						<div>
+							<a class="btn btn-primary btn-sm dropdown-toggle" style="text-align: left; width: 100%" href="#" data-toggle="dropdown">@Model.Location.Name<span style="margin-right: 5px" class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+							<ol class="dropdown-menu" style="margin-left: 15px">
+								<li class="@(Model.LocationId == 0 ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=@Model.CurrencyId&locationId=&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType">
+									<span  class="fa fa-check-circle-o @(Model.LocationId == 0 ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@Resources.Market.marketItemLocationsAll</a>
+								</li>
+								@foreach (var item in Model.Locations)
+								{
+									<li class="@(item.Id == Model.LocationId ? "active" : "")"><a href="/MarketPlace?categoryId=@Model.CategoryId&currencyId=@Model.CurrencyId&locationId=@item.Id&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType">
+										<span  class="fa fa-check-circle-o @(item.Id == Model.LocationId ? "text-success" : "text-clear") marketplace-navbar-dropdown-checkicon"></span>@item.Name</a>
+									</li>
+								}
+							</ol>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Categories -->
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+
+				@if (Model.CategoryId == 0)
+				{
+					<h4>@Resources.Market.marketSearchByCategoryLabel <small style="font-size: xx-small;">(@Model.MarketItems.Count items)</small></h4>
+				}
+				else
+				{
+					<h4>
+						<span>
+							<a style="text-decoration:none;cursor:pointer;padding-right:5px" class="fa fa-reply" href="/MarketPlace?categoryId=@Model.Category.ParentId&currencyId=@Model.CurrencyId&locationId=@Model.LocationId&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType"></a>
+							@Model.Category.DisplayName
+							@if (Model.Category.ItemCount > 0)
+							{
+								<small style="font-size: xx-small;">(@Model.Category.ItemCount items)</small>
+							}
+						</span>
+					</h4>
+				}
+
+				@foreach (var item in Model.Categories.OrderBy(o => o.DisplayName).Where(x => x.ParentId == Model.CategoryId && x.Id != 0))
+				{
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+						<span>
+							<a href="/MarketPlace?categoryId=@item.Id&currencyId=@Model.CurrencyId&locationId=@Model.LocationId&sortBy=@Model.SortBy&searchTerm=@Model.SearchTerm&type=@Model.ItemType">@item.DisplayName
+
+							</a>
+							@if (item.ItemCount > 0)
+							{
+								<small style="font-size: xx-small;">(@item.ItemCount)</small>
+							}
+						</span>
+					</div>
+				}
+
+			</div>
+			<div class="clearfix"></div>
+			<br />
+		</div>
+
+	</div>
+    
+	<div class="clearfix"></div>
+   
+  
+	<div>
+
+		<!-- List -->
+		<div>
+
+			@if (Model.MarketItems.Any())
+			{
+				foreach (var item in Model.MarketItems.Where(x => x.Featured == MarketItemFeature.Featured))
+				{
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+					<div class="thumbnail marketplace-listitem shadow">
+
+						@if (item.ItemType == MarketItemType.Auction)
+						{
+							<div class="marketplace-banner auctionbanner-featured">
+								<strong>@Resources.Market.marketFeaturedTypeAuction</strong>
+							</div>
+						}
+						else if (item.ItemType == MarketItemType.BuySell)
+						{
+							<div class="marketplace-banner auctionbanner-featured">
+								<strong>@Resources.Market.marketFeaturedTypeBuySell</strong>
+							</div>
+						}
+						else if (item.ItemType == MarketItemType.Wanted)
+						{
+							<div class="marketplace-banner auctionbanner-featured">
+								<strong>@Resources.Market.marketFeaturedTypeWanted</strong>
+							</div>
+						}
+
+						<a href="/MarketItem/@item.Id" >
+							<img style="padding-top:5px" src="@CdnHelper.RenderImage(item.MainImage)" alt="" onerror="this.src = '@CdnHelper.RenderImage("/Content/Images/MarketItem.png")'" class="marketplace-listitem-img">
+						</a>
+						<h5 title="@item.Title" class="text-center marketplace-listitem-title"><a href="/MarketItem/@item.Id">@item.Title</a></h5>
+						<div>
+							<div class="marketplace-listitem-price">
+								@if (item.ItemType == MarketItemType.Auction)
+								{
+									<span>
+										@item.Price @item.Symbol
+										@if (item.NoReserve)
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-noreserve" title="@Resources.Market.marketItemAuctionNoReserveTitle"></span>
+										}
+										else if (item.ReserveMet)
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-met" title="@Resources.Market.marketItemAuctionReserveMetTitle"></span>
+										}
+										else
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-notmet" title="@Resources.Market.marketItemAuctionReserveNotMetTitle"></span>
+										}
+									</span>
+								}
+								else
+								{
+									@item.Price @item.Symbol
+								}
+							</div>
+							<div title="@item.Location" class="ellipsis marketplace-listitem-text">@item.Location</div>
+							<div class="marketplace-listitem-text">
+								@Resources.Market.marketItemAuctionClosesLabel: @item.Closes
+							</div>
+						</div>
+					</div>
+				</div>
+				}
+                
+				<div class="clearfix"></div>
+				<hr />
+                
+				foreach (var item in Model.MarketItems.Where(x => x.Featured != MarketItemFeature.Featured))
+				{
+       
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+					<div class="thumbnail marketplace-listitem shadow">
+
+						@if (item.ItemType == MarketItemType.Auction)
+						{
+							<div class="marketplace-banner auctionbanner-auction">
+								<strong>@Cryptopia.Resources.Market.itemTypeAuction</strong>
+							</div>
+						}
+						else if (item.ItemType == MarketItemType.BuySell)
+						{
+							<div class="marketplace-banner auctionbanner-buysell">
+								<strong>@Cryptopia.Resources.Market.itemTypeBuySell</strong>
+							</div>
+						}
+						else if (item.ItemType == MarketItemType.Wanted)
+						{
+							<div class="marketplace-banner auctionbanner-wanted">
+								<strong>@Cryptopia.Resources.Market.itemTypeWanted</strong>
+							</div>
+						}
+
+						<a href="/MarketItem/@item.Id" >
+							<img style="padding-top:5px" src="@item.MainImage" alt="" onerror="this.src = '@CdnHelper.RenderImage("/Content/Images/MarketItem.png")'" class="marketplace-listitem-img">
+						</a>
+						<h5 title="@item.Title" class="text-center marketplace-listitem-title"><a href="/MarketItem/@item.Id">@item.Title</a></h5>
+						<div>
+							<div class="marketplace-listitem-price">
+								@if (item.ItemType == MarketItemType.Auction)
+								{
+									<span>
+										@item.Price @item.Symbol
+										@if (item.NoReserve)
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-noreserve" title="@Resources.Market.marketItemAuctionNoReserveTitle"></span>
+										}
+										else if (item.ReserveMet)
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-met" title="@Resources.Market.marketItemAuctionReserveMetTitle"></span>
+										}
+										else
+										{
+											<span class="glyphicon glyphicon-flag auctionflag auctionflag-notmet" title="@Resources.Market.marketItemAuctionReserveNotMetTitle"></span>
+										}
+									</span>
+								}
+								else
+								{
+									@item.Price @item.Symbol
+								}
+							</div>
+							<div title="@item.Location" class="ellipsis marketplace-listitem-text">@item.Location</div>
+							<div class="marketplace-listitem-text">
+								@Resources.Market.marketItemAuctionClosesLabel: @item.Closes
+							</div>
+						</div>
+					</div>
+				</div>
+				}
+			}
+			else
+			{
+				<h3 class="text-warning">@Resources.Market.marketEmptyListMessage</h3>   
+			}
+
+		</div>
+
+		<!-- Paging -->
+		<div class="clearfix"></div>
+		<div class="col-lg-12">
+			<div class="col-lg-offset-8 marketplace-paging-container marketplace-paging-bottom">
+				@Html.PagedListPager(Model.MarketItems, page => Url.Action("Index", new { categoryId = Model.CategoryId, currencyId = Model.CurrencyId, locationId = Model.LocationId, sortBy = Model.SortBy, searchTerm = Model.SearchTerm, page = page, type = Model.ItemType }), new PagedListRenderOptions { MaximumPageNumbersToDisplay = 5, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded, Display = PagedListDisplayMode.Always })
+			</div>
+		</div>
+
+	</div>
+   
+}
+
+<div class="clearfix"></div>
+
+@Html.Partial("_GoogleAdsense")
+
+<script>
+	function createMarketItem() {
+		openModal('/MarketPlaceAction/CreateMarketItem', '@Cryptopia.Resources.General.LoadingMessage');
+	}
+
+	$(document).ready(function () {
+		$('#submit-question, #submit-answer,#submit-feedback').click(function () {
+			$.blockUI({ message: '@Cryptopia.Resources.General.PleaseWaitMessage' });
+		})
+	});
+</script>
+
+@Html.Partial("_SEOPartial")

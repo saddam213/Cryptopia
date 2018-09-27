@@ -1,0 +1,31 @@
+﻿@using Cryptopia.Enums
+@using Cryptopia.Common.Extensions
+@model Cryptopia.Common.TwoFactor.ViewTwoFactorModel
+@{
+	var action = Model.Type == TwoFactorType.None
+		? "Create"
+		: "Remove";
+	var button = Model.Type == TwoFactorType.None
+		? Resources.Authorization.twoFactorViewSetupButton
+		: Resources.Authorization.twoFactorViewRemoveButton;
+}
+
+@using (Html.BeginForm(action, "TwoFactor", new { ComponentType = Model.ComponentType }, FormMethod.Get, new { @class = "form-horizontal", role = "form", @method = "get" }))
+{
+	@Html.HiddenFor(m => m.ComponentType)
+	<h4>@String.Format(Resources.Authorization.twoFactorViewHeadline, Model.ComponentType.GetDisplayName())</h4>
+	<hr />	
+		@Html.ValidationSummary()
+		<div class="form-group">
+			@Html.Label(Resources.Authorization.twoFactorViewTypeLabel, new { @class = "col-md-3 control-label" })
+			<div class="col-md-9" >
+				@Html.EnumDropDownListFor(m => m.Type, new { @class = "form-control input-sm", @readonly = "readonly", disabled = "disabled" , style = "cursor:default" })
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-3 col-md-9">
+				<input type="submit" value="@button" class="btn btn-sm btn-default button-180" />
+			</div>
+		</div>
+}
+

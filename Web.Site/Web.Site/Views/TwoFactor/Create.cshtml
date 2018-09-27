@@ -1,0 +1,255 @@
+﻿@using Cryptopia.Common.Extensions
+@model Cryptopia.Common.TwoFactor.CreateTwoFactorModel
+@{
+	ViewBag.Title = "Cryptopia - " + Resources.Authorization.twoFactorPageTitle;
+}
+<style>
+	.data-input-google,
+	.data-input-pincode,
+	.data-input-email,
+	.data-input-password,
+	.data-input-question,
+	.data-input-cryptopia {
+		display: none;
+	}
+</style>
+
+<h2>@string.Format(Resources.Authorization.twoFactorCreateHeadline, Model.ComponentType)</h2>
+<div class="row">
+	<div class="col-md-8 ">
+		<section>
+			@using (Html.BeginForm("Create", "TwoFactor", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.ComponentType)
+				@Html.HiddenFor(m => m.GoogleData.PrivateKey)
+				@Html.HiddenFor(m => m.GoogleData.PublicKey)
+				@Html.HiddenFor(m => m.HasExistingGoogle)
+				<hr />
+				<div class="row">
+					<div class="col-md-9">
+						@Html.ValidationSummary(true)
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<div id="successMessage" class="alert alert-success text-center" style="display:none">
+							<h5></h5>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<div id="errorMessage" class="alert alert-danger text-center" style="display:none">
+							<h5></h5>
+						</div>
+					</div>
+				</div>
+
+
+				@*Type*@
+				<div class="form-group">
+					@Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.EnumDropDownListFor(m => m.Type, new { @class = "form-control input-sm" })
+					</div>
+				</div>
+
+
+				@*None*@
+				<div class="form-group data-input-none">
+					<div class="col-md-9">
+						<div class="alert alert-warning text-center">
+							<h4>@String.Format(Resources.Authorization.twoFactorCreateNoneInfo, Model.ComponentType.GetDisplayName())</h4>
+							<h5>@String.Format(Resources.Authorization.twoFactorCreateNoneWarning, @Model.ComponentType.GetDisplayName())</h5>
+						</div>
+					</div>
+				</div>
+
+
+				@*Google auth*@
+			if (Model.HasExistingGoogle)
+			{
+				<div class="form-group data-input-google text-center">
+					<div class="col-md-offset-2  col-md-5">
+						<small>@String.Format(Resources.Authorization.twoFactorCreateGoogleExistsMessage, @Model.ComponentType.GetDisplayName())</small>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="form-group data-input-google text-center">
+					<div class="col-md-offset-2  col-md-5">
+						<div>
+							<small>@Resources.Authorization.twoFactorCreateGoogleInfoText</small>
+						</div>
+						<img width="280" src="https://qrcode.kaywa.com/img.php?s=4&d=@(Model.GoogleData.PublicKey)" />
+					</div>
+					<div class="col-md-offset-2  col-md-5">@Model.GoogleData.PrivateKey</div>
+				</div>
+				<hr class="data-input-google" />
+				<div class="form-group data-input-google">
+					@Html.Label(Resources.Authorization.twoFactorCreateGoogleCodeLabel, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						<small>@Resources.Authorization.twoFactorCreateGoogleCodeInfoText</small>
+						<div class="input-group  input-group-sm">
+							<span class="input-group-btn">
+								<button id="verify-google" class="btn btn-default" style="width: 100px" type="button" data-key="@Model.GoogleData.PrivateKey" data-action="@Url.Action("VerifyGoogleCode")" data-success="@Resources.Authorization.twoFactorCreateGoogleCodeSuccessMessage" data-error="@Resources.Authorization.twoFactorCreateGoogleCodeFailureMessage">@Resources.Authorization.twoFactorCreateGoogleCodeButton</button>
+							</span>
+							@Html.TextBox("GoogleCode", "", new { id = "code-google", @class = "form-control data-input", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateGoogleCodeRequiredError })
+						</div>
+						@Html.ValidationMessage("GoogleCode", new { @class = "text-danger" })
+					</div>
+				</div>
+			}
+			<hr class="data-input-google" />
+
+			@*Cryptopia auth*@
+			if (Model.HasExistingCryptopia)
+			{
+				<div class="form-group data-input-cryptopia text-center">
+					<div class="col-md-offset-2  col-md-5">
+						<small id="existing-cryptopia" data-activated="true" class="help-block">@Resources.Authorization.twoFactorCreateCryptpiaActivatedInfoText</small>
+						<small id="existing-cryptopia" data-activated="true">@String.Format(Resources.Authorization.twoFactorCreateCryptopiaEnableInfoText, Model.ComponentType.GetDisplayName())</small>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="form-group data-input-cryptopia form-group-sm">
+					<label class="col-md-2 control-label">
+						@Resources.Authorization.twoFactorCreateCryptopiaSerialLabel
+						<a class="preview-popover" style="font-size:11px;" href="#" data-toggle="popover" data-placement="right" data-html="true" title="@Resources.Authorization.twoFactorCreateCryptopiaSerialHint" data-content="<div><img class='img-responsive img-thumbnail' src='/Content/Images/CryptopiaDevice_Back.png'/></div>">
+							<i style="font-size:14px" class="fa fa-question-circle" aria-hidden="true"></i>
+						</a>
+					</label>
+
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.CryptopiaSerial, new { @class = "form-control data-input data-input-cryptopia input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateCryptopiaSerialRequiredError, data_rule_pattern = "\\d{9}", data_msg_pattern = Resources.Authorization.twoFactorCreateCryptopiaSerialPatternError })
+						@Html.ValidationMessageFor(m => m.CryptopiaSerial, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group data-input-cryptopia form-group-sm">
+					<label class="col-md-2 control-label">
+						@Resources.Authorization.twoFactorCreateCryptopiaCodeLabel
+						<a class="preview-popover" style="font-size:11px;" href="#" data-toggle="popover" data-placement="right" data-html="true" title="@Resources.Authorization.twoFactorCreateCryptopiaCodeHint" data-content="<div><img class='img-responsive img-thumbnail' src='/Content/Images/CryptopiaDevice_Front.png'/></div>">
+							<i style="font-size:14px" class="fa fa-question-circle" aria-hidden="true"></i>
+						</a>
+					</label>
+					<div class="col-md-5">
+						@Html.TextBox("CryptopiaCode", "", new { @class = "form-control data-input data-input-cryptopia input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateCryptopiaCodeRequiredError, data_rule_pattern = "\\d{6}", data_msg_pattern = Resources.Authorization.twoFactorCreateCryptopiaCodePatternError })
+						@Html.ValidationMessage("CryptopiaCode", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group data-input-cryptopia form-group-sm">
+					<div class="col-md-offset-2 col-md-5">
+						<button type="button" id="activate-Cryptopia" class="btn btn-sm btn-info" style="width:180px" data-action="@Url.Action("VerifyCryptopiaCode")">@Resources.Authorization.twoFactorCreateCryptopiaButton</button>
+					</div>
+				</div>
+			}
+			<hr class="data-input-cryptopia" />
+
+
+			@*Pincode*@
+				<div class="form-group data-input-pincode form-group-sm">
+					@Html.LabelFor(m => m.DataPin, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						<small>@Resources.Authorization.twoFactorCreatePinInfoText</small>
+						@Html.TextBoxFor(m => m.DataPin, new { @class = "form-control data-input  input-sm", data_rule_required = "true", data_msg_required = Cryptopia.Resources.Authorization.twoFactorDataPinPatternError })
+						@Html.ValidationMessageFor(m => m.DataPin, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+				@*Email*@
+				<div class="form-group data-input-email form-group-sm">
+					@Html.LabelFor(m => m.DataEmail, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						<small>@Resources.Authorization.twoFactorCreateEmailInfoText</small>
+						<div class="input-group input-group-sm">
+							<span class="input-group-btn input-group-sm">
+								<a id="send-email" class="btn btn-default" style="width: 120px" data-component="@Model.ComponentType" data-action="@Url.Action("SendEmailCode")" data-success="@Resources.Authorization.twoFactorCreateEmailSuccessMessage" data-error="@Resources.Authorization.twoFactorCreateEmailFailureMessage">@Resources.Authorization.twoFactorCreateEmailButton</a>
+							</span>
+							@Html.TextBoxFor(m => m.DataEmail, new { @class = "form-control data-input  input-sm", type = "email", data_rule_required = "true", data_msg_required = "Email address is required", data_rule_email = true })
+						</div>
+						@Html.ValidationMessageFor(m => m.DataEmail, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<hr class="data-input-email" />
+				<div class="form-group data-input-email">
+					@Html.Label(Resources.Authorization.twoFactorCreateEmailVerifyLabel, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						<small>@Resources.Authorization.twoFactorCreateEmailVerifyInfoText</small>
+						<div class="input-group input-group-sm">
+							<span class="input-group-btn">
+								<a id="verify-email" class="btn btn-default" style="width: 120px" data-component="@Model.ComponentType" data-action="@Url.Action("VerifyEmailCode")" data-success="@Resources.Authorization.twoFactorCreateEmailVerifySuccessMessage" data-error="@Resources.Authorization.twoFactorCreateEmailVerifyFailureMessage">@Resources.Authorization.twoFactorCreateEmailVeryfyButton</a>
+							</span>
+							@Html.TextBox("EmailCode", "", new { @class = "form-control data-input  input-sm", id = "code-email", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateEmailVerifyRequiredError })
+						</div>
+						@Html.ValidationMessage("EmailCode", new { @class = "text-danger" })
+					</div>
+				</div>
+				<hr class="data-input-email" />
+
+
+				@*Password*@
+				<div class="form-group data-input-password">
+					<div class="col-lg-offset-2 col-md-5">
+						<small>@String.Format(Resources.Authorization.twoFactorCreatePasswordInfoText, Model.ComponentType.GetDisplayName())</small>
+					</div>
+				</div>
+
+
+				@*Security questions*@
+				<div class="form-group data-input-question form-group-sm">
+					@Html.LabelFor(m => m.DataQuestion1, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.DataQuestion1, new { @class = "form-control data-input input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateQuestionRequiredError })
+						@Html.ValidationMessageFor(m => m.DataQuestion1, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group data-input-question form-group-sm">
+					@Html.LabelFor(m => m.DataAnswer1, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.DataAnswer1, new { @class = "form-control data-input input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateAnswerRequiredError })
+						@Html.ValidationMessageFor(m => m.DataAnswer1, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group data-input-question form-group-sm">
+					@Html.LabelFor(m => m.DataQuestion2, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.DataQuestion2, new { @class = "form-control data-input input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateQuestionRequiredError })
+						@Html.ValidationMessageFor(m => m.DataQuestion2, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group data-input-question form-group-sm">
+					@Html.LabelFor(m => m.DataAnswer2, new { @class = "col-md-2 control-label" })
+					<div class="col-md-5">
+						@Html.TextBoxFor(m => m.DataAnswer2, new { @class = "form-control data-input input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorCreateAnswerRequiredError })
+						@Html.ValidationMessageFor(m => m.DataAnswer2, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+				@*Submit*@
+				<div class="form-group ">
+					<div class="col-md-offset-2 col-md-10">
+						<div class="input-submit" style="display:none">
+							<a class="preview-popover" style="font-size:11px;" href="#" data-toggle="popover" data-placement="right" data-html="true" title="@Resources.Authorization.twoFactorCreateApplayToAllLabel" data-content="<div>Apply this two factor setup to all other Cryptopia feature that has not yet been secured. <br /><div class='text-center'><i style='font-size:10px'>(this will NOT replace any existing two factor options)</i></div></div>">
+								<i style="font-size:15px" class="fa fa-question-circle" aria-hidden="true"></i>
+							</a>
+							@Html.CheckBoxFor(x => x.ApplyToAllEmpty, new { }) @Resources.Authorization.twoFactorCreateApplayToAllLabel
+						</div>
+						<input type="submit" value="@Resources.Authorization.twoFactorCreateButton" class="btn btn-primary btn-sm input-submit" style="width:180px" />
+						<a class="btn btn-default btn-sm" href="@Url.RouteUrl("Security")" style="width:180px">@Cryptopia.Resources.General.Cancel</a>
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+	@Scripts.Render("~/Scripts/Project/TwoFactor/twoFactorCreate.min.js")
+}

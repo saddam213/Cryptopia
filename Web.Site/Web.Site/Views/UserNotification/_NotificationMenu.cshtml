@@ -1,0 +1,33 @@
+﻿@model Cryptopia.Common.User.UserNotificationModel
+<small style="padding-left: 10px"><b>@Resources.UserData.notificationsList100InfoText:</b></small>
+<div style="font-size: 10px; max-height: 400px; overflow: auto; min-width: 400px; padding-left: 10px">
+	@if (Model.Notifications.Any())
+	{
+
+		foreach (var item in Model.Notifications.OrderByDescending(x => x.Timestamp))
+		{
+		<div>@item.Timestamp.ElapsedTime() - @item.Notification</div>
+		}
+	}
+	else
+	{
+		<div class="text-center"><i>@Resources.UserData.notificationsEmptyNewListInfoText</i></div>
+	}
+</div>
+
+@if (Model.Notifications.Any())
+{
+	<div class="divider"></div>
+	<div class="text-center">
+		<a id="clearnotifications">@Resources.UserData.notificationsMarkAllAsReadButton</a>
+	</div>
+}
+
+<script>
+	$('#clearnotifications').on('click', function() {
+		getJson('@Url.Action("Clear", "UserNotification")', {}, function(data) {
+			$('.unread-notification-count').html('');
+			$('.unread-notification-count').html('');
+		});
+	});
+</script>

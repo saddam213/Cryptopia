@@ -1,0 +1,18 @@
+﻿@{
+	bool isAdmin = User.IsInRole("Admin");
+}
+@Html.AntiForgeryToken()
+<div class="settings-page-header-container" data-admin="@isAdmin">
+	<h2 class="settings-page-header">Site Settings</h2>
+	<hr class="settings-page-seperator" />
+</div>
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<div class="row admin-settings-content">
+	<div class="col-md-12" style="margin-top:15px;margin-bottom:15px;display:@(isAdmin ? "":"none")">
+		<button id="btn-sitesettings" class="btn btn-primary" data-action="@Url.Action("UpdateSiteSettings", "AdminSettings")" >Edit Site Settings</button>
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Project/Admin/settings.js")

@@ -1,0 +1,103 @@
+﻿@model Web.Site.Models.ArbitrageModel
+@{
+	ViewBag.Title = Resources.Arbitrage.arbitragePageTitle;
+	ViewBag.ReturnUrl = "/Arbitrage";
+}
+
+@Html.AntiForgeryToken()
+<div class="col-xs-12">
+	<div>
+		<div class="col-xs-12 nopad">
+			<h3 class="nopad">
+				<img src="@CdnHelper.RenderImage("/Content/Images/Emoticonset/pirate.gif")" />
+				@Resources.Arbitrage.arbitrageHeadline
+			</h3>
+			<p>
+				@Resources.Arbitrage.arbitrageInfoText
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr style="margin: 0px; margin-bottom: 20px" />
+	<div class="row">
+
+		@Html.Partial("_GoogleAdsense")
+
+
+		<div class="col-xs-12">
+			<div class="panel panel-default" style="min-height: 900px; min-width: 1200px; overflow-x: auto">
+				<div class="panel-body" style="">
+
+
+					<ul class="nav nav-tabs">
+						@foreach (var currency in Model.BaseCurrencies.OrderBy(x => x.CurrencyId))
+						{
+						<li onclick="updateMarketData('@currency.CurrencyId')" class="@(currency.CurrencyId == 1 ? "active" : "")">
+							<a href="#market-@currency.CurrencyId" data-toggle="tab" data-tabsymbol="@currency.CurrencyId">
+								<span>
+									<img width="20" style="margin-right:5px" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-small.png", currency.Symbol)" />
+									<span>@String.Format(Resources.Arbitrage.arbitrageCurrencyMarketHeadline, currency.Name, currency.Symbol)</span>
+								</span>
+							</a>
+						</li>
+						}
+					</ul>
+					<div style="padding-top: 5px">
+						<span>
+							@foreach (var exchange in Model.Exchanges)
+							{
+							<span style="padding-right: 10px">
+								<input type="checkbox" name="@exchange" class="enable-exchange" data-ex="@exchange" checked="checked" />
+								<span>@exchange</span>
+							</span>
+							}
+						</span>
+					</div>
+					<div class="tab-content">
+						@foreach (var currency in Model.BaseCurrencies.OrderBy(x => x.CurrencyId))
+						{
+						<div class="tab-pane fade @(currency.CurrencyId == 1 ? "active in" : "")" id="market-@currency.CurrencyId" data-url="@Url.Action("GetArbitrageSummary", new { currencyId = currency.CurrencyId })">
+							<div id="marketContent-@currency.CurrencyId"></div>
+						</div>
+						}
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		@Html.Partial("_GoogleAdsense")
+
+	</div>
+
+</div>
+
+@Html.Partial("_SEOPartial")
+<script>
+
+	$(document).ready(function () {
+		updateMarketData(1);
+
+		$(".enable-exchange").prop("checked", true);
+		$('.enable-exchange').on('change', function () {
+			var exchange = $(this).data('ex');
+			if (exchange) {
+				if (this.checked) {
+					$("." + exchange + "-column").show()
+				}
+				else {
+					$("." + exchange + "-column").hide()
+				}
+			}
+		}).trigger('change');
+	});
+
+	function updateMarketData(currencyId) {
+		$(".searcher").val('');
+		var url = $('#market-' + currencyId).data('url')
+		getPartial('#marketContent-' + currencyId, url, true, function () {
+			$(".enable-exchange").trigger('change');
+		})
+	}
+</script>

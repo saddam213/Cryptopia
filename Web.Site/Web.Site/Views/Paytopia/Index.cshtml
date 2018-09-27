@@ -1,0 +1,334 @@
+﻿@model Cryptopia.Common.Paytopia.PaytopiaModel
+@{
+	ViewBag.Title = Resources.Paytopia.paytopiaPageTitle;
+	ViewBag.ReturnUrl = "/Paytopia";
+	var isAuth = User.Identity.IsAuthenticated;
+}
+<h1 style="margin-bottom:3px">@Resources.Paytopia.paytopiaPageTitle</h1>
+<small style="margin-left:3px;">@Resources.Paytopia.paytopiaInfoText</small>
+<hr style="margin-top:4px" />
+<div id="message-alert" class="alert text-center" style="display: none;">
+	<p></p>
+</div>
+<div class="row">
+	@*Exchange Combo Listing*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="cnrflash">
+				<div class="cnrflash-inner">
+					<span class="cnrflash-label">
+						@Html.Raw(Resources.Paytopia.paytopiaComboStickerHtml)
+					</span>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.ComboListing.Name
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.ComboListing.Price.ToString("F0")<span class="subscript"> @Model.ComboListing.Symbol</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaComboInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaComboLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaComboLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaComboLine3Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaComboLine4Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">@Model.ComboListing.Description</p>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("ComboListing", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@*Exchange Listing*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.ExchangeListing.Name
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.ExchangeListing.Price.ToString("F0")<span class="subscript"> @Model.ExchangeListing.Symbol</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaExchangeInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaExchangeLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaExchangeLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaExchangeLine3Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaExchangeLine4Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">@Model.ExchangeListing.Description</p>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("ExchangeListing", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@*Cryptopia Authenticator Listing*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.TwoFactor.Name
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.TwoFactor.Price.ToString("F0")<span class="subscript"> @Model.TwoFactor.Symbol</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaAuthInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaAuthLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaAuthLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaAuthLine3Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaAuthLine4Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">
+								@Model.TwoFactor.Description
+								<br /> 
+								@Resources.Paytopia.paytopiaFaqLabel: <a href="https://www.cryptopia.co.nz/Forum/Thread/1840">@Resources.Paytopia.paytopiaFaqLink</a></p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("TwoFactor", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="row">
+
+	@*Featured Currency*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.FeaturedCurrency.Name
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.FeaturedCurrency.Price.ToString("F0")<span class="subscript"> @Model.FeaturedCurrency.Symbol/wk</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaCurrencyInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaCurrencyLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaCurrencyLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">@Model.FeaturedCurrency.Description</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("FeaturedCurrencySlot", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@*Tipping Slot*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.TipSlot.Name
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.TipSlot.Price.ToString("F0")<span class="subscript"> @Model.TipSlot.Symbol/mo</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaTippingInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaTippingLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaTippingLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">@Model.TipSlot.Description</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("TipSlot", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@*Reward Slot*@
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div class="panel paytopia-panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					@Model.RewardSlot.Name Bwe
+				</h3>
+			</div>
+			<div class="panel-body nopad text-center">
+				<div class="the-price">
+					<h1>
+						@Model.RewardSlot.Price.ToString("F0")<span class="subscript"> @Model.RewardSlot.Symbol/mo</span>
+					</h1>
+					<small>@Resources.Paytopia.paytopiaRewardInfoText</small>
+				</div>
+				<table class="table">
+					<tr>
+						<td>
+							@Resources.Paytopia.paytopiaRewardLine1Text
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							@Resources.Paytopia.paytopiaRewardLine2Text
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center">
+							<p class="paytopia-description">@Model.RewardSlot.Description</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="btn-group btn-group-justified">
+					@if (!isAuth)
+					{<a href="@Url.RouteUrl("Login", new { ReturnUrl = Url.Action("Index", "Paytopia")})" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+					else
+					{<a data-action="@Url.Action("RewardSlot", "Paytopia")" class="btn paytopia-buynow">@Resources.Paytopia.paytopiaBuyNowButton</a>}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+
+</div>
+
+
+@Html.Partial("_SEOPartial")
+@section Scripts {
+	@Scripts.Render("~/Scripts/Project/Paytopia/index.min.js")
+}

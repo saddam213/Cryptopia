@@ -1,0 +1,53 @@
+﻿<div class="settings-page-header-container">
+	<h2 class="settings-page-header">Security</h2>
+	<hr class="settings-page-seperator"/>
+</div>
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+
+<div class="row security-page-content" style="margin-top:15px">
+
+	<div class="col-md-7">
+		<div  class="table-header-container ">
+			<h3 class="table-header">Locked Out Users</h3>
+			<hr class="table-seperator" />
+		</div>
+		<div class="table-search-seperator"></div>
+		<div class="table-search-seperator-mobile visible-xs"></div>
+		<table id="lockedUsers" class="table table-striped table-hover datatable" data-action="@Url.Action("GetLockedOutUsers", "AdminSecurity")" data-action-unlock="@Url.Action("UnlockUser", "AdminSecurity")">
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>Email</th>
+					<th>Endtime</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="col-md-5">
+		<div class="table-header-container">
+			<h3 class="table-header">User Logons</h3>
+			<hr class="table-seperator" />
+		</div>
+		<div class="table-search-seperator"></div>
+		<div class="table-search-seperator-mobile visible-xs"></div>
+		<table id="userLogons" class="table table-striped table-hover datatable" data-action="@Url.Action("GetUserLogons", "AdminSecurity")">
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>IpAddress</th>
+					<th>Timestamp</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+</div>
+@Scripts.Render("~/Scripts/Project/Admin/security.js")

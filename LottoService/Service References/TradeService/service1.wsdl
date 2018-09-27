@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TradeProcessorService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBindingEndpoint_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TradeService.Notifications" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITradeProcessor_SubmitTrade_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTrade" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitTrade_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTradeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CancelTrade_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelTrade" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CancelTrade_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelTradeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitTransfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitTransfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitLotto_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitLotto" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitLotto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitLottoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitTip_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTip" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitTip_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitTipResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitPoolPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitPoolPayment" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitPoolPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitPoolPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitWithdraw_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitWithdraw" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_SubmitWithdraw_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitWithdrawResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CreateExternalTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateExternalTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CreateExternalTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateExternalTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CancelExternalTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelExternalTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CancelExternalTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelExternalTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CompleteExternalTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteExternalTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITradeProcessor_CompleteExternalTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteExternalTransactionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ITradeProcessor">
+    <wsdl:operation name="SubmitTrade">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTrade" message="tns:ITradeProcessor_SubmitTrade_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTradeResponse" message="tns:ITradeProcessor_SubmitTrade_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelTrade">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/CancelTrade" message="tns:ITradeProcessor_CancelTrade_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/CancelTradeResponse" message="tns:ITradeProcessor_CancelTrade_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitTransfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTransfer" message="tns:ITradeProcessor_SubmitTransfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTransferResponse" message="tns:ITradeProcessor_SubmitTransfer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitLotto">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitLotto" message="tns:ITradeProcessor_SubmitLotto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitLottoResponse" message="tns:ITradeProcessor_SubmitLotto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitTip">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTip" message="tns:ITradeProcessor_SubmitTip_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitTipResponse" message="tns:ITradeProcessor_SubmitTip_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitPoolPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitPoolPayment" message="tns:ITradeProcessor_SubmitPoolPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitPoolPaymentResponse" message="tns:ITradeProcessor_SubmitPoolPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitWithdraw">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitWithdraw" message="tns:ITradeProcessor_SubmitWithdraw_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/SubmitWithdrawResponse" message="tns:ITradeProcessor_SubmitWithdraw_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateExternalTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/CreateExternalTransaction" message="tns:ITradeProcessor_CreateExternalTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/CreateExternalTransactionResponse" message="tns:ITradeProcessor_CreateExternalTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelExternalTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/CancelExternalTransaction" message="tns:ITradeProcessor_CancelExternalTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/CancelExternalTransactionResponse" message="tns:ITradeProcessor_CancelExternalTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteExternalTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITradeProcessor/CompleteExternalTransaction" message="tns:ITradeProcessor_CompleteExternalTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITradeProcessor/CompleteExternalTransactionResponse" message="tns:ITradeProcessor_CompleteExternalTransaction_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBindingEndpoint" type="tns:ITradeProcessor">
+    <wsp:PolicyReference URI="#NetTcpBindingEndpoint_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SubmitTrade">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTrade">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/CancelTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitTransfer">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitLotto">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitLotto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitTip">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitTip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitPoolPayment">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitPoolPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitWithdraw">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/SubmitWithdraw" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateExternalTransaction">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/CreateExternalTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelExternalTransaction">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/CancelExternalTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteExternalTransaction">
+      <soap12:operation soapAction="http://tempuri.org/ITradeProcessor/CompleteExternalTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TradeProcessorService">
+    <wsdl:port name="NetTcpBindingEndpoint" binding="tns:NetTcpBindingEndpoint">
+      <soap12:address location="net.tcp://localhost:8000/CryptopiaTrade/service" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8000/CryptopiaTrade/service</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

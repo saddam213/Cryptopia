@@ -1,0 +1,159 @@
+﻿@model Cryptopia.Admin.Common.Support.CreateTicketModel
+@{
+		ViewBag.Title = "Update Ticket";
+		Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Create Ticket</h3>
+		</div>
+		@using (Ajax.BeginForm("CreateTicket", "SupportManagement", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+				<div class="modal-body">
+
+					@Html.AntiForgeryToken()
+					@Html.WriterValidationSummary()
+
+					<div class="form-horizontal">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+								@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(model => model.Category, new SelectList(Model.CategoryDictionary, "Key", "Value"), new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.QueueId, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(model => model.QueueId, new SelectList(Model.QueueDictionary, "Key", "Value"), new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.QueueId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+								@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12">
+								<table id="user-table" class="table table-condensed table-hover" style="width: 100%">
+									<thead>
+										<tr>
+											<th>UserName</th>
+											<th>ChatName</th>
+											<th>EmailAddress</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+					<button id="submit" value="Save" class="btn btn-success button-180" type="submit">Submit</button>
+				</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+@section Scripts {
+<script src="~/Scripts/dataTables.bootstrap.js"></script>
+<script src="~/Scripts/jquery.blockUI.js"></script>
+
+<script type="text/javascript">
+
+	var actionGetUsers = '@Url.Action("GetUsers", "User")';
+
+	var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+		"<'row'<'col-sm-12'tr>>" +
+		"<'row'<'col-sm-5'i><'col-sm-7'p>>";
+
+	var table = $("#user-table");
+
+	var datatable = table.DataTable({
+		"dom": tableOptionsLayout,
+		"order": [[0, "desc"]],
+		"searchDelay": 1500,
+		"lengthChange": false,
+		"processing": false,
+		"bServerSide": true,
+		"searching": true,
+		"scrollCollapse": true,
+		"scrollX": false,
+		"width": "100%",
+		"paging": true,
+		"info": true,
+		"iDisplayLength": 5,
+		"pagingType": "simple",
+		"sAjaxSource": actionGetUsers,
+		"sServerMethod": "POST",
+		"language": {
+			"emptyTable": "There are no users.",
+			"infoFiltered": "_MAX_ users",
+			"info": "_MAX_ users",
+			"search": "",
+			"searchPlaceholder": "Search users"
+		},
+		"fnDrawCallback": function () {
+			$('.left-content').unblock();
+		}
+	});
+
+	$('#user-table tbody').on('click', 'tr', function () {
+		var userNameInput = $("#UserName");
+
+		if ($(this).hasClass('bg-success')) {
+			userNameInput.val("");
+			$(this).removeClass('bg-success');
+		}
+		else {
+			datatable.$('tr.bg-success').removeClass('bg-success');
+
+			var data = datatable.row(this).data();
+			var userName = data[0];
+			userNameInput.val(userName);
+
+			$(this).addClass('bg-success');
+		}
+	});
+
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>
+}

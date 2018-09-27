@@ -1,0 +1,233 @@
+﻿@model Cryptopia.Admin.Common.Nzdt.UpdateNzdtTransactionModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<style>
+	.list-group-item {
+		padding: 5px 10px
+	}
+</style>
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({Cancel:true});">×</button>
+			<h3 class="modal-title">Update Transaction</h3>
+		</div>
+
+		<div id="message-alert" class="alert text-center" style="display: none">
+			<p></p>
+		</div>
+
+		@switch (Model.Status)
+		{
+			case Cryptopia.Enums.NzdtTransactionStatus.ErrorUserNotFound:
+				using (Ajax.BeginForm("AddUserToErroredTransaction", "Nzdt", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+				{
+								<div class="modal-body">
+									<h4 class="text-warning text-center">Attach User to Transaction And Process</h4>
+									@Html.AntiForgeryToken()
+									@Html.HiddenFor(m => m.TransactionId)
+									@Html.HiddenFor(m => m.Status)
+									@Html.HiddenFor(m => m.CreatedOn)
+									@Html.HiddenFor(m => m.Date)
+									@Html.HiddenFor(m => m.UniqueId)
+									@Html.HiddenFor(m => m.Memo)
+									@Html.HiddenFor(m => m.Amount)
+									@Html.HiddenFor(m => m.VerificationLevel)
+
+									<div class="form-horizontal">
+										@Html.WriterValidationSummary()
+
+										<div class="form-group">
+											@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+											<div class="col-md-10">
+												@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+												@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+											</div>
+										</div>
+
+									</div>
+
+									<div class="row">
+										<div class="col-lg-12">
+											<table id="user-table" class="table table-condensed table-hover" style="width: 100%">
+												<thead>
+													<tr>
+														<th>UserName</th>
+														<th>ChatName</th>
+														<th>EmailAddress</th>
+													</tr>
+												</thead>
+												<tbody></tbody>
+											</table>
+										</div>
+									</div>
+
+									<h4 class="text-info text-center">Transaction Information</h4>
+
+									<ul class="list-group">
+										<li class="list-group-item">
+											TxId: <span class="pull-right">@Model.TransactionId</span>
+										</li>
+										<li class="list-group-item">
+											Status: <span class="pull-right">@Model.Status</span>
+										</li>
+										<li class="list-group-item">
+											CreatedOn: <span class="pull-right">@Model.CreatedOn</span>
+										</li>
+										<li class="list-group-item">
+											Date: <span class="pull-right">@Model.Date</span>
+										</li>
+										<li class="list-group-item">
+											UniqueId: <span class="pull-right">@Model.UniqueId</span>
+										</li>
+										<li class="list-group-item">
+											Memo: <span class="pull-right">@Model.Memo</span>
+										</li>
+										<li class="list-group-item">
+											Amount: <span class="pull-right">@Model.Amount</span>
+										</li>
+										<li class="list-group-item">
+											Verification: <span class="pull-right">@Model.VerificationLevel</span>
+										</li>
+									</ul>
+
+								</div>
+
+								<div class="modal-footer">
+									<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+									<button id="submit" class="btn btn-primary button-180" type="submit">Update</button>
+								</div>
+				}
+				break;
+
+			case Cryptopia.Enums.NzdtTransactionStatus.ErrorUserNotVerified:
+						<div class="modal-body">
+							<h4 class="text-danger text-center">Reprocess Not Verified Transaction</h4>
+							@using (Ajax.BeginForm("ReprocessNotVerifiedTransaction", "Nzdt", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+							{
+								@Html.AntiForgeryToken()
+								@Html.HiddenFor(m => m.TransactionId)
+							
+									<div class="form-horizontal">
+										@Html.HiddenFor(m => m.TransactionId)
+										@Html.HiddenFor(m => m.Status)
+										@Html.HiddenFor(m => m.CreatedOn)
+										@Html.HiddenFor(m => m.Date)
+										@Html.HiddenFor(m => m.UniqueId)
+										@Html.HiddenFor(m => m.Memo)
+										@Html.HiddenFor(m => m.Amount)
+										@Html.HiddenFor(m => m.VerificationLevel)
+										@Html.HiddenFor(m => m.UserName)
+
+										@Html.WriterValidationSummary()
+
+										<div class="row">
+											<div class="col-lg-4"></div>
+											<div class="col-lg-4 text-center">
+												<button id="submit" type="submit" class="btn btn-warning btn-large">Reprocess</button>
+											</div>
+											<div class="col-lg-4"></div>
+										</div>
+
+									</div>
+							}
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+						</div>
+					break;
+			case Cryptopia.Enums.NzdtTransactionStatus.Legacy:
+			case Cryptopia.Enums.NzdtTransactionStatus.ReadyForProcessing:
+			case Cryptopia.Enums.NzdtTransactionStatus.Processed:
+			case Cryptopia.Enums.NzdtTransactionStatus.VoidTransaction:
+			case Cryptopia.Enums.NzdtTransactionStatus.FlaggedForReview:
+			default:
+						<div class="modal-body">
+							<h1 class="text-danger text-center">TransactionStatus Unhandelled Exception</h1>
+						</div>
+
+						<div class="modal-footer">
+							<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+						</div>
+				break;
+		}
+
+	</div>
+</div>
+
+<script>
+
+</script>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+@section Scripts {
+
+	<script type="text/javascript">
+
+	var actionGetUsers = '@Url.Action("GetUsers", "User")';
+
+	var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+		"<'row'<'col-sm-12'tr>>" +
+		"<'row'<'col-sm-5'i><'col-sm-7'p>>";
+
+	var table = $("#user-table");
+
+	var datatable = table.DataTable({
+		"dom": tableOptionsLayout,
+		"order": [[0, "desc"]],
+		"searchDelay": 1500,
+		"lengthChange": false,
+		"processing": false,
+		"bServerSide": true,
+		"searching": true,
+		"scrollCollapse": true,
+		"scrollX": false,
+		"width": "100%",
+		"paging": true,
+		"info": true,
+		"iDisplayLength": 5,
+		"pagingType": "simple",
+		"sAjaxSource": actionGetUsers,
+		"sServerMethod": "POST",
+		"language": {
+			"emptyTable": "There are no users.",
+			"infoFiltered": "_MAX_ users",
+			"info": "_MAX_ users",
+			"search": "",
+			"searchPlaceholder": "Search users"
+		},
+		"fnDrawCallback": function () {
+			$('.left-content').unblock();
+		}
+	});
+
+	$('#user-table tbody').on('click', 'tr', function () {
+		var userNameInput = $("#UserName");
+
+		if ($(this).hasClass('bg-success')) {
+			userNameInput.val("");
+			$(this).removeClass('bg-success');
+		}
+		else {
+			datatable.$('tr.bg-success').removeClass('bg-success');
+
+			var data = datatable.row(this).data();
+			var userName = data[0];
+			userNameInput.val(userName);
+
+			$(this).addClass('bg-success');
+		}
+	});
+
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+	</script>
+}

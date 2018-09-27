@@ -1,0 +1,149 @@
+﻿@model Cryptopia.Common.PoolWorker.PoolWorkerCreateModel
+@using Cryptopia.Enums;
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Create Worker</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("CreateWorker", "UserMineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+
+				<div class="form-margin">
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-8">
+								@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon">@(User.Identity.Name).</span>
+									@Html.TextBoxFor(m => m.Name, new { @class = "form-control  input-sm" })
+								</div>
+							</div>
+							<div class="col-md-4">
+								@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Password, new { @class = "form-control input-sm" })
+							</div>
+							<div class="col-md-12">
+								@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-12">
+								@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.AlgoType, "Algorithm", new { @class = "control-label" })
+								@Html.DropDownListFor(m => m.AlgoType, new SelectList(Model.AlgoTypes), "-Please Select-", new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.AlgoType, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-6" style="padding-top:23px">
+								@Html.CheckBoxFor(m => m.IsAutoSwitch)
+								@Html.LabelFor(m => m.IsAutoSwitch, "Auto Profit Switch", new { @class = "control-label" })
+								<a style="font-size:11px" href="#" data-toggle="popover" data-placement="left" title="Auto Profit Switch" data-html="true" data-content="<small>Cryptopia will automatically move your miner to the most profitable pool for the selected algorithm.<br/><br/>Pool will be selected based on block reward, current prive and market depth.</small>">
+									<i style="font-size:14px" class="fa fa-question-circle" aria-hidden="true"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" id="difficulty-container">
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.DifficultyOption, "Miner Difficulty", new { @class = "control-label" })
+								@Html.DropDownListFor(m => m.DifficultyOption, new SelectList(Model.DifficultyOptions), "-Please Select-", new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.DifficultyOption, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.TargetDifficulty, "Difficulty", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.TargetDifficulty, new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.TargetDifficulty, "", new { @class = "text-danger", style = "font-size:12px" })
+								<div style="font-size:11px">
+									<p id="difficultySummary">Please select a difficulty for you miner</p>
+									<p id="fixedDiffSummary"></p>
+									<p id="varDiffLowSummary"></p>
+									<p id="varDiffMediumSummary"></p>
+									<p id="varDiffHighSummary"> </p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({Cancel: true});">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Create</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	var data = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Connections, new Newtonsoft.Json.Converters.StringEnumConverter()))');
+	$("#AlgoType").on("change", function () {
+		var selection = $(this).val();
+		$("#DifficultyOption").val(null).trigger('change');
+		if (!selection) {
+			$("#difficulty-container").hide();
+		}
+		else {
+			$("#difficulty-container").show();
+			for (var i in data) {
+				var selectedDetails = data[i]
+				if (selectedDetails.AlgoType == selection) {
+					$('#TargetDifficulty').val(selectedDetails.DefaultDiff).attr('min', selectedDetails.DefaultDiff);
+					$('#fixedDiffSummary').html(selectedDetails.FixedDiffSummary)
+					$('#varDiffHighSummary').html(selectedDetails.VarDiffHighSummary)
+					$('#varDiffLowSummary').html(selectedDetails.VarDiffLowSummary)
+					$('#varDiffMediumSummary').html(selectedDetails.VarDiffMediumSummary)
+					break;
+				}
+			}
+		}
+	}).trigger('change');
+
+	$("#DifficultyOption").on("change", function () {
+		var selection = $(this).val();
+		if (!selection) {
+			$("#difficultySummary").show();
+			$("#TargetDifficulty, #varDiffLowSummary, #varDiffHighSummary, #varDiffLowSummary, #varDiffMediumSummary, #fixedDiffSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_FIXEDDIFF') {
+			$("#TargetDifficulty, #fixedDiffSummary").show();
+			$("#difficultySummary, #varDiffHighSummary, #varDiffLowSummary, #varDiffMediumSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFLOW') {
+			$("#varDiffLowSummary").show();
+			$("#difficultySummary, #varDiffHighSummary, #fixedDiffSummary, #TargetDifficulty, #varDiffMediumSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFHIGH') {
+			$("#varDiffHighSummary").show();
+			$("#difficultySummary, #varDiffLowSummary, #fixedDiffSummary, #TargetDifficulty, #varDiffMediumSummary").hide();
+		}
+		else if (selection == '@Constant.POOL_DIFFICULTY_OPTION_VARDIFFMEDIUM') {
+			$("#varDiffMediumSummary").show();
+			$("#difficultySummary, #varDiffLowSummary, #fixedDiffSummary, #TargetDifficulty, #varDiffHighSummary").hide();
+		}
+	}).trigger('change');
+
+
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+
+</script>

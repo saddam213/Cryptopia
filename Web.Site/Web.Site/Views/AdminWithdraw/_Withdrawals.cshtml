@@ -1,0 +1,24 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Site Withdrawals</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="withdrawals" class="table table-striped table-hover datatable" data-action="@Url.Action("GetWithdrawals", "AdminWithdraw")" >
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>User</th>
+			<th>Coin</th>
+			<th>Amount</th>
+			<th>Status</th>
+			<th>TxId</th>
+			<th>Address</th>
+			<th>Conf.</th>
+			<th>Timestamp</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/withdraw.js")
+

@@ -1,0 +1,87 @@
+﻿@using hbehr.recaptcha
+@model Web.Site.Models.ContactModel
+@{
+	ViewBag.Title = Resources.Home.contactPageTitle;
+}
+
+<div class="row" style="margin-bottom:20px">
+
+	<div class="col-xs-12">
+		@if (!ViewData.ModelState.IsValid)
+		{
+		<div class="col-xs-12">
+			<div id="alert" class="alert alert-dismissable shadow text-center @(ViewData.ModelState["Success"] != null ? "alert-success" : "alert-danger")">
+				<button class="close" type="button" data-dismiss="alert">×</button>
+				<h4>@ViewData.ModelState.FirstError()</h4>
+			</div>
+		</div>
+		}
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6">
+
+		@using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+		{
+		@Html.AntiForgeryToken()
+			<div class="col-xs-12">
+				<h2>@ViewBag.Title</h2>
+				<hr />
+
+				<div>
+					<h4>
+						@Html.Raw(Resources.Home.contactSummaryHtml)
+					</h4>
+				</div>
+				<hr />
+				<div>
+					@Html.LabelFor(m => m.Email, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Email, new { @id = "email", @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+
+				<div>
+					@Html.LabelFor(m => m.Subject, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Subject, new { @id = "subject", @class = "form-control  input-sm" })
+					@Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+				</div>
+
+				<div>
+					@Html.LabelFor(m => m.Message, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Message, new { @class = "form-control", @rows = 8 })
+					@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+				</div>
+				<br />
+				<div class="text-center">
+					@ReCaptcha.GetCaptcha()
+				</div>
+				<br />
+				<input id="submit" class="btn btn-info " type="submit" value="@Resources.Home.contactButton" />
+				<br />
+			</div>
+		}
+	</div>
+	
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="col-xs-12">
+			@Html.Raw(Resources.Home.ContactUs)
+		</div>
+	</div>
+	
+</div>
+
+@Html.Partial("_SEOPartial")
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		$('#submit').click(function () {
+			if ($('.form-horizontal').valid()) {
+				$.blockUI({ message: '@Resources.Home.contactSendingMessage' });
+			}
+		});
+
+		if ($('#alert').css('display') != 'none') {
+			setTimeout(function () { $('#alert').fadeTo(500, 0).slideUp(500, function () { $('#alert').hide() }); }, 8000);
+		}
+	});
+</script>

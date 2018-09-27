@@ -1,0 +1,20 @@
+﻿@model Cryptopia.Common.User.UserMessageModel
+@{
+
+}
+<div class="col-xs-12">
+	@if (Model.IsInbound)
+	{
+	<h4 class="message-title">@Model.Subject</h4>
+	<small class="message-from"><i>@Resources.UserData.messageFromLabel: </i>@Model.Sender</small>
+	<small class="pull-right">@Model.Timestamp</small>
+	}
+	else
+	{
+	<h4 class="message-title">@Model.Subject</h4>
+	<small class="message-to"><i>@Resources.UserData.messageToLabel: </i>@Model.Recipiants</small>
+	<small class="pull-right">@Model.Timestamp</small>
+	}
+	<hr style="margin-top: 0; padding-top: 0" />
+	@Html.Raw(Model.Message)
+</div>

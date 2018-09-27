@@ -1,0 +1,365 @@
+﻿
+@{
+    ViewBag.Title = "Reporting";
+}
+
+<style>
+    .stats {
+        padding: 15px;
+    }
+
+    .stats-table {
+        padding: 15px;
+    }
+
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/themes/base/jquery-ui.css" />
+
+<div class="container-fluid col-md-12">
+    <div class="row">
+        <div class="col-md-3" >
+            <div class="stats-table" id="ticketStats-target"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-table" id="verificationStats-target"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12" id="trend-graph-target"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="stats" id="adminUserStats-target"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/project/Incapsula/highstock.src.js"></script>
+
+<script>
+    var actionGetSupportTicketStats = '@Url.Action("GetSupportTicketStats", "ActivityLogging")';
+    var actionGetVerificationStats = '@Url.Action("GetVerificationStats", "ActivityLogging")';
+    var actionGetAdminUserStats = '@Url.Action("GetAdminUserActivityStats", "ActivityLogging")';
+    var actionGetTrendData = '@Url.Action("GetTrendGraphData", "ActivityLogging")';
+
+    var ticketStatsTemplate = $("#ticketStatsTemplate").html();
+    var userVerificationTemplate = $("#userVerificationTemplate").html();
+    var adminUserStatsTemplate = $("#adminUserStatsTemplate").html();
+
+    var trendSeries = [];
+
+    $(function () {
+        $.blockUI({ message: 'Retrieving statistics...' });
+        getSupportTicketStats();
+        getUserVerificationStats();
+        getAdminUserStats();
+        getTrendData();
+        $.unblockUI();
+    });
+
+    function getSupportTicketStats() {
+        postJson(actionGetSupportTicketStats, null, function (data) {
+            console.log(ticketStatsTemplate);
+            $("#ticketStats-target").html(Mustache.render(ticketStatsTemplate, data));
+        });
+    }
+
+    function getUserVerificationStats() {
+        postJson(actionGetVerificationStats, null, function (data) {
+            $("#verificationStats-target").html(Mustache.render(userVerificationTemplate, data));
+        });
+    }
+
+    function getAdminUserStats() {
+        postJson(actionGetAdminUserStats, null, function (data) {
+            $("#adminUserStats-target").html(Mustache.render(adminUserStatsTemplate, data));
+            setDefaultActiveTab();
+        });
+    }
+
+    var activeTab = $("li.active a").attr("href");
+
+    function setDefaultActiveTab() {
+        $('a[data-toggle="tab"]').first().click();
+    }
+
+    function getTrendData() {
+        postJson(actionGetTrendData, null, function (data) {
+            createTrendGraphChart(data);
+        });
+    }
+
+    function createTrendGraphChart(data) {
+
+        var i = 0;
+        var dataPoints = [];
+
+        $.each(data.ApprovedVerifications, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Approved Verifications',
+            data: dataPoints
+        };
+
+        i++;
+        dataPoints = [];
+
+        $.each(data.RejectedVerifications, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Rejected Verifications',
+            data: dataPoints
+        };
+
+        i++;
+        dataPoints = [];
+
+        $.each(data.OverallVerifications, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Total Verifications',
+            data: dataPoints
+        };
+
+        i++;
+        dataPoints = [];
+
+        $.each(data.ClosedSupportTickets, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Closed Support Tickets',
+            data: dataPoints
+        };
+
+        i++;
+        dataPoints = [];
+
+        $.each(data.UpdatedSupportTickets, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Opened Support Tickets',
+            data: dataPoints
+        };
+
+        i++;
+        dataPoints = [];
+
+        $.each(data.OverallOpenTickets, function (key, objectData) {
+            dataPoints.push([objectData.Milliseconds, objectData.Occurrances]);
+        });
+
+        trendSeries[i] = {
+            name: 'Total Open Support Tickets',
+            data: dataPoints
+        };
+
+        createTrendGraph();
+    }
+
+    function createTrendGraph() {
+        Highcharts.stockChart('trend-graph-target', {
+
+            rangeSelector: {
+                selected: 4
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    compare: 'percent',
+                    showInNavigator: true
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                valueDecimals: 2,
+                split: true
+            },
+            rangeSelector: {
+                inputEnabled: false,
+                allButtonsEnabled: false,
+                buttons: []
+            },
+
+            series: trendSeries
+        });
+    }
+
+</script>
+}
+
+<script id="ticketStatsTemplate" type="text/html">
+    <div class="row">
+        <div>
+            <h5>Support Ticket Statistics</h5>
+            <table class="table table-bordered table-condensed tablefixed">
+                <thead>
+                    <tr>
+                        <td><b>Statistic</b></td>
+                        <td><b>Total</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Open Support Tickets</td>
+                        <td>{{TotalOpenTickets}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Support Tickets Opened Today</td>
+                        <td>{{TotalOpenedToday}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Support Tickets Updated Today</td>
+                        <td>{{TotalUpdatedToday}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Support Tickets Closed Today</td>
+                        <td>{{TotalClosedToday}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script id="userVerificationTemplate" type="text/html">
+    <div class="row">
+        <div>
+            <h5>User Verification Statistics</h5>
+            <table class="table table-bordered table-condensed tablefixed">
+                <thead>
+                    <tr>
+                        <td><b>Statistic</b></td>
+                        <td><b>Total</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Verifications Awaiting Action</td>
+                        <td>{{TotalAwaitingAction}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Verifications Created Today</td>
+                        <td>{{TotalNewToday}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Verifications Approved Today</td>
+                        <td>{{TotalApprovedToday}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Verifications Rejected Today</td>
+                        <td>{{TotalRejectedToday}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script id="adminUserStatsTemplate" type="text/html">
+    <div class="row" id="tabs">
+        <ul class="nav nav-tabs">
+            {{#UserActivity}}
+            <li>
+                <a aria-expanded="true" href="#{{UserName}}" data-toggle="tab">
+                    <h5>{{UserName}}</h5>
+                </a>
+            </li>
+            {{/UserActivity}}
+        </ul>
+        <div class="tab-content" id="userTabContent" style="padding-top:15px">
+            {{#UserActivity}}
+            <div class="tab-pane fade" id="{{UserName}}">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="loginsTable" class="table table-condensed table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>Verifications Approved</td>
+                                    <td>{{VerificationsApproved}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Verifications Rejected</td>
+                                    <td>{{VerificationsRejected}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Tickets Updated</td>
+                                    <td>{{SupportTicketsUpdated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Tickets Closed</td>
+                                    <td>{{SupportTicketsClosed}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Queues Created</td>
+                                    <td>{{SupportQueuesCreated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Tags Created</td>
+                                    <td>{{SupportTagsCreated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Trade Pairs Created</td>
+                                    <td>{{TradePairsCreated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Trade Pairs Updated</td>
+                                    <td>{{TradePairsUpdated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Trade Pairs Closed</td>
+                                    <td>{{TradePairsClosed}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Users Activated</td>
+                                    <td>{{UsersActivated}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Users Locked Out</td>
+                                    <td>{{UsersLockedOut}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Users Disabled</td>
+                                    <td>{{UsersDisabled}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{/UserActivity}}
+        </div>
+    </div>
+</script>

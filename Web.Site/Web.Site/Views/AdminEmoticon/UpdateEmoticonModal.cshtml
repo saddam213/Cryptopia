@@ -1,0 +1,52 @@
+﻿@model Cryptopia.Common.Emoticons.UpdateEmoticonModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Emoticon</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("UpdateEmoticon", "AdminEmoticon", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Code)
+				<div class="form-margin">
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								<span class="control-label">
+									<b>Code: </b>
+									@Model.Code
+								</span>
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Name, new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Category, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Category, new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")

@@ -1,0 +1,55 @@
+﻿@model Web.Site.Models.MarketItemModel
+@{
+   
+}
+
+<div class="col-lg-6 col-md-6 col-sm-13 col-xs-12 thumbnail">
+    <div id="carousel-example-generic" class="carousel slide marketplace-carousel" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+
+            @if (Model.AlternateImages.Count > 0)
+            {
+                for (int i = 0; i < Model.AlternateImages.Count; i++)
+                {
+                <li data-target="#carousel-example-generic" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                }
+            }
+            else
+            {
+                <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+            }
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            @if (Model.AlternateImages.Count > 0)
+            {
+                foreach (var item in Model.AlternateImages)
+                {
+                <div class="item @(item == Model.AlternateImages.First() ? "active" : "") " >
+                    <img src="@CdnHelper.RenderImage(item)" alt="" class="marketplace-carousel-img">
+                </div>
+                }
+            }
+            else
+            {
+                <div class="item active">
+                    <img src="@CdnHelper.RenderImage("/Content/Images/MarketCarousel.png")" alt="" class="marketplace-carousel-img">
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">@Cryptopia.Resources.General.Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">@Cryptopia.Resources.General.Next</span>
+    </a>
+</div>
+<div class="clearfix"></div>
+

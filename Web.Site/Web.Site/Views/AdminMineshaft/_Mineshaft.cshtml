@@ -1,0 +1,62 @@
+﻿<h2 style="margin-top:0">
+	Mineshaft
+	<button id="updateSettingsButton" class="btn btn-primary" style="margin-left:60px" data-action="@Url.Action("UpdateSettings", "AdminMineshaft")" onclick="updatePoolSettings()">Update Pool Settings</button>
+</h2>
+<hr style="margin-top:0px" />
+<div id="message-alert" class="alert text-center" style="display: none;margin-left:15px;margin-right:15px">
+	<p></p>
+</div>
+
+
+<h3 style="margin-top:0px;margin-bottom:0px">
+	Mineshaft Pools
+</h3>
+<table id="pools" class="table table-striped table-hover datatable" data-action="@Url.Action("GetPools", "AdminMineshaft")" data-action-update="@Url.Action("UpdatePool", "AdminMineshaft")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Symbol</th>
+			<th>Status</th>
+			<th>BlockTime</th>
+			<th>Expires</th>
+			<th>FeaturedExpires</th>
+			<th>IsForkCheckDisabled</th>
+			<th>WalletFee</th>
+			<th>IsEnabled</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<hr />
+
+<h3 style="margin-top:0px;margin-bottom:0px">Mineshaft Connections</h3>
+<table id="connections" class="table table-striped table-hover datatable" data-action="@Url.Action("GetConnections", "AdminMineshaft")" data-action-workers="@Url.Action("UpdateWorkerPool", "AdminMineshaft")" data-action-update="@Url.Action("UpdateConnection", "AdminMineshaft")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Algorithm</th>
+			<th>Host</th>
+			<th>Port</th>
+			<th>DefaultDiff</th>
+			<th>DefaultPool</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script id="connectionOptionsTemplate" type="text/html">
+	<div class="btn-group btn-group-xs pull-right" style="min-width:205px">
+		<a onclick="{{{updateConnection}}}" class="btn btn-primary" href="#" style="width:110px">Update</a>
+		<a onclick="{{{updatePoolWorker}}}" class="btn btn-primary" href="#" style="width:110px">Move Workers</a>
+	</div>
+</script>
+
+@Scripts.Render("~/Scripts/Project/Admin/mineshaft.js")
+
+
+

@@ -1,0 +1,230 @@
+﻿@model Web.Site.Models.ForumThreadModel
+@{
+	ViewBag.Title = Resources.Forum.forumPageTitle;
+	ViewBag.HideFooter = false;
+	bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+@Html.Partial("_GoogleAdsense")
+
+<div class="row">
+	<div class=" col-lg-9 col-md-8 col-sm-6 col-xs-12">
+		<ul class="breadcrumb" style="margin-top: 10px">
+			<li><a href="@Url.Action("Index")">@Resources.Forum.forumPathRootLink</a></li>
+			<li><a href="@Url.Action("Index")">@Model.Forum.Name</a></li>
+			<li><a href="@Url.Action("Category", new { id = Model.Category.Id })">@Model.Category.Name</a></li>
+			<li><a href="@Url.Action("Thread", new { id = Model.Id })">@Model.Name</a></li>
+		</ul>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+		@using (Html.BeginForm("SearchResult", "Forum", FormMethod.Get))
+		{
+			@Html.AntiForgeryToken()
+			<div style="padding-top: 10px">
+				<div class="input-group input-group-sm">
+					@Html.TextBox("SearchText", "", new { @class = "form-control  input-sm", placeholder = Resources.Forum.forumSearchFieldPlaceholder })
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+				<div>
+					<span class="pull-right">
+						@Html.CheckBox("SearchPosts", true, new { }) <small>@Resources.Forum.forumSearchPostCheckbox</small>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+<div>
+	<h3 style="margin-top: 3px; margin-bottom: 3px">@Model.Name</h3>
+	<hr style="margin-top: 3px; margin-bottom: 3px" />
+</div>
+
+<div class="row">
+	<div class="col-lg-2 col-md-3 col-xs-4">
+		<div><small>@Resources.Forum.threadServerTimeLabel: <span class="servertime-label"></span></small></div>
+	</div>
+	<div class="col-lg-10 col-md-9 col-xs-8">
+		@if (User.Identity.IsAuthenticated)
+		{
+			<a style="margin-top:30px;" href="@Url.Action("CreatePost", new { threadId = Model.Id })" class="btn btn-sm btn-info">@Resources.Forum.threadReplyButton</a>
+		}
+		<div class="pull-right">
+			@Html.PagedListPager(Model.Posts, page => Url.Action("Thread", new { id = Model.Id, page = page }), new PagedListRenderOptions { MaximumPageNumbersToDisplay = 5, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded, Display = PagedListDisplayMode.Always, DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = Resources.Forum.threadPaggerMessage })
+		</div>
+	</div>
+</div>
+
+<div id="thread-body">
+	@foreach (var post in Model.Posts)
+	{
+		<div class="row" data-postid="@post.Id">
+
+			<div class="col-lg-2 col-md-3 col-xs-4">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+						<div class="text-center">
+							<div>
+								<img src="@CdnHelper.RenderImage("/Content/Images/Avatar/{0}.png",post.User.Name)" onerror="this.src='@CdnHelper.RenderImage("/Content/Images/Avatar.png")'" height="60" />
+							</div>
+							<div>
+								<span>@post.User.Name</span>
+							</div>
+							<div>
+								@{Html.RenderPartial("StarRating", post.User.Rating);}
+							</div>
+							<div style="padding-left: -5px">
+								<small>@Resources.Forum.threadUserGenderLabel: @post.User.Gender</small>
+							</div>
+							<div>
+								<small>@Resources.Forum.threadUserCountryLabel:  @post.User.Country</small>
+							</div>
+							<div>
+								<small>@Resources.Forum.threadCountLabel: @post.User.ThreadCount, @Resources.Forum.postCountLabel: @post.User.PostCount</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-10 col-md-9 col-xs-8">
+				<span class="pull-right" style="padding-right: 5px">
+					@if (User.Identity.IsAuthenticated)
+					{
+						<i title="@Resources.Forum.threadReportPostHint" data-postid="@post.Id" style="cursor:pointer;padding-top:3px;padding-right:3px" class="report-post fa fa-flag text-danger"></i>
+					}
+					<a name="@post.Id" href="@Url.Action("Thread", new { id = post.ThreadId, postId = post.Id })" >#@post.PostNum</a>
+				</span>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<br />
+						<div>
+							@Html.Raw(post.Message)
+						</div>
+						<div>
+							<br />
+							@Html.Raw(post.User.Signature)
+						</div>
+						<hr />
+						<div>
+							<small style="padding-right:10px"><i>@Resources.Forum.threadPostedLabel: @post.Timestamp.ToForumTime()</i></small>
+							@if (post.Edited.HasValue)
+							{
+								<small><i>@Resources.Forum.threadEditedLabel: @post.Edited.Value.ToForumTime()</i></small>
+							}
+
+							@if (User.Identity.IsAuthenticated)
+							{
+								<a href="@Url.Action("CreatePost", new { threadId = Model.Id, quoteId = post.Id })" class="btn btn btn-sm btn-info pull-right" style="width:70px">@Resources.Forum.postQuoteButton</a>
+							
+								if (User.Identity.Name == post.User.Name || isAdmin)
+								{
+									if (post.IsFirst)
+									{
+										<a href="@Url.Action("UpdateThread", new { threadId = post.ThreadId })" class="btn btn btn-sm btn-info pull-right" style="width:70px">@Resources.Forum.threadEditButton</a>
+									}
+									else
+									{								
+										<a href="@Url.Action("UpdatePost", new { postId = post.Id })" class="btn btn btn-sm btn-info pull-right" style="width:70px">@Resources.Forum.postEditButton</a>
+										<button data-postid="@post.Id" class="delete-post btn btn-sm btn-danger pull-right">@Resources.Forum.postDeleteButton</button>
+									}
+								}
+
+								if (isAdmin && post.IsFirst)
+								{
+								<div class="pull-right">
+									@using (Html.BeginForm("DeleteThread", "Forum"))
+									{
+										@Html.Hidden("ThreadId", Model.Id)
+										@Html.AntiForgeryToken()
+										<button id="delete-thread" type="submit" class="btn btn-danger btn-sm">@Resources.Forum.threadDeleteButton</button>
+									}
+								</div>
+								}
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	}
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="col-lg-2 col-md-3 col-xs-4 nopad">
+		</div>
+		<div class="col-lg-10 col-md-9 col-xs-8 nopad">
+			@if (User.Identity.IsAuthenticated)
+			{
+				<a style="margin-left:5px;margin-top:30px;" href="@Url.Action("CreatePost", new { threadId = Model.Id })" class="btn btn-sm btn-info">@Resources.Forum.threadReplyButton</a>
+			}
+			<div class="pull-right">
+				@Html.PagedListPager(Model.Posts, page => Url.Action("Thread", new { id = Model.Id, page = page }), new PagedListRenderOptions { MaximumPageNumbersToDisplay = 5, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded, Display = PagedListDisplayMode.Always, DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = Resources.Forum.threadPaggerMessage })
+			</div>
+		</div>
+	</div>
+</div>
+@Html.Partial("_SEOPartial")
+@Html.Partial("_GoogleAdsense")
+
+<script>
+	$(document).ready(function () {
+
+		@if (Model.PostId.HasValue)
+		{
+			<text>
+			scrollToAnchor('@Model.PostId.Value');
+			</text>
+		}
+
+		@if (User.Identity.IsAuthenticated)
+		{	
+			<text>
+			$('#update-thread').on('click', function () {
+				openModal('@Url.Action("UpdateThread", "Forum", new { threadId = Model.Id })', '@Cryptopia.Resources.General.LoadingMessage', {}, function () { });
+			});
+
+			$('.delete-post').on('click', function () {
+				var postId = $(this).data('postid');
+				if (postId) {
+					confirm("@Resources.Forum.postDeleteQuestionTitle", "@Resources.Forum.postDeleteQuestion", function () {
+						getJson('@Url.Action("DeletePost", "Forum")', { postId: postId }, function (data) {
+							if (data.Success) {
+								var post = $('#thread-body').find('[data-postid="' + postId + '"]')
+								if (post) {
+									post.remove();
+								}
+							}
+						});
+					});
+				}
+			});
+
+			$('.report-post').on('click', function () {
+				var postId = $(this).data('postid');
+				if (postId) {
+					openModal('@Url.Action("ReportPost", "Forum")', "@Cryptopia.Resources.General.LoadingMessage", { postId: postId });
+				}
+			});
+
+			$('#delete-thread').on('click', function () {
+				var form = $(this).closest('form');
+				confirm("@Resources.Forum.threadDeleteQuestionTitle", "@Resources.Forum.threadDeleteQuestion", function () {
+					form.submit();
+				});
+				return false;
+			});
+			</text>
+		}
+	});
+
+
+</script>

@@ -1,0 +1,72 @@
+﻿
+
+<script id="chatTipbotTemplate" type="text/html">
+	<tr class="chat-msgid-{{Id}}">
+		<td>
+			<i title="@Resources.Chat.templateRemovePostHint" style="cursor:pointer;display:{{IsAdmin}}" class="text-danger fa fa-times pull-right chat-remove-message" data-messageid="{{Id}}"></i>
+			<i title="@Resources.Chat.templateGiveKarmaHint" style="cursor:pointer;display:{{IsMine}}" class="text-info fa icon-thumbs-up pull-right chat-karma-tip" data-messageid="{{Id}}" data-user="{{ChatHandle}}"></i>
+			<p class="chat-item-message" style="font-size:10px;padding:0px;margin:0px"><i class="fa fa-flash text-warning"></i><b> {{UserName}}: </b>{{{Message}}}</p>
+		</td>
+	</tr>
+</script>
+
+<script id="chatBotTemplate" type="text/html">
+	<tr class="chat-msgid-{{Id}}">
+		<td>
+			<i title="@Resources.Chat.templateRemovePostHint" style="cursor:pointer;display:{{IsAdmin}}" class="text-danger fa fa-times pull-right chat-remove-message" data-messageid="{{Id}}"></i>
+			<p class="chat-item-message" style="font-size:10px;padding:0px;margin:0px"><i class="fa fa-flash text-warning"></i><b> {{ChatHandle}}: </b>{{{Message}}}</p>
+		</td>
+	</tr>
+</script>
+
+<script id="chatUserTemplate" type="text/html">
+	<tr class="chat-msgid-{{Id}}">
+		<td class="{{Highlight}}">
+			<div class="chat-item-avatar-container">
+				<img src="{{Avatar}}" onerror="this.src='@CdnHelper.ImagePath()/Content/Images/Avatar.png'" class="chat-item-avatar" />
+				<div class="text-center">
+					<i title="@Resources.Chat.templateHasKarmaHint" style="cursor:pointer;font-size:8px" class="text-info fa icon-thumbs-up"></i>
+					<span class="karma-{{UserName}}" style="font-size:8px">{{KarmaTotal}}</span>
+				</div>
+			</div>
+			<div class="chat-item-message-container">
+				<span>
+					<span style="font-size:12px !important" class="chat-item-username">{{{Flair}}}{{ChatHandle}}</span>:
+					<span class="chat-item-time-container">
+						<i title="@Resources.Chat.templateGiveKarmaHint" style="cursor:pointer;display:{{IsMine}}" class="text-info fa icon-thumbs-up chat-karma-message" data-messageid="{{Id}}" data-user="{{ChatHandle}}" ></i>
+						<i title="@Resources.Chat.templateRemovePostHint" style="cursor:pointer;display:{{IsAdmin}}" class="text-danger fa fa-times pull-right chat-remove-message" data-messageid="{{Id}}"></i>
+						<i title="@Resources.Chat.templateHammerHint" style="cursor:pointer;display:{{IsAdmin}}" class="text-danger icon-law chat-ban-user" data-user="{{ChatHandle}}"></i>
+						<i title="@Resources.Chat.templateIgnoreHint" style="cursor:pointer;display:{{IsMine}}" class="text-warning icon-banuseralt chat-ignore-user" data-user="{{UserName}}"></i>
+						<i title="@Resources.Chat.templateTippingIgnoreHint" style="cursor:pointer;display:{{IsMine}}" class="text-warning icon-value-coins chat-ignore-tip" data-user="{{UserName}}"></i>
+					</span>
+					
+				</span>
+
+				<p style="font-size:11px" class="chat-item-message">{{{Message}}}</p>
+				<span class="chat-item-time-container">
+					<small data-val="{{Timestamp}}">@Resources.Chat.sinceMinuteLabel</small>
+				</span>
+			</div>
+		</td>
+	</tr>
+</script>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.Chat = {
+		RemovePostQuestion: '@Resources.Chat.chatRemovePostQuestion',
+		RemovePostQuestionTitle: '@Resources.Chat.chatRemovePostQuestionTitle',
+		IgnoreNotificationTitle: '@Resources.Chat.chatIgnoreNotificationTitle',
+		TipIgnoreNotificationTitle: '@Resources.Chat.chatTipIgnoreNotificationTitle',
+		SendKarmaNotificationTitle: '@Resources.Chat.chatSendKarmaNotificationTitle',
+		TipKarmaNotificationTitle: '@Resources.Chat.chatTipKarmaNotificationTitle',
+
+		SinceSecondLabel: '@Resources.Chat.sinceSecondLabel',
+		SinceSecondsLabel: '@Resources.Chat.sinceSecondsLabel',
+		SinceMinuteLabel: '@Resources.Chat.sinceMinuteLabel',
+		SinceMinutesLabel: '@Resources.Chat.sinceMinutesLabel',
+		SinceHourLabel: '@Resources.Chat.sinceHourLabel',
+		SinceHoursLabel: '@Resources.Chat.sinceHoursLabel',
+		SinceAgesLabel: '@Resources.Chat.sinceAgesLabel'
+	}
+</script>

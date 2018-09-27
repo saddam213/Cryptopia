@@ -1,0 +1,150 @@
+﻿@model Cryptopia.Common.Currency.UpdateCurrencyInfoModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@String.Format(Resources.CoinInfo.updateHeadline, Model.Name)</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateInfo", "CoinInfo", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+		<div class="modal-body">
+			@Html.AntiForgeryToken()
+			@Html.WriterValidationSummary()
+			@Html.HiddenFor(m => m.Id)
+			<div class="row">
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.AlgoType, Resources.CoinInfo.infoInfoAlgorithmLabel, new { @class = "control-label" })
+					@Html.EnumDropDownListFor(m => m.AlgoType, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.AlgoType, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.NetworkType, Resources.CoinInfo.infoInfoNetworkLabel, new { @class = "control-label" })
+					@Html.EnumDropDownListFor(m => m.NetworkType, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.NetworkType, "", new { @class = "text-danger" })
+				</div>
+		
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.BlockTime, Resources.CoinInfo.infoInfoBlockTimeLabel, new { @class = "control-label" })
+					<small>(seconds)</small>
+					@Html.TextBoxFor(m => m.BlockTime, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.BlockTime, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.BlockReward, Resources.CoinInfo.infoInfoBlockRewardLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.BlockReward, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.BlockReward, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.TotalCoin, Resources.CoinInfo.infoInfoTotalCoinsLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.TotalCoin, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.TotalCoin, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.PosRate, Resources.CoinInfo.infoInfoAnnualPosRateLabel, new { @class = "control-label" })
+					<small>(%)</small>
+					@Html.TextBoxFor(m => m.PosRate, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.PosRate, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.MinStakeAge, Resources.CoinInfo.infoInfoMinStakeAgeLabel, new { @class = "control-label" })
+					<small>(seconds)</small>
+					@Html.TextBoxFor(m => m.MinStakeAge, new { @class = "form-control input-sm"})
+					@Html.ValidationMessageFor(model => model.MinStakeAge, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.MaxStakeAge, Resources.CoinInfo.infoInfoMaxStakeAgeLabel, new { @class = "control-label" })
+					<small>(seconds)</small>
+					@Html.TextBoxFor(m => m.MaxStakeAge, new { @class = "form-control input-sm"})
+					@Html.ValidationMessageFor(model => model.MaxStakeAge, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.DiffRetarget, Resources.CoinInfo.infoInfoDifficultyRetargetLabel, new { @class = "control-label" })
+					<small>(blocks)</small>
+					@Html.TextBoxFor(m => m.DiffRetarget, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.DiffRetarget, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-3">
+					@Html.LabelFor(m => m.TotalPremine, Resources.CoinInfo.infoRatingPremineLabel, new { @class = "control-label" })
+					<small>(%)</small>
+					@Html.TextBoxFor(m => m.TotalPremine, new { @class = "form-control input-sm"})
+					@Html.ValidationMessageFor(model => model.TotalPremine, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Website, Resources.CoinInfo.infoLinksWebsiteLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Website, new { @class = "form-control input-sm"})
+					@Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Source, Resources.CoinInfo.infoLinksSourceCodeLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Source, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.BlockExplorer, Resources.CoinInfo.infoLinksExplorerLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.BlockExplorer, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.BlockExplorer, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.LaunchForum, Resources.CoinInfo.infoLinksLaunchForumLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.LaunchForum, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.LaunchForum, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.CryptopiaForum, Resources.CoinInfo.infoLinksCryptopiaForumLabel, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.CryptopiaForum, new { @class = "form-control input-sm" })
+					@Html.ValidationMessageFor(model => model.CryptopiaForum, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-12">
+					@Html.LabelFor(m => m.Summary, Resources.CoinInfo.updateSummaryLabel, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Summary, new { @class = "form-control input", @rows = 3 })
+					@Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+				</div>
+				<div class="row">
+					<div class="col-xs-12" style="margin-top:10px">
+						<div class="col-xs-2">
+							@Html.CheckBoxFor(m => m.WalletWindows, Resources.CoinInfo.infoRatingWindowsWalletLabel)
+							@Html.LabelFor(m => m.WalletWindows)
+						</div>
+						<div class="col-xs-2">
+							@Html.CheckBoxFor(m => m.WalletLinux, Resources.CoinInfo.infoRatingLinuxWalletLabel)
+							@Html.LabelFor(m => m.WalletLinux)
+						</div>
+						<div class="col-xs-2">
+							@Html.CheckBoxFor(m => m.WalletMac, Resources.CoinInfo.infoRatingMacWalletLabel)
+							@Html.LabelFor(m => m.WalletMac)
+						</div>
+						<div class="col-xs-2">
+							@Html.CheckBoxFor(m => m.WalletMobile, Resources.CoinInfo.infoRatingMobileWalletLabel)
+							@Html.LabelFor(m => m.WalletMobile)
+						</div>
+						<div class="col-xs-2">
+							@Html.CheckBoxFor(m => m.WalletWeb, Resources.CoinInfo.infoRatingWebPaperWalletLabel)
+							@Html.LabelFor(m => m.WalletWeb)
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">@Cryptopia.Resources.General.Submit</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+	$('#simplemodal-container').addClass('modal-medium');
+</script>

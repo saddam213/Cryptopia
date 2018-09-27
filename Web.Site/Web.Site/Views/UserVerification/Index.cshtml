@@ -1,0 +1,203 @@
+﻿@using hbehr.recaptcha
+@model Cryptopia.Common.UserVerification.UserVerificationModel
+@{
+
+	ViewBag.Title = Resources.User.verificationPageTitle;
+	ViewBag.IsFullPage = true;
+	var level1Limit = Cryptopia.Enums.Constant.VERIFICATION_WITHDRAW_LEVEL1_LIMIT.ToString("F2");
+	var level2Limit = Cryptopia.Enums.Constant.VERIFICATION_WITHDRAW_LEVEL2_LIMIT.ToString("F2");
+	var level2Status = Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2 ? Resources.User.verificationStatusCompleteLabel : Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2Pending ? Resources.User.verificationStatusPendingLabel : Resources.User.verificationStatusIncompleteLabel;
+	var level2Highlight = Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2 ? "success" : Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2Pending ? "warning" : "default";
+
+	var level3Limit = Cryptopia.Enums.Constant.VERIFICATION_WITHDRAW_LEVEL3_LIMIT.ToString("F2");
+	var level3Status = Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3 ? Resources.User.verificationStatusCompleteLabel : Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3Pending ? Resources.User.verificationStatusPendingLabel : Resources.User.verificationStatusIncompleteLabel;
+	var level3Highlight = Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3 ? "success" : Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3Pending ? "warning" : "default";
+
+	var level2HtlmAttributes = Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2 || Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level2Pending || Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3 || Model.VerificationLevel == Cryptopia.Enums.VerificationLevel.Level3Pending
+		? (object)new { @class = "form-control  input-sm", @readonly = "readonly", disabled = "disabled", style = "cursor:default" }
+		: (object)new { @class = "form-control  input-sm" };
+}
+
+<style>
+	.status-badge {
+		display: inline-block;
+		width: 200px;
+		vertical-align: bottom;
+		margin-left: 20px;
+	}
+
+	.popover {
+		min-width: 400px !important;
+	}
+</style>
+
+<div class="row" style="padding-top:60px;">
+	<div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-3 col-lg-offset-3 col-xs-10 col-sm-10 col-md-6 col-lg-6 panel panel-default">
+		<h1>User Verification</h1>
+		<hr />
+		@using (Html.BeginForm("SubmitVerification", "UserVerification", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+		{
+		@Html.AntiForgeryToken()
+			<h3 style="display:block"><span style="margin-right:15px">@Resources.User.verificationLevelOneHeadline</span> <span class="pull-right label label-success status-badge">@Resources.User.verificationStatusCompleteLabel</span></h3>
+			<p>@String.Format(Resources.User.verificationLevelOneInfoText, level1Limit)</p>
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Email, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Email, new { @class = "form-control  input-sm", @readonly = "readonly" })
+				</div>
+			</div>
+			<hr />
+
+			<h3 style="display:block">@Resources.User.verificationLevelTwoHeadline <span class="pull-right label label-@level2Highlight status-badge">@level2Status</span></h3>
+			<p>@String.Format(Resources.User.verificationLevelTwoInfoText, level2Limit)</p>
+			<div class="row">
+				@Html.WriterValidationSummary()
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.FirstName, level2HtlmAttributes)
+					@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.LastName, level2HtlmAttributes)
+					@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Birthday, level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Gender, new { @class = "control-label" })
+					@Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Unknown", "Male", "Female", "Other" }), level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					@Html.LabelFor(m => m.Country, new { @class = "control-label" })
+					@Html.DropDownListFor(m => m.Country, new SelectList(Web.Site.Cache.StaticDataCache.Countries), level2HtlmAttributes)
+					@Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.City, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.City, level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.State, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.State, level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Postcode, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Postcode, level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.Postcode, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					@Html.LabelFor(m => m.Address, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Address, level2HtlmAttributes)
+					@Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			if (Model.VerificationLevel != Cryptopia.Enums.VerificationLevel.Level2 && Model.VerificationLevel != Cryptopia.Enums.VerificationLevel.Level2Pending && Model.VerificationLevel != Cryptopia.Enums.VerificationLevel.Level3 && Model.VerificationLevel != Cryptopia.Enums.VerificationLevel.Level3Pending)
+			{
+			<div class="row">
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Identification1, Resources.User.verificationIdentificationPhotoLabel, new { @class = "control-label" })
+					<input name="IdentificationImage1" type="file" value="IdentificationImage1" style="width:100%" />
+					@Html.ValidationMessageFor(m => m.Identification1, "", new { @class = "text-danger" })
+					<div class="text-center">
+						<div>@Resources.User.verificationIdentificationPhotoExampleLabel</div>
+						<img style="max-height:200px" class='img-responsive img-thumbnail' src='/Content/Images/ScannedId.png' />
+					</div>
+				</div>
+				<div class="col-xs-6">
+					@Html.LabelFor(m => m.Identification2, Resources.User.verificationIdentificationPhoto2Label, new { @class = "control-label" })
+					<input name="IdentificationImage2" type="file" value="IdentificationImage2" style="width:100%" />
+					@Html.ValidationMessageFor(m => m.Identification2, "", new { @class = "text-danger" })
+					<div class="text-center">
+						<div>@Resources.User.verificationIdentificationPhoto2ExampleLabel</div>
+						<img style="max-height:200px" class='img-responsive img-thumbnail' src='/Content/Images/UserWithId.jpg' />
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top:20px">
+				<div class="col-xs-6">
+					<span>@Html.CheckBoxFor(m => m.TermsAccepted, new { }) I accept to the <a href="/Home/Terms">@Resources.User.verificationTermsLabel</a></span>
+					@Html.ValidationMessageFor(m => m.TermsAccepted, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-xs-6">
+					<input id="submit" type="submit" class="pull-right btn btn-default btn-sm" value="@Cryptopia.Resources.General.Submit" style="width:200px" @*@(Model.TermsAccepted ? "" : "disabled=\"disabled\"")*@ />
+				</div>
+
+			</div>
+			}
+			else
+			{
+			<div class="row">
+				<div class="col-xs-12 text-center" style="margin-top:5px">
+					<div>@Resources.User.verificationSubmitedInfoText</div>
+					<div>
+						<small>
+							<i>
+								@Html.Raw(String.Format(Html.Encode(Resources.User.verificationSupportLink),
+														String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))
+							</i>
+						</small>
+					</div>
+				</div>
+			</div>
+			}
+			<hr />
+
+
+			<h3 style="display:block">@Resources.User.verificationLevelThreeHeadline <span class="pull-right label label-@level3Highlight status-badge">@level3Status</span></h3>
+			<div class="row" style="margin-bottom:40px">
+				<div class="col-xs-12">
+					<p>
+						@Html.Raw(String.Format(Html.Encode(Resources.User.verificationLevelThreeInfoText),
+														String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))						
+					</p>
+					<ul>
+						<li>@Resources.User.verificationLevelThreeReason1Text</li>
+						<li>@Resources.User.verificationLevelThreeReason2Text</li>
+					</ul>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#submit').click(function () {
+			if ($('.form-horizontal').valid()) {
+				$.blockUI({ message: '@Resources.User.verificationSendingMessage' });
+			}
+		});
+		$("#Birthday").mask("99/99/9999", { placeholder: "mm/dd/yyyy" });
+		//$('#TermsAccepted').click(function () {
+		//	var accepted = $(this).is(":checked");
+		//	if (accepted) {
+		//		$('#submit').removeAttr("disabled");
+		//		return;
+		//	}
+		//	$('#submit').attr("disabled", "disabled");
+		//});
+
+		$('.preview-popover').popover({
+			trigger: 'hover',
+			container: 'body'
+		});
+	});
+</script>

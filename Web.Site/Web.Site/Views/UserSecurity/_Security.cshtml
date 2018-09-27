@@ -1,0 +1,66 @@
+﻿@using Cryptopia.Enums
+@using Web.Site.Helpers;
+@model Cryptopia.Common.User.UserSecurityModel
+@{
+}
+<div class="settings-page-header-container">
+	<h2 class="settings-page-header">@Resources.User.securityTwoFactorHeadline</h2>
+	<hr class="settings-page-seperator" />
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="col-xs-12">
+			@foreach (var twofactor in Enum.GetValues(typeof(TwoFactorComponent)).OfType<TwoFactorComponent>())
+			{
+			<div class="col-sm-6 col-md-4">
+				@{ Html.RenderAction("GetTwoFactor", "TwoFactor", new { component = twofactor });}
+			</div>
+			}
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<h2>@Resources.User.securityAccountHeadline</h2>
+		<hr />
+		<div class="col-xs-12">
+			<div class="col-sm-6 col-md-6 col-lg-4">
+				<h4>@Resources.User.securityAccountWithdrawHeadline</h4>
+				<hr />
+				<div id="message-alert" class="alert text-center" style="display: none">
+					<p></p>
+				</div>
+				<div id="withdrawSettings-container" data-action="@Url.Action("UpdateWithdrawSettings")">
+					<div>
+						@Html.CheckBox("AddressBookOnly", Model.WithdrawModel.AddressBookOnly) @Resources.User.securityAccountWithdrawAddressBookLabel
+					</div>
+					@if (Model.WithdrawModel.HasWithdrawTfa)
+					{
+					<div>
+						@Html.CheckBox("DisableConfirmation", Model.WithdrawModel.DisableConfirmation) @Resources.User.securityAccountWithdrawDisableEmailLabel
+					</div>
+					}
+					else
+					{
+					<div title= "@Resources.User.securityTfaEmailErrorMessage">
+						@Html.CheckBox("DisableConfirmation", false, new { @readonly="readonly", disabled="disabled"}) @Resources.User.securityAccountWithdrawDisableEmailLabel
+					</div>
+					}
+				</div>
+			</div>
+			<div id="apiTarget" class="col-sm-6 col-md-6 col-lg-5">
+				@{ Html.RenderPartial("_UpdateApi", Model.ApiModel);}
+			</div>
+			<div id="passwordTarget" class="col-sm-6 col-md-6 col-lg-3">
+				@{Html.RenderPartial("_UpdatePassword", new Cryptopia.Common.User.UpdatePasswordModel());}
+			</div>
+		</div>
+		<div class="col-xs-12">
+			@{ Html.RenderPartial("_UpdateAddressBook");}
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<div style="padding-top:25px"></div>
+	</div>
+</div>
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+@Scripts.Render("~/Scripts/Project/User/userSecurity.min.js")

@@ -1,0 +1,86 @@
+﻿@using hbehr.recaptcha
+@model Web.Site.Models.RegisterViewModel
+@{
+	ViewBag.Title = Resources.Authorization.registerPageTitle;
+	ViewBag.IsFullPage = true;
+}
+
+<div class="text-center" style="padding-top: 100px">
+	<div class="panel panel-primary" style="width: 352px; display: inline-block; text-align: left">
+		<div class="panel-heading" style="padding: 5px">
+			<span><i class="fa fa-edit panel-icon"></i>@Resources.Authorization.registerHeadline</span>
+		</div>
+		@Html.ModelValidationSummary()
+		<div class="panel-body">
+			@using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				<div class="form-margin">
+					@Html.AntiForgeryToken()
+					@Html.HiddenFor(m => m.Referrer)
+					<div>
+						@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.UserName, new { @class = "form-control  input-sm", @placeholder = "satoshi_nakamoto" })
+						@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+					</div>
+					<div>
+						@Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control  input-sm", @placeholder = "satoshi@nakamo.to" })
+						@Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+					</div>
+					<div>
+						@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+						@Html.PasswordFor(m => m.Password, new { @class = "form-control  input-sm", @placeholder = "********" })						
+						<div style="text-align:center">
+							<span style="font-size:11px;vertical-align:top;">
+								<i class="password-val password-val-upper fa fa-times">@Resources.Authorization.registerPasswordUpperError</i>
+								<i class="password-val password-val-lower fa fa-times">@Resources.Authorization.registerPasswordLowerError</i>
+								<i class="password-val password-val-number fa fa-times">@Resources.Authorization.registerPasswordNumberError</i>
+								<i class="password-val password-val-special fa fa-times">!@@#$%^&</i>
+								<i class="password-val password-val-length fa fa-times">@Resources.Authorization.registerPasswordLengthError</i>
+							</span>
+						</div>
+					</div>
+					<div>
+						@Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+						@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control  input-sm", @placeholder = "********" })
+						@Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+					</div>
+					<div>
+						@Html.LabelFor(m => m.PinCode, Resources.Authorization.registerPinCodeLabelEx, new { @class = "control-label" })
+						@Html.PasswordFor(m => m.PinCode, new { @class = "form-control  input-sm", @placeholder = Resources.Authorization.registerPinCodePlaceholder })
+						@Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+					</div>
+					<div>
+						@Html.CheckBoxFor(m => m.AcceptTerms, true)
+						<small class="control-label">@Resources.Authorization.registerAcceptLabel <a href="/Home/Terms" target="_blank">@Resources.Authorization.registerAcceptLink</a>.</small><br />
+						@Html.ValidationMessageFor(model => model.AcceptTerms, "", new { @class = "text-danger" })
+					</div>
+
+					<br />
+					<div class="text-center">
+						@ReCaptcha.GetCaptcha()
+					</div>
+				</div>
+				<br />
+				<div class="text-center">
+					<input type="submit" value="@Resources.Authorization.registerButton" class="btn btn-info btnhalfwidth" />
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+
+<script>
+	$("#Password").on("keyup paste", function () {
+		var val = $(this).val();
+		var special = $(".password-val-special");
+		$(".password-val").removeClass("text-success text-danger fa-times fa-check");
+		$(".password-val-length").addClass(val.length >= 8 ? "fa-check text-success" : "fa-times text-danger");
+		$(".password-val-number").addClass(/\d/.test(val) ? "fa-check text-success" : "fa-times text-danger");
+		$(".password-val-lower").addClass(/[a-z]/.test(val) ? "fa-check text-success" : "fa-times text-danger");
+		$(".password-val-upper").addClass(/[A-Z]/.test(val) ? "fa-check text-success" : "fa-times text-danger");
+		$(".password-val-special").addClass(/\W+/.test(val) ? "fa-check text-success" : "fa-times text-danger");
+	}).trigger("keyup");
+</script>

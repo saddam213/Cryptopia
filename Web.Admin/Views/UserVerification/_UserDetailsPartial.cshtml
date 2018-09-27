@@ -1,0 +1,187 @@
+﻿@model Cryptopia.Admin.Common.UserVerification.UserDetailsModel
+@{
+		Layout = null;
+}
+
+<style>
+	img {
+		-webkit-transform-origin: 50% 50%;
+		-moz-transform-origin: 50% 50%;
+		-o-transform-origin: 50% 50%;
+		transform-origin: 50% 50%;
+		max-width: 100%;
+		max-height: 100%;
+		cursor: pointer;
+	}
+
+	.form-group {
+		margin-bottom: 5px;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+</style>
+
+<div class="verification-body">
+	<ul class="nav nav-tabs" id="tabContent">
+		<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+		<li><a href="#identification-image1" data-toggle="tab">Identification Images</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="details">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Verification Details</div>
+				<div class="panel-body">
+
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">First Name</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.FirstName</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Last Name</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.LastName</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Gender</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Gender</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Birthday</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Birthday</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Email</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Email</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Address</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Address</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Postcode</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Postcode</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">City</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.City</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">State</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.State</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="textinput">Country</label>
+							<div class="col-sm-10">
+								<em class="form-control">@Model.Country</em>
+							</div>
+						</div>
+
+						@if (!string.IsNullOrEmpty(Model.RejectReason))
+						{
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="textinput">Reject Reason</label>
+									<div class="col-sm-10">
+										@Html.TextAreaFor(m => m.RejectReason, new { @rows = 3, @class = "form-control  input-sm", @readonly = "readonly" })
+									</div>
+								</div>
+						}
+
+					</div>
+					<!--form-horizontal-->
+
+
+
+					@if (Model.AdminCanVerify)
+					{
+						using (Html.BeginForm("RejectUser", "UserVerification", FormMethod.Post, new { @class = "form-horizontal" }))
+						{
+									<div class="form-horizontal">
+										<div class="form-group">
+											<input type="hidden" name="verificationId" value="@Model.VerificationId" />
+											<label class="col-sm-2 control-label" for="textinput">Reject Reason</label>
+											<div class="col-sm-10">
+												@Html.TextArea("Reason", "", new { @rows = 3, @class = "form-control  input-sm" })
+											</div>
+										</div>
+									</div>
+
+									<button type="submit" class="btn btn-danger verify-action">Reject</button>
+						}
+						using (Html.BeginForm("AcceptUser", "UserVerification", FormMethod.Post, new { @class = "form-horizontal" }))
+						{
+									<input type="hidden" name="verificationId" value="@Model.VerificationId" />
+									<button type="submit" class="btn btn-success verify-action pull-right">Accept</button>
+						}
+					}
+				</div>
+			</div>
+			<!--panel-->
+
+		</div>
+		<!--tab-pane-->
+
+		<div class="tab-pane" id="identification-image1">
+			<div class="panel panel-default">
+				<div class="panel-heading">Identification Images</div>
+				<div class="panel-body">
+					<img id="img1" src="@Model.Identification1" />
+				</div>
+
+				<div class="panel-body">
+					<img id="img2" src="@Model.Identification2" />
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	$(".verify-action").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.verification-body').block({ message: 'Submitting...' });
+		}
+	});
+
+	jQuery.fn.rotate = function (degrees) {
+		$(this).css({ 'transform': 'rotate(' + degrees + 'deg)' });
+	};
+
+	var rotation1 = 0;
+	var rotation2 = 0;
+
+	$('#img1').click(function () {
+		rotation1 += 90;
+		$(this).rotate(rotation1);
+	});
+
+	$('#img2').click(function () {
+		rotation2 += 90;
+		$(this).rotate(rotation2);
+	});
+</script>

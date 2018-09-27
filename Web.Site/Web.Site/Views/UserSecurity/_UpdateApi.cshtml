@@ -1,0 +1,53 @@
+﻿@using Web.Site.Helpers;
+@model Cryptopia.Common.User.UpdateApiModel
+
+<h4>@Resources.User.securityApiHeadline</h4>
+<hr />
+@using (Ajax.BeginForm("UpdateApiSettings", "UserSecurity", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "apiTarget" }, new { @class = "form-horizontal" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.WriterValidationSummary()
+	<div id="apialert" class="alert alert-danger text-center" style="display: none">
+		<p></p>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-3  col-md-9">
+			<div>@Html.CheckBox("IsApiEnabled") @Resources.User.securityApiEnableLabel</div>
+			<div>@Html.CheckBox("IsApiWithdrawEnabled") @Resources.User.securityApiEnableWithdrawalLabel</div>
+			<div title="@Resources.User.securityApiEnableUnsafeWithdrawalHint">
+				<span>@Html.CheckBox("IsApiUnsafeWithdrawEnabled") @Resources.User.securityApiEnableUnsafeWithdrawalLabel <i><small>@Resources.User.securityApiEnableUnsafeWithdrawalWarningLabel</small></i></span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.Label("Api Key", new { @class = "col-md-3 control-label" })
+		<div class="col-md-9">
+			<div class="input-group input-group-sm">
+				@Html.TextBox("ApiKey", Model.ApiKey, new { @class = "form-control  input-sm", @readonly = "readonly" })
+				<span class="input-group-btn">
+					<button type="button" id="generateKey" class="btn btn-sm btn-default" data-action="@Url.Action("GenerateApiKey", "UserSecurity")">@Resources.User.securityApiNewKeyButton</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.Label("Api Secret", new { @class = "col-md-3 control-label" })
+		<div class="col-md-9">
+			@Html.TextBox("ApiSecret", Model.ApiSecret, new { @class = "form-control  input-sm", @readonly = "readonly" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-3 col-md-8">
+			<input type="submit" value="@Resources.User.securityApiSaveButton" class="btn btn-default btn-sm button-180" />
+		</div>
+	</div>
+}
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.SecurityApi = {
+		SecurityApiGenerationFailedLinkMessage: '@Html.Raw(String.Format(Html.Encode(Resources.User.securityApiGenerationFailedLinkMessage), 
+											                             String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))'		
+	};	
+</script>
+@Scripts.Render("~/Scripts/Project/User/userApiSettings.min.js")

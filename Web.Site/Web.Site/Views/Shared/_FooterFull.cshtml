@@ -1,0 +1,64 @@
+﻿<footer id="footer" style="min-height: 195px; border-top: 1px solid rgba(0, 0, 0, 0.2);" class="panelBg">
+
+
+	<div class="col-xs-12">
+		<div class="col-lg-3 col-md-3 col-sm-3 text-center">
+			<h4 class="text-info">@Resources.Layout.footTextInformation</h4>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<a href="/UserSupport" style="display: block">@Resources.Layout.footContactUs</a>
+			}
+			else
+			{
+				<a href="/Home/Contact" style="display: block">@Resources.Layout.footContactUs</a>
+			}
+			<a href="http://webchat.freenode.net/?channels=cryptopia-ex@(User.Identity.IsAuthenticated ? "&nick=" + User.Identity.Name : "")">@Resources.Layout.footCryptopiaIRC</a><br />
+			<a href="/Home/Privacy" style="display: block">Privacy &amp; @Resources.Layout.footSecurity</a>
+			<a href="/Home/Terms" style="display: block">Terms &amp; @Resources.Layout.footConditions</a>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 text-center">
+			<h4 class="text-info">@Resources.Layout.footSupport</h4>
+			<a href="/Support">@Resources.Layout.footSupport</a><br>
+			<a href="/Forum/Category/1">@Resources.Layout.footHelpAndFaq</a><br>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 text-center">
+			<h4 class="text-info">@Resources.Layout.footApi</h4>
+			<a href="/Forum/Thread/255" style="display: block">@Resources.Layout.footPublicApi</a>
+			<a href="/Forum/Thread/256" style="display: block">@Resources.Layout.footPrivateApi</a>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 text-center">
+			<h4 class="text-info">@Resources.Layout.footSocial</h4>
+			<a href="https://twitter.com/Cryptopia_NZ"><span><i class="fa fa-twitter-square"></i>Twitter</span></a><br>
+			<a href="https://www.facebook.com/cryptopiaexchange"><span><i class="fa fa-facebook-square"></i>Facebook</span></a><br>
+			<a href="https://www.linkedin.com/company/cryptopia-limited"><span><i class="fa fa-linkedin-square"></i>LinkedIn</span></a><br>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+	<div class="col-lg-12 col-md-10 col-sm-12 col-xs-12 text-center footer-summary" style="line-height: 1.5em; font-size: 0.8em; margin-bottom: 5px">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-10 col-md-11 col-sm-11" style="">
+			<br>
+			@Resources.Layout.footTerms <a href="/Home/Terms">@Resources.Layout.footTermsLink</a>.
+
+			<br>
+			@Resources.Layout.footNotResponsible
+
+			<br>
+			@Resources.Layout.footCopyright @DateTime.UtcNow.Year Cryptopia Ltd. - @Resources.Layout.footCopyrightReserved
+		</div>
+		<div class="col-lg-1 col-md-1 col-sm-1 pull-right" style="z-index: 2; text-align: right;">
+			@if (!Html.IsDebug())
+			{
+			@*<script type="text/javascript">
+				//<![CDATA[
+				var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+				document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+				//]]>
+			</script>
+			<script type="text/javascript">TrustLogo("/Content/tl_transp.gif", "SC5", "none");</script>*@
+			}
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</footer>

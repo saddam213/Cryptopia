@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" />
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" />
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" />
+  <xs:import schemaLocation="http://localhost:8733/AdmintopiaService.Service/AdmintopiaService/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Enums" />
+  <xs:element name="GetWalletTransactions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="transactionDataType" type="q1:TransactionDataType" />
+        <xs:element minOccurs="0" name="currencyId" type="xs:int" />
+        <xs:element minOccurs="0" name="walletTimeoutMinutes" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWalletTransactionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" minOccurs="0" name="GetWalletTransactionsResult" nillable="true" type="q2:ArrayOfWalletTransaction" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWalletTransactionsSince">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Cryptopia.WalletAPI.DataObjects" minOccurs="0" name="transactionDataType" type="q3:TransactionDataType" />
+        <xs:element minOccurs="0" name="currencyId" type="xs:int" />
+        <xs:element minOccurs="0" name="walletTimeoutMinutes" type="xs:int" />
+        <xs:element minOccurs="0" name="searchBlockLength" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWalletTransactionsSinceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AdmintopiaService.DataObjects" minOccurs="0" name="GetWalletTransactionsSinceResult" nillable="true" type="q4:ArrayOfWalletTransaction" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlacklistIpAddress">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ipAddress" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlacklistIpAddressResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" minOccurs="0" name="BlacklistIpAddressResult" nillable="true" type="q5:IPBlacklist" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIpAddressBlacklist">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIpAddressBlacklistResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Classes" minOccurs="0" name="GetIpAddressBlacklistResult" nillable="true" type="q6:IPBlacklist" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PurgeSiteCache">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PurgeSiteCacheResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Cryptopia.Infrastructure.Incapsula.Common.Enums" minOccurs="0" name="PurgeSiteCacheResult" type="q7:ResponseCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

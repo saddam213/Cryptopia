@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4b992e45-bfa8-4dab-8857-1d8a5750dcc9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="Cryptopia.Enums" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/CryptopiaInbound/service" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="d0ea9ac1-9ff0-428f-9077-55bd63c6df32" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?xsd=xsd0" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="c94e6e01-3f5f-42e3-94e7-66617930c49d" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?xsd=xsd4" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="0b48293e-48fe-460a-8c3f-98a322e2dc4d" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?xsd=xsd2" />
+    <MetadataFile FileName="WalletInboundService.wsdl" MetadataType="Wsdl" ID="d32e85d5-1d3b-462f-8490-1d0d11ef2762" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?wsdl" />
+    <MetadataFile FileName="service3.xsd" MetadataType="Schema" ID="7f2dfaa5-e577-4863-8410-c866baa5afc3" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?xsd=xsd3" />
+    <MetadataFile FileName="service4.xsd" MetadataType="Schema" ID="eb52d9d6-38cc-4be8-ae78-d1a2a069ca69" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?xsd=xsd1" />
+    <MetadataFile FileName="service.disco" MetadataType="Disco" ID="d1cb7509-7949-4946-8f82-99573cc1237b" SourceId="1" SourceUrl="http://localhost:8000/CryptopiaInbound/service?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

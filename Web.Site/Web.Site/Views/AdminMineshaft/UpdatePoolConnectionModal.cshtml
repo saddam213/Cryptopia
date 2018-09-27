@@ -1,0 +1,88 @@
+﻿@model Cryptopia.Common.Pool.AdminUpdatePoolConnectionModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Connection</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateConnection", "AdminMineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.AlgoType)
+				@Html.WriterValidationSummary()
+			
+				<div class="row">
+					<div class="col-xs-4">
+						@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Name, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-4">
+						@Html.LabelFor(m => m.DefaultPool, "Default Pool", new { @class = "control-label" })
+						@Html.DropDownListFor(m => m.DefaultPool, new SelectList(Model.Pools, "Symbol", "Symbol", Model.DefaultPool), new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.DefaultPool, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-4">
+						@Html.LabelFor(m => m.DefaultDiff, "Default Diff", new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.DefaultDiff, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.DefaultDiff, "", new { @class = "text-danger" })
+					</div>
+				
+
+					<div class="col-xs-7">
+						@Html.LabelFor(m => m.Host, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Host, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Host, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-5">
+						@Html.LabelFor(m => m.Port, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.Port, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+					</div>
+
+			
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.FixedDiffSummary, "Fixed Difficulty Description", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.FixedDiffSummary, new { @class = "form-control", rows = 3 })
+						@Html.ValidationMessageFor(model => model.FixedDiffSummary, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.VarDiffLowSummary, "Var-Diff Low Difficulty Description", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.VarDiffLowSummary, new { @class = "form-control", rows = 3 })
+						@Html.ValidationMessageFor(model => model.VarDiffLowSummary, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.VarDiffMediumSummary, "Var-Diff Medium Difficulty Description", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.VarDiffMediumSummary, new { @class = "form-control", rows = 3 })
+						@Html.ValidationMessageFor(model => model.VarDiffMediumSummary, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.VarDiffHighSummary, "Var-Diff High Difficulty Description", new { @class = "control-label" })
+						@Html.TextAreaFor(m => m.VarDiffHighSummary, new { @class = "form-control", rows = 3 })
+						@Html.ValidationMessageFor(model => model.VarDiffHighSummary, "", new { @class = "text-danger" })
+					</div>
+				
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

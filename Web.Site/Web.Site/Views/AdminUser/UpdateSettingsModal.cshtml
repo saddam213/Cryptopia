@@ -1,0 +1,76 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminUserSettingsUpdateModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update User Settings</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateSettings", "AdminUser", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+		@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.Id)
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.DisableLogonEmail)
+							@Html.LabelFor(m => m.DisableLogonEmail, "Disable Logon Email", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.DisableRewards)
+							@Html.LabelFor(m => m.DisableRewards, "Disable Rewards", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.DisableTips)
+							@Html.LabelFor(m => m.DisableTips, "Disable Tips", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.ChatDisableEmoticons)
+							@Html.LabelFor(m => m.ChatDisableEmoticons, "Disable Emoticons", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.HideZeroBalance)
+							@Html.LabelFor(m => m.HideZeroBalance, "Hide Zero Balance", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.ShowFavoriteBalance)
+							@Html.LabelFor(m => m.ShowFavoriteBalance, "Show Favorite Balance", new { @class = "control-label" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.Theme, new { @class = "control-label" })
+							@Html.EnumDropDownListFor(m => m.Theme, new { @class = "form-control  input-sm datepicker" })
+							@Html.ValidationMessageFor(model => model.Theme, "", new { @class = "text-danger" })
+						</div>
+						@*<div class="col-xs-6">
+								@Html.LabelFor(m => m.ChatTipBanEndTime, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.ChatTipBanEndTime, new { @class = "form-control  input-sm datepicker" })
+								@Html.ValidationMessageFor(model => model.ChatTipBanEndTime, "", new { @class = "text-danger" })
+							</div>*@
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<input id="submit" class="btn btn-success button-180" type="submit" value="Update" />
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".datepicker").datepicker();
+	});
+</script>

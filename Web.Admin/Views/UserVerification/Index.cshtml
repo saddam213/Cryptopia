@@ -1,0 +1,232 @@
+﻿@{
+		ViewBag.Title = "UserVerification";
+}
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<style>
+	.tab-content {
+		padding-top: 10px;
+	}
+
+	.nav-tabs {
+		padding-top: 10px;
+	}
+
+		.nav-tabs .badge {
+			position: absolute;
+			top: -6px;
+			right: -6px;
+		}
+
+	.badge-rejected {
+		background: red;
+		z-index: 100;
+	}
+
+	.badge-pending {
+		background: blue;
+		z-index: 100;
+	}
+</style>
+
+<div class="row">
+	<div class="col-lg-5">
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#pending" data-toggle="tab"><span>Pending</span><span class="badge badge-pending" style="display: none"></span></a>
+			</li>
+			<li>
+				<a href="#rejected" data-toggle="tab"><span>Rejected</span><span class="badge badge-rejected" style="display: none"></span></a>
+			</li>
+			<li>
+				<a href="#completed" data-toggle="tab"><span>Completed</span></a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="pending">
+				<table id="verification-table" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>User</th>
+							<th>Requested</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="rejected">
+				<table id="rejected-table" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>User</th>
+							<th>RejectedOn</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="completed">
+				<table id="completed-table" class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>User</th>
+							<th>Requested</th>
+							<th>ApprovedOn</th>
+							<th>ApprovedBy</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-7">
+		<div id="verification-details-target">
+			<h2>Verification Details</h2>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	<script src="~/Scripts/toastr.min.js"></script>
+	<script>
+
+		@{
+			var showToast = Json.Encode(TempData.ContainsKey("VerificationActionTitle"));
+			var toastrType = !TempData.ContainsKey("VerificationActionSuccess")
+				? "" : (bool)TempData["VerificationActionSuccess"]
+				? "success"
+				: "error";
+		}
+
+		if (@showToast) {
+			var toastType = "@toastrType";
+			$(function() {
+				toastr[toastType]("@TempData["VerificationActionMessage"]", "@TempData["VerificationActionTitle"]");
+			});
+		}
+
+		var rejectedDatatable = buildDataTable("#rejected-table", '@Url.Action("GetRejectedUserVerifications")', 3);
+		var verificationDatatable = buildDataTable("#verification-table", '@Url.Action("GetUserVerifications")', 3);
+		var completedDatatable = buildDataTable("#completed-table", '@Url.Action("GetCompletedUserVerifications")', 5);
+
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			var target = $(e.target).attr("href").replace('#', ''); // activated tab
+			if (target == 'rejected') {
+				rejectedDatatable.ajax.reload();
+			}
+			else if (target == 'pending') {
+				verificationDatatable.ajax.reload();
+			}
+			else if (target == 'completed') {
+				completedDatatable.ajax.reload();
+			}
+		}).trigger('shown.bs.tab');
+
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+			"<'row'<'col-sm-12'tr>>" +
+			"<'row'<'col-sm-5'i><'col-sm-7'p>>";
+
+		$('#rejected-table').on('xhr.dt', function (e, settings, json, xhr) {
+			var count = json.iTotalRecords;
+			var search = rejectedDatatable.search();
+			if (search == '' || count == null || count <= 0) {
+				$('.badge-rejected').hide();
+				$('.badge-rejected').text('');
+			} else {
+				$('.badge-rejected').show();
+				$('.badge-rejected').text(json.iTotalRecords);
+			}
+		});
+
+		$('#verification-table').on('xhr.dt', function (e, settings, json, xhr) {
+			var count = json.iTotalRecords;
+			if (count == null || count <= 0) {
+				$('.badge-pending').hide();
+				$('.badge-pending').text('');
+			} else {
+				$('.badge-pending').show();
+				$('.badge-pending').text(json.iTotalRecords);
+			}
+		});
+
+		$("#verification-table").on("click",".btn-user-details",function() {
+			var id = $(this).data('id');
+			var user = $(this).data('user');
+			$(".btn-user-details").attr("disabled", true);
+
+			rejectedDatatable.search(user);
+			rejectedDatatable.ajax.reload();
+
+			postJson('@Url.Action("GetUserDetailsModal")', { id: id }, function (data) {
+				$("#verification-details-target").html(data.html);
+				$(".btn-user-details").attr("disabled", false);
+			});
+		});
+
+		//Click bindings
+		$("#rejected-table").on("click",".btn-user-details",function() {
+			var id = $(this).data('id');
+			$(".btn-user-details").attr("disabled", true);
+			postJson('@Url.Action("GetRejectedUserDetailsModal")', { id: id }, function (data) {
+				$("#verification-details-target").html(data.html);
+				$(".btn-user-details").attr("disabled", false);
+			});
+		});
+
+		$("#completed-table").on("click",".btn-user-details",function() {
+			var id = $(this).data('id');
+			$(".btn-user-details").attr("disabled", true);
+			postJson('@Url.Action("GetCompletedUserDetailsModal")', { id: id }, function (data) {
+				$("#verification-details-target").html(data.html);
+				$(".btn-user-details").attr("disabled", false);
+			});
+		});
+
+		function buildDataTable(id, action, target, opts) {
+			var defaultOptions = {
+				"order": [[0, "asc"]],
+				"searchDelay": 1500,
+				"lengthChange": false,
+				"processing": false,
+				"bServerSide": true,
+				"searching": true,
+				"scrollCollapse": true,
+				"scrollX": false,
+				"width": "100%",
+				"paging": true,
+				"info": true,
+				"iDisplayLength": 20,
+				"sAjaxSource": action,
+				"sServerMethod": "POST",
+				"deferLoading": 0,
+				"language": {
+					"emptyTable": "There are no verifications.",
+					"searchPlaceholder": "Search verifications",
+					"search": ""
+				},
+				"columnDefs": [
+					{
+						"targets": target,
+						"searchable": false,
+						"orderable": false,
+						"render": function (data, type, full, meta) {
+							return '<button class="btn btn-xs btn-info pull-right btn-user-details" data-user="' + full[1] + '" data-id="' + full[0] + '">Details</button>';
+						}
+					}
+				]
+			}
+			var options = $.extend(defaultOptions, opts ? opts : {});
+			return $(id).DataTable(options);
+		}
+
+	</script>
+}

@@ -1,0 +1,28 @@
+﻿@model Web.Site.Models.CreatePostModel
+@{
+	
+}
+
+
+@using (Html.BeginForm("SubmitPost", "Forum"))
+{
+	<div>
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.ThreadId)
+		<h3>@Resources.Forum.postReplayHeadlinePrefix: @Model.ThreadName</h3>
+		<div>
+			@Html.EditorFor(m => m.Message)
+			@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	
+	<div style="padding-top: 10px; padding-bottom: 10px">
+		<button class="btn btn-success" type="submit" style="width:120px">@Resources.Forum.postReplyButton</button>
+		<a href="@Url.Action("Thread", new { id = Model.ThreadId })" class="btn btn-info simplemodal-close" type="button" style="width:120px">@Cryptopia.Resources.General.Cancel</a>
+	</div>
+}
+
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+</script>

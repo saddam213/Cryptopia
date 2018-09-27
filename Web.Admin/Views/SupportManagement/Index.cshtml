@@ -1,0 +1,178 @@
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNet.Identity;
+@using Cryptopia.Enums;
+
+@model List<Cryptopia.Admin.Common.Support.SupportQueueModel>
+
+@{
+	ViewBag.Title = "Admin Support Management";
+}
+
+<style></style>
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<div class="container-fluid" id="support-management-container">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-info" style="margin-top: 5px">
+				<div class="panel-heading"><h4 class="text-center">Support Management</h4></div>
+				<div class="panel-body">
+
+					<h3>Queue Management</h3>
+					<br/>
+
+					<ul class="list-group">
+
+						@foreach (var queue in Model)
+						{
+								<li class="list-group-item">
+									<div class="row" data-id="@queue.Id">
+										<div class="col-lg-6"><input name="Name" type="text" class="form-control" value="@queue.Name" /></div>
+										<div class="col-lg-2"><input name="Order" type="number" class="form-control" value="@queue.Order" /></div>
+										<div class="col-lg-4">
+											<div class="btn-group pull-right" role="group">
+												<button type="button" class="btn btn-info submit-update-queue">Update</button>
+
+												@if (queue.Id != Constant.DEFAULT_QUEUE_ID)
+												{
+													if (queue.HasOpenTickets)
+													{
+																<button type="button" class="btn btn-danger disabled" data-toggle="tooltip" title="Cannot delete Queue with open tickets">Delete</button>
+													}
+													else
+													{
+																<button type="button" class="btn btn-danger submit-delete-queue">Delete</button>
+													}
+												}
+												else
+												{
+														<button type="button" class="btn btn-danger disabled" data-toggle="tooltip" title="Cannot delete Default Queue">Delete</button>
+												}
+
+											</div>
+										</div>
+									</div>
+								</li>
+						}
+
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-lg-8"><input type="text" class="form-control" placeholder="Queue Name" /></div>
+								<div class="col-lg-4">
+									<div class="btn-group pull-right" role="group">
+										<button type="button" class="btn btn-info submit-create-queue">Create</button>
+									</div>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+
+					<br />
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-lg-8"><h4>Create New User Ticket</h4></div>
+								<div class="col-lg-4">
+									<div class="btn-group pull-right" role="group">
+										<button type="button" class="btn btn-info pull-right create-ticket">Create Ticket</button>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+	@section Scripts {
+		<script>
+			var actionCreateQueue = '@Url.Action("CreateQueue")';
+			var actionUpdateQueue = '@Url.Action("UpdateQueue")';
+			var actionDeleteQueue = '@Url.Action("DeleteQueue")';
+
+
+			$(function () {
+
+				$('[data-toggle="tooltip"]').tooltip(); 
+
+				$(".submit-update-queue").click(function (event) {
+					$('#support-management-container').block({ message: 'Updating...' });
+
+					var $parentRow = $(this).closest(".row");
+					var $nameInput = $parentRow.find("input[name='Name']");
+					var $orderInput = $parentRow.find("input[name='Order']");
+
+					$.ajax({
+						type: "POST",
+						url: actionUpdateQueue,
+						data: {
+							Id: $parentRow.data("id"),
+							Name: $nameInput.val(),
+							Order: $orderInput.val()
+						},
+						success: function () {
+							location.reload()
+						}
+					});
+				}
+				);
+
+				$(".submit-delete-queue").click(function (event) {
+					$('#support-management-container').block({ message: 'Deleting...' });
+					var $parentRow = $(this).closest(".row");
+					var $nameInput = $parentRow.find('input[name="Name"]');
+					var $orderInput = $parentRow.find('input[name="Order"]');
+
+					$.ajax({
+						type: "POST",
+						url: actionDeleteQueue,
+						data: {
+							Id: $parentRow.data("id"),
+							Name: $nameInput.val(),
+							Order: $orderInput.val()
+						},
+						success: function () {
+							location.reload()
+						}
+					});
+				}
+				);
+
+				$(".submit-create-queue").click(function (event) {
+					$('#support-management-container').block({ message: 'Creating...' });
+					var $input = $(this).closest("li").find("input");
+
+					$.ajax({
+						type: "POST",
+						url: actionCreateQueue,
+						data: { name: $input.val()},
+						success: function () {
+							location.reload()
+						}
+					});
+				}
+				);
+
+				$(".create-ticket").click(function (event) {
+					openModalGet("@Url.Action("CreateTicket")", { id: 1 }, function (modalData) {
+						showMessage(modalData);
+					});
+				});
+
+			});
+
+		</script>
+	}

@@ -1,0 +1,25 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Mineshaft Workers</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="poolWorkers" class="table table-striped table-hover datatable" data-action="@Url.Action("GetWorkers", "AdminPoolWorker")" data-action-update="@Url.Action("UpdateWorker","AdminPoolWorker")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Algorithm</th>
+			<th>Hashrate</th>
+			<th>Difficulty</th>
+			<th>TargetPool</th>
+			<th>Target Difficulty</th>
+			<th>AutoSwitch</th>
+			<th>IsActive</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/poolWorker.js")
+

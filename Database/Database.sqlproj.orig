@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{8453ada6-6c5a-4b19-b245-2f80463f4735}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Cryptopia</RootNamespace>
+    <AssemblyName>Cryptopia</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <AnsiPadding>False</AnsiPadding>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SqlTargetName>Cryptopia</SqlTargetName>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Address.sql" />
+    <Build Include="dbo\Tables\Balance.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="Data\InsertStaticData.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\Trade.sql" />
+    <Build Include="dbo\Tables\TradeStatus.sql" />
+    <Build Include="dbo\Tables\SupportTicket.sql" />
+    <Build Include="dbo\Tables\SupportTicketMessage.sql" />
+    <Build Include="dbo\Tables\SupportTicketStatus.sql" />
+    <Build Include="dbo\Tables\Deposit.sql" />
+    <Build Include="dbo\Tables\DepositType.sql" />
+    <Build Include="dbo\Tables\Withdraw.sql" />
+    <Build Include="dbo\Tables\WithdrawType.sql" />
+    <Build Include="dbo\Tables\WithdrawStatus.sql" />
+    <Build Include="dbo\Tables\DepositStatus.sql" />
+    <Build Include="dbo\Tables\TradePair.sql" />
+    <Build Include="dbo\StoredProcedures\CacheGetTransactions.sql" />
+    <Build Include="dbo\Tables\TradeHistory.sql" />
+    <Build Include="dbo\Tables\TradeHistoryType.sql" />
+    <Build Include="dbo\Tables\ErrorLog.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTradeOpen.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTradeHistory.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTradeOpenByTradePair.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTradeHistoryByTradePair.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradeOpenByTradePairBuy.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradeHistoryByTradePair.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradePairs.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradeOpenByTradePairSell.sql" />
+    <Build Include="dbo\StoredProcedures\CreateCurrencyAddress.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserBalances.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradePair.sql" />
+    <Build Include="dbo\StoredProcedures\GetCurrency.sql" />
+    <Build Include="dbo\StoredProcedures\GetCurrencies.sql" />
+    <Build Include="dbo\StoredProcedures\CreateWithdraw.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTransactions.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTransactionsByCurrency.sql" />
+    <Build Include="dbo\StoredProcedures\WalletGetPendingWithdraws.sql" />
+    <Build Include="dbo\StoredProcedures\WalletSetWithdrawTxId.sql" />
+    <Build Include="dbo\StoredProcedures\WalletUpdateWithdraw.sql" />
+    <Build Include="dbo\StoredProcedures\AuditUserBalance.sql" />
+    <Build Include="dbo\Tables\CurrencyStatus.sql" />
+    <Build Include="dbo\Tables\CurrencyAbout.sql" />
+    <Build Include="dbo\Tables\PoolStatus.sql" />
+    <Build Include="dbo\Tables\AlgoType.sql" />
+    <Build Include="dbo\Tables\PoolWorker.sql" />
+    <Build Include="dbo\Tables\Pool.sql" />
+    <Build Include="dbo\StoredProcedures\GetCurrencyData.sql" />
+    <Build Include="dbo\Tables\PoolInfo.sql" />
+    <Build Include="dbo\StoredProcedures\GetTradePairChartData.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserWithdrawals.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserDeposits.sql" />
+    <Build Include="dbo\Tables\PoolUser.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserPoolWorkers.sql" />
+    <Build Include="dbo\Tables\SupportTicketCategory.sql" />
+    <Build Include="dbo\Tables\Vote.sql" />
+    <Build Include="dbo\Tables\VoteItem.sql" />
+    <Build Include="dbo\StoredProcedures\GetVoteItems.sql" />
+    <Build Include="dbo\StoredProcedures\GetMarketItems.sql" />
+    <Build Include="dbo\Tables\MarketItem.sql" />
+    <Build Include="dbo\Tables\MarketItemType.sql" />
+    <Build Include="dbo\Tables\MarketItemStatus.sql" />
+    <Build Include="dbo\Tables\MarketCategory.sql" />
+    <Build Include="dbo\Tables\MarketItemBid.sql" />
+    <Build Include="dbo\Tables\MarketItemQuestion.sql" />
+    <Build Include="dbo\Tables\MarketItemImage.sql" />
+    <Build Include="dbo\StoredProcedures\GetMarketCategories.sql" />
+    <Build Include="dbo\Tables\MarketItemFeature.sql" />
+    <Build Include="dbo\Tables\Location.sql" />
+    <Build Include="dbo\StoredProcedures\GetLocations.sql" />
+    <Build Include="dbo\Tables\MarketFeedback.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserMarketItems.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserMarketFeedback.sql" />
+    <Build Include="dbo\StoredProcedures\GetMarketItemQuestions.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserMarketHistory.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserTrustRating.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetSupportTickets.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetErrorLogs.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetWithdrawals.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetDeposits.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetUsers.sql" />
+    <Build Include="dbo\StoredProcedures\AdminGetMiners.sql" />
+<<<<<<< Updated upstream
+    <Build Include="dbo\StoredProcedures\GetAllWithdrawalFees.sql" />
+    <Build Include="dbo\StoredProcedures\GetAllUserBalances.sql" />
+=======
+    <Build Include="dbo\StoredProcedures\GetMarketItemBids.sql" />
+>>>>>>> Stashed changes
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cryptopia.publish.xml" />
+    <None Include="Database.publish.xml" />
+    <None Include="Azure.Cryptopia.publish.xml" />
+    <None Include="Data\InsertCoinData.sql" />
+    <None Include="Data\InsertPoolData.sql" />
+    <None Include="Data\Security.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Database.refactorlog" />
+  </ItemGroup>
+</Project>

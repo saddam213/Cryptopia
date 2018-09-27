@@ -1,0 +1,237 @@
+﻿@model Cryptopia.Common.User.UserProfileInfoModel
+@{
+	ViewBag.Title = Resources.User.menuPageTitle;
+	ViewBag.ReturnUrl = "/" + ViewBag.Section;
+}
+<div class="col-sm-2 col-xs-4 nopad user-tabmenu">
+	@Html.AntiForgeryToken()
+	<div class="profile-sidebar">
+		<div class="profile-sidebar-header">
+			<div class="profile-userpic">
+				<img src="@User.Identity.GetAvatar()" class="img-responsive" alt="">
+			</div>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">
+					@User.Identity.Name
+				</div>
+
+				<div class="text-center">
+					<i class="profile-info-header">@Resources.User.menuKarmaPointsLabel</i>
+					<div class="profile-info-karmarating">
+						<span><i title="@Resources.User.menuKarmaPointsLabel" style="" class="text-success fa icon-thumbs-up panel-icon"></i>@Model.KarmaPoints</span>
+					</div>
+				</div>
+
+				<div class="text-center">
+					<i class="profile-info-header">@Resources.User.menuTrustRatingLabel</i>
+					<div class="profile-info-trustrating" onclick="window.location = '@Url.Action("MarketFeedback","MarketPlace", new {username =User.Identity.Name })'">
+						@{Html.RenderPartial("StarRating", Model.TrustRrating);}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="profile-usermenu" >
+			<ul class="nav" id="tabcontrol" data-default="@ViewBag.Section" >
+				<li>
+					<a href="#Account" data-section="Account" data-toggle="tab" data-div="#accountTarget" data-action="@Url.Action("GetProfile", "UserProfile")">
+						<i class="glyphicon glyphicon-user pull-right"></i>
+						@Resources.User.menuAccountLabel
+					</a>
+				</li>
+			
+				<li>
+					<a href="#Settings" data-section="Settings" data-toggle="tab" data-div="#settingsTarget" data-action="@Url.Action("GetSettings", "UserSettings")">
+						<i class="glyphicon glyphicon-cog pull-right"></i>
+						@Resources.User.menuSettingsLabel
+					</a>
+				</li>
+				<li>
+					<a href="#Security" data-section="Security" data-toggle="tab" data-div="#securityTarget" data-action="@Url.Action("GetSecurity", "UserSecurity")">
+						<i class="glyphicon glyphicon-lock pull-right"></i>
+						@Resources.User.menuSecurityLabel
+					</a>
+				</li>
+				<li>
+					<a href="#Messages" data-section="Messages" data-toggle="tab" data-div="#messageTarget" data-action="@Url.Action("GetMessages", "UserMessage")">
+						<i class="glyphicon glyphicon-inbox pull-right"></i>
+						<span style="margin: 1px 4px; font-size: 11px;" class="badge unread-message-count pull-right">@(Model.UnreadMessages == 0 ? "" : Model.UnreadMessages > 1000 ? "999+" : "")</span>
+						@Resources.User.menuMessagesLabel
+					</a>
+				</li>
+				<li>
+					<a href="#Notifications" data-section="Notifications" data-toggle="tab" data-div="#notificationTarget" data-action="@Url.Action("GetNotification", "UserNotification")">
+						<i class="icon-notification pull-right"></i>
+						<span style="margin: 1px 4px; font-size: 11px;" class="badge unread-notification-count pull-right">@(Model.UnreadNotifications == 0 ? "" : Model.UnreadNotifications > 1000 ? "999+" : "")</span>
+						@Resources.User.menuNotificationsLabel
+					</a>
+				</li>
+		
+				<li><br /></li>
+				<li>
+					<a href="#Balances" data-section="Balances" data-toggle="tab" data-div="#balanceTarget" data-action="@Url.Action("GetBalances", "UserBalance")">
+						<i class="icon-bitcoin pull-right"></i>
+						@Resources.User.menuBalancesLabel
+					</a>
+				</li>
+				<li>
+					<a href="#Trades" data-section="Trades" data-toggle="tab" data-div="#tradesTarget" data-action="@Url.Action("GetTrades", "UserExchange")">
+						<i class="icon-exchange-currency pull-right"></i>
+						@Resources.User.menuOpenTradesLabel
+					</a>
+				</li>
+				<li>
+					<a href="#MarketItems" data-section="MarketItems" data-toggle="tab" data-div="#marketItemsTarget" data-action="@Url.Action("GetMarketItems", "UserMarketplace")">
+						<i class="icon-cartalt pull-right"></i>
+						@Resources.User.menuMarketItemsLabel
+					</a>
+				</li>
+				<li><br /></li>
+				<li>
+					<a href="#Karma" data-section="Karma" data-toggle="tab" data-div="#karmaTarget" data-action="@Url.Action("GetKarma", "UserKarma")">
+						<i class="icon-thumbs-up pull-right"></i>
+						@Resources.User.menuKarmaLabel
+					</a>
+				</li>
+				@if (ClaimsUser.IsShareholder)
+				{
+				<li>
+					<a href="#Shareholder" data-section="Shareholder" data-toggle="tab" data-div="#shareholderTarget" data-action="@Url.Action("GetShareholder", "UserShareholder")">
+						<i class="icon-barchartasc pull-right"></i>
+						@Resources.User.menuShareholderLabel
+					</a>
+				</li>
+				}
+				<li>
+					<a href="#TermDepositStatus" data-section="TermDepositStatus" data-toggle="tab" data-div="#termDepositStatusTarget" data-action="@Url.Action("GetTermDeposit", "UserTermDeposit")">
+						<i class="icon-appointment-agenda pull-right"></i>
+						@Resources.User.menuTermDepositsLabel
+					</a>
+				</li>
+				<li>
+					<a href="#PaytopiaHistory" data-section="PaytopiaHistory" data-toggle="tab" data-div="#paytopiaHistoryTarget" data-action="@Url.Action("GetPaytopia", "UserPaytopia")">
+						<i class="icon-creditcard pull-right"></i>
+						@Resources.User.menuPaytopiaLabel
+					</a>
+				</li>
+				<li><br /></li>
+				<li>
+					<a href="#DepositHistory" data-section="DepositHistory" data-toggle="tab" data-div="#depositsTarget" data-action="@Url.Action("GetDeposits", "UserDeposit")">
+						<i class="icon-download-alt pull-right"></i>
+						@Resources.User.menuDepositHistoryLabel
+					</a>
+				</li>
+				<li>
+					<a href="#WithdrawHistory" data-section="WithdrawHistory" data-toggle="tab" data-div="#withdrawsTarget" data-action="@Url.Action("GetWithdrawals", "UserWithdraw")">
+						<i class="icon-uploadalt pull-right"></i>
+						@Resources.User.menuWithdrawHistoryLabel
+					</a>
+				</li>
+
+				<li>
+					<a href="#TradeHistory" data-section="TradeHistory" data-toggle="tab" data-div="#tradeHistoryTarget" data-action="@Url.Action("GetTradeHistory", "UserExchange")">
+						<i class="icon-history pull-right"></i>
+						@Resources.User.menuTradeHistoryLabel
+					</a>
+				</li>
+				<li>
+					<a href="#TransferHistory" data-section="TransferHistory" data-toggle="tab" data-div="#transfersTarget" data-action="@Url.Action("GetTransfers", "UserTransfer")">
+						<i class="glyphicon glyphicon-transfer pull-right"></i>
+						@Resources.User.menuTransferHistoryLabel
+					</a>
+				</li>
+				<li>
+					<a href="#MineshaftHistory" data-section="MineshaftHistory" data-toggle="tab" data-div="#mineshaftHistoryTarget" data-action="@Url.Action("GetHistory", "UserMineshaft")">
+						<i class="icon-pickaxe pull-right"></i>
+						@Resources.User.menuMineshaftHistoryLabel
+					</a>
+				</li>
+				<li>
+					<a href="#MarketplaceHistory" data-section="MarketplaceHistory" data-toggle="tab" data-div="#marketplaceHistoryTarget" data-action="@Url.Action("GetHistory", "UserMarketplace")">
+						<i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+						@Resources.User.menuMarketplaceHistoryLabel
+					</a>
+				</li>
+				<li>
+					<a href="#ReferralHistory" data-section="ReferralHistory" data-toggle="tab" data-div="#referralHistoryTarget" data-action="@Url.Action("GetReferrals", "UserReferral")">
+						<i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+						@Resources.User.menuReferralHistoryLabel
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="col-sm-10 col-xs-8">
+	<div class="tab-content" style="padding-top:10px">
+		<div class="tab-pane fade" id="Account">
+			<div id="accountTarget"></div>
+		</div>
+		@if (ClaimsUser.IsShareholder)
+		{
+		<div class="tab-pane fade" id="Shareholder">
+			<div id="shareholderTarget"></div>
+		</div>
+		}
+		<div class="tab-pane fade" id="Settings">
+			<div id="settingsTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="Security">
+			<div id="securityTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="Messages">
+			<div id="messageTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="Notifications">
+			<div id="notificationTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="Karma">
+			<div id="karmaTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="Balances">
+			<div id="balanceTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="Trades">
+			<div id="tradesTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="MarketItems">
+			<div id="marketItemsTarget"></div>
+		</div>
+
+		<div class="tab-pane fade" id="DepositHistory">
+			<div id="depositsTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="WithdrawHistory">
+			<div id="withdrawsTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="TransferHistory">
+			<div id="transfersTarget"> </div>
+		</div>
+		<div class="tab-pane fade" id="TradeHistory">
+			<div id="tradeHistoryTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="MineshaftHistory">
+			<div id="mineshaftHistoryTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="MarketplaceHistory">
+			<div id="marketplaceHistoryTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="TermDepositStatus">
+			<div id="termDepositStatusTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="PaytopiaHistory">
+			<div id="paytopiaHistoryTarget"></div>
+		</div>
+		<div class="tab-pane fade" id="ReferralHistory">
+			<div id="referralHistoryTarget"></div>
+		</div>
+	</div>
+</div>
+@Html.Partial("_SEOPartial")
+@section Scripts {
+	@Scripts.Render("~/Scripts/ZeroClipboard.min.js")
+	@Scripts.Render("~/Scripts/jquery.easing.1.3.js")
+	@Scripts.Render("~/Scripts/Project/User/user.min.js")
+}

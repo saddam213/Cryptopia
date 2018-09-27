@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="blockCancelAllOrdersMessage" xml:space="preserve">
+    <value>Canceling all orders...</value>
+  </data>
+  <data name="blockCancelOrderMessage" xml:space="preserve">
+    <value>Canceling order...</value>
+  </data>
+  <data name="blockCancelTradePairMessage" xml:space="preserve">
+    <value>Canceling orders...</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="confirmCancelAllOrdersMessage" xml:space="preserve">
+    <value>Are you ABSOLUTELY sure you want to cancel ALL your orders for ALL currencies?</value>
+  </data>
+  <data name="confirmCancelAllOrdersTitle" xml:space="preserve">
+    <value>Cancel All Orders?</value>
+  </data>
+  <data name="confirmCancelTradePairTitle" xml:space="preserve">
+    <value>Cancel All Orders?</value>
+  </data>
+  <data name="confirmCancelTradePairTitleMessage" xml:space="preserve">
+    <value>Are you ABSOLUTELY sure you want to cancel ALL orders in this list?</value>
+  </data>
+  <data name="errorContactSupportLink" xml:space="preserve">
+    <value>Cryptopia Support</value>
+  </data>
+  <data name="errorContactSupportText" xml:space="preserve">
+    <value>An error occurred while processing your request, If problems persist please contact</value>
+  </data>
+  <data name="errorOhSnap" xml:space="preserve">
+    <value>Oh Snap!</value>
+  </data>
+  <data name="errorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="exportClipboardButton" xml:space="preserve">
+    <value>Copy Page</value>
+  </data>
+  <data name="exportCsvButton" xml:space="preserve">
+    <value>Export page to csv</value>
+  </data>
+  <data name="exportExcelButton" xml:space="preserve">
+    <value>Export page to Excel</value>
+  </data>
+  <data name="exportPdfButton" xml:space="preserve">
+    <value>Export page to pdf</value>
+  </data>
+  <data name="exportPrintButton" xml:space="preserve">
+    <value>Print Page</value>
+  </data>
+  <data name="footApi" xml:space="preserve">
+    <value>API</value>
+  </data>
+  <data name="footConditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="footContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="footCopyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="footCopyrightReserved" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="footCryptopiaIRC" xml:space="preserve">
+    <value>Cryptopia IRC</value>
+  </data>
+  <data name="footHelpAndFaq" xml:space="preserve">
+    <value>Help &amp; FAQ</value>
+  </data>
+  <data name="footNotResponsible" xml:space="preserve">
+    <value>Cryptopia Ltd. is not responsible for losses caused by outages, network volatility, wallet forks/maintenance or market conditions.</value>
+  </data>
+  <data name="footPrivateApi" xml:space="preserve">
+    <value>Private API</value>
+  </data>
+  <data name="footPublicApi" xml:space="preserve">
+    <value>Public API</value>
+  </data>
+  <data name="footSecurity" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="footSocial" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="footSupport" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="footTerms" xml:space="preserve">
+    <value>Usage of Cryptopia.co.nz indicates acceptance of the Cryptopia Ltd.</value>
+  </data>
+  <data name="footTermsLink" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
+  <data name="footTextInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="karmaChatErrorAlreadySentMessage" xml:space="preserve">
+    <value>You have already sent {0} good karma for this message.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaChatErrorLimitMessage" xml:space="preserve">
+    <value>You have reached your daily limit of 20 chat karma points.</value>
+  </data>
+  <data name="karmaChatErrorMessageNotFoundMessage" xml:space="preserve">
+    <value>Users message not found.</value>
+  </data>
+  <data name="karmaChatIsSentMessage" xml:space="preserve">
+    <value>Successfully sent {0} good karma.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaChatNotificationMessage" xml:space="preserve">
+    <value>+1 Karma from {0} for your chat message.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaErrorUnauthorizedMessage" xml:space="preserve">
+    <value>Unauthorized.</value>
+  </data>
+  <data name="karmaErrorUserNotFoundMessage" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="karmaForumErrorAlreadySentMessage" xml:space="preserve">
+    <value>You have already sent {0} good karma for this post.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaForumIsSentMessage" xml:space="preserve">
+    <value>Successfully sent {0} good karma.</value>
+  </data>
+  <data name="karmaForumMessageNotFoundMessage" xml:space="preserve">
+    <value>Users message not found.</value>
+  </data>
+  <data name="karmaForumNotificationMessage" xml:space="preserve">
+    <value>+1 Karma from {0} for your forum post.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaTipErrorAlreadySentMessage" xml:space="preserve">
+    <value>You have already sent {0} good karma for this tip.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="karmaTipErrorNotFoundMessage" xml:space="preserve">
+    <value>Users tip not found.</value>
+  </data>
+  <data name="karmaTipIsSentMessage" xml:space="preserve">
+    <value>Successfully sent {0} good karma.</value>
+  </data>
+  <data name="karmaTipNotificationMessage" xml:space="preserve">
+    <value>+1 Karma from {0} for your tip.</value>
+    <comment>{0} - User name</comment>
+  </data>
+  <data name="linkifyForbiddenLink" xml:space="preserve">
+    <value>Forbidden Link</value>
+  </data>
+  <data name="menuAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="menuArbitrage" xml:space="preserve">
+    <value>Arbitrage</value>
+  </data>
+  <data name="menuBalances" xml:space="preserve">
+    <value>Balances</value>
+  </data>
+  <data name="menuClearNotifications" xml:space="preserve">
+    <value>Clear Notifications</value>
+  </data>
+  <data name="menuCoinInfo" xml:space="preserve">
+    <value>CoinInfo</value>
+  </data>
+  <data name="menuDayModeHint" xml:space="preserve">
+    <value>Day Mode</value>
+  </data>
+  <data name="menuExchange" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="menuForums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="menuHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="menuInboxMessages" xml:space="preserve">
+    <value>Inbox Messages</value>
+  </data>
+  <data name="menuLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="menuLogoutHint" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="menuLotto" xml:space="preserve">
+    <value>Lotto</value>
+  </data>
+  <data name="menuMarketplace" xml:space="preserve">
+    <value>Marketplace</value>
+  </data>
+  <data name="menuMarkets" xml:space="preserve">
+    <value>Markets</value>
+  </data>
+  <data name="menuNews" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="menuNightModeHint" xml:space="preserve">
+    <value>Night Mode</value>
+  </data>
+  <data name="menuNoNotification" xml:space="preserve">
+    <value>No new notifications</value>
+  </data>
+  <data name="menuNotifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="menuOpenOrders" xml:space="preserve">
+    <value>Open Orders</value>
+  </data>
+  <data name="menuPaytopia" xml:space="preserve">
+    <value>Paytopia</value>
+  </data>
+  <data name="menuRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="menuRewards" xml:space="preserve">
+    <value>Rewards</value>
+  </data>
+  <data name="menuSelectLanguageHint" xml:space="preserve">
+    <value>Select language</value>
+  </data>
+  <data name="menuSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menuSupport" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="menuWallets" xml:space="preserve">
+    <value>Wallets</value>
+  </data>
+  <data name="menuWalletsDeposit" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="menuWalletsTransfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="menuWalletsWithdraw" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="messageContactSupport" xml:space="preserve">
+    <value>please contact</value>
+  </data>
+  <data name="messageContactSupportLink" xml:space="preserve">
+    <value>Cryptopia Support</value>
+  </data>
+  <data name="messageLogin" xml:space="preserve">
+    <value>please</value>
+  </data>
+  <data name="messageLoginEx" xml:space="preserve">
+    <value>to log in</value>
+  </data>
+  <data name="messageLoginLink" xml:space="preserve">
+    <value>click here</value>
+  </data>
+  <data name="metaDescription" xml:space="preserve">
+    <value>Crypto-Currency Trading, Forum and Marketplace platform.</value>
+  </data>
+  <data name="modalInvalidRequestMessage1" xml:space="preserve">
+    <value>Your request was not formed properly. Please refresh the page and try again.</value>
+  </data>
+  <data name="modalInvalidRequestMessage2" xml:space="preserve">
+    <value>If the problem continues, please contact support.</value>
+  </data>
+  <data name="modalInvalidRequestTitle" xml:space="preserve">
+    <value>Invalid Request</value>
+  </data>
+  <data name="modalLoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="ratingRated" xml:space="preserve">
+    <value>Rated</value>
+  </data>
+  <data name="ratingUnrated" xml:space="preserve">
+    <value>Unrated</value>
+  </data>
+  <data name="starRatingHint" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="themeDark" xml:space="preserve">
+    <value>Dark Mode</value>
+  </data>
+  <data name="themeLight" xml:space="preserve">
+    <value>Day Mode</value>
+  </data>
+  <data name="unauthorizedHeadline" xml:space="preserve">
+    <value>Unauthorized!</value>
+  </data>
+  <data name="unauthorizedLoginMessage" xml:space="preserve">
+    <value>You need to be logged in to perform this action</value>
+  </data>
+  <data name="unauthorizedLoginMessageTitle" xml:space="preserve">
+    <value>Please Login</value>
+  </data>
+  <data name="unauthorizedMessage" xml:space="preserve">
+    <value>You are not authorized to view this area.</value>
+  </data>
+  <data name="unauthorizedTitle" xml:space="preserve">
+    <value>Unauthorized</value>
+  </data>
+  <data name="modalInvalidHeadline" xml:space="preserve">
+    <value>Invalid Request</value>
+  </data>
+  <data name="modalInvalidInfoText" xml:space="preserve">
+    <value>Your request was not formed properly. Please refresh the page and try again.</value>
+  </data>
+  <data name="modalInvalidSupportText" xml:space="preserve">
+    <value>If the problem continues, please contact support.</value>
+  </data>
+</root>

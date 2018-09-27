@@ -1,0 +1,36 @@
+﻿@model Web.Site.Models.ViewMessageModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modalform modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header alert alert-@Model.Type.ToString().ToLower()" style="-moz-border-radius:5px!important;-webkit-border-radius:5px!important;border-radius:5px!important">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Success: false });">×</button>
+			<h4 class="modal-title"><strong>@Model.Title</strong></h4>
+		</div>
+		<div class="modal-body">
+			@if (Model.ShowLoginLink)
+			{
+			<p style="white-space:pre-line">@Model.Message, @Resources.Layout.messageLogin <b>@Html.ActionLink(@Resources.Layout.messageLoginLink, "Login", "Login", new { ReturnUrl = Model.ReturnUrl }, null)</b>@(Resources.Layout.messageLoginEx).</p>
+			}
+			else if (Model.ShowSupportLink)
+			{
+			<p style="white-space:pre-line">@Model.Message, @Resources.Layout.messageContactSupport <a class="alert-link" href="/Support">@Resources.Layout.messageContactSupportLink</a>.</p>
+			}
+			else if (Model.ShowContinueLink)
+			{
+			<p style="white-space:pre-line">@Model.Message</p>
+			<hr />
+			<a href="@Model.ContinueLink" class="btn btn-sm btn-info">@Model.ContinueLinkText</a>
+			}
+			else
+			{
+			<p style="white-space:pre-line">@Model.Message</p>
+			}
+		</div>
+		<div class="modal-footer">
+			<button style="width: 70px" class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close({ Success: true });">@Cryptopia.Resources.General.OK</button>
+		</div>
+	</div>
+</div>

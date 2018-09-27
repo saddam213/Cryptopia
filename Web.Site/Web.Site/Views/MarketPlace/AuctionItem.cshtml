@@ -1,0 +1,233 @@
+﻿@using Cryptopia.Enums
+@model Web.Site.Models.MarketItemModel
+@{
+   
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12  col-xs-12">
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h3>@Model.Title</h3>
+        <div>
+            <p class="marketplace-item-desc">@Model.Description</p>
+        </div>
+        <hr />
+        <div>
+            @if (Model.Status == MarketItemStatus.Closed)
+            {
+                <h3 class="text-danger">@Resources.Market.itemStatusClosedHeadline</h3>
+            }
+            else if (Model.Status == MarketItemStatus.Complete)
+            {
+
+                if (Model.IsUserListing)
+                {
+                <h3 class="text-success">@Resources.Market.itemStatusCompletedHeadline</h3>
+                <p>
+                    @Resources.Market.itemStatusCompletedText
+                </p>
+                <!-- Buyer details -->
+                <strong class="text-info marketplace-item-heading">@Resources.Market.itemBuyerDetailLabel:</strong>
+                <div>
+                    <div>
+                        <span>
+                            <strong>@Resources.Market.itemBuyerLabel:</strong>
+                            @Model.BuyerUserName
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong>@Resources.Market.itemBuyersTrustRatingLabel:</strong>
+                            @{Html.RenderPartial("StarRating", Model.BuyersTrustRating);}
+                        </span>
+                    </div>
+                    <a href="/MarketFeedback/@Model.BuyerUserName">@Resources.Market.itemBuyersFeedbackLink</a>
+                </div>
+                }
+                else if (Model.IsUserBuyer)
+                {
+					<h3 class="text-success">@Resources.Market.itemStatusCompletedByYouHeadline.</h3>
+					<p>@Resources.Market.itemStatusCompletedByYouText</p>                    
+                }
+                else
+                {
+					<h3 class="text-success">@Resources.Market.itemStatusCompletedByUserHeadline</h3>
+				}
+
+				if (Model.IsUserBuyer || Model.IsUserListing)
+				{
+				<small style="font-style: italic;">
+					@Html.Raw(String.Format(Resources.Market.itemItemCompletedWarningHtml, 
+								"<a href=\"/Support/Support\">" + Cryptopia.Resources.General.CryptopiaSupportLink + "</a>"))
+				</small>
+				}
+
+                <hr />
+                <!-- Feedback -->
+                { Html.RenderPartial("Feedback", Model); }
+
+            }
+
+            <!-- Price -->
+            <strong class="text-info marketplace-item-heading">@Resources.Market.itemCurrentBidLabel:</strong>
+            <div class="marketplace-item-price">
+				@string.Format("{0} {1}", Model.CurrentBidPrice, Model.Symbol) 
+			    <span class="glyphicon glyphicon-flag @(Model.ReserveMet ? "text-success" : Model.NoReserve ? "text-danger" : "text-warning")" 
+				      title="@(Model.ReserveMet ? Resources.Market.marketItemAuctionReserveMetTitle : Model.NoReserve ? Resources.Market.marketItemAuctionNoReserveTitle : Resources.Market.marketItemAuctionReserveNotMetTitle)">
+				</span>
+			</div>
+            <div style="font-style:italic;" class="@(Model.ReserveMet || Model.NoReserve ? "text-success" : "text-warning")">
+                <small>@(Model.ReserveMet ? Resources.Market.marketItemAuctionReserveMetTitle : Model.NoReserve ? Resources.Market.marketItemAuctionNoReserveTitle : Resources.Market.marketItemAuctionReserveNotMetTitle)</small>
+            </div>
+        </div>
+        <br />
+
+        <!-- Details -->
+        @{Html.RenderPartial("Details", Model);}
+
+        <hr />
+
+        <!-- Buy Edit buttons -->
+        <div>
+            @if (Model.Status == MarketItemStatus.Active)
+            {
+                if (Model.IsUserListing)
+                {
+                    using (Html.BeginForm("EditMarketItem", "MarketPlace", FormMethod.Get, new { @class = "inline-block" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						<input type="submit" class="btn btn-warning marketplace-item-user-btn" value="@Resources.Market.itemEditListingButton" />
+                    }
+                    using (Html.BeginForm("CancelMarketItem", "MarketPlace", FormMethod.Post, new { @class = "inline-block", @id = "form-cancel" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						<input id="submit-cancel" type="submit" class="btn btn-danger marketplace-item-user-btn" value="@Resources.Market.itemCancelListingButton" />
+                    }
+                }
+                else
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("SubmitBid", "MarketPlace", FormMethod.Post, new { @id = "form-bid" }))
+                        {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("MarketItemId", Model.Id)
+						@Html.Hidden("MarketItemType", Model.Type)
+                 
+						@Html.Hidden("Currency", Model.Symbol)
+						@Html.Hidden("MarketItemTitle", Model.Title)
+                         
+						<div>
+							<div><strong class="text-info marketplace-item-heading">@Resources.Market.itemPlaceBidLabel:</strong></div>
+							<span>
+								@Html.TextBox("BidAmount", Model.CurrentBidPrice, new { @type = "number", @class = " input-sm", @style = "min-width:200px; border:none" })
+								@Model.Symbol
+							</span>
+						</div>
+              
+						<input id="submit-bid" type="submit" class="btn btn-info marketplace-item-buy-btn" value="@Resources.Market.itemPlaceBidButton" />
+                        }
+                    }
+                    else
+                    {
+						<a href="/Login?ReturnUrl=%2FMarketItem/@Model.Id" class="btn btn-info marketplace-item-buy-btn">@Resources.Market.itemPlaceBidButton</a>
+                    }
+                }
+            }
+            else 
+            {
+                if (Model.IsUserListing)
+                {
+                    using (Html.BeginForm("RelistMarketItem", "MarketPlace", FormMethod.Post, new { @class = "inline-block" }))
+                    {
+						@Html.AntiForgeryToken()
+						@Html.Hidden("marketItemId", Model.Id)
+						<input type="submit" class="btn btn-info marketplace-item-user-btn" value="@Resources.Market.itemRelistButton" />
+                    }
+                }
+                <hr />   
+            }
+
+            <hr />
+            <div><strong class="text-info marketplace-item-heading">@Resources.Market.itemHistoryHeadline:</strong></div>
+            <table class="tablelayout">
+                <thead>
+                    <tr>
+                        <th class="text-center"><small style="font-style: italic">@Resources.Market.itemHistoryAmountColumn</small> </th>
+                        <th class="text-center"><small style="font-style: italic">@Resources.Market.itemHistoryUserColumn</small> </th>
+                        <th class="text-center"><small style="font-style: italic">@Resources.Market.itemHistoryRatingColumn</small> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Bids.Any())
+                    {
+                        foreach (var bid in Model.Bids)
+                        {
+                        <tr>
+                            <td>
+                                <div class="pull-right">@bid.Amount @Model.Symbol</div>
+                            </td>
+                            <td><a style="margin-left:10px" href="/MarketFeedback/@bid.UserName">@bid.UserName</a></td>
+                            <td><div style="margin-left:10px">@{Html.RenderPartial("StarRating", bid.TrustRating);}</div> </td>
+                        </tr>
+                        }
+                    }
+
+                    else
+                    {
+                        <tr>
+                            <td><span style="font-style: italic">@Resources.Market.itemHistoryEmptyListMessage</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <hr />
+        </div>
+
+
+        <!-- Question Answer section -->
+        @{Html.RenderPartial("Questions", Model);}
+
+        <hr />
+    </div>
+
+    <!-- Images -->
+    @{Html.RenderPartial("Images", Model);}
+</div>
+<div class="clearfix"></div>
+
+<script>
+    $(document).ready(function () {
+
+      @*  $('#submit-buy').click(function (e) {
+            e.preventDefault();
+            var message = '@string.Format("Are you sure you want to buy this '{0}' for {1} {2}?", Model.Title, Model.AskingPrice, Model.Symbol)'
+            confirm("Confirm Buy", message, function () {
+                $.blockUI({ message: 'Please wait...' });
+                $('#form-buy').submit();
+            });
+        });*@
+
+		$('#submit-bid').click(function (e) {
+            e.preventDefault();
+			var bidAmount = $('#BidAmount').val();			
+			var message = String.format('@Resources.Market.itemConfirmBidQuestion', bidAmount, '@Model.Symbol', '@Model.Title');
+            confirm("@Resources.Market.itemConfirmBidQuestionTitle", message, function () {
+                $.blockUI({ message: '@Cryptopia.Resources.General.PleaseWaitMessage' });
+                $('#form-bid').submit();
+            });
+        });
+
+        $('#submit-cancel').click(function (e) {
+			e.preventDefault();                              
+            confirm("@Resources.Market.itemCancelQuestionTitle", "@Resources.Market.itemCancelQuestion", function () {
+                $.blockUI({ message: '@Cryptopia.Resources.General.PleaseWaitMessage' });
+                $('#form-cancel').submit();
+            });
+        });
+
+    });
+</script>

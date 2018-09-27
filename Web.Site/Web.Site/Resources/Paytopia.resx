@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="currencyCurrencyLabel" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="currencyInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to purchase a new featured currency slot</value>
+  </data>
+  <data name="currencyNextAvailableWeekInfoText" xml:space="preserve">
+    <value>Next available featured slot for {0} is Week</value>
+    <comment>{0} - Currency symbol</comment>
+  </data>
+  <data name="currencyPurchasedInfoText" xml:space="preserve">
+    <value>Pending slots already purchased for</value>
+  </data>
+  <data name="exchangeComboBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to submit your coin, administrators will review the coin/code and begin the listing process immediately, if for any reason the listing is rejected due to incompatibility or the code review should fail the full listing price will be immediately refunded to your account.</value>
+  </data>
+  <data name="exchangeComboHeadline" xml:space="preserve">
+    <value>Exchange Combo Listing</value>
+  </data>
+  <data name="exchangeListingHeadline" xml:space="preserve">
+    <value>Exchange Listing</value>
+  </data>
+  <data name="exchangeListingInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to submit your coin, administrators will review the coin/code and begin the listing process immediately, if for any reason the listing is rejected due to incompatibility or the code review should fail the full listing price will be immediately refunded to your account.</value>
+  </data>
+  <data name="lottoBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to purchase a new lotto slot, slot will remain active until {0}</value>
+    <comment>{0} - time </comment>
+  </data>
+  <data name="lottoHeadline" xml:space="preserve">
+    <value>Buy Lotto Game</value>
+  </data>
+  <data name="paytopiaAuthInfoText" xml:space="preserve">
+    <value>The ultimate way to secure your account.</value>
+  </data>
+  <data name="paytopiaAuthLine1Text" xml:space="preserve">
+    <value>One Time Passwords</value>
+  </data>
+  <data name="paytopiaAuthLine2Text" xml:space="preserve">
+    <value>Worldwide Delivery</value>
+  </data>
+  <data name="paytopiaAuthLine3Text" xml:space="preserve">
+    <value>Advanced Security</value>
+  </data>
+  <data name="paytopiaAuthLine4Text" xml:space="preserve">
+    <value>Exclusive to Cryptopia</value>
+  </data>
+  <data name="paytopiaAvailableLabel" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="paytopiaBuyNowButton" xml:space="preserve">
+    <value>Buy Now</value>
+  </data>
+  <data name="paytopiaComboInfoText" xml:space="preserve">
+    <value>Listing subject to developer review</value>
+  </data>
+  <data name="paytopiaComboLine1Text" xml:space="preserve">
+    <value>Exchange Listing</value>
+  </data>
+  <data name="paytopiaComboLine2Text" xml:space="preserve">
+    <value>1 Month Reward Slot</value>
+  </data>
+  <data name="paytopiaComboLine3Text" xml:space="preserve">
+    <value>2 Month Tipping Slot</value>
+  </data>
+  <data name="paytopiaComboLine4Text" xml:space="preserve">
+    <value>1 Month Featured Currency</value>
+  </data>
+  <data name="paytopiaComboStickerHtml" xml:space="preserve">
+    <value>BEST&lt;br&gt;DEAL</value>
+  </data>
+  <data name="paytopiaCurrencyInfoText" xml:space="preserve">
+    <value>Great advertising opportunity</value>
+  </data>
+  <data name="paytopiaCurrencyLine1Text" xml:space="preserve">
+    <value>5 Weekly Slots</value>
+  </data>
+  <data name="paytopiaCurrencyLine2Text" xml:space="preserve">
+    <value>High Traffic Visibility</value>
+  </data>
+  <data name="paytopiaExchangeInfoText" xml:space="preserve">
+    <value>Listing subject to developer review</value>
+  </data>
+  <data name="paytopiaExchangeLine1Text" xml:space="preserve">
+    <value>3 Base Markets</value>
+  </data>
+  <data name="paytopiaExchangeLine2Text" xml:space="preserve">
+    <value>High Performance Trade Engine</value>
+  </data>
+  <data name="paytopiaExchangeLine3Text" xml:space="preserve">
+    <value>Arbitrage Tools</value>
+  </data>
+  <data name="paytopiaExchangeLine4Text" xml:space="preserve">
+    <value>Marketplace Integration</value>
+  </data>
+  <data name="paytopiaFaqLabel" xml:space="preserve">
+    <value>More Info</value>
+  </data>
+  <data name="paytopiaFaqLink" xml:space="preserve">
+    <value>Cryptopia Authenticator FAQ</value>
+  </data>
+  <data name="paytopiaInfoText" xml:space="preserve">
+    <value>Paytopia is a quick and easy place to purchase the features and services provided by Cryptopia</value>
+  </data>
+  <data name="paytopiaPageTitle" xml:space="preserve">
+    <value>Paytopia</value>
+  </data>
+  <data name="paytopiaPriceLabel" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="paytopiaRewardInfoText" xml:space="preserve">
+    <value>Fantastic distribution mechanism</value>
+  </data>
+  <data name="paytopiaRewardLine1Text" xml:space="preserve">
+    <value>Randomized Payments</value>
+  </data>
+  <data name="paytopiaRewardLine2Text" xml:space="preserve">
+    <value>Faucet Style Distribution</value>
+  </data>
+  <data name="paytopiaTippingInfoText" xml:space="preserve">
+    <value>Fantastic distribution mechanism</value>
+  </data>
+  <data name="paytopiaTippingLine1Text" xml:space="preserve">
+    <value>API Support</value>
+  </data>
+  <data name="paytopiaTippingLine2Text" xml:space="preserve">
+    <value>Multiple Tipping Options</value>
+  </data>
+  <data name="poolAlreadyPurchasedInfoText" xml:space="preserve">
+    <value>Pending slots already purchased for {0}</value>
+    <comment>{0} - currency symbol</comment>
+  </data>
+  <data name="poolBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to purchase a new featured pool slot</value>
+  </data>
+  <data name="poolListingBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to submit your coin, administrators will review the coin/code and begin the listing process immediately, if for any reason the listing is rejected due to incompatibility or the code review should fail the full listing price will be immediately refunded to your account.</value>
+  </data>
+  <data name="poolListingExtendInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to extend this pool subscription for another 30 days</value>
+  </data>
+  <data name="poolListingHeadline" xml:space="preserve">
+    <value>PoolListing</value>
+  </data>
+  <data name="poolNextAvailableInfoText" xml:space="preserve">
+    <value>Next available featured slot for {0} is Week</value>
+    <comment>{0} - currency symbol</comment>
+  </data>
+  <data name="poolPoolLabel" xml:space="preserve">
+    <value>Pool</value>
+  </data>
+  <data name="rewardBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to purchase a new reward slot, slot will remain active until {0}</value>
+    <comment>{0} - time placeholder</comment>
+  </data>
+  <data name="rewardCurrencyLabel" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="rewardExtendInfoLabel" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="rewardExtendInfoText" xml:space="preserve">
+    <value>This reward slot is still active, click 'Buy Now' to extend this slot until {0}</value>
+    <comment>{0} - time placeholder</comment>
+  </data>
+  <data name="rewardHeadline" xml:space="preserve">
+    <value>Buy Reward Slot</value>
+  </data>
+  <data name="sharesBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to submit your share request, administrators will review your details and begin the share transfer process, if for any reason the request is rejected the full purchsae price will be immediately refunded to your account.</value>
+  </data>
+  <data name="sharesConditionsInfoText" xml:space="preserve">
+    <value>Please ensure you have read and understand the {0} of owning a Cryptopia share.</value>
+    <comment>{0} - Conditions link</comment>
+  </data>
+  <data name="sharesConditionsLink" xml:space="preserve">
+    <value>conditions</value>
+  </data>
+  <data name="sharesHeadline" xml:space="preserve">
+    <value>Cryptopia Shares</value>
+  </data>
+  <data name="sharesTotalPriceLabel" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="tipBuyNowInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to purchase a new tipping slot, slot will remain active until {0}</value>
+    <comment>{0} - time placeholder</comment>
+  </data>
+  <data name="tipSlotCurrencyLabel" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="tipSlotExtendInfoLabel" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="tipSlotExtendInfoText" xml:space="preserve">
+    <value>This tipping slot is still active, click 'Buy Now' to extend this slot until {0}</value>
+    <comment>{0} - time placeholder</comment>
+  </data>
+  <data name="tipSlotHeadline" xml:space="preserve">
+    <value>TipSlot</value>
+  </data>
+  <data name="twoFactorHeadline" xml:space="preserve">
+    <value>Cryptopia Authentication Device</value>
+  </data>
+  <data name="twoFactorInfoText" xml:space="preserve">
+    <value>Click 'Buy Now' to submit your Cryptopia Authentication device request, Your device will be sent out within 3 business days.</value>
+  </data>
+  <data name="twoFactorMoreInfoLink" xml:space="preserve">
+    <value>here</value>
+  </data>
+  <data name="twoFactorMoreInfoText" xml:space="preserve">
+    <value>For more information on the Cryptopia Authentication device please see click {0}</value>
+    <comment>{0} - link placeholder</comment>
+  </data>
+</root>

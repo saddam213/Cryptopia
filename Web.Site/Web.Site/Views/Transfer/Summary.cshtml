@@ -1,0 +1,36 @@
+﻿@model Cryptopia.Common.Transfer.TransferModel
+@{
+	ViewBag.IsFullPage = true;
+	ViewBag.Title = Resources.UserWallet.transferSummaryPageTitle;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad withdraw-container">
+		<div class="col-md-12" style="padding-top:15px">
+			<div class="alert alert-success" style="margin-bottom:0">
+				<h4><b>@Resources.UserWallet.transferSummaryHeadline</b></h4>
+				<p>@Resources.UserWallet.transferSummaryInfoText</p>
+				<br />
+				<table class="table table-condensed" style="table-layout:fixed;margin-bottom:0">
+					<tr>
+						<td width="80px">@Resources.UserWallet.transferSummaryReceiverLabel:</td>
+						<td>@Model.Receiver</td>
+					</tr>
+					<tr>
+						<td>@Resources.UserWallet.transferSummaryAmountLabel:</td>
+						<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="text-center withdraw-button-container" >
+				<a class="btn btn-success btnfullwidth" href="@(string.IsNullOrEmpty(Model.ReturnUrl) ? "/Transfer" : Model.ReturnUrl)">@Resources.UserWallet.transferSummaryDoneButton</a>
+			</div>
+		</div>
+		<div class="col-md-12 text-center withdraw-container-link">
+			<a href="@Url.RouteUrl("TransferHistory")">@Resources.UserWallet.transferHistoryLink</a>
+		</div>
+	</div>
+</div>

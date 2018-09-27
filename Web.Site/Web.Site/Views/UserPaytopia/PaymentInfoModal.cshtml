@@ -1,0 +1,279 @@
+﻿@model Cryptopia.Common.Paytopia.PaytopiaPaymentModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+	var textClass = Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Complete
+		? "text-success"
+		: Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded
+		? "text-danger"
+		: "text-warning";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({Cancel:true});">×</button>
+			<h3 class="modal-title">Payment Receipt</h3>
+		</div>
+
+		<div class="modal-body">
+			<div class="row">
+				@if ((Model.Type == Cryptopia.Enums.PaytopiaItemType.ExchangeListing || Model.Type == Cryptopia.Enums.PaytopiaItemType.ComboListing) || (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId == 0))
+				{
+					var requestData = Json.Decode(Model.RequestData);
+					<div class="col-md-12">
+						<table class="table table-condensed table-striped" style="margin-bottom:0">
+							<tbody>
+								<tr>
+									<td>UserName</td>
+									<td>@Model.UserName</td>
+								</tr>
+								<tr>
+									<td>Payment Type</td>
+									<td>@Model.Type</td>
+								</tr>
+								<tr>
+									<td>Payment Id</td>
+									<td>#@Model.Id</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td class="@textClass">
+										<b>@Model.Status</b>
+									</td>
+								</tr>
+								@if (Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded)
+								{
+									<tr>
+										<td>Refund Reason</td>
+										<td>
+											<p style="white-space:pre-line">@Model.RefundReason</p>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td>Listing Name</td>
+									<td>@requestData.Name @requestData.Symbol</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				}
+				else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.LottoSlot)
+				{
+					var requestData = Json.Decode(Model.RequestData);
+					<div class="col-md-12">
+						<table class="table" style="margin-bottom:0">
+							<tbody>
+								<tr>
+									<td>UserName</td>
+									<td>@Model.UserName</td>
+								</tr>
+								<tr>
+									<td>Payment Type</td>
+									<td>@Model.Type</td>
+								</tr>
+								<tr>
+									<td>Payment Id</td>
+									<td>#@Model.Id</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td class="@textClass">
+										<b>@Model.Status</b>
+									</td>
+								</tr>
+								@if (Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded)
+								{
+									<tr>
+										<td>Refund Reason</td>
+										<td>
+											<p style="white-space:pre-line">@Model.RefundReason</p>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td>Game Name</td>
+									<td>@requestData.Name</td>
+								</tr>
+								<tr>
+									<td>Game Currency</td>
+									<td>@requestData.Symbol</td>
+								</tr>
+								<tr>
+									<td>TicketPrice</td>
+									<td>@requestData.TicketPrice.ToString("F8")</td>
+								</tr>
+								<tr>
+									<td>Game Period</td>
+									<td>@Model.Begins.ToString("dd/MM/yyyy") - @Model.Ends.ToString("dd/MM/yyyy")</td>
+								</tr>
+								<tr>
+									<td>Timestamp</td>
+									<td>@Model.Timestamp</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				}
+				else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.RewardSlot || Model.Type == Cryptopia.Enums.PaytopiaItemType.TipSlot || Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedCurrency || Model.Type == Cryptopia.Enums.PaytopiaItemType.FeaturedPool || (Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId > 0))
+				{
+					var poolExtension = Model.Type == Cryptopia.Enums.PaytopiaItemType.PoolListing && Model.ReferenceId > 0;
+					<div class="col-md-12">
+						<table class="table table-condensed table-striped" style="margin-bottom:0">
+							<tbody>
+								<tr>
+									<td>UserName</td>
+									<td>@Model.UserName</td>
+								</tr>
+								<tr>
+									<td>Payment Type</td>
+									<td>@(poolExtension ? "PoolExtension" : Model.Type.ToString())</td>
+								</tr>
+								<tr>
+									<td>Payment Id</td>
+									<td>#@Model.Id</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td class="@textClass">
+										<b>@Model.Status</b>
+									</td>
+								</tr>
+								@if (Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded)
+								{
+									<tr>
+										<td>Refund Reason</td>
+										<td>
+											<p style="white-space:pre-line">@Model.RefundReason</p>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td>Item</td>
+									<td>@Model.ReferenceName @Model.ReferenceSymbol</td>
+								</tr>
+								<tr>
+									<td>Item Period</td>
+									<td>@Model.Begins.ToString("dd/MM/yyyy") - @Model.Ends.ToString("dd/MM/yyyy")</td>
+								</tr>
+								<tr>
+									<td>Timestamp</td>
+									<td>@Model.Timestamp</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				}
+				else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.Shares)
+				{
+					var requestData = Json.Decode(Model.RequestData);
+					<div class="col-md-12">
+						<table class="table table-condensed table-striped" style="margin-bottom:0">
+							<tbody>
+								<tr>
+									<td>UserName</td>
+									<td>@Model.UserName</td>
+								</tr>
+								<tr>
+									<td>Payment Type</td>
+									<td>@Model.Type</td>
+								</tr>
+								<tr>
+									<td>Payment Id</td>
+									<td>#@Model.Id</td>
+								</tr>
+								<tr>
+									<td>Shares Purchased</td>
+									<td>@requestData.ShareCount</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td class="@textClass">
+										<b>@Model.Status</b>
+									</td>
+								</tr>
+								@if (Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded)
+								{
+									<tr>
+										<td>Refund Reason</td>
+										<td>
+											<p style="white-space:pre-line">@Model.RefundReason</p>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td>Timestamp</td>
+									<td>@Model.Timestamp</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				}
+				else if (Model.Type == Cryptopia.Enums.PaytopiaItemType.TwoFactor)
+				{
+					var requestData = Json.Decode(Model.RequestData);
+					<div class="col-md-12">
+						<table class="table table-condensed table-striped" style="margin-bottom:0">
+							<tbody>
+								<tr>
+									<td>UserName</td>
+									<td>@Model.UserName</td>
+								</tr>
+								<tr>
+									<td>Payment Type</td>
+									<td>@Model.Type</td>
+								</tr>
+								<tr>
+									<td>Payment Id</td>
+									<td>#@Model.Id</td>
+								</tr>
+								<tr>
+									<td>Price</td>
+									<td>@Model.Amount.ToString("F8") @Model.Symbol</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td class="@textClass">
+										<b>@Model.Status</b>
+									</td>
+								</tr>
+								@if (Model.Status == Cryptopia.Enums.PaytopiaPaymentStatus.Refunded)
+								{
+									<tr>
+										<td>Refund Reason</td>
+										<td>
+											<p style="white-space:pre-line">@Model.RefundReason</p>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td>Timestamp</td>
+									<td>@Model.Timestamp</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary button-180" onclick="$.modal.close({ Cancel: true });">Close</button>
+		</div>
+	</div>
+</div>

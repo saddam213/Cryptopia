@@ -1,0 +1,118 @@
+﻿@{
+	ViewBag.Title = "TradePair Admin";
+}
+
+<style>
+	.panel {
+		margin: 5px;
+	}
+</style>
+
+<div class="panel">
+	<div class="panel-heading"><h3>Trade Pairs</h3></div>
+	<div class="panel-body">
+		<table id="table-tradepair" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Name</td>
+					<td>Currency</td>
+					<td>BaseCurrency</td>
+					<td>Status</td>
+					<td>StatusMessage</td>
+					<td>
+						<button class="btn btn-primary btn-xs pull-right" style="min-width:80px" onclick="createTradePair();">Create</button>
+					</td>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		var table = $("#table-tradepair");
+		var tableAction = "@Url.Action("GetTradePairs", "TradePair")";
+		var tableActionUpdate = "@Url.Action("UpdateTradePair", "TradePair")";
+		var tableActionCreate = "@Url.Action("CreateTradePair", "TradePair")";
+
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+			"<'row'<'col-sm-12'tr>>" +
+			"<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+		var datatable = table.DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[1, "asc"]],
+			"searchDelay": 800,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"paging": true,
+			"pagingType": "simple",
+			"scrollCollapse": true,
+			"info": true,
+			"iDisplayLength": 10,
+			"sAjaxSource": tableAction,
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "There are no TradePairs.",
+				"searchPlaceholder": "Search TradePairs",
+				"search": ""
+			},
+			"columnDefs": [{
+				"targets": 5,
+				"visible": true,
+				"render": function (data, type, full, meta) {
+					return '<p style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:default" title="' + data + '">' + data + '</p>';
+				}
+			},
+			{
+				"targets": 6,
+				"visible": true,
+				"searchable": false,
+				"orderable": false,
+				"render": function (data, type, full, meta) {
+					return '<button class="btn btn-default btn-sm pull-right" style="min-width:80px" onclick="updateTradePair(' + full[0] + ')">Update</button>';
+				}
+			}]
+		});
+
+		function updateTradePair(id) {
+			openModalGet(tableActionUpdate, { id: id }, function (modalData) {
+				if (modalData && modalData.Success) {
+					datatable.ajax.reload();
+				}
+				showMessage(modalData);
+			});
+		}
+
+		function createTradePair() {
+			openModalGet(tableActionCreate, {}, function (modalData) {
+				if (modalData && modalData.Success) {
+					datatable.ajax.reload();
+				}
+				showMessage(modalData);
+			});
+		}
+
+		var searchDelay = null;
+		$('div.dataTables_filter input').off('keyup.DT input.DT');
+		$('div.dataTables_filter input').on('keyup', function (e) {
+			var _this = $(this);
+			var search = _this.val();
+			var delay = e.keyCode == 13 ? 0 : 2000;
+			clearTimeout(searchDelay);
+			searchDelay = setTimeout(function () {
+				if (search != null) {
+					var tableId = '#' + _this.closest('.dataTables_filter').attr("id").replace("_filter", "");
+					var table = $(tableId)
+					$(table.data("container") || '.right-content').block({ message: 'Searching...' });
+					table.DataTable().search(search).draw();
+				}
+			}, delay);
+		});
+	</script>
+
+}

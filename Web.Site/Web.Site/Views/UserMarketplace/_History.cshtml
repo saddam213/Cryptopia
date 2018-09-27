@@ -1,0 +1,36 @@
+﻿@{
+}
+
+<div class="table-header-container">
+	<h2 class="table-header">@Resources.UserData.marketHistoryHeadline</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="markethistory" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetHistory", "UserMarketplace")" data-action-feedback="@Url.Action("MarketFeedback", "MarketPlace")" data-action-marketitem="@Url.Action("MarketItem", "MarketPlace")">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>@Resources.UserData.marketTitleColumn</th>
+			<th>@Resources.UserData.marketTypeColumn</th>
+			<th>@Resources.UserData.marketBuyerColumn</th>
+			<th>@Resources.UserData.marketBuyersFeedbackColumn</th>
+			<th>@Resources.UserData.marketSellerColumn</th>
+			<th>@Resources.UserData.marketSellersFeedbackColumn</th>
+			<th>@Resources.UserData.marketStatusColumn</th>
+			<th>@Resources.UserData.marketOpenedColumn</th>
+			<th>@Resources.UserData.marketClosedColumn</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.MarketHistory = {
+		EmptyListMessage: '@Resources.UserData.marketHistoryEmptyListMessage',
+		OpenButton: '@Resources.UserData.marketOpenButton'
+	};
+</script>
+@Scripts.Render("~/Scripts/Project/User/userMarketplaceHistory.min.js")

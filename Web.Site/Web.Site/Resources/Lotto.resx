@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="createAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="createAvailableBalanceLabel" xml:space="preserve">
+    <value>Available Balance</value>
+  </data>
+  <data name="createBuyTicketButton" xml:space="preserve">
+    <value>Buy Ticket</value>
+  </data>
+  <data name="createHeadline" xml:space="preserve">
+    <value>Buy Lotto Ticket</value>
+  </data>
+  <data name="createText" xml:space="preserve">
+    <value>Buy a ticket for the next {0} draw</value>
+    <comment>{0} - Name placeholder</comment>
+  </data>
+  <data name="createTicketPriceLabel" xml:space="preserve">
+    <value>Ticket Price</value>
+  </data>
+  <data name="createTotalPriceLabel" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="createTwoFactorMailFailedMessage" xml:space="preserve">
+    <value>Failed to send email code to you two factor address, if problems persist please contact {0}</value>
+    <comment>{0} - Support link</comment>
+  </data>
+  <data name="createTwoFactorMailSentMessage" xml:space="preserve">
+    <value>Email successfully sent to your two factor address.</value>
+  </data>
+  <data name="createTwoFactorSendingMessage" xml:space="preserve">
+    <value>Sending code...</value>
+  </data>
+  <data name="lottoBuyTicketButton" xml:space="preserve">
+    <value>Buy Ticket</value>
+  </data>
+  <data name="lottoCreateSuccessMessage" xml:space="preserve">
+    <value>Successfully purchased {0} tickets for #{1}</value>
+    <comment>{0} - Amount; {1} - Name;</comment>
+  </data>
+  <data name="lottoCreateTicketErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="lottoCreateTwoFactorErrorMessage" xml:space="preserve">
+    <value>The Two Factor code entered was incorrect or has expired, please try again.</value>
+  </data>
+  <data name="lottoGameFeeLabel" xml:space="preserve">
+    <value>Game Fee</value>
+  </data>
+  <data name="lottoHistoryCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="lottoHistoryDrawColumn" xml:space="preserve">
+    <value>Draw #</value>
+  </data>
+  <data name="lottoHistoryDrawTimeColumn" xml:space="preserve">
+    <value>Draw Time</value>
+  </data>
+  <data name="lottoHistoryEmptyListMessage" xml:space="preserve">
+    <value>No lotto history found.</value>
+  </data>
+  <data name="lottoHistoryHeadline" xml:space="preserve">
+    <value>Lotto Prize History</value>
+  </data>
+  <data name="lottoHistoryNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lottoHistoryPlaceColumn" xml:space="preserve">
+    <value>Place</value>
+  </data>
+  <data name="lottoHistoryPrizeColumn" xml:space="preserve">
+    <value>Prize</value>
+  </data>
+  <data name="lottoHistoryPrizePercentColumn" xml:space="preserve">
+    <value>Prize %</value>
+  </data>
+  <data name="lottoHistoryTab" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="lottoHistoryTicketColumn" xml:space="preserve">
+    <value>Ticket #</value>
+  </data>
+  <data name="lottoHistoryTotalPrizeColumn" xml:space="preserve">
+    <value>Total prize</value>
+  </data>
+  <data name="lottoHistoryUserColumn" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="lottoInfoText" xml:space="preserve">
+    <value>Game: #{0}, Draw: #{1}</value>
+    <comment>{0} - LottoID; {0} - DrawID</comment>
+  </data>
+  <data name="lottoMyActiveCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="lottoMyActiveDrawColumn" xml:space="preserve">
+    <value>Draw #</value>
+  </data>
+  <data name="lottoMyActiveEmptyListMessage" xml:space="preserve">
+    <value>You have no active tickets.</value>
+  </data>
+  <data name="lottoMyActiveHeadline" xml:space="preserve">
+    <value>My Active Lotto tickets</value>
+  </data>
+  <data name="lottoMyActiveNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lottoMyActiveNextDrawColumn" xml:space="preserve">
+    <value>Next Draw</value>
+  </data>
+  <data name="lottoMyActivePriceColumn" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="lottoMyActiveTicketColumn" xml:space="preserve">
+    <value>Ticket #</value>
+  </data>
+  <data name="lottoMyActiveTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="lottoMyLottoTab" xml:space="preserve">
+    <value>My Lotto</value>
+  </data>
+  <data name="lottoMyPrizeCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="lottoMyPrizeDrawColumn" xml:space="preserve">
+    <value>Draw #</value>
+  </data>
+  <data name="lottoMyPrizeDrawTimeColumn" xml:space="preserve">
+    <value>Draw Time</value>
+  </data>
+  <data name="lottoMyPrizeEmptyListMessage" xml:space="preserve">
+    <value>You have no lotto history.</value>
+  </data>
+  <data name="lottoMyPrizeHeadline" xml:space="preserve">
+    <value>My Lotto Prize History</value>
+  </data>
+  <data name="lottoMyPrizeNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lottoMyPrizePlaceColumn" xml:space="preserve">
+    <value>Place</value>
+  </data>
+  <data name="lottoMyPrizePrizeColumn" xml:space="preserve">
+    <value>Prize</value>
+  </data>
+  <data name="lottoMyPrizePrizePercentColumn" xml:space="preserve">
+    <value>Prize %</value>
+  </data>
+  <data name="lottoMyPrizeTicketColumn" xml:space="preserve">
+    <value>Ticket #</value>
+  </data>
+  <data name="lottoMyPrizeTotalPrizeColumn" xml:space="preserve">
+    <value>Total prize</value>
+  </data>
+  <data name="lottoNextDrawLabel" xml:space="preserve">
+    <value>Next Draw</value>
+  </data>
+  <data name="lottoPageTitle" xml:space="preserve">
+    <value>Lotto</value>
+  </data>
+  <data name="lottoPrizeLabel" xml:space="preserve">
+    <value>Prize</value>
+  </data>
+  <data name="lottoTab" xml:space="preserve">
+    <value>Lotto</value>
+  </data>
+  <data name="lottoTicketPriceLabel" xml:space="preserve">
+    <value>Ticket Price</value>
+  </data>
+  <data name="lottoTicketsInDrawLabel" xml:space="preserve">
+    <value>Tickets In Draw</value>
+  </data>
+  <data name="lottoTwoFactorMailSendButton" xml:space="preserve">
+    <value>Send Email Code</value>
+  </data>
+  <data name="lottoYourTicketsLabel" xml:space="preserve">
+    <value>Your Tickets</value>
+  </data>
+</root>

@@ -1,0 +1,35 @@
+﻿<div class="table-header-container">
+	<h2 class="table-header">Paytopia Payments</h2>
+	<hr class="table-seperator" />
+</div>
+<div class="table-search-seperator"></div>
+<div class="table-search-seperator-mobile visible-xs"></div>
+<table id="payments" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetPayments", "AdminPaytopia")" data-action-get="@Url.Action("GetPayment", "AdminPaytopia")" data-action-update="@Url.Action("UpdatePayment", "AdminPaytopia")">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Type</th>
+			<th>Amount</th>
+			<th>Coin</th>
+			<th>Status</th>
+			<th>UserName</th>
+			<th>IsAnon.</th>
+			<th>Begins</th>
+			<th>Ends</th>
+			<th>TransferId</th>
+			<th>RefundId</th>
+			<th>Timestamp</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+@Scripts.Render("~/Scripts/Project/Admin/paytopia.js")
+
+<script id="paytopiaButtonTemplate" type="text/html">
+	<div style="width:120px" class="btn-group btn-group-xs btn-group-justified pull-right">
+		<a onclick="{{{getPayment}}}" class="btn btn-default btn-xs" >Info</a>
+		<a onclick="{{{updatePayment}}}" {{{disabled}}} class="btn btn-default btn-sx" >Update</a>
+	</div>
+</script>
+

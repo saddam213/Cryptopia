@@ -1,0 +1,359 @@
+﻿@using Cryptopia.Enums
+@using Cryptopia.Base.Extensions
+@model Cryptopia.Common.Mineshaft.MineshaftInfoModel
+@{
+	var IsAuthenticated = User.Identity.IsAuthenticated;
+}
+
+<div class="row ">
+
+	<div class="col-md-12 mineshaft-hashrate-container">
+		@if (IsAuthenticated)
+			{
+			<div class="col-md-4 col-sm-12 col-xs-12  col-xs-12">
+				<div class="panel panel-default" style="margin-bottom:10px">
+					<div class="panel-body text-center">
+						<div id="hashrate-user" class="hashrate-user-@ClaimsUser.MiningHandle" style="font-size: 24px" data-val="0">@(PoolExtensions.GetHashrateLabel(0.0))</div>
+						<span>Your hashrate</span>
+					</div>
+				</div>
+			</div>
+			}
+		<div class="@(IsAuthenticated ? "col-md-4" : "") col-sm-6 col-xs-12">
+			<div class="panel panel-default" style="margin-bottom:10px">
+				<div class="panel-body text-center">
+					<div id="hashrate-pool" style="font-size: 24px;" data-val="@Model.Hashrate">@PoolExtensions.GetHashrateLabel(Model.Hashrate)</div>
+					<span>Pool hashrate</span>
+				</div>
+			</div>
+		</div>
+		<div class="@(IsAuthenticated ? "col-md-4" : "")  col-sm-6 col-xs-12">
+			<div class="panel panel-default" style="margin-bottom:10px">
+				<div class="panel-body text-center">
+					<div id="hashrate-network" style="font-size: 24px" data-val="@Model.NetworkHashrate">@PoolExtensions.GetHashrateLabel(Model.NetworkHashrate)</div>
+					<span>Network hashrate</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="col-md-12">
+
+	@if (Model.Status == PoolStatus.OK && !string.IsNullOrEmpty(Model.StatusMessage))
+	{
+		<div class="alert alert-info">
+			<h4>Information</h4>
+			<p>@Model.StatusMessage</p>
+		</div>
+	}
+
+	@if (Model.Status == PoolStatus.Maintenance)
+	{
+		<div class="alert alert-danger">
+			<h4>Maintenance</h4>
+			<p>
+				@(string.IsNullOrEmpty(Model.StatusMessage) ? string.Format("The {0} pool is currenctly in maintenance mode, if you have any questions please contact Cryptopia Support", Model.Symbol) : Model.StatusMessage)
+			</p>
+		</div>
+	}
+	@if (Model.Status == PoolStatus.Expiring)
+	{
+		<div class="alert alert-warning">
+			<h4>Pool Expiring</h4>
+			<p>Pool subscription expires on @Model.Expires, you can renew the subscription using <a href="/Paytopia">Paytopia</a></p>
+		</div>
+	}
+	@if (Model.Status == PoolStatus.Expired)
+	{
+		<div class="alert alert-warning">
+			<h4>Pool Expired</h4>
+			<p>Pool subscription expired on @Model.Expires, you can renew the subscription using <a href="/Paytopia">Paytopia</a></p>
+		</div>
+	}
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-12 mineshaft-chart-container hidden-xs">
+
+			<div class="panel panel-primary">
+				<h4 class="chart-label pull-left">
+					<img width="18" style="margin-top:-4px" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-small.png", Model.Symbol)" />
+					<span>@string.Format("{0}({1})", Model.Name, Model.Symbol)</span>
+					<span id="chart-name"></span>
+				</h4>
+				<div class="chart-option-group btn-group btn-group-xs pull-right">
+					<button class="btn btn-default chart-option chart-option-hashrate active" data-type="hashrate">Hashrate</button>
+					<button class="btn btn-default chart-option chart-option-block" data-type="block">Blocks</button>
+				</div>
+				<div class="text-center">
+					<span class="hashrateChart">Pool Hashrate (24hr)</span>
+					<span class="blockChart" style="display:none;">Block Shares <small>(Last 25 blocks)</small></span>
+				</div>
+				<div id="hashrateChart" class="hashrateChart chart-data">
+				</div>
+				<div id="blockChart" class="blockChart chart-data" style="display:none;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="message-alert" class="alert text-center" style="display: none;margin-left:15px;margin-right:15px">
+	<p></p>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-6  col-sm-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa fa-area-chart panel-icon"></i>@Model.Symbol Pool Statistics</span>
+				</div>
+				<div class="panel-body" style="padding: 0px;height:360px">
+
+					<div class="btn-group btn-group-justified">
+						@if (IsAuthenticated)
+						{
+							<a id="start-mining" class="btn btn-success" onclick="changeUserPool('@Model.Id');">Start Mining</a>
+						}
+						<a class="btn btn-default" onclick="gettingStarted('@Model.Id');">Getting Started</a>
+					</div>
+					<table class="table table-striped table-condensed" style="font-size: 12px;margin-bottom:0px">
+						<tbody>
+							<tr>
+								<td>Current Block: </td>
+								<td><span id="currentBlock">@Model.CurrentBlock</span></td>
+								<td>Difficulty: </td>
+								<td><span id="difficulty">@Model.NetworkDifficulty.ToString("F8")</span></td>
+							</tr>
+							<tr>
+								<td>Valid Shares: </td>
+								<td><span id="validShares">@Model.ValidShares.ToString("F2")</span></td>
+								<td>Invalid Shares: </td>
+								<td><span id="invalidShares">@Model.InvalidShares.ToString("F2")</span></td>
+							</tr>
+							<tr>
+								<td>Est. Shares: </td>
+								<td><span id="estShares">@Model.EstimatedShares.ToString("F2")</span></td>
+								<td>Efficiency: </td>
+								<td><span id="poolEfficiency">@Cryptopia.Base.Extensions.PoolExtensions.GetEfficiency(Model.ValidShares, Model.InvalidShares).ToString("F2")</span>%</td>
+							</tr>
+							<tr>
+								<td>Last Block: </td>
+								<td><span id="lastBlock">@Model.LastPoolBlock</span></td>
+								<td>Last Block Time: </td>
+								<td><span id="lastTime">@Model.LastBlockTime</span></td>
+
+							</tr>
+
+							<tr>
+								<td>Total Miners:</td>
+								<td><span id="totalMiners">@Model.UserCount</span></td>
+								<td>Est. Time: </td>
+								<td><span id="estTime">@Model.EstimatedTime</span></td>
+							</tr>
+
+							<tr>
+								<td>Block Progress:</td>
+								<td colspan="3">
+									<div class="progress" style="padding-bottom: 0px;border-radius:0px;margin-bottom:0">
+										<div id="blockProgress" class="progress-bar progress-bar-@(Model.BlockProgress > 100 ? Model.BlockProgress < 200 ? "warning" : "danger" : "success")" role="progressbar" style="padding-bottom:0px;border-radius:0; width: @(Math.Min(100, Model.BlockProgress))%">
+											<span id="blockProgressLabel">@Model.BlockProgress%</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Pools Expires:</td>
+								<td>@Model.Expires</td>
+								<td colspan="2" class="text-right">
+									<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					@if (IsAuthenticated)
+					{
+						<div class="panel panel-primary nopad" style="margin-bottom:0px">
+							<div class="panel-heading" style="padding: 5px">
+								<span><i class="fa fa-calculator panel-icon"></i>My @Model.Symbol Statistics</span>
+							</div>
+						</div>
+						<table class="table table-striped table-condensed" style="font-size: 12px;">
+							<tbody>
+								<tr>
+									<td>Valid Shares: </td>
+									<td><span id="userValidShares" class="validShares-user-@ClaimsUser.MiningHandle">0</span></td>
+									<td>Invalid Shares: </td>
+									<td><span id="userInvalidShares" class="invalidShares-user-@ClaimsUser.MiningHandle">0</span></td>
+								</tr>
+								<tr>
+									<td>Efficiency: </td>
+									<td><span id="userEfficiency"></span>%</td>
+									<td>Active Workers:</td>
+									<td><span id="userActiveWorkers"></span></td>
+								</tr>
+								<tr>
+									<td>Confirmed: </td>
+									<td><span id="userConfirmed">0.00000000</span> @Model.Symbol</td>
+									<td>Unconfirmed: </td>
+									<td><span id="userUnconfirmed">0.00000000</span> @Model.Symbol</td>
+								</tr>
+							</tbody>
+						</table>
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6  col-sm-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa icon-pickaxe panel-icon"></i>@Model.Symbol Miners</span>
+				</div>
+				<div class="panel-body" style="padding: 0px;height:360px">
+					<table id="poolWorkers" class="table table-striped table-condensed" style="font-size: 12px">
+						<thead>
+							<tr>
+								<th>Rank</th>
+								<th>Name</th>
+								<th>Hashrate</th>
+								<th>Hashrate</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="padding: 5px">
+					<span><i class="fa fa-cube panel-icon"></i>Blocks</span>
+				</div>
+				<div class="panel-body panel-container-blockhistory" style="padding: 0px;">
+					<table id="blockHistory" class="table table-striped table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Block</th>
+								<th>Luck</th>
+								<th>Finder</th>
+								<th>Amount</th>
+								<th>Difficulty</th>
+								<th>Confirms</th>
+								<th>Status</th>
+								<th>Shares</th>
+								<th>Timestamp</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="col-xs-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading" style="padding: 5px">
+						<span><i class="fa icon-history panel-icon"></i>Your Payout History</span>
+					</div>
+					<div class="panel-body panel-container-userpayouts" style="padding: 0px;">
+						<table id="payoutHistory" class="table table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Block</th>
+									<th>Amount</th>
+									<th>Status</th>
+									<th>Shares</th>
+									<th>Transfer #</th>
+									<th>Timestamp</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+<script type="text/javascript">
+	var poolId = '@Model.Id';
+	var currencySymbol = '@Model.Symbol';
+	var isAuthenticated = '@(User.Identity.IsAuthenticated)';
+	var blockTemplate = $('#blockTemplate').html();
+	var payoutTemplate = $('#payoutTemplate').html();
+	var workerTemplate = $('#workerTemplate').html();
+	var hashrateChartAction = '@Url.Action("GetHashrateChart", "Mineshaft")';
+	var blockChartAction = '@Url.Action("GetBlockChart", "Mineshaft")';
+</script>
+
+@Scripts.Render("~/Scripts/Project/Mineshaft/mineshaftCharts.min.js")
+@Scripts.Render("~/Scripts/Project/Mineshaft/mineshaftInfo.min.js")
+<script type="text/javascript">
+	setVisibleChart();
+	$('mineshaft-btn').removeClass('active');
+	$('#mineshaft-btn-' + poolId).addClass('active');
+</script>
+
+
+<script id="blockTemplate" type="text/html">
+	<tr class="{{highlight}} {{userClass}}">
+		<td>{{block}}</td>
+		<td class="{{luckClass}}">{{luck}}%</td>
+		<td>{{finder}}</td>
+		<td>{{amount}}</td>
+		<td>{{difficulty}}</td>
+		<td>{{confirmations}}</td>
+		<td>{{status}}</td>
+		<td>{{shares}}</td>
+		<td>{{timestamp}}</td>
+	</tr>
+</script>
+
+<script id="payoutTemplate" type="text/html">
+	<tr class="{{highlight}}" role="row">
+		<td>{{block}}</td>
+		<td>{{amount}}</td>
+		<td>{{status}}</td>
+		<td>{{shares}}</td>
+		<td><i>Pending</i></td>
+		<td>{{timestamp}}</td>
+	</tr>
+</script>
+
+<script id="workerTemplate" type="text/html">
+	<tr class="hash-sort {{highlight}}" role="row" data-hash="{{hashrateraw}}">
+		<td>{{rank}}</td>
+		<td>{{username}}</td>
+		<td>
+			<span class="hashrate-user-{{username}}">{{hashrate}}</span>
+		</td>
+	</tr>
+</script>
+
+

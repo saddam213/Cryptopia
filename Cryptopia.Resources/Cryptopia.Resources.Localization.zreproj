@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project>
+  <configuration createBackupFiles="False" hideEmptyRows="False" hideTranslatedRows="False" useSpellChecker="True" resXIndentChar="	" neutralLanguageCode="en-US" languagesToDisplay="">
+    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="1796597062" /&gt;&lt;item type="2" checksum="762835840" /&gt;&lt;/items&gt;</globalSetting>
+    <globalSetting name="Filter-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+  &lt;property name="ActiveFilterString" /&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <globalSetting name="Sort-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+  &lt;property name="SortInfo"&gt;~Xtra#Base64AAEAAAD/////AQAAAAAAAAAMAgAAAF1EZXZFeHByZXNzLlh0cmFHcmlkLnYxNy4xLCBWZXJzaW9uPTE3LjEuNS4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAADhEZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvQ29sbGVjdGlvbgQAAAAKZ3JvdXBDb3VudAVjbG9uZQ9jbG9uZUdyb3VwQ291bnQTQ29sbGVjdGlvbkJhc2UrbGlzdAADAAMIsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjE3LjEsIFZlcnNpb249MTcuMS41LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dCBxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AgAAAAAAAAAJAwAAAAAAAAAJBAAAAAQDAAAAsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjE3LjEsIFZlcnNpb249MTcuMS41LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24EAAAwRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mb1tdAgAAAAgICQUAAAAAAAAAAAAAAAQEAAAAHFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QDAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQYAAAABAAAABAAAAAcFAAAAAAEAAAAAAAAABC5EZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvAgAAABAGAAAABAAAAAkHAAAADQMMCAAAABlEZXZFeHByZXNzLlh0cmFHcmlkLnYxNy4xBQcAAAAuRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mbwIAAAAJU29ydE9yZGVyCkNvbHVtbk5hbWUAAQgIAAAAAQAAAAYJAAAAB2NvbE5hbWUL&lt;/property&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <userSetting name="gnode@INTRANEL-AL.FindText">
+    </userSetting>
+    <userSetting name="gnode@INTRANEL-AL.RecentFiles">C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Market.resx;C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Market.ru.resx###***###C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Authorization.resx;C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Authorization.ru.resx</userSetting>
+    <userSetting name="gnode@INTRANEL-AL.filesInitialDir">C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources</userSetting>
+    <description>
+    </description>
+  </configuration>
+  <fileGroups>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="a7dd7d30-6e58-492c-b0a2-7b42cf484445">
+      <file filePath="Authorization.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Authorization.resx" uniqueID="a583d995-920a-4217-b59f-2d8091bac703" />
+      <file filePath="Authorization.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Authorization.ru.resx" uniqueID="cf7b138b-da47-4a6c-9d1f-03249374cfda" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="66cfef01-65cf-406d-b37d-0e30f0c4dab8">
+      <file filePath="General.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\General.resx" uniqueID="67d23a63-9165-41c4-b6e5-22ada0acda02" />
+      <file filePath="General.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\General.ru.resx" uniqueID="d23e2ef0-7db4-4291-9a73-9598b4243ba3" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="0343a1e2-41ce-481c-8db2-992d8d38cab5">
+      <file filePath="Market.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Market.resx" uniqueID="99b9ea03-239e-4bed-a3d9-60839c124627" />
+      <file filePath="Market.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Market.ru.resx" uniqueID="0d1eaa64-64e1-4179-8943-0b8f73bf604e" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="e31453d1-d806-4123-b506-d3a2d762ae65">
+      <file filePath="Paytopia.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Paytopia.resx" uniqueID="611d32ff-b88a-480a-bea4-a0689fcec59e" />
+      <file filePath="Paytopia.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Paytopia.ru.resx" uniqueID="057ecafe-f6ad-4163-bbe6-44da2008ff72" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="cf5aca94-d8ef-4110-82fe-9f0bbc479971">
+      <file filePath="Support.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Support.resx" uniqueID="3bf36e39-55d5-4220-98ad-8dc97e3429e2" />
+      <file filePath="Support.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Support.ru.resx" uniqueID="c12c4871-5f27-4a3d-8a2d-b9adfb6020cf" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="f9a65da1-cf3d-4160-984e-a820d54818c1">
+      <file filePath="Validation.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Validation.resx" uniqueID="de51b1e9-a38d-474c-a451-ccce8beeba7d" />
+      <file filePath="Validation.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\Validation.ru.resx" uniqueID="0fe02d87-ffaa-443e-a690-c95a032d72fa" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
+      <file filePath="User.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\User.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <file filePath="User.ru.resx" absoluteFilePath="C:\Users\gnode\Projects\Cryptopia\Cryptopia.Resources\User.ru.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+  </fileGroups>
+  <projectFolders />
+</project>

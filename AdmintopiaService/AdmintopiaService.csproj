@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{577C8249-739B-49ED-8323-88091E24BDEE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdmintopiaService</RootNamespace>
+    <AssemblyName>AdmintopiaService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataObjects\WalletTransaction.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCore.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceCore.Designer.cs">
+      <DependentUpon>ServiceCore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service\AdmintopiaService.cs" />
+    <Compile Include="Service\IAdmintopiaService.cs" />
+    <Compile Include="DataObjects\Wallet.cs" />
+    <Compile Include="WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Base\Cryptopia.Base.csproj">
+      <Project>{434E7159-FEC5-4CF3-8BAD-BFFB2F1C6DAE}</Project>
+      <Name>Cryptopia.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Common\Cryptopia.Common.csproj">
+      <Project>{e52b1491-8a60-48b6-b551-834e159867ab}</Project>
+      <Name>Cryptopia.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Core\Cryptopia.Core.csproj">
+      <Project>{fa5eea6f-6fc3-4144-a738-e8134fa59113}</Project>
+      <Name>Cryptopia.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Data\Cryptopia.Data.csproj">
+      <Project>{3d4008ac-2457-4190-b36d-2343f9abc6b3}</Project>
+      <Name>Cryptopia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Entity\Cryptopia.Entity.csproj">
+      <Project>{6c3292dd-2ae8-4025-925c-bdd2c10dc741}</Project>
+      <Name>Cryptopia.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6E49B123-5CC9-4B9D-BBD6-FEEB8FA4CE39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Client\Cryptopia.Infrastructure.Incapsula.Client.csproj">
+      <Project>{c3067e36-e67c-48b8-9cde-91d78f745e91}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Common\Cryptopia.Infrastructure.Incapsula.Common.csproj">
+      <Project>{57a8b09c-71bf-437e-968d-387744be2b90}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WalletAPI\WalletAPI.csproj">
+      <Project>{D5F13BBB-2FA7-48A8-AE79-5EFE8BAA6E02}</Project>
+      <Name>WalletAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

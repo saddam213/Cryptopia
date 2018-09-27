@@ -1,0 +1,38 @@
+﻿@model Cryptopia.Common.News.NewsModel
+@{
+	ViewBag.Title = Resources.News.newsPageTitle;
+	ViewBag.HideFooter = true;
+}
+
+@Html.AntiForgeryToken()
+<div id="wrapper">
+	<div class="news-content" style="margin-left:15px">
+		<div class="col-md-5" style="padding-left:0;padding-right:0">
+			<h1 style="font-size:27px;margin-top:11px;">@Resources.News.newsHeadline</h1>
+			<hr style="margin-top:15px" />
+		</div>
+		<div class="news-sidebar col-sm-12 col-md-6">
+			<div class="list-group">
+				@foreach (var item in Model.NewsItems)
+				{
+					<div class="list-group-item" href="#">
+						<h4 class="list-group-item-heading">@item.Title</h4>
+						<p style="margin-bottom:10px;white-space:pre-line" class="list-group-item-text">@Html.Raw(item.Content)</p>
+						<small>
+							<i>@Resources.News.newsPublishedBy: @item.Author @@ @item.Timestamp</i>
+						</small>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="news-twitter-target hidden-sm hidden-xs col-md-offset-6 col-md-6">
+			<a class="twitter-timeline" href="https://twitter.com/Cryptopia_NZ" data-widget-id="593357616820002816"></a>
+			<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+		</div>
+	</div>
+</div>
+
+@Html.Partial("_SEOPartial")
+@section Scripts {
+	@Scripts.Render("~/Scripts/Project/News/news.min.js")
+}

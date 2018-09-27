@@ -1,0 +1,150 @@
+﻿@using Cryptopia.Enums
+@using Cryptopia.Common.Extensions
+@model Cryptopia.Common.TwoFactor.RemoveTwoFactorModel
+@{
+	ViewBag.Title = "Cryptopia - " + Resources.Authorization.twoFactorPageTitle;
+}
+
+<h2>@string.Format(Resources.Authorization.twoFactorRemoveHeadline, Model.ComponentType.GetDisplayName())</h2>
+<div class="row">
+	<div class="col-md-8">
+		<section>
+			@using (Html.BeginForm("Remove", "TwoFactor", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Type)
+				@Html.HiddenFor(m => m.ComponentType)
+				<hr/>
+				<div class="row">
+					<div class="col-md-7 ">
+						@Html.ValidationSummary(true)
+					</div>
+				</div>
+
+				if (Model.Type == TwoFactorType.EmailCode)
+				{
+					<div class="row">
+						<div class="col-md-9 ">
+							<div class="alert alert-success text-center">
+								<h5>@Html.Label(Resources.Authorization.twoFactorRemoveEmailSentMessage)</h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-9 text-center">
+							<small>@Resources.Authorization.twoFactorRemoveEmailCodeInfoText</small>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemoveEmailCodeLabel, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.PasswordFor(m => m.Data, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemoveEmailCodeRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new {@class = "text-danger"})
+						</div>
+					</div>
+				}
+
+				if (Model.Type == TwoFactorType.GoogleCode)
+				{
+					<div class="row">
+						<div class="col-md-9 text-center">
+							<small>@Resources.Authorization.twoFactorRemoveGoogleCodeInfoText</small>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemoveGoogleCodeLabel, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.PasswordFor(m => m.Data, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemoveGoogleCodeRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new {@class = "text-danger"})
+						</div>
+					</div>
+				}
+
+				if (Model.Type == TwoFactorType.CryptopiaCode)
+				{
+				<div class="row">
+					<div class="col-md-9 text-center">
+						<small>@Resources.Authorization.twoFactorRemoveCryptopiaInfoText</small>
+					</div>
+				</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemoveCryptopiaCodeLabel, new { @class = "col-md-2 control-label" })
+						<div class="col-md-5">
+							@Html.PasswordFor(m => m.Data, new { @class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemoveCryptopiaCodeRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				}
+
+				if (Model.Type == TwoFactorType.PinCode)
+				{
+					<div class="row">
+						<div class="col-md-9 text-center">
+							<small>@Resources.Authorization.twoFactorRemovePinInfoText</small>
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemovePinCodeLabel, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.PasswordFor(m => m.Data, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemovePinCodeRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new {@class = "text-danger"})
+						</div>
+					</div>
+				}
+
+				if (Model.Type == TwoFactorType.Password)
+				{
+					<div class="row">
+						<div class="col-md-9 text-center">
+							<small>@Resources.Authorization.twoFactorRemovePasswordInfoText</small>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemovePasswordLabel, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.PasswordFor(m => m.Data, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemovePasswordRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new {@class = "text-danger"})
+						</div>
+					</div>
+				}
+
+				if (Model.Type == TwoFactorType.Question)
+				{
+					<div class="row">
+						<div class="col-md-9 text-center">
+							<small>@Resources.Authorization.twoFactorRemoveQuestionInfoText</small>
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data, Resources.Authorization.twoFactorRemoveQuestion1Label, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.TextBoxFor(m => m.Question1, new {@class = "form-control input-sm", @readonly = "readonly"})
+							@Html.PasswordFor(m => m.Data, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemoveQuestionRequiredError })
+							@Html.ValidationMessageFor(m => m.Data, "", new {@class = "text-danger"})
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(m => m.Data2, Resources.Authorization.twoFactorRemoveQuestion2Label, new {@class = "col-md-2 control-label"})
+						<div class="col-md-5">
+							@Html.TextBoxFor(m => m.Question2, new {@class = "form-control input-sm", @readonly = "readonly"})
+							@Html.PasswordFor(m => m.Data2, new {@class = "form-control input-sm", data_rule_required = "true", data_msg_required = Resources.Authorization.twoFactorRemoveQuestionRequiredError })
+							@Html.ValidationMessageFor(m => m.Data2, "", new {@class = "text-danger"})
+						</div>
+					</div>
+				}
+
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-5">
+						<input type="submit" value="@Resources.Authorization.twoFactorRemoveButton" class="btn btn-default btn-sm" style="width: 180px"/>
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+}

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" />
+  <xs:element name="SubmitTrade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q1:SubmitTradeItemRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitTradeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitTradeResult" nillable="true" type="q2:SubmitTradeItemResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelTrade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q3:CancelTradeItemRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelTradeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="CancelTradeResult" nillable="true" type="q4:CancelTradeItemResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitTransfer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q5:SubmitTransferRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitTransferResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitTransferResult" nillable="true" type="q6:SubmitTransferResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitLotto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q7:SubmitLottoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitLottoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitLottoResult" nillable="true" type="q8:SubmitLottoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitTip">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q9:SubmitTipRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitTipResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitTipResult" nillable="true" type="q10:SubmitTipResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitPoolPayment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q11:SubmitPoolPaymentRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitPoolPaymentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitPoolPaymentResult" nillable="true" type="q12:SubmitPoolPaymentResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitWithdraw">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q13:SubmitWithdrawRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubmitWithdrawResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="SubmitWithdrawResult" nillable="true" type="q14:SubmitWithdrawResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateExternalTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q15:CreateExternalTransactionRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateExternalTransactionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="CreateExternalTransactionResult" nillable="true" type="q16:CreateExternalTransactionResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelExternalTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q17:CancelExternalTransactionRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelExternalTransactionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="CancelExternalTransactionResult" nillable="true" type="q18:CancelExternalTransactionResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteExternalTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="request" nillable="true" type="q19:CompleteExternalTransactionRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteExternalTransactionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" minOccurs="0" name="CompleteExternalTransactionResult" nillable="true" type="q20:CompleteExternalTransactionResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

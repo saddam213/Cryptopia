@@ -1,0 +1,53 @@
+﻿@model Cryptopia.Admin.Common.AdminUser.AdminUserApiUpdateModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update User API Settings</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateApi", "AdminUser", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(m => m.Id)
+			@Html.HiddenFor(m => m.UserName)
+			<div class="modal-body">
+				<div class="text-center">
+					<b id="errorMessage" class="text-danger"></b>
+				</div>
+				<div class="form-margin">
+					<div class="row">
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.IsApiEnabled)
+							@Html.LabelFor(m => m.IsApiEnabled, "Enabled", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.IsApiWithdrawEnabled)
+							@Html.LabelFor(m => m.IsApiWithdrawEnabled, "Withdraw Enabled", new { @class = "control-label" })
+						</div>
+						<div class="col-md-12">
+							@Html.CheckBoxFor(m => m.IsApiUnsafeWithdrawEnabled)
+							@Html.LabelFor(m => m.IsApiUnsafeWithdrawEnabled, "Unsafe Withdraw Enabled", new { @class = "control-label" })
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<input id="submit" class="btn btn-success button-180" type="submit" value="Update" />
+			</div>
+		}
+	</div>
+</div>
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".datepicker").datepicker();
+	});
+</script>

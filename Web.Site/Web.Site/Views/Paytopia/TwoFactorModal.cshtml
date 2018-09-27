@@ -1,0 +1,108 @@
+﻿@model Cryptopia.Common.Paytopia.TwoFactorModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Paytopia.twoFactorHeadline</h3>
+		</div>
+		@Html.WriterValidationSummary()
+		@using (Ajax.BeginForm("TwoFactor", "Paytopia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Price)
+				@Html.HiddenFor(m => m.Balance)
+				@Html.HiddenFor(m => m.Currency)
+				<div class="form-margin">
+					<div class="row">
+
+
+		
+							<div class="row">
+								<div class="col-md-12">
+									@Html.LabelFor(m => m.Recipient, new { @class = "control-label" })
+									@Html.TextBoxFor(m => m.Recipient, new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.Recipient, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									@Html.LabelFor(m => m.Street, new { @class = "control-label" })
+									@Html.TextBoxFor(m => m.Street, new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									@Html.LabelFor(m => m.City, new { @class = "control-label" })
+									@Html.TextBoxFor(m => m.City, new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+								<div class="col-md-6">
+									@Html.LabelFor(m => m.PostCode, new { @class = "control-label" })
+									@Html.TextBoxFor(m => m.PostCode, new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									@Html.LabelFor(m => m.Country, new { @class = "control-label" })
+									@Html.TextBoxFor(m => m.Country, new { @class = "form-control input-sm" })
+									@Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger", style = "font-size:12px" })
+								</div>
+							</div>
+
+						<div class="row">
+							<div class="col-md-12" style="margin-top:12px">
+								<span>
+									<b><small>@Resources.Paytopia.paytopiaPriceLabel:</small></b> @Model.Price.ToString("F8") @Model.Currency <small>/each</small>
+								</span>
+							</div>
+							<div class="col-md-12">
+								<span>
+									<b><small>@Resources.Paytopia.paytopiaAvailableLabel:</small></b>
+									<span class="@(Model.Price > Model.Balance ? "text-danger":"text-info")">@Model.Balance.ToString("F8")</span> @Model.Currency
+								</span>
+							</div>
+						</div>
+
+						<div class="col-md-12 text-center" style="margin-top:15px">
+							<span style="font-size:11px">@Resources.Paytopia.twoFactorInfoText</span>
+						</div>
+						<div class="col-md-12 text-center">
+							<span style="font-size:10px">
+								@Html.Raw(
+									String.Format(Html.Encode(Resources.Paytopia.twoFactorMoreInfoText), 
+									              String.Format("<a href=\"https://www.cryptopia.co.nz/Forum/Thread/1840\">{0}</a>", 
+												                Resources.Paytopia.twoFactorMoreInfoLink)))
+								</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button @(Model.Price > Model.Balance ? "disabled='disabled'" : "") id="submit" class="btn btn-primary button-180" type="submit">@Resources.Paytopia.paytopiaBuyNowButton</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: '@Cryptopia.Resources.General.SubmittingMessage' });
+		}
+	});
+</script>

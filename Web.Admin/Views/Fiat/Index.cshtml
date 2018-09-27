@@ -1,0 +1,141 @@
+﻿@{
+	ViewBag.Title = "NZDT";
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>NZDT Admin</h2>
+	</div>
+
+	<div class="col-md-6">
+		<button id="deposit" class="btn btn-info">Deposit NZDT</button>
+		<table id="deposit-table" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UserName</th>
+					<th>Amount</th>
+					<th>Status</th>
+					<th>Timestamp</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="col-md-6">
+		<button id="withdraw" class="btn btn-warning">Withdraw NZDT</button>
+		<table id="withdraw-table" class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>UserName</th>
+					<th>Amount</th>
+					<th>Status</th>
+					<th>Timestamp</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+
+@section Scripts {	<script>
+
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+										 "<'row'<'col-sm-12'tr>>" +
+										 "<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+
+		$("#deposit").on("click", function () {
+			openModalGet('@Url.Action("CreateDeposit", "Fiat")', {}, function (modalData) {
+				if (modalData && modalData.Success) {
+				
+				}
+				showMessage(modalData);
+			});
+		});
+
+
+
+		$("#withdraw").on("click", function () {
+			openModalGet('@Url.Action("CreateWithdraw", "Fiat")', {}, function (modalData) {
+				if (modalData && modalData.Success) {
+					
+				}
+				showMessage(modalData);
+			});
+		});
+
+
+		var actionGetDeposits = '@Url.Action("GetDeposits")';
+		var depositTable = $("#deposit-table").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			//"deferLoading": 0,
+			"sAjaxSource": actionGetDeposits,
+			//"fnServerParams": function (aoData) {
+			//	aoData.push({ "name": "currencyId", "value": selectedCurrency });
+			//},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "No deposits found.",
+				"searchPlaceholder": "Search deposits...",
+				"search": ""
+			},
+			"columnDefs": [],
+			"fnDrawCallback": function () {
+				//$('.right-content').unblock();
+			}
+		});
+
+		var actionGetWithdrawals = '@Url.Action("GetWithdrawals", "Fiat")';
+		var withdrawTable = $("#withdraw-table").DataTable({
+			"dom": tableOptionsLayout,
+			"order": [[0, "desc"]],
+			"searchDelay": 1500,
+			"lengthChange": false,
+			"processing": false,
+			"bServerSide": true,
+			"searching": true,
+			"scrollCollapse": true,
+			"scrollX": false,
+			"width": "100%",
+			"paging": true,
+			"info": true,
+			"iDisplayLength": 20,
+			//"deferLoading": 0,
+			"sAjaxSource": actionGetWithdrawals,
+			//"fnServerParams": function (aoData) {
+			//	aoData.push({ "name": "currencyId", "value": selectedCurrency });
+			//},
+			"sServerMethod": "POST",
+			"language": {
+				"emptyTable": "No withdrawals  found.",
+				"searchPlaceholder": "Search withdrawals...",
+				"search": ""
+			},
+			//"columnDefs": [{
+			//	"targets": [5, 6, 8],
+			//	"render": function (data, type, full, meta) {
+			//		return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+			//	}
+			//}],
+			"fnDrawCallback": function () {
+				//$('.right-content').unblock();
+			}
+		});
+
+	</script>
+}

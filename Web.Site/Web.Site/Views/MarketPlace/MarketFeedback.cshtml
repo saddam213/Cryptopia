@@ -1,0 +1,107 @@
+﻿@model Web.Site.Models.MarketFeedbackModel
+@{
+    ViewBag.Title = "MarketFeedback";
+   
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<div class="col-lg-8">
+    <h2>@Resources.Market.feedbackHeadline</h2>
+    <hr />
+    <div>
+        <div>
+            <span>
+                <strong>@Resources.Market.feedbackUserLabel:</strong>
+                @Model.UserName
+            </span>
+        </div>
+        <div>
+            <span>
+                <strong>@Resources.Market.itemUserTrustRatingLabel:</strong>
+                @{Html.RenderPartial("StarRating", Model.TrustRating);}
+                <span><small>(@Model.TotalCount responses)</small></span>
+            </span>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <span>@String.Format(Resources.Market.feedbackListHeadline, Model.UserName):</span>
+    <ul class="list-group">
+        @if (Model.FeedbackItems.Any())
+        {
+            foreach (var feedback in Model.FeedbackItems)
+            {
+            <li class="list-group-item">
+                <div>
+                    <div class="col-lg-8 col-md-6">
+                        <div>
+                            <span>
+                                <strong>@Resources.Market.feedbackRatingLabel: </strong>
+                                @{Html.RenderPartial("StarRating", feedback.Rating);}
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <strong>@Resources.Market.feedbackMarketItemLabel: </strong>
+                                <a href="/MarketItem/@feedback.MarketItemId" >#@feedback.MarketItemId</a>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div>
+                            <span>
+                                <strong>@Resources.Market.feedbackFromUserLabel: </strong>
+                                <a href="/MarketFeedback/@feedback.Sender">@feedback.Sender</a>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <strong>@Resources.Market.feedbackDateLabel: </strong>
+                                @feedback.Timestamp
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <span>
+                            <strong>@Resources.Market.feedbackCommentLabel: </strong>
+                            @feedback.Comment
+                        </span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+            }
+        }
+        else
+        {
+            <li class="list-group-item">
+                <strong>@String.Format(Resources.Market.feedbackEmtpyListMessage, Model.UserName)</strong>
+            </li>     
+        }
+    </ul>
+
+    <!-- Paging -->
+    <div class="col-lg-12 col-md-4" style="text-align: right; vertical-align: bottom">
+        <div style="margin-bottom: -15px; padding-top: 15px;">
+            @Html.PagedListPager(Model.FeedbackItems, page => Url.Action("MarketFeedback", new { username = Model.UserName, page = page }), new PagedList.Mvc.PagedListRenderOptions { MaximumPageNumbersToDisplay = 5, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded, Display = PagedListDisplayMode.IfNeeded })
+        </div>
+    </div>
+
+</div>
+
+
+<div class="clearfix"></div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // $("#container *").attr("disabled", "disabled");
+    });
+</script>

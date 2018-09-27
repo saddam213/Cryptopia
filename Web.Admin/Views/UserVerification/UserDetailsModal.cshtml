@@ -1,0 +1,156 @@
+﻿@model Cryptopia.Admin.Common.UserVerification.UserDetailsModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<style>
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+</style>
+
+<div class="modal-dialog">
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Approve Verification</h3>
+		</div>
+
+
+		<div class="modal-body">
+			<ul class="nav nav-tabs" id="tabContent">
+				<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+				<li><a href="#identification-image1" data-toggle="tab">Identification Image 1</a></li>
+				<li><a href="#identification-image2" data-toggle="tab">Identification Image 2</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="details">
+
+					<div class="row">
+						<div class="col-lg-6">
+							<ul class="list-group">
+								<li class="list-group-item">
+									First Name
+									<span class="pull-right text-muted">
+										<em>@Model.FirstName</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Last Name
+									<span class="pull-right text-muted">
+										<em>@Model.LastName</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Gender
+									<span class="pull-right text-muted">
+										<em>@Model.Gender</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Birthday
+									<span class="pull-right text-muted">
+										<em>@Model.Birthday</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Email
+									<span class="pull-right text-muted">
+										<em>@Model.Email</em>
+									</span>
+								</li>
+							</ul>
+						</div>
+						<div class="col-lg-6">
+							<ul class="list-group">
+								<li class="list-group-item">
+									Address
+									<span class="pull-right text-muted">
+										<em>@Model.Address</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Postcode
+									<span class="pull-right text-muted">
+										<em>@Model.Postcode</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									City
+									<span class="pull-right text-muted">
+										<em>@Model.City</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									State
+									<span class="pull-right text-muted">
+										<em>@Model.State</em>
+									</span>
+								</li>
+								<li class="list-group-item">
+									Country
+									<span class="pull-right text-muted">
+										<em>@Model.Country</em>
+									</span>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-12">
+							@if (!string.IsNullOrEmpty(Model.RejectReason))
+							{
+								@Html.LabelFor(m => m.RejectReason, new { @class = "control-label" })
+								@Html.TextAreaFor(m => m.RejectReason, new { @rows = 3, @class = "form-control  input-sm", @readonly = "readonly" })
+							}
+						</div>
+					</div>
+
+					@if (Model.AdminCanVerify)
+					{
+						<div class="row">
+							<div class="col-lg-8">
+								@using (Html.BeginForm("RejectUser", "UserVerification",  FormMethod.Post, new { @class = "form-horizontal" }))
+								{
+									@Html.Label("Reason", "Reject Reason", new { @class = "control-label" })
+									@Html.TextArea("Reason", "", new { @rows = 3, @class = "form-control  input-sm" })
+									<input type="hidden" name="verificationId" value="@Model.VerificationId" />
+									<button type="submit" class="btn btn-danger verify-action">Reject</button>
+								}
+							</div>
+							<div class="col-lg-4" style="margin-top:75px">
+								@using (Html.BeginForm("AcceptUser", "UserVerification", FormMethod.Post, new { @class = "form-horizontal" }))
+								{
+									<input type="hidden" name="verificationId" value="@Model.VerificationId" />
+									<button type="submit" class="btn btn-success verify-action  pull-right">Accept</button>
+								}
+							</div>
+						</div>
+					}
+
+				</div>
+
+				<div class="tab-pane" id="identification-image1">
+					<img src="@Model.Identification1" />
+				</div>
+				<div class="tab-pane" id="identification-image2">
+					<img src="@Model.Identification2" />
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+	$(".verify-action").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>
+
+

@@ -1,0 +1,11 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = Resources.Layout.errorTitle;
+}
+
+<div class="alert alert-danger" style="margin: 5%">
+    <h3 class="nopad" style="margin:0px"><strong class="nopad">@Resources.Layout.errorOhSnap</strong></h3>
+    <hr />
+    <h4>@Resources.Layout.errorContactSupportText <a class="alert-link" href="/Support">@Resources.Layout.errorContactSupportLink</a>.</h4>
+</div>
+

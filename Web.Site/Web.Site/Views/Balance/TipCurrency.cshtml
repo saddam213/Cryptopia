@@ -1,0 +1,313 @@
+﻿@model Cryptopia.Common.Withdraw.TipbotModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<div id="modal" class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button">×</button>
+			<h3 class="modal-title"><span class="symbol"></span>@Resources.UserWallet.tipCurrencyHeadline</h3>
+			<small>@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.tipCurrencyInfoMessage), "<span class=\"symbol\"></span>"))</small>
+		</div>
+		@using (Ajax.BeginForm("SubmitTip", "Balance", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccess", OnBegin = "onBegin", OnFailure = "onFailure" }, new { @class = "main-section" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(x => x.Type)
+			<div id="errorMessage" class="jsonAlert alert alert-danger text-center" style="display: none">
+				<p></p>
+			</div>
+			<div id="successMessage" class="jsonAlert alert alert-success text-center" style="display: none">
+				<p></p>
+			</div>
+
+			<div class="modal-body form-horizontal">
+				<div style="margin: 10px">
+
+					<div class="row">
+						<div class="col-xs-6">
+							<div>
+								@Html.LabelFor(m => m.CurrencyId, new { @class = "control-label" })
+								@Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.Currencies.Where(x => x.TippingExpires > DateTime.UtcNow).OrderBy(x => x.Symbol), "CurrencyId", "Symbol"), new { @id = "currencyPicker", @class = "form-control   input-sm", style = "max-width: 200px" })
+								@Html.ValidationMessageFor(m => m.CurrencyId, "", new { @class = "text-danger" })
+							</div>
+							<div>
+								<span>
+									<small><b>@Resources.UserWallet.tipCurrencyAvailableLabel:</b></small>
+									<small id="balance" class="btn-link text-info"></small>
+									<small class="symbol"></small>
+								</span>
+							</div>
+							<div>
+								<span>
+									<small><b>@Resources.UserWallet.tipCurrencyMinAmountLabel:</b></small>
+									<small id="minimum" class="btn-link text-info minTip"></small>
+									<small class="symbol"></small>
+								</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div>
+								@Html.LabelFor(m => m.TipPayoutType, new { @class = "control-label" })
+								@Html.EnumDropDownListFor(m => m.TipPayoutType, new { @id = "payoutType", @class = "form-control   input-sm", style = "max-width: 200px" })
+								@Html.ValidationMessageFor(m => m.TipPayoutType, "", new { @class = "text-danger" })
+							</div>
+
+							<div>
+								<small class="payout payout0">@Resources.UserWallet.tipCurrencyPayoutUserInfoMessage</small>
+								<small class="payout payout1">@Resources.UserWallet.tipCurrencyPayoutUserListInfoMesage</small>
+								<small class="payout payout2">@Resources.UserWallet.tipCurrencyPayoutChatInfoMessage</small>
+							</div>
+						</div>
+					</div>
+
+
+					<hr style="margin-bottom: 5px; margin-top: 5px" />
+
+					<div class="text-center">
+						<small class="payout payout0">@Resources.UserWallet.tipCurrencyPayoutUserInstuctionMessage</small>
+						<small class="payout payout1">@Resources.UserWallet.tipCurrencyPayoutUserListInstructionMessage</small>
+						<small class="payout payout2">@Resources.UserWallet.tipCurrencyPayoutChatInstructionMessage</small>
+						<br />
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 payout payout0">
+							@Html.LabelFor(m => m.ChatHandle, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ChatHandle, new { @class = "form-control   input-sm payout payout0" })
+						</div>
+						<div class="col-xs-6 payout payout1">
+							@Html.LabelFor(m => m.ChatHandles, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ChatHandles, new { @class = "form-control   input-sm payout payout1" })
+						</div>
+						<div class="col-xs-6 payout payout2">
+							@Html.LabelFor(m => m.ActiveMin, Resources.UserWallet.tipCurrencyNumberOfUsersLabel, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.ActiveMin, new { @type = "number", min = 2, max = 100, @class = "form-control   input-sm" })
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label payout payout0">@Resources.UserWallet.tipCurrencyAmountLabel</label>
+							<label class="control-label payout payout1">@Resources.UserWallet.tipCurrencyTotalAmountLabel</label>
+							<label class="control-label payout payout2">
+								@Resources.UserWallet.tipCurrencyTotalAmountLabel 
+								<i>@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.tipCurrencyAmountEachLabel), "<small class=\"perUserAmount\"></small>"))</i>
+							</label>
+							@Html.TextBoxFor(m => m.Amount, new { @id = "amount", @class = "form-control   input-sm", min = 1 })
+						</div>
+						<div class="col-xs-12">
+							@Html.ValidationMessageFor(m => m.ChatHandle, "", new { @class = "text-danger", style = "display:block" })
+							@Html.ValidationMessageFor(m => m.ActiveMin, "", new { @class = "text-danger", style = "display:block" })
+							@Html.ValidationMessageFor(m => m.ChatHandles, "", new { @class = "text-danger", style = "display:block" })
+							@Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger", style = "display:block" })
+						</div>
+						<div class="col-xs-12">
+							@Html.LabelFor(m => m.Reason, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Reason, new { @class = "form-control   input-sm" })
+							@Html.ValidationMessageFor(m => m.Reason, "", new { @class = "text-danger", style = "display:block" })
+						</div>
+					</div>
+
+
+					@if (Model.Type != Cryptopia.Enums.TwoFactorType.None)
+					{
+						<label class="control-label">@Model.UnlockSummary</label>
+						if (Model.Type == Cryptopia.Enums.TwoFactorType.Question)
+						{
+							<div>
+								@Html.LabelFor(m => m.Question1, new { @class = "control-label" })
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">Q.</span>
+									@Html.TextBoxFor(m => m.Question1, new { @class = "form-control  input-sm", @disabled = "disabled" })
+								</div>
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">A.</span>
+									@Html.PasswordFor(model => model.Answer1, new { @class = "form-control  input-sm" })
+								</div>
+							</div>
+							<div>
+								@Html.LabelFor(m => m.Question2, new { @class = "control-label" })
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">Q.</span>
+									@Html.TextBoxFor(m => m.Question2, new { @class = "form-control  input-sm", @disabled = "disabled" })
+								</div>
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon" style="min-width: 40px">A.</span>
+									@Html.PasswordFor(model => model.Answer2, new { @class = "form-control  input-sm" })
+								</div>
+								<div>@Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })</div>
+								<div>@Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })</div>
+							</div>
+						}
+						else
+						{
+							switch (Model.Type)
+							{
+								case Cryptopia.Enums.TwoFactorType.EmailCode:
+									<div class="input-group input-group-sm">
+										@Html.PasswordFor(m => m.EmailCode, new { @class = "form-control  input-sm" })
+										<span class="input-group-btn">
+											<button id="sendtfacode" class="btn btn-default" type="button">Send Email Code</button>
+										</span>
+									</div>
+									@Html.ValidationMessageFor(model => model.EmailCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.GoogleCode:
+									@Html.TextBoxFor(m => m.GoogleCode, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.GoogleCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.CryptopiaCode:
+								@Html.TextBoxFor(m => m.CryptopiaCode, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.CryptopiaCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.PinCode:
+									@Html.PasswordFor(m => m.Pin, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.Password:
+									@Html.PasswordFor(m => m.Password, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+									break;
+								default:
+									break;
+							}
+						}
+					}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close submit-button" onclick="$.modal.close();" type="button">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-success button-180 submit-button" id="submit" type="submit">
+					<i class="fa fa-spinner fa-pulse loading-button" style="display:none"></i>
+					@Resources.UserWallet.tipCurrencySendTipButton
+				</button>
+			</div>
+			<div style="font-size:12px;position:absolute;bottom:3px;left:4px;">
+				<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+			</div>
+		}
+
+		<div class="success-section" style="display: none">
+			<div class="alert alert-success" style="border-radius: 0px">
+				<h4 class="nopad" style="margin: 0px"><strong class="nopad">@Resources.UserWallet.tipCurrencyTipSubmittedHeadline</strong></h4>
+				<hr />
+				<p id="success-message"></p>
+			</div>
+		</div>
+		<div class="success-section modal-footer" style="display: none">
+			<button class="btn btn-info simplemodal-close" type="button">@Cryptopia.Resources.General.OK</button>
+		</div>
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+	function onBegin() {
+		$('.jsonAlert').hide();
+		$(".loading-button").show();
+		$('.submit-button').attr('disabled', 'disabled');
+	}
+
+	function onSuccess(data) {
+		if (data.Success) {
+			$('.main-section').hide();
+			$('.success-section').show();
+			$('#success-message').html(data.Message);
+		} else {
+			$(".loading-button").hide();
+			$('.submit-button').removeAttr('disabled');
+			$('#errorMessage').show();
+			$('#errorMessage > p').html(data.Message);
+		}
+	}
+
+	function onFailure(data) {
+		$(".loading-button").hide();
+		$('.submit-button').removeAttr('disabled');
+		$('#errorMessage').show();
+		$('#errorMessage > p').html('@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.tipCurrencyFailureMessage),
+															 String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))');
+	}
+
+	$(document).ready(function () {
+		$('#currencyPicker').on('change', function () {
+			var currency = $(this).val();
+			if (currency) {
+				$('#modal').block({ message: '@Resources.UserWallet.tipCurrencyLoadingBalanceMessage' });
+				getJson('@Url.Action("GetCurrencyBalance", "Balance")', { id: currency }, function (data) {
+					$('#modal').unblock();
+					if (data.Success) {
+						$('.symbol').html(data.Symbol);
+						$('#balance').html(data.Balance);
+						$('.minTip').html(data.MinTipAmount);
+						$('#amount').attr('min', data.MinTipAmount);
+					}
+					else {
+
+						$('#errorMessage').show();
+						$('#errorMessage > p').html(data.Message);
+					}
+				});
+			}
+		}).trigger('change');
+
+		$('#payoutType').on('change', function () {
+			var type = $(this).val();
+			$('.payout').hide();
+			$('.payout' + type).show();
+		}).trigger('change');
+
+		$('#minimum').on('click', function () {
+			var selection = $('#payoutType').val();
+			if (selection == 2) {
+				var min = ($(this).html() * $('#ActiveMin').val()).toFixed(8);
+				$('#amount').val(min);
+				$('#amount').attr('min', min);
+			}
+			else {
+				$('#amount').val($(this).html());
+				$('#amount').attr('min', $(this).html());
+			}
+			$(".perUserAmount").html(($('#amount').val() / $('#ActiveMin').val()).toFixed(8));
+		});
+
+		$('#balance').on('click', function () {
+			$('#amount').val($(this).html());
+			$(".perUserAmount").html(($('#amount').val() / $('#ActiveMin').val()).toFixed(8));
+		});
+
+		$('#balance, #minimum, #ActiveMin, #amount, #payoutType').on('change keyup paste', function () {
+			var selection = $('#payoutType').val();
+			if (selection == 2) {
+				var min = ($('#minimum').html() * $('#ActiveMin').val()).toFixed(8);
+				$('#amount').attr('min', min);
+			}
+			else {
+				$('#amount').attr('min', $('#minimum').html());
+			}
+
+			$(".perUserAmount").html(($('#amount').val() / $('#ActiveMin').val()).toFixed(8));
+		});
+
+
+		$('#sendtfacode').on('click', function () {
+			$('.jsonAlert').hide();
+			$('#modal').block({ message: '@Resources.UserWallet.tipCurrencySendingCodeMessage' });
+			getJson('@Url.Action("SendUnlockTwoFactorCode", "TwoFactor")', { componentType: '@Cryptopia.Enums.TwoFactorComponent.Tip' }, function (data) {
+				$('#modal').unblock();
+				if (data.Success) {
+					$('#successMessage').show();
+					$('#successMessage > p').html('@Resources.UserWallet.tipCurrencySendingCodeSuccessMessage');
+				}
+				else {
+					$('#errorMessage').show();
+					$('#errorMessage > p').html('@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.tipCurrnecySendingCodeFailureMessage),
+														                 String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))');
+				}
+			});
+		});
+	});
+
+</script>

@@ -1,0 +1,114 @@
+﻿@model Cryptopia.Common.Currency.AdminCurrencyModel
+@*<div class="settings-page-header-container">
+	<h2 class="settings-page-header">Coin Directory</h2>
+	<div class="row">
+		<div class="col-xs-4">
+			@Html.LabelFor(m => m.Currencies, new { @class = "control-label" })
+			@Html.DropDownList("SelectedCurrency", new SelectList(Model.Currencies, "DOT"), new { @class = "form-control input-sm" })
+		</div>
+	</div>
+	<hr class="" />
+</div>
+
+<div id="message-alert" class="alert text-center" style="display: none">
+	<p></p>
+</div>
+<div class="row">
+	<div id="coin-target" class="col-xs-4">
+	</div>
+</div>
+
+<script>
+	var coinTemplate = $("#coinTemplate").html();
+	$("#SelectedCurrency").on("change", function () {
+		var currency = $(this).val();
+		postJson('@Url.Action("GetCurrency", "AdminCurrency")', { symbol: currency }, function (data) {
+			$("#coin-target").html(Mustache.render(coinTemplate, data));
+		});
+	}).trigger("change");
+
+	function updateCurrency(id) {
+		openModalGet('@Url.Action("UpdateCurrency", "AdminCurrency")', { id: id }, function (modalData) {
+			if (modalData && modalData.Success) {
+				$("#SelectedCurrency").trigger("change");
+			}
+			showMessage(modalData);
+		});
+	}
+
+	function pingCurrency(id) {
+		$.blockUI({ message: 'Sending Ping...' });
+		postJson('@Url.Action("PingCurrency", "AdminCurrency")', { id: id }, function (modalData) {
+			$.unblockUI();
+			showMessage(modalData);
+		});
+	}
+</script>
+
+<script id="coinTemplate" type="text/html">
+	<div>
+		<div class="row">
+			<div class="col-xs-12" style="margin-bottom:10px">
+				<img class="pull-left" src="/Content/Images/Coins/{{Symbol}}-medium.png" />
+				<div style="margin-left:5px" class="pull-left">
+					<div style="font-size:18px">{{Symbol}}</div>
+					<div>{{Name}}</div>
+				</div>
+			</div>
+		</div>
+	
+		<table class="table table-bordered table-condensed">
+			<tbody>
+				<tr>
+					<td>Status</td>
+					<td>{{Status}}</td>
+					<td>ListingStatus</td>
+					<td>{{ListingStatus}}</td>
+				</tr>
+				<tr>
+					<td colspan="4">{{StatusMessage}}</td>
+				</tr>
+				<tr>
+					<td>Connections</td>
+					<td>{{Connections}}</td>
+					<td>Confirmations</td>
+					<td>{{Confirmations}}</td>
+				</tr>
+				<tr>
+					<td>Block Explorer</td>
+					<td colspan="3">{{Explorer}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+			<button type="button" class="btn btn-default" onclick="updateCurrency({{{Id}}})">Update</button>
+			<button type="button" class="btn btn-default" onclick="pingCurrency({{{Id}}})">Ping</button>
+			<button disabled="disabled" type="button" class="btn btn-default">Restart</button>
+		</div>
+	</div>
+</script>*@
+
+
+<div class="table-header-container">
+		<h2 class="table-header">Currency</h2>
+		<hr class="table-seperator" />
+	</div>
+	<div class="table-search-seperator"></div>
+	<div class="table-search-seperator-mobile visible-xs"></div>
+	<table id="table-currency" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetCurrencies", "AdminCurrency")" data-action-update="@Url.Action("UpdateCurrency", "AdminCurrency")">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Symbol</th>
+				<th>Currency</th>
+				<th>Status</th>
+				<th>StatusMessage</th>
+				<th>ListingStatus</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+@Scripts.Render("~/Scripts/Project/Admin/currency.js")
+

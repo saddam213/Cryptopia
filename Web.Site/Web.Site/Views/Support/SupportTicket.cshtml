@@ -1,0 +1,132 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Support.SupportTicketModel
+@{
+	ViewBag.Title = Resources.Support.ticketPageTitle;
+}
+
+@Html.AntiForgeryToken()
+<div>
+	<h2>@ViewBag.Title</h2>
+	<hr />
+
+	<div id="message-alert" class="alert text-center" style="display: none">
+		<p></p>
+	</div>
+
+	<div class="col-lg-4">
+		<h4>@Resources.Support.ticketInfoHeadline</h4>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+
+				<strong style="font-size: larger">#@Model.Id - @Model.Title</strong>
+				<table class="tablefixed tablelayout">
+					<tr>
+						<td>@Resources.Support.ticketCategoryLabel</td>
+						<td>@Model.Category</td>
+					</tr>
+					<tr>
+						<td>@Resources.Support.ticketStatusLabel</td>
+						<td id="ticket-status" class="cell-ellipsis">
+							@switch (Model.Status)
+							{
+								case SupportTicketStatus.New:
+								<span class="label label-info">@Resources.Support.ticketNewStatus</span>
+									break;
+								case SupportTicketStatus.UserReply:
+								<span class="label label-warning">@Resources.Support.ticketAwaitingStatus</span>
+									break;
+								case SupportTicketStatus.AdminReply:
+								<span class="label label-success">@Resources.Support.ticketRepliedStatus</span>
+									break;
+								case SupportTicketStatus.Closed:
+								<span class="label label-danger">@Resources.Support.ticketClosedStatus</span>
+									break;
+								default:
+									break;
+							}
+						</td>
+					</tr>
+					<tr>
+						<td>@Resources.Support.ticketOpenedLabel:</td>
+						<td class="cell-ellipsis">@Model.Created</td>
+					</tr>
+					<tr>
+						<td>@Resources.Support.ticketUpdatedLabel:</td>
+						<td id="ticket-lastupdate" class="cell-ellipsis">@Model.LastUpdate</td>
+					</tr>
+				</table>
+				<span>@Resources.Support.ticketDescriptionLabel:</span>
+				<p style="white-space:pre-line">@Model.Description</p>
+				<br />
+				@if (Model.Status != SupportTicketStatus.Closed)
+				{
+				<div id="ticket-actions">
+					<button onclick="replyTicket(@Model.Id)" class="btn btn-info" >@Resources.Support.ticketReplyButton</button>
+					<button onclick="closeTicket(@Model.Id)" class="btn btn-danger" >@Resources.Support.ticketCloseButton</button>
+					<a class='btn btn-success pull-right' href='/UserSupport'>@Resources.Support.ticketReturnButton</a>
+				</div>
+				}
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-lg-8">
+		<h4>@Resources.Support.ticketHistoryLabel:</h4>
+		<ul id="message-list" class="list-group">
+			@foreach (var item in Model.Messages)
+			{
+			<li class="list-group-item">
+				<span><span style="font-weight: bold">@Resources.Support.ticketSenderLabel: @item.Sender</span><span style="font-weight: bold" class="pull-right">@item.TimeStamp</span></span>
+				<p style="white-space:pre-line">
+					@item.Message
+				</p>
+			</li>
+			}
+		</ul>
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+
+	function replyTicket(ticketId) {
+		openModalGet('/Support/CreateReply', { ticketId: ticketId}, function(data){
+			showMessage(data);
+			if(data.Success){
+				var messageTemplate = $("#messageTemplate").html();
+				$("#message-list").prepend(Mustache.render(messageTemplate,data.Data));
+				$("#ticket-lastupdate").html(data.Data.Timestamp);
+				$("#ticket-status").html("<span class='label label-warning'>@Resources.Support.ticketAwaitingStatus</span>");
+			}
+		});
+	}
+	
+	function closeTicket(ticketId) {
+		confirm("@Resources.Support.ticketCloseQuestionTitle", String.format("@Resources.Support.ticketCloseQuestion", ticketId), function () {
+			$.blockUI({ message: "@Resources.Support.ticketClosingMessage" });
+			getJson('/Support/CloseTicket', {id: ticketId}, function (data) { 
+				$.unblockUI(); 
+				showMessage(data);
+				if(data.Success){
+					$("#ticket-lastupdate").html(data.Data.Timestamp);
+					$("#ticket-status").html("<span class='label label-danger'>@Resources.Support.ticketClosedStatus</span>");
+					$("#ticket-actions").html("	<a class='btn btn-success' href='/UserSupport'>@Resources.Support.ticketReturnButton</a>");
+				}
+			});
+		});
+	}
+
+</script>
+
+<script id="messageTemplate" type="text/html">
+	<li class="list-group-item">
+		<span><span style="font-weight: bold">@Resources.Support.ticketSenderLabel: {{Sender}}</span><span style="font-weight: bold" class="pull-right">{{Timestamp}}</span></span>
+		<p style="white-space:pre-line">
+			{{Message}}
+		</p>
+	</li>
+</script>

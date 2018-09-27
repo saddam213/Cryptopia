@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a58918a7-d448-4044-aefe-80a6c5adf508" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="Cryptopia.API.Objects" />
+      <ReferencedAssembly AssemblyName="Cryptopia.Enums" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8000/CryptopiaTrade/service/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="f163a15e-0398-47f7-9f32-5709be132b34" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="99794846-0a81-4f2b-bcf1-5812fa4a94da" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="7e0d5209-e6d9-4d4f-a362-d999a91ae5f1" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="TradeService.DataObjects1.xsd" MetadataType="Schema" ID="296d713f-c174-4089-809e-50ac33f6795b" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="d4373899-3ca5-4296-80f9-0814a29f33d0" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="Cryptopia.Enums1.xsd" MetadataType="Schema" ID="e69c3680-ed25-4e36-ae79-e37b10f6278c" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+    <MetadataFile FileName="TradeService.Notifications1.xsd" MetadataType="Schema" ID="ee658aca-6b52-4385-9259-a3483d6d602b" SourceId="1" SourceUrl="net.tcp://localhost:8000/CryptopiaTrade/service/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

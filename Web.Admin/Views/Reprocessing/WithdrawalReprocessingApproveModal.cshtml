@@ -1,0 +1,64 @@
+﻿@model  Cryptopia.Admin.Common.Reprocessing.ReprocessingApprovalsModel
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<style>
+    .modal-body-nopadding{
+        padding: 0px;
+    }
+
+</style>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+            <h3 class="modal-title">Approve Withdrawal Reprocessing</h3>
+        </div>
+        @using (Ajax.BeginForm("ApproveWithdrawalReprocessing", "Reprocessing", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.Type)
+            @Html.HiddenFor(m => m.Status)
+            @Html.HiddenFor(m => m.Requested)
+            @Html.HiddenFor(m => m.RequestedBy)
+            @Html.WriterValidationSummary()
+
+            <div class="modal-body @(@Model.Status == Cryptopia.Enums.ApprovalQueueStatus.Approved ?  "" : "modal-body-nopadding")">
+            @if (Model.Status == Cryptopia.Enums.ApprovalQueueStatus.Approved)
+            {
+                <div>
+                    @Html.LabelFor(m => m.ApprovedBy)
+                    <p>@Model.ApprovedBy</p>
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.Approved)
+                    <p>@Model.Approved</p>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.ApprovedBy)
+                @Html.HiddenFor(m => m.Approved)
+            }
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+                @if (Model.Status != Cryptopia.Enums.ApprovalQueueStatus.Approved)
+                {
+                    <input id="submit" class="btn btn-success button-180" type="submit" value="Approve" />
+                }
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+
+	});
+</script>
+
+

@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2FE7F4A1-9AB7-46FD-9E7D-7B02FFD3820A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.Admin.Common</RootNamespace>
+    <AssemblyName>Cryptopia.Admin.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityLogging\ActivityDataPoint.cs" />
+    <Compile Include="ActivityLogging\ActivityTrendData.cs" />
+    <Compile Include="ActivityLogging\AdminAction.cs" />
+    <Compile Include="ActivityLogging\AdminDataModel.cs" />
+    <Compile Include="ActivityLogging\IActivityLogReader.cs" />
+    <Compile Include="ActivityLogging\SupportTicketStatsModel.cs" />
+    <Compile Include="ActivityLogging\UserAdminActivityModel.cs" />
+    <Compile Include="ActivityLogging\UserAdminModel.cs" />
+    <Compile Include="ActivityLogging\VerificationStatsModel.cs" />
+    <Compile Include="AdminCurrency\AdminCurrencyInfoModel.cs" />
+    <Compile Include="AdminCurrency\IAdminCurrencyReader.cs" />
+    <Compile Include="AdminCurrency\IAdminCurrencyWriter.cs" />
+    <Compile Include="AdminUser\AdminChangeEmailApproveModel.cs" />
+    <Compile Include="AdminUser\AdminChangeEmailModel.cs" />
+    <Compile Include="AdminUser\AdminActivateUserModel.cs" />
+    <Compile Include="AdminUser\AdminResetTwoFactorApproveModel.cs" />
+    <Compile Include="AdminUser\AdminResetTwoFactorModel.cs" />
+    <Compile Include="AdminUser\AdminUserApiUpdateModel.cs" />
+    <Compile Include="AdminUser\AdminUserModel.cs" />
+    <Compile Include="AdminUser\AdminUserProfileUpdateModel.cs" />
+    <Compile Include="AdminUser\AdminUserSettingsUpdateModel.cs" />
+    <Compile Include="AdminUser\AdminUserUpdateModel.cs" />
+    <Compile Include="AdminUser\IAdminUserReader.cs" />
+    <Compile Include="AdminUser\IAdminUserWriter.cs" />
+    <Compile Include="Approval\AdminApprovalModel.cs" />
+    <Compile Include="Approval\IAdminApprovalReader.cs" />
+    <Compile Include="Chat\IAdminChatReader.cs" />
+    <Compile Include="Fiat\DepositFiatModel.cs" />
+    <Compile Include="Fiat\IFiatReader.cs" />
+    <Compile Include="Nzdt\INzdtImportService.cs" />
+    <Compile Include="Nzdt\INzdtReader.cs" />
+    <Compile Include="Nzdt\INzdtWriter.cs" />
+    <Compile Include="Nzdt\NzdtUploadResultModel.cs" />
+    <Compile Include="Fiat\WithdrawFiatModel.cs" />
+    <Compile Include="Incapsula\BlockIpAddressModel.cs" />
+    <Compile Include="Incapsula\GeoDistributionModel.cs" />
+    <Compile Include="Incapsula\GeoDistributionSummaryModel.cs" />
+    <Compile Include="Incapsula\HitModel.cs" />
+    <Compile Include="Incapsula\HitSummaryModel.cs" />
+    <Compile Include="Incapsula\IIncapsulaReader.cs" />
+    <Compile Include="Incapsula\IIncapsulaWriter.cs" />
+    <Compile Include="Incapsula\ThreatModel.cs" />
+    <Compile Include="Incapsula\ThreatSummaryModel.cs" />
+    <Compile Include="Incapsula\VisitByCountryModel.cs" />
+    <Compile Include="Incapsula\VisitModel.cs" />
+    <Compile Include="Incapsula\VisitsByCountrySummaryModel.cs" />
+    <Compile Include="Incapsula\VisitSummaryModel.cs" />
+    <Compile Include="News\IAdminNewsReader.cs" />
+    <Compile Include="News\IAdminNewsWriter.cs" />
+    <Compile Include="Nzdt\UpdateNzdtTransactionModel.cs" />
+    <Compile Include="Overview\IAdminCurrencyReader.cs" />
+    <Compile Include="Paytopia\IAdminPaytopiaService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reactopia\ReactDataTablesModel.cs" />
+    <Compile Include="Referral\IAdminReferralReader.cs" />
+    <Compile Include="Reprocessing\IReprocessingReader.cs" />
+    <Compile Include="Reprocessing\IReprocessingWriter.cs" />
+    <Compile Include="Reprocessing\ReprocessingApprovalDataModel.cs" />
+    <Compile Include="Reprocessing\ReprocessingApprovalsModel.cs" />
+    <Compile Include="Reprocessing\ReprocessingOptionsModel.cs" />
+    <Compile Include="Reprocessing\UpdateWithdrawalTxModel.cs" />
+    <Compile Include="Reprocessing\WalletTxRequestModel.cs" />
+    <Compile Include="Security\IAdminSecurityReader.cs" />
+    <Compile Include="Support\GetTicketsRequestModel.cs" />
+    <Compile Include="Support\IQueueWriter.cs" />
+    <Compile Include="Support\ISupportReader.cs" />
+    <Compile Include="Support\ITicketMessageWriter.cs" />
+    <Compile Include="Support\ITicketWriter.cs" />
+    <Compile Include="Support\PublishReplyResultModel.cs" />
+    <Compile Include="Support\SupportMessageModel.cs" />
+    <Compile Include="Support\SupportQueueModel.cs" />
+    <Compile Include="Support\SupportTicketBasicInfoModel.cs" />
+    <Compile Include="Support\SupportTicketModel.cs" />
+    <Compile Include="Support\TicketDetailsViewModel.cs" />
+    <Compile Include="Support\TicketListViewModel.cs" />
+    <Compile Include="Support\CreateTicketModel.cs" />
+    <Compile Include="Support\UpdateTicketModel.cs" />
+    <Compile Include="TradePair\IAdminTradePairReader.cs" />
+    <Compile Include="TradePair\IAdminTradePairWriter.cs" />
+    <Compile Include="UserVerification\IUserVerificationWriter.cs" />
+    <Compile Include="UserVerification\IUserVerificationReader.cs" />
+    <Compile Include="UserVerification\UserDetailsModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Common\Cryptopia.Common.csproj">
+      <Project>{e52b1491-8a60-48b6-b551-834e159867ab}</Project>
+      <Name>Cryptopia.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6e49b123-5cc9-4b9d-bbd6-feeb8fa4ce39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Common\Cryptopia.Infrastructure.Incapsula.Common.csproj">
+      <Project>{57a8b09c-71bf-437e-968d-387744be2b90}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

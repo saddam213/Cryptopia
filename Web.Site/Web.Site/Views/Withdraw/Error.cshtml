@@ -1,0 +1,29 @@
+﻿@{
+	ViewBag.Title = Resources.UserWallet.withdrawErrorPageTitle;
+	ViewBag.IsFullPage = true;
+	var subTitle = ViewBag.SubTitle ?? Resources.UserWallet.withdrawErrorHeadline;
+}
+
+@Html.AntiForgeryToken()
+<div class="row withdraw-wrapper">
+	<div class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4 col-sm-10 col-md-6 col-lg-4 panel panel-default nopad withdraw-container">
+		<div class="col-md-12" style="padding-top:15px">
+			<div class="alert alert-danger">
+				<h4><b>@subTitle</b></h4>
+				@Html.Raw(ViewBag.Message)
+				@if(!(ViewBag.HideSupportLink != null || ViewBag.HideSupportLink == true))
+				{
+				<p style="font-size:12px">
+					@Html.Raw(String.Format(Html.Encode(Resources.UserWallet.withdrawErrorInfoText),
+											String.Format("<a href=\"/UserSupport\">{0}</a>", Cryptopia.Resources.General.CryptopiaSupportLink)))
+				</p>
+				}
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="text-center" style="margin-bottom:15px">
+				<a class="btn btn-success btnfullwidth" href="/Withdraw">@Cryptopia.Resources.General.Close</a>
+			</div>
+		</div>
+	</div>
+</div>

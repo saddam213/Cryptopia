@@ -1,0 +1,59 @@
+﻿@model Cryptopia.Common.User.UserMessageCreateModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@String.Format(Resources.UserData.messagesReplyToHeadline, Model.Recipiants)</h3>
+		</div>
+		@using (Ajax.BeginForm("ReplyMessage", "UserMessage", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.ValidationSummary(true)
+			@Html.WriterValidationSummary()
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12">
+						<div>
+							@Html.LabelFor(m => m.Recipiants, Resources.UserData.messagesRecipiantsLabel, new { @class = "control-label" })
+							<small style="display:block">@Resources.UserData.messagesRecipiantsInfoText <i>@Resources.UserData.messagesRecipiantsExampleInfoText</i></small>
+							@Html.TextBoxFor(m => m.Recipiants, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.Recipiants, "", new { @class = "text-danger" })
+						</div>
+						<div>
+							@Html.LabelFor(m => m.Subject, Resources.UserData.messagesSubjectLabel, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Subject, new { @class = "form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+						</div>
+						<div>
+							@Html.LabelFor(m => m.Message, Resources.UserData.messagesMessageLabel, new { @class = "control-label" })
+							@Html.EditorFor(m => m.Message)
+							@Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-info " type="submit">@Cryptopia.Resources.General.Submit</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$('#simplemodal-container').addClass('modal-medium');
+</script>
+<style>
+	.mce-edit-area {
+		height: 300px;
+	}
+
+		.mce-edit-area iframe {
+			height: 100% !important;
+		}
+</style>

@@ -1,0 +1,193 @@
+﻿@model Cryptopia.Common.Emoticons.CreateEmoticonModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Create Emoticon</h3>
+		</div>
+		<div class="alert alert-danger text-center" id="image-alert" style="display: none;">
+			<p></p>
+		</div>
+		@using (Ajax.BeginForm("CreateEmoticon", "AdminEmoticon", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				<div class="form-margin">
+					<div class="form-group">
+						<div class="col-md-12 text-center">
+							<img id="imagePreview" style="display:none;max-width:240px;max-height:80px;width: auto;height: auto;" />
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Name, new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Category, new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Category, "All", new { @class = "form-control input-sm" })
+								@Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								@Html.Label("imageFile", "Image File", new { @class = "control-label" })
+								@Html.TextBox("imageFile", "", new { @id = "imageFile", @type = "file", @class = "form-control  input-sm", @accept = "image/*", data_val = "true", data_val_required = "Image File field is required." })
+								@Html.ValidationMessage("imageFile", new { @class = "text-danger" })
+							</div>
+							<div class="col-md-6">
+								@Html.LabelFor(m => m.Code, "Code Override", new { @class = "control-label" })
+								@Html.TextBoxFor(m => m.Code, new { @class = "form-control input-sm", @placeholder = "Automatically generate" })
+								@Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger", style = "font-size:12px" })
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								@Html.CheckBoxFor(m => m.ForceResize)
+								@Html.LabelFor(m => m.ForceResize, "Force Resize", new { @class = "control-label" })
+								<i style="font-size:11px"> (still images only)</i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-primary button-180" type="submit">Create</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script src="~/Scripts/jquery.form.js"></script>
+<script type="text/javascript">
+
+	function readURL(input) {
+		$('#imagePreview').hide();
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#imagePreview').show();
+				$('#imagePreview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(document).ready(function () {
+		$("#imageFile").change(function () {
+			showAlert();
+			readURL(this);
+		});
+	});
+
+
+	$('.form-horizontal').submit(function () {
+		if (!$(this).valid()) {
+			return false;
+		}
+
+		showAlert();
+		var fileName = $("#imageFile").val();
+		var options = {
+			url: '@Url.Action("CreateEmoticon")',
+			type: "POST",
+			dataType: "JSON",
+			headers: { "Content-Disposition": "attachment; filename=" + fileName },
+			beforeSubmit: function () {
+				//viewModel.progress(0);
+			},
+			uploadProgress: function (event, position, total, percentComplete) {
+				//viewModel.progress(percentComplete + "%");
+			},
+			success: function (data) {
+				if (data.Success) {
+					$.modal.close(data);
+				}
+				else {
+					showAlert(data.Message);
+				}
+			},
+			error: function (jqXHR, errorThrown) {
+				showAlert(errorThrown);
+			}
+		}
+
+		$(this).ajaxSubmit(options);
+		return false;
+	});
+
+	function showAlert(error) {
+		$("#image-alert").hide();
+		if (error) {
+			$("#image-alert").show();
+			$("#image-alert > p").text(error);
+		}
+	}
+
+	@*$(element).on("change", function () {
+		if (element.files.length) {
+			var $this = $(this);
+			var fileName = $this.val();
+
+			viewModel.isFileSelected(true);
+
+			// TODO validate size, extension
+			var name = this.files[0].name;
+			var filesize = this.files[0].size;
+			var fileExtension = "." + name.split('.').pop();
+			if (filesize > constants.attachmentMaxFileSize) {
+				viewModel.isValidUpload(false);
+				viewModel.errorMessage(pivotRes.T("NotesAttachmentToLarge"));
+			}
+			else if (!(constants.attachmentAllowedExtensions).test(fileExtension)) {
+				viewModel.isValidUpload(false);
+				viewModel.errorMessage(pivotRes.T("NotesAttachmentInvalidType"));
+			}
+			else {
+				viewModel.isValidUpload(true);
+			}
+
+			viewModel.displayname(name);
+			viewModel.filesize(prettyFileSize(filesize));
+
+			$("form").ajaxForm({
+				url: '@Url.Action("CreateEmoticon")',
+				type: "POST",
+				dataType: "JSON",
+				headers: { "Content-Disposition": "attachment; filename=" + fileName },
+				beforeSubmit: function () {
+					viewModel.progress(0);
+				},
+				uploadProgress: function (event, position, total, percentComplete) {
+					viewModel.progress(percentComplete + "%");
+				},
+				success: function (data) {
+					if (data.Success) {
+						bindingContext.$parent.removeFile(viewModel);
+						bindingContext.$parent.addNewAttachment(data.Data);
+					}
+					else {
+						viewModel.isValidUpload(false);
+						viewModel.errorMessage(data.Error);
+					}
+				},
+				error: function (jqXHR, errorThrown) {
+					viewModel.errorMessage(errorThrown);
+				}
+			});
+		}
+	});
+	$(element).trigger("click");*@
+
+</script>

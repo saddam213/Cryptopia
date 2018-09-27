@@ -1,0 +1,187 @@
+﻿@model Cryptopia.Common.Lotto.LottoPaymentModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close();">×</button>
+			<h3 class="modal-title">@Resources.Lotto.createHeadline</h3>
+			<small>@String.Format(Resources.Lotto.createText, Model.Name)</small>
+		</div>
+		@using (Ajax.BeginForm("CreateLottoTicket", "Lotto", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace , OnBegin="onFormBegin", OnSuccess="onFormComplete", OnFailure= "onFormComplete" }, new { @class = "form-vertical" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.WriterValidationSummary()
+			@Html.HiddenFor(m => m.Type)
+			@Html.HiddenFor(m => m.LottoItemId)
+			@Html.HiddenFor(m => m.Balance)
+			@Html.HiddenFor(m => m.Description)
+			@Html.HiddenFor(m => m.Name)
+			@Html.HiddenFor(m => m.Rate)
+			@Html.HiddenFor(m => m.Symbol)
+
+			<div class="modal-body">
+	
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<span>@Resources.Lotto.createTicketPriceLabel: <b>@Model.Rate.ToString("F8")</b> @Model.Symbol</span>
+							<hr />
+						</div>
+
+						<div class="col-xs-6">
+							@Html.LabelFor(m => m.Amount, Resources.Lotto.createAmountLabel, new { @class = "control-label" })
+							@Html.TextBoxFor(m => m.Amount, new { @id = "amount", @class = "form-control   input-sm"})
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label">@Resources.Lotto.createAvailableBalanceLabel: </label>
+							<div>
+								<span>
+									<span id="balance" class="btn-link text-info">@Model.Balance.ToString("F8")</span>
+									@Model.Symbol
+								</span>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							@Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+							<div>
+								<span>
+									@Resources.Lotto.createTotalPriceLabel:
+									<span id="total" class="text-info">0.00000000</span>
+									@Model.Symbol
+								</span>
+							</div>
+						</div>
+					</div>
+					@*TFA*@
+					@if (Model.Type != Cryptopia.Enums.TwoFactorType.None)
+					{
+						<label class="control-label">@Model.UnlockSummary</label>
+						if (Model.Type == Cryptopia.Enums.TwoFactorType.Question)
+						{
+						<div>
+							@Html.LabelFor(m => m.Question1, new { @class = "control-label" })
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorQuestionShortLabel</span>
+								@Html.TextBoxFor(m => m.Question1, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorAnswerShortLabel</span>
+								@Html.PasswordFor(model => model.Answer1, new { @class = "form-control  input-sm" })
+							</div>
+						</div>
+						<div>
+							@Html.LabelFor(m => m.Question2, new { @class = "control-label" })
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorQuestionShortLabel</span>
+								@Html.TextBoxFor(m => m.Question2, new { @class = "form-control  input-sm", @disabled = "disabled" })
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon" style="min-width: 40px">@Cryptopia.Resources.Authorization.twoFactorAnswerShortLabel</span>
+								@Html.PasswordFor(model => model.Answer2, new { @class = "form-control  input-sm" })
+							</div>
+							<div>@Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })</div>
+							<div>@Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })</div>
+						</div>
+						}
+						else
+						{
+							switch (Model.Type)
+							{
+								case Cryptopia.Enums.TwoFactorType.EmailCode:
+								<div class="input-group input-group-sm">
+									@Html.PasswordFor(m => m.EmailCode, new { @class = "form-control  input-sm" })
+									<span class="input-group-btn">
+										<button id="sendtfacode" class="btn btn-default" type="button">@Resources.Lotto.lottoTwoFactorMailSendButton</button>
+									</span>
+								</div>
+								@Html.ValidationMessageFor(model => model.EmailCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.GoogleCode:
+								@Html.TextBoxFor(m => m.GoogleCode, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.GoogleCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.CryptopiaCode:
+								@Html.TextBoxFor(m => m.CryptopiaCode, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.CryptopiaCode, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.PinCode:
+								@Html.PasswordFor(m => m.Pin, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+									break;
+								case Cryptopia.Enums.TwoFactorType.Password:
+								@Html.PasswordFor(m => m.Password, new { @class = "form-control  input-sm" })
+									@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+									break;
+								default:
+									break;
+							}
+						}
+					}
+					<br />
+		
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-default button-180 simplemodal-close submit-button" onclick="$.modal.close();" type="button">@Cryptopia.Resources.General.Cancel</button>
+				<button class="btn btn-success button-180 submit-button" id="submit" type="submit">
+					<i class="fa fa-spinner fa-pulse loading-button" style="display:none"></i>
+					@Resources.Lotto.createBuyTicketButton
+				</button>
+			</div>
+		}
+
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+
+	function onFormBegin() {
+		$(".loading-button").show();
+		$(".submit-button").attr("disabled", "disabled");
+	}
+
+	function onFormComplete() {
+		$(".loading-button").hide();
+		$(".submit-button").removeAttr("disabled");
+	}
+
+	$(document).ready(function () {
+		$('#balance').on('click', function () {
+			var totalTickets = ~~('@Model.Balance' / +'@Model.Rate');
+			$('#amount').val(totalTickets).trigger("change");
+		});
+
+		$('#amount').on('change paste keyup', function () {
+			var total = +'@Model.Rate' * $(this).val();
+			$('#total').html(total.toFixed(8));
+			$('#total').removeClass('text-success text-info text-danger');
+			if (total <= 0) {
+				$('#total').addClass('text-info');
+			} else if (total > '@Model.Balance') {
+				$('#total').addClass('text-danger');
+			} else {
+				$('#total').addClass('text-success');
+			}
+		});
+
+		$('#sendtfacode').on('click', function () {
+			$('.jsonAlert').hide();
+			$('#modal').block({ message: '@Resources.Lotto.createTwoFactorSendingMessage' });
+			getJson('@Url.Action("SendUnlockTwoFactorCode", "TwoFactor")', { componentType: '@Cryptopia.Enums.TwoFactorComponent.Transfer' }, function (data) {
+				$('#modal').unblock();
+				if (data.Success) {
+					$('#successMessage').show();
+					$('#successMessage > p').html('@Resources.Lotto.createTwoFactorMailSentMessage');
+				} else {
+					$('#errorMessage').show();
+					$('#errorMessage > p').html("@Html.Raw(String.Format(Html.Encode(Resources.Lotto.createTwoFactorMailFailedMessage),
+												  			             String.Format("<a href='/Support'></a>", 
+																		               Html.Encode(Cryptopia.Resources.General.CryptopiaSupportLink))))");
+				}
+			});
+		});
+	});
+</script>
+

@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="avatarHeadline" xml:space="preserve">
+    <value>Change Avatar</value>
+  </data>
+  <data name="avatarInfoText" xml:space="preserve">
+    <value>Recommended image size is 60x60 pixels, Images larger will be resized to fit.</value>
+  </data>
+  <data name="avatarWarningText" xml:space="preserve">
+    <value>Offensive or obscene images may be removed by Cryptopia moderators.</value>
+  </data>
+  <data name="menuAccountLabel" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="menuBalancesLabel" xml:space="preserve">
+    <value>Balances</value>
+  </data>
+  <data name="menuDepositHistoryLabel" xml:space="preserve">
+    <value>Deposit History</value>
+  </data>
+  <data name="menuKarmaLabel" xml:space="preserve">
+    <value>Karma</value>
+  </data>
+  <data name="menuKarmaPointsLabel" xml:space="preserve">
+    <value>Karma Points</value>
+  </data>
+  <data name="menuMarketItemsLabel" xml:space="preserve">
+    <value>Market Items</value>
+  </data>
+  <data name="menuMarketplaceHistoryLabel" xml:space="preserve">
+    <value>Marketplace History</value>
+  </data>
+  <data name="menuMessagesLabel" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="menuMineshaftHistoryLabel" xml:space="preserve">
+    <value>Mineshaft History</value>
+  </data>
+  <data name="menuNotificationsLabel" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="menuOpenTradesLabel" xml:space="preserve">
+    <value>Open Trades</value>
+  </data>
+  <data name="menuPageTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="menuPaytopiaLabel" xml:space="preserve">
+    <value>Paytopia</value>
+  </data>
+  <data name="menuReferralHistoryLabel" xml:space="preserve">
+    <value>Referral History</value>
+  </data>
+  <data name="menuSecurityLabel" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="menuSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menuShareholderLabel" xml:space="preserve">
+    <value>Shareholder</value>
+  </data>
+  <data name="menuTermDepositsLabel" xml:space="preserve">
+    <value>Term Deposits</value>
+  </data>
+  <data name="menuTradeHistoryLabel" xml:space="preserve">
+    <value>Trade History</value>
+  </data>
+  <data name="menuTransferHistoryLabel" xml:space="preserve">
+    <value>Transfer History</value>
+  </data>
+  <data name="menuTrustRatingLabel" xml:space="preserve">
+    <value>Trust Rating</value>
+  </data>
+  <data name="menuWithdrawHistoryLabel" xml:space="preserve">
+    <value>Withdraw History</value>
+  </data>
+  <data name="prifileDetailsHeadline" xml:space="preserve">
+    <value>Profile Details</value>
+  </data>
+  <data name="profileAvatarErrorLink" xml:space="preserve">
+    <value>Return to account</value>
+  </data>
+  <data name="profileAvatarErrorTitle" xml:space="preserve">
+    <value>Error Creating Avatar</value>
+  </data>
+  <data name="profileAvatarLabel" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="profileCannotChangeEmailMessage" xml:space="preserve">
+    <value>Due to security reasons your main email address cannot be changed here, If you need to change your email please contact Cryptopia Support.</value>
+  </data>
+  <data name="profileCannotChangeEmailMessageTitle" xml:space="preserve">
+    <value>Change Email Info.</value>
+  </data>
+  <data name="profileChangeAvatarButton" xml:space="preserve">
+    <value>Change Avatar</value>
+  </data>
+  <data name="profileChangeAvatarHint" xml:space="preserve">
+    <value>Change Avatar Image</value>
+  </data>
+  <data name="profileHeadline" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="profileReferralCountLabel" xml:space="preserve">
+    <value>Referral Count</value>
+  </data>
+  <data name="profileReferralHeadline" xml:space="preserve">
+    <value>Referral Details</value>
+  </data>
+  <data name="profileReferralHistoryLink" xml:space="preserve">
+    <value>View referral history</value>
+  </data>
+  <data name="profileReferralLinkNotificationTitle" xml:space="preserve">
+    <value>Your Referral Link</value>
+  </data>
+  <data name="profileReferralReferredByLabel" xml:space="preserve">
+    <value>Referred By</value>
+  </data>
+  <data name="profileReferralText" xml:space="preserve">
+    <value>The Cryptopia referral system rewards users for referring customers to the site, for each referred user you will receive {0}% of that users trade fees converted to DOT Please provide the link below to the user you like, if he registers an account using your link you will start being rewarded for their activity.</value>
+    <comment>{0} - Percentage placeholder;</comment>
+  </data>
+  <data name="profileReferralTradeFeesBonusLabel" xml:space="preserve">
+    <value>Trade Fees Bonus</value>
+  </data>
+  <data name="profileSaveButton" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="securityAccountHeadline" xml:space="preserve">
+    <value>Account Security</value>
+  </data>
+  <data name="securityAccountWithdrawAddressBookLabel" xml:space="preserve">
+    <value>AddressBook Withdraw Only</value>
+  </data>
+  <data name="securityAccountWithdrawDisableEmailLabel" xml:space="preserve">
+    <value>Disable Withdraw Email Confirmation</value>
+  </data>
+  <data name="securityAccountWithdrawHeadline" xml:space="preserve">
+    <value>Withdraw Settings</value>
+  </data>
+  <data name="securityAddressBookAddNewButton" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="securityAddressBookAddressColumn" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="securityAddressBookCreateAddressLabel" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="securityAddressBookCreateBankAccountNumberLabel" xml:space="preserve">
+    <value>Bank Account Number</value>
+  </data>
+  <data name="securityAddressBookCreateBankReferenceLabel" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="securityAddressBookCreateButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="securityAddressBookCreateCurrencyIdLabel" xml:space="preserve">
+    <value>CurrencyId</value>
+  </data>
+  <data name="securityAddressBookCreateHeadline" xml:space="preserve">
+    <value>Add Address Book Entry</value>
+  </data>
+  <data name="securityAddressBookCreateLabelLabel" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="securityAddressBookCreatePaymentIdLabel" xml:space="preserve">
+    <value>PaymentId</value>
+  </data>
+  <data name="securityAddressBookCreateWavesLabel" xml:space="preserve">
+    <value>Waves Token Address</value>
+  </data>
+  <data name="securityAddressBookCreateWavesMessage" xml:space="preserve">
+    <value>Alternatively you can save your WAVES token address.</value>
+  </data>
+  <data name="securityAddressBookCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="securityAddressBookCurrencyIdColumn" xml:space="preserve">
+    <value>CurrencyId</value>
+  </data>
+  <data name="securityAddressBookDeleteHint" xml:space="preserve">
+    <value>Delete address book entry</value>
+  </data>
+  <data name="securityAddressBookDeleteQuestionMessage" xml:space="preserve">
+    <value>Are you sure you want to delete this address book item?</value>
+  </data>
+  <data name="securityAddressBookDeleteQuestionTitle" xml:space="preserve">
+    <value>Delete Address?</value>
+  </data>
+  <data name="securityAddressBookEmptyListMessage" xml:space="preserve">
+    <value>You have no addresses saved.</value>
+  </data>
+  <data name="securityAddressBookHeadline" xml:space="preserve">
+    <value>Withdraw Address Book</value>
+  </data>
+  <data name="securityAddressBookIdColumn" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="securityAddressBookLabelColumn" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="securityAddressBookTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="securityApiEnableLabel" xml:space="preserve">
+    <value>Enable API</value>
+  </data>
+  <data name="securityApiEnableUnsafeWithdrawalHint" xml:space="preserve">
+    <value>Allow withdraw to any address via the API, otherwise limited to Addreessbook entires</value>
+  </data>
+  <data name="securityApiEnableUnsafeWithdrawalLabel" xml:space="preserve">
+    <value>Allow unsafe withdraw</value>
+  </data>
+  <data name="securityApiEnableUnsafeWithdrawalWarningLabel" xml:space="preserve">
+    <value>(Not reccomended)</value>
+  </data>
+  <data name="securityApiEnableWithdrawalLabel" xml:space="preserve">
+    <value>Enable Withdrawal</value>
+  </data>
+  <data name="securityApiGenerationFailedLinkMessage" xml:space="preserve">
+    <value>Failed to generate API key, if problem persists please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+  <data name="securityApiGenerationFailedMessage" xml:space="preserve">
+    <value>Failed to generate API key, if problem persists please contact Cryptopia Support.</value>
+  </data>
+  <data name="securityApiHeadline" xml:space="preserve">
+    <value>Api Settings</value>
+  </data>
+  <data name="securityApiNewKeyButton" xml:space="preserve">
+    <value>New Key</value>
+  </data>
+  <data name="securityApiSaveButton" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="securityPasswordConfirmLabel" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="securityPasswordHeadline" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="securityPasswordNewLabel" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="securityPasswordOldLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="securityPasswordSaveButton" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="securityPasswordUpdatedMessage" xml:space="preserve">
+    <value>Successfully updated password.</value>
+  </data>
+  <data name="securityTfaEmailErrorMessage" xml:space="preserve">
+    <value>Confirmation email can only be disabled if withdraw TFA is enabled.</value>
+  </data>
+  <data name="securityTwoFactorHeadline" xml:space="preserve">
+    <value>Two Factor Security</value>
+  </data>
+  <data name="securityUnlockAnswerRequiredError" xml:space="preserve">
+    <value>Answer is required</value>
+  </data>
+  <data name="securityUnlockButton" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="securityUnlockCryptopiaCodeLabel" xml:space="preserve">
+    <value>Cryptopia Code</value>
+  </data>
+  <data name="securityUnlockCryptopiaCodeMessage" xml:space="preserve">
+    <value>Please enter your Cryptopia Authenticator code.</value>
+  </data>
+  <data name="securityUnlockCryptopiaRequiredError" xml:space="preserve">
+    <value>Cryptopia Auth. code is required</value>
+  </data>
+  <data name="securityUnlockEmailCodeIsSentMessage" xml:space="preserve">
+    <value>Your unlock code has been sent to your registered two factor email address</value>
+  </data>
+  <data name="securityUnlockEmailCodeLabel" xml:space="preserve">
+    <value>Email Code</value>
+  </data>
+  <data name="securityUnlockEmailCodeMessage" xml:space="preserve">
+    <value>Please enter the code sent to your email address.</value>
+  </data>
+  <data name="securityUnlockEmailCodeNotSentError" xml:space="preserve">
+    <value>An error occured sending twofactor code email, If problems persists please contact {0}</value>
+    <comment>{0} - Support link</comment>
+  </data>
+  <data name="securityUnlockEmailCodeNotSentErrorTitle" xml:space="preserve">
+    <value>Email Send Failed!</value>
+  </data>
+  <data name="securityUnlockGoogleCodeLabel" xml:space="preserve">
+    <value>Google Code</value>
+  </data>
+  <data name="securityUnlockGoogleCodeMessage" xml:space="preserve">
+    <value>Please enter your Google Authenticator code.</value>
+  </data>
+  <data name="securityUnlockGoogleCodeRequiredError" xml:space="preserve">
+    <value>Google Auth. code is required</value>
+  </data>
+  <data name="securityUnlockHeadline" xml:space="preserve">
+    <value>Unlock Settings</value>
+  </data>
+  <data name="securityUnlockInvalidCodeError" xml:space="preserve">
+    <value>Invalid two factor.</value>
+  </data>
+  <data name="securityUnlockPasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="securityUnlockPasswordMessage" xml:space="preserve">
+    <value>Please enter your site password.</value>
+  </data>
+  <data name="securityUnlockPasswordRequiredError" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="securityUnlockQuestion1Label" xml:space="preserve">
+    <value>Question 1</value>
+  </data>
+  <data name="securityUnlockQuestion2Label" xml:space="preserve">
+    <value>Question 2</value>
+  </data>
+  <data name="securityUnlockQuestionsMessage" xml:space="preserve">
+    <value>Please answer your security questions.</value>
+  </data>
+  <data name="securityUnlockTokenExpiredError" xml:space="preserve">
+    <value>Security Token Expired.</value>
+  </data>
+  <data name="securityUnlockTwoFactorCodeMessage" xml:space="preserve">
+    <value>Please enter your two factor pin code.</value>
+  </data>
+  <data name="securityUnlockTwoFactorLabel" xml:space="preserve">
+    <value>Pin Code</value>
+  </data>
+  <data name="securityUnlockTwoFactorRequiredError" xml:space="preserve">
+    <value>PinCode is required</value>
+  </data>
+  <data name="settingsChatDisableEmoticonsLabel" xml:space="preserve">
+    <value>Disable Emoticons</value>
+  </data>
+  <data name="settingsChatDisableTippingLabel" xml:space="preserve">
+    <value>Disable Tipping</value>
+  </data>
+  <data name="settingsChatIgnoreHeadline" xml:space="preserve">
+    <value>Chat ignore List</value>
+  </data>
+  <data name="settingsChatIgnoreLabel" xml:space="preserve">
+    <value>User to un/ignore</value>
+  </data>
+  <data name="settingsChatSettingsHeadline" xml:space="preserve">
+    <value>Chat Settings</value>
+  </data>
+  <data name="settingsDisableLogonEmailLabel" xml:space="preserve">
+    <value>Disable Logon Email</value>
+  </data>
+  <data name="settingsNotificationDisableKarmaLabel" xml:space="preserve">
+    <value>Disable Karma Notifications</value>
+  </data>
+  <data name="settingsNotificationDisableMarketplaceLabel" xml:space="preserve">
+    <value>Disable Marketplace Notifications</value>
+  </data>
+  <data name="settingsNotificationDisableMineshaftLabel" xml:space="preserve">
+    <value>Disable Mineshaft Notifications</value>
+  </data>
+  <data name="settingsNotificationDisableRewardLabel" xml:space="preserve">
+    <value>Disable Reward Notifications</value>
+  </data>
+  <data name="settingsNotificationDisableTipLabel" xml:space="preserve">
+    <value>Disable Tip Notifications</value>
+  </data>
+  <data name="settingsNotificationHeadline" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="settingsOtherSettingsHeadline" xml:space="preserve">
+    <value>Other Settings</value>
+  </data>
+  <data name="settingsRewardsDisableLable" xml:space="preserve">
+    <value>Disable Site Rewards</value>
+  </data>
+  <data name="settingsRewardsHeadline" xml:space="preserve">
+    <value>Site Rewards</value>
+  </data>
+  <data name="settingsRewardsInfoLink" xml:space="preserve">
+    <value>Rewards</value>
+  </data>
+  <data name="settingsRewardsInfoText" xml:space="preserve">
+    <value>By enabling this feature you are agree to have your username displayed on the {0} page</value>
+    <comment>{0} - Rewards link</comment>
+  </data>
+  <data name="settingsSaveButton" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="settingsSiteThemeLabel" xml:space="preserve">
+    <value>Site Theme</value>
+  </data>
+  <data name="settingsTipIgnoreHeadline" xml:space="preserve">
+    <value>Tip ignore List</value>
+  </data>
+  <data name="settingsTipIgnoreLabel" xml:space="preserve">
+    <value>User to un/ignore</value>
+  </data>
+  <data name="verificationIdentificationPhoto2ExampleLabel" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="verificationIdentificationPhoto2Label" xml:space="preserve">
+    <value>Photo holding identification</value>
+  </data>
+  <data name="verificationIdentificationPhotoExampleLabel" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="verificationIdentificationPhotoLabel" xml:space="preserve">
+    <value>Photo of Identification</value>
+  </data>
+  <data name="verificationImageFormatError" xml:space="preserve">
+    <value>Identification image must be PNG, BMP, JPG or JPEG format.</value>
+  </data>
+  <data name="verificationImageRequiredError" xml:space="preserve">
+    <value>Identification image is required.</value>
+  </data>
+  <data name="verificationLevelOneHeadline" xml:space="preserve">
+    <value>Verification Level1</value>
+  </data>
+  <data name="verificationLevelOneInfoText" xml:space="preserve">
+    <value>Users verified by email have a daily withdrawal limit of ${0} NZD</value>
+    <comment>{0} - Limit amount;</comment>
+  </data>
+  <data name="verificationLevelThreeHeadline" xml:space="preserve">
+    <value>Verification Level3</value>
+  </data>
+  <data name="verificationLevelThreeInfoText" xml:space="preserve">
+    <value>Users who need a greater daily withdrawal limit will need to contact the {0} team to request Verification Level3, this level of account is required for:</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+  <data name="verificationLevelThreeReason1Text" xml:space="preserve">
+    <value>Personal Accounts with Verification Level 2 requiring a higher daily limit</value>
+  </data>
+  <data name="verificationLevelThreeReason2Text" xml:space="preserve">
+    <value>Businesses and Corporations</value>
+  </data>
+  <data name="verificationLevelTwoHeadline" xml:space="preserve">
+    <value>Verification Level2</value>
+  </data>
+  <data name="verificationLevelTwoInfoText" xml:space="preserve">
+    <value>Users that have provided evidence of their identification have daily limit of ${0} NZD</value>
+    <comment>{0} - Limit amount;</comment>
+  </data>
+  <data name="verificationPageTitle" xml:space="preserve">
+    <value>Verification</value>
+  </data>
+  <data name="verificationSendingMessage" xml:space="preserve">
+    <value>Sending request...</value>
+  </data>
+  <data name="verificationStatusCompleteLabel" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="verificationStatusIncompleteLabel" xml:space="preserve">
+    <value>Incomplete</value>
+  </data>
+  <data name="verificationStatusPendingLabel" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="verificationSubmitedInfoText" xml:space="preserve">
+    <value>Identification has been submitted to Cryptopia Ltd</value>
+  </data>
+  <data name="verificationSupportLink" xml:space="preserve">
+    <value>If you need to update any of the submitted details, please contact {0}.</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+  <data name="verificationTermsLabel" xml:space="preserve">
+    <value>Terms and Conditions</value>
+  </data>
+</root>

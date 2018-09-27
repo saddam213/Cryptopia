@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="TradeHistoryType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Buy" />
+      <xs:enumeration value="Sell" />
+      <xs:enumeration value="AutoBuy" />
+      <xs:enumeration value="AutoSell" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TradeHistoryType" nillable="true" type="tns:TradeHistoryType" />
+  <xs:simpleType name="TradeStatus">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pending" />
+      <xs:enumeration value="Complete" />
+      <xs:enumeration value="Partial" />
+      <xs:enumeration value="Canceled" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TradeStatus" nillable="true" type="tns:TradeStatus" />
+  <xs:simpleType name="CancelTradeType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Trade" />
+      <xs:enumeration value="TradePair" />
+      <xs:enumeration value="All" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CancelTradeType" nillable="true" type="tns:CancelTradeType" />
+  <xs:simpleType name="TransferType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="User" />
+      <xs:enumeration value="Paytopia" />
+      <xs:enumeration value="CoinVote" />
+      <xs:enumeration value="Tip" />
+      <xs:enumeration value="Faucet" />
+      <xs:enumeration value="PayBan" />
+      <xs:enumeration value="Reward" />
+      <xs:enumeration value="ShareDividend">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ReferralBonus">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Lotto">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DustBin">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Mineshaft">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="External">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TransferType" nillable="true" type="tns:TransferType" />
+  <xs:simpleType name="NotificationLevelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Info" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Success" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NotificationLevelType" nillable="true" type="tns:NotificationLevelType" />
+  <xs:simpleType name="WithdrawType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="TermDeposit" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="WithdrawType" nillable="true" type="tns:WithdrawType" />
+  <xs:simpleType name="ExternalTransactionType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Poli" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ExternalTransactionType" nillable="true" type="tns:ExternalTransactionType" />
+</xs:schema>

@@ -1,0 +1,24 @@
+﻿@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog" style="margin-top:60px">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">@Resources.Chat.rulesHeadline</h3>
+			<small>@Resources.Chat.rulesInfoText</small>
+		</div>
+		<div class="modal-body">
+			@Html.Raw(Resources.Chat.RulesHtml)
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-info simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">@Cryptopia.Resources.General.Cancel</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#simplemodal-container').addClass('modal-medium');
+</script>
+	

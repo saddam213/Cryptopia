@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="messageFromLabel" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="messagesCreateHeadline" xml:space="preserve">
+    <value>Create Message</value>
+  </data>
+  <data name="messagesDeleteAllButton" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="messagesDeleteAllButtonHint" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="messagesDeleteAllInboxQuestion" xml:space="preserve">
+    <value>Are you sure you want to delete ALL Inbox messages?</value>
+  </data>
+  <data name="messagesDeleteAllInboxQuestionTitle" xml:space="preserve">
+    <value>Delete Inbox</value>
+  </data>
+  <data name="messagesDeleteAllOutboxQuestion" xml:space="preserve">
+    <value>Are you sure you want to delete ALL Outbox messages?</value>
+  </data>
+  <data name="messagesDeleteAllOutboxQuestionTitle" xml:space="preserve">
+    <value>Delete Outbox</value>
+  </data>
+  <data name="messagesDeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="messagesDeleteButtonHint" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="messagesDeleteQuestion" xml:space="preserve">
+    <value>Are you sure you want to delete the selected message?</value>
+  </data>
+  <data name="messagesDeleteQuestionTitle" xml:space="preserve">
+    <value>Delete Message</value>
+  </data>
+  <data name="messagesHeadline" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="messagesInboxEmptyListMessage" xml:space="preserve">
+    <value>You have no inbox messages.</value>
+  </data>
+  <data name="messagesInboxHeadline" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="messagesInboxTab" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="messagesInboxTabSearchPlaceholder" xml:space="preserve">
+    <value>Search Inbox</value>
+  </data>
+  <data name="messagesJustNowLabel" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="messagesMessageLabel" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="messagesNewButton" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="messagesNewButtonHint" xml:space="preserve">
+    <value>New message</value>
+  </data>
+  <data name="messagesOutboxEmptyListMessage" xml:space="preserve">
+    <value>You have no outbox messages.</value>
+  </data>
+  <data name="messagesOutboxTab" xml:space="preserve">
+    <value>Outbox</value>
+  </data>
+  <data name="messagesOutboxTabSearchPlaceholder" xml:space="preserve">
+    <value>Search Outbox</value>
+  </data>
+  <data name="messagesRecipiantsExampleInfoText" xml:space="preserve">
+    <value>example: Lorde;Frodo;Sheep;Pavlova</value>
+  </data>
+  <data name="messagesRecipiantsInfoText" xml:space="preserve">
+    <value>You can send messages to multiple recipients by separating the usernames with ';',</value>
+  </data>
+  <data name="messagesRecipiantsLabel" xml:space="preserve">
+    <value>Recipiants</value>
+  </data>
+  <data name="messagesReplyButton" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="messagesReplyButtonHint" xml:space="preserve">
+    <value>Reply to message</value>
+  </data>
+  <data name="messagesReplyToHeadline" xml:space="preserve">
+    <value>Reply To {0}!</value>
+    <comment>{0} - Model.Recipiants</comment>
+  </data>
+  <data name="messagesReportButton" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="messagesReportButtonHint" xml:space="preserve">
+    <value>Report message</value>
+  </data>
+  <data name="messagesReportCommentLabel" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="messagesReportHeadline" xml:space="preserve">
+    <value>Report Message</value>
+  </data>
+  <data name="messagesReportReasonLabel" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="messagesSubjectLabel" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="messagesWarningHtml" xml:space="preserve">
+    <value>&lt;h4&gt;Warning!&lt;/h4&gt;
+				&lt;p&gt;Beware of imposters, Cryptopia staff do &lt;b&gt;NOT&lt;/b&gt; provide updates, special offers or downloads in Inbox messages.  Official News and Information are only ever posted on our &lt;a href="/News" target="_blank"&gt;News Page&lt;/a&gt;, &lt;a href="https://twitter.com/Cryptopia_NZ" target="_blank"&gt;Twitter&lt;/a&gt;, &lt;a href="https://www.facebook.com/cryptopiaexchange" target="_blank"&gt;Facebook&lt;/a&gt; and &lt;a href="/Forums" target="_blank"&gt;Forums&lt;/a&gt;.&lt;br /&gt;Please ask in our &lt;a href="https://discord.gg/2kMgEgw" target="_blank"&gt;Discord&lt;/a&gt; or Trollbox if you receive any messages impersonating Cryptopia Staff.&lt;/p&gt;</value>
+  </data>
+  <data name="messageToLabel" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="notificationsDeleteAllButton" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="notificationsDeletingMessage" xml:space="preserve">
+    <value>Deleting...</value>
+  </data>
+  <data name="notificationsDismissAllButton" xml:space="preserve">
+    <value>Dismiss All</value>
+  </data>
+  <data name="notificationsEmptyListInfoText" xml:space="preserve">
+    <value>You have no notifications.</value>
+  </data>
+  <data name="notificationsEmptyNewListInfoText" xml:space="preserve">
+    <value>No new notifications.</value>
+  </data>
+  <data name="notificationsHeadline" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="notificationsList1000InfoText" xml:space="preserve">
+    <value>Last 1000 notifications</value>
+  </data>
+  <data name="notificationsList100InfoText" xml:space="preserve">
+    <value>Last 100 notifications</value>
+  </data>
+  <data name="notificationsMarkAllAsReadButton" xml:space="preserve">
+    <value>Mark all as read</value>
+  </data>
+  <data name="balancesActionsColumn" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="balancesAvailableColumn" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="balancesAvailableHintLabel" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="balancesCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="balancesDailyLimitMessage" xml:space="preserve">
+    <value>You have used {0} of your {1} NZD</value>
+    <comment>{0} - Current amount; {1} - Daily limit;</comment>
+  </data>
+  <data name="balancesDailyLimitMessageLink" xml:space="preserve">
+    <value>daily limit</value>
+  </data>
+  <data name="balancesDepositButtonHint" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="balancesDetailsHint" xml:space="preserve">
+    <value>{0} Balance Details</value>
+    <comment>{0} - Currency</comment>
+  </data>
+  <data name="balancesDustButtonHint" xml:space="preserve">
+    <value>Dust {0} Balance</value>
+    <comment>{0} - Currency</comment>
+  </data>
+  <data name="balancesDustQuestion" xml:space="preserve">
+    <value>Are you ABSOLUTELY sure you want to discard your {0} balance?, this is NOT reversible!!</value>
+    <comment>{0} - Currency</comment>
+  </data>
+  <data name="balancesDustQuestionTitle" xml:space="preserve">
+    <value>Dust Balance</value>
+  </data>
+  <data name="balancesEmptyListMessage" xml:space="preserve">
+    <value>No balances found.</value>
+  </data>
+  <data name="balancesEstBtcColumn" xml:space="preserve">
+    <value>Est. BTC</value>
+  </data>
+  <data name="balancesEstimatedAltcoinSufixLabel" xml:space="preserve">
+    <value>(Altcoin only)</value>
+  </data>
+  <data name="balancesEstimatedBtcHintLabel" xml:space="preserve">
+    <value>Estimated BTC</value>
+  </data>
+  <data name="balancesEstimatedLabel" xml:space="preserve">
+    <value>Estimated BTC</value>
+  </data>
+  <data name="balancesFavoriteColumn" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="balancesFavoritesOnlyLabel" xml:space="preserve">
+    <value>Favorites only</value>
+  </data>
+  <data name="balancesHeadline" xml:space="preserve">
+    <value>Balances</value>
+  </data>
+  <data name="balancesHeldForOrdersHintLabel" xml:space="preserve">
+    <value>Held For Orders</value>
+  </data>
+  <data name="balancesHideZeroBalancesLabel" xml:space="preserve">
+    <value>Hide zero balances</value>
+  </data>
+  <data name="balancesOpenOrdersColumn" xml:space="preserve">
+    <value>Open Orders</value>
+  </data>
+  <data name="balancesPendingWithdrawHintLabel" xml:space="preserve">
+    <value>Pending Withdraw</value>
+  </data>
+  <data name="balancesSearchLabel" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="balancesStatusHintLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="balancesTotalColumn" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="balancesTotalHintLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="balancesTransferButtonHint" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="balancesUnconfirmedHintLabel" xml:space="preserve">
+    <value>Unconfirmed</value>
+  </data>
+  <data name="balancesWarningLabel" xml:space="preserve">
+    <value>WARNING</value>
+  </data>
+  <data name="balancesWarningMessage" xml:space="preserve">
+    <value>Please do not mine directly to your Cryptopia addresses, We do not support generated transactions from pools like P2Pool etc.</value>
+  </data>
+  <data name="balancesWithdrawButtonHint" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="depositHisotryEmptyListMessage" xml:space="preserve">
+    <value>You have no deposits.</value>
+  </data>
+  <data name="depositHistoryAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="depositHistoryConfColumn" xml:space="preserve">
+    <value>Conf.</value>
+  </data>
+  <data name="depositHistoryCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="depositHistoryHeadline" xml:space="preserve">
+    <value>Deposit History</value>
+  </data>
+  <data name="depositHistoryStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="depositHistoryTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="depositHistoryTransactionColumn" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="depositHistoryTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="karmaAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="karmaEmptyListMessage" xml:space="preserve">
+    <value>You have no karma.</value>
+  </data>
+  <data name="karmaFromColumn" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="karmaHeadline" xml:space="preserve">
+    <value>Karma</value>
+  </data>
+  <data name="karmaHistoryEmptyListMessage" xml:space="preserve">
+    <value>You have no karma history.</value>
+  </data>
+  <data name="karmaHistoryHeadline" xml:space="preserve">
+    <value>Karma History</value>
+  </data>
+  <data name="karmaPointsLabel" xml:space="preserve">
+    <value>Karma points</value>
+  </data>
+  <data name="karmaReceivedHeadline" xml:space="preserve">
+    <value>Karma Received</value>
+  </data>
+  <data name="karmaTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="karmaTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="karmaTransactionInfoColumn" xml:space="preserve">
+    <value>Transaction Info</value>
+  </data>
+  <data name="karmaTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="karmaUnspentLabel" xml:space="preserve">
+    <value>Unspent</value>
+  </data>
+  <data name="marketBuyerColumn" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="marketBuyersFeedbackColumn" xml:space="preserve">
+    <value>Buyers Feedback</value>
+  </data>
+  <data name="marketCancelingMessage" xml:space="preserve">
+    <value>Canceling item...</value>
+  </data>
+  <data name="marketCancelListingButton" xml:space="preserve">
+    <value>Cancel Listing</value>
+  </data>
+  <data name="marketCancelListingQuestion" xml:space="preserve">
+    <value>Are you sure you want to cancel this market listing?</value>
+  </data>
+  <data name="marketCancelListingQuestionTitle" xml:space="preserve">
+    <value>Cancel Listing?</value>
+  </data>
+  <data name="marketClosedColumn" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="marketClosesColumn" xml:space="preserve">
+    <value>Closes</value>
+  </data>
+  <data name="marketEditListingButton" xml:space="preserve">
+    <value>Edit Listing</value>
+  </data>
+  <data name="marketEmptyListMessage" xml:space="preserve">
+    <value>No open market listings.</value>
+  </data>
+  <data name="marketHeadline" xml:space="preserve">
+    <value>Marketplace Items</value>
+  </data>
+  <data name="marketHistoryEmptyListMessage" xml:space="preserve">
+    <value>You have no market history</value>
+  </data>
+  <data name="marketHistoryHeadline" xml:space="preserve">
+    <value>Marketplace History</value>
+  </data>
+  <data name="marketOpenButton" xml:space="preserve">
+    <value>Go to listing</value>
+  </data>
+  <data name="marketOpenedColumn" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="marketSellerColumn" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="marketSellersFeedbackColumn" xml:space="preserve">
+    <value>Sellers feedback</value>
+  </data>
+  <data name="marketStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="marketTitleColumn" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="marketTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="paytopiaAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="paytopiaBeginsColumn" xml:space="preserve">
+    <value>Begins</value>
+  </data>
+  <data name="paytopiaCoinColumn" xml:space="preserve">
+    <value>Coin</value>
+  </data>
+  <data name="paytopiaEmptyListMessage" xml:space="preserve">
+    <value>you have no payments.</value>
+  </data>
+  <data name="paytopiaEndsColumn" xml:space="preserve">
+    <value>Ends</value>
+  </data>
+  <data name="paytopiaHeadline" xml:space="preserve">
+    <value>Paytopia Payments</value>
+  </data>
+  <data name="paytopiaIdColumn" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="paytopiaInfoButton" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="paytopiaIsAnonColumn" xml:space="preserve">
+    <value>IsAnon.</value>
+  </data>
+  <data name="paytopiaRefundIdColumn" xml:space="preserve">
+    <value>RefundId</value>
+  </data>
+  <data name="paytopiaRefundIdErrorValue" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="paytopiaStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="paytopiaTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="paytopiaTransferIdColumn" xml:space="preserve">
+    <value>TransferId</value>
+  </data>
+  <data name="paytopiaTransferIdErrorValue" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="paytopiaTransferIdPendingValue" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="paytopiaTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="paytopiaUserNameColumn" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="termDepositsClosedColumn" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="termDepositsClosedEmptyListMessage" xml:space="preserve">
+    <value>You have no closed term deposits.</value>
+  </data>
+  <data name="termDepositsClosedHeadline" xml:space="preserve">
+    <value>Closed Term Deposits</value>
+  </data>
+  <data name="termDepositsDot2infoText" xml:space="preserve">
+    <value>All open term deposits have now been closed and the FULL term interest has been paid, we do apologize for the inconvenience this may have caused</value>
+  </data>
+  <data name="termDepositsDotInfoText" xml:space="preserve">
+    <value>Due to regulatory complications we are no longer able to provide Dotcoin(DOT) term deposits</value>
+  </data>
+  <data name="termDepositsHeadline" xml:space="preserve">
+    <value>Term Deposits</value>
+  </data>
+  <data name="termDepositsIdColumn" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="termDepositsInterestRateColumn" xml:space="preserve">
+    <value>InterestRate</value>
+  </data>
+  <data name="termDepositsInvestmentColumn" xml:space="preserve">
+    <value>Investment</value>
+  </data>
+  <data name="termDepositsPaymentColumn" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="termDepositsPaymentEmptyListMessage" xml:space="preserve">
+    <value>You have no term deposit payments.</value>
+  </data>
+  <data name="termDepositsPaymentsHeadline" xml:space="preserve">
+    <value>Term Deposit Payments</value>
+  </data>
+  <data name="termDepositsStartedColumn" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="termDepositsStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="termDepositsTermColumn" xml:space="preserve">
+    <value>Term</value>
+  </data>
+  <data name="termDepositsTermDepositIdColumn" xml:space="preserve">
+    <value>TermDepositId</value>
+  </data>
+  <data name="termDepositsTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="termDepositsTransactionIdColumn" xml:space="preserve">
+    <value>TransactionId</value>
+  </data>
+  <data name="termDepositsTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="termDepositsWithdrawIdColumn" xml:space="preserve">
+    <value>WithdrawId</value>
+  </data>
+  <data name="tradesAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="tradesCancelAllButton" xml:space="preserve">
+    <value>Cancel All</value>
+  </data>
+  <data name="tradesEmptyListMessage" xml:space="preserve">
+    <value>No open orders.</value>
+  </data>
+  <data name="tradesFeeColumn" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="tradesHeadline" xml:space="preserve">
+    <value>Open Orders</value>
+  </data>
+  <data name="tradesHistoryEmptyListMessage" xml:space="preserve">
+    <value>You have no trade history.</value>
+  </data>
+  <data name="tradesHistoryHeadline" xml:space="preserve">
+    <value>Trade History</value>
+  </data>
+  <data name="tradesMarketColumn" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="tradesRateColumn" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="tradesRemainingColumn" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+  <data name="tradesTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="tradesTotalColumn" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="tradesTradePairIdColumn" xml:space="preserve">
+    <value>TradePairId</value>
+  </data>
+  <data name="tradesTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="mineshaftHistoryAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="mineshaftHistoryBlockHeightColumn" xml:space="preserve">
+    <value>Block Height</value>
+  </data>
+  <data name="mineshaftHistoryEmptyListMessage" xml:space="preserve">
+    <value>You have no mining payments.</value>
+  </data>
+  <data name="mineshaftHistoryHeadline" xml:space="preserve">
+    <value>Mineshaft History</value>
+  </data>
+  <data name="mineshaftHistoryPoolColumn" xml:space="preserve">
+    <value>Pool</value>
+  </data>
+  <data name="mineshaftHistorySharesColumn" xml:space="preserve">
+    <value>Shares</value>
+  </data>
+  <data name="mineshaftHistoryStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="mineshaftHistoryTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="mineshaftHistoryTransferColumn" xml:space="preserve">
+    <value>Transfer #</value>
+  </data>
+  <data name="mineshaftHistoryTransferPendingValue" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="referralHistoryEmptyListMessage" xml:space="preserve">
+    <value>You have no referral history.</value>
+  </data>
+  <data name="referralHistoryHeadline" xml:space="preserve">
+    <value>Referral History</value>
+  </data>
+  <data name="referralHistoryLastUpdateColumn" xml:space="preserve">
+    <value>LastUpdate</value>
+  </data>
+  <data name="referralHistoryRefCountColumn" xml:space="preserve">
+    <value>RefCount</value>
+  </data>
+  <data name="referralHistoryRoundIdColumn" xml:space="preserve">
+    <value>RoundId</value>
+  </data>
+  <data name="referralHistoryStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="referralHistoryTradeFeeAmountColumn" xml:space="preserve">
+    <value>TradeFeeAmount</value>
+  </data>
+  <data name="referralHistoryTransferIdColumn" xml:space="preserve">
+    <value>TransferId</value>
+  </data>
+  <data name="transferAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="transferCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="transferEmptyListMessage" xml:space="preserve">
+    <value>You have no transfers.</value>
+  </data>
+  <data name="transferFeeColumn" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="transferHeadline" xml:space="preserve">
+    <value>Transfer History</value>
+  </data>
+  <data name="transferReceiverColumn" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
+  <data name="transferSenderColumn" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="transferTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="transferTypeColumn" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="withdrawAddressColumn" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="withdrawAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="withdrawCancelErrorMessageTitle" xml:space="preserve">
+    <value>Cancel Failed</value>
+  </data>
+  <data name="withdrawCancelingMessage" xml:space="preserve">
+    <value>Canceling...</value>
+  </data>
+  <data name="withdrawCancelQuestion" xml:space="preserve">
+    <value>Are you sure you want to cancel this withdrawal?</value>
+  </data>
+  <data name="withdrawCancelQuestionTitle" xml:space="preserve">
+    <value>Cancel Withdrawal?</value>
+  </data>
+  <data name="withdrawCancelSuccessMessageTitle" xml:space="preserve">
+    <value>Withdraw Canceled!</value>
+  </data>
+  <data name="withdrawCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="withdrawEmptyListMessage" xml:space="preserve">
+    <value>You have no withdrawals.</value>
+  </data>
+  <data name="withdrawFeeColumn" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="withdrawHeadline" xml:space="preserve">
+    <value>Withdraw History</value>
+  </data>
+  <data name="withdrawResendEmailButton" xml:space="preserve">
+    <value>Resend Email</value>
+  </data>
+  <data name="withdrawResendEmailErrorMessageTitle" xml:space="preserve">
+    <value>Send Error!</value>
+  </data>
+  <data name="withdrawResendEmailQuestion" xml:space="preserve">
+    <value>Are you sure you want to resend this withdrawal's email confirmation?</value>
+  </data>
+  <data name="withdrawResendEmailQuestionTitle" xml:space="preserve">
+    <value>Resend Email Confirmation?</value>
+  </data>
+  <data name="withdrawResendEmailSuccessMessageTitle" xml:space="preserve">
+    <value>Email Sent</value>
+  </data>
+  <data name="withdrawResendingEmailMessage" xml:space="preserve">
+    <value>Sending confimation...</value>
+  </data>
+  <data name="withdrawStatusColumn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="withdrawTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="withdrawTransactionIdColumn" xml:space="preserve">
+    <value>TransactionId</value>
+  </data>
+  <data name="shareholderHeadline" xml:space="preserve">
+    <value>Shareholder</value>
+  </data>
+  <data name="shareholderInfoHeadline" xml:space="preserve">
+    <value>Share Information</value>
+  </data>
+  <data name="shareholderPayoutPeriodColumn" xml:space="preserve">
+    <value>Payout Period</value>
+  </data>
+  <data name="shareholderPayoutsEmptyListMessage" xml:space="preserve">
+    <value>You have no payouts.</value>
+  </data>
+  <data name="shareholderSharePercentColumn" xml:space="preserve">
+    <value>Share %</value>
+  </data>
+  <data name="shareholderSharesColumn" xml:space="preserve">
+    <value>Shares</value>
+  </data>
+  <data name="shareholderSuspendedDetailLink" xml:space="preserve">
+    <value>here</value>
+  </data>
+  <data name="shareholderSuspendedDetailsText" xml:space="preserve">
+    <value>For more details, join us on in the Shareholders channel on Discord by clicking {0}</value>
+    <comment>{0} - Details link;</comment>
+  </data>
+  <data name="shareholderSuspendedText" xml:space="preserve">
+    <value>This page has been suspended pending the Shareholder's General Meeting where a new Shareholder Agreement will be voted on.</value>
+  </data>
+  <data name="shareholderTotalSharesColumn" xml:space="preserve">
+    <value>Total Shares</value>
+  </data>
+  <data name="shareholderCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="shareholderDividendCalculationLabel" xml:space="preserve">
+    <value>Dividend Calculation</value>
+  </data>
+  <data name="shareholderDividendCalculationText" xml:space="preserve">
+    <value>((Fees - Expenses) / TotalShares) * ShareCount</value>
+  </data>
+  <data name="shareholderExpensesColumn" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="shareholderFeeIncomeColumn" xml:space="preserve">
+    <value>Fee Income</value>
+  </data>
+  <data name="shareholderPaymentHeadline" xml:space="preserve">
+    <value>Payment Information</value>
+  </data>
+  <data name="shareholderPayoutHistoryAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="shareholderPayoutHistoryCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="shareholderPayoutHistoryHeadline" xml:space="preserve">
+    <value>Payout History</value>
+  </data>
+  <data name="shareholderPayoutHistoryIdColumn" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="shareholderPayoutHistoryTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="shareholderPaytopiaDividendCalculationText" xml:space="preserve">
+    <value>((Income - Expenses) / TotalShares) * ShareCount</value>
+  </data>
+  <data name="shareholderPaytopiaDividendsHeadline" xml:space="preserve">
+    <value>Paytopia Dividends</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryAmountColumn" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryCurrencyColumn" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryCurrencyIdColumn" xml:space="preserve">
+    <value>CurrencyId</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryHeadline" xml:space="preserve">
+    <value>Paytopia History</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryIdColumn" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryItemTypeColumn" xml:space="preserve">
+    <value>Item Type</value>
+  </data>
+  <data name="shareholderPaytopiaHistorySymbolColumn" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="shareholderPaytopiaHistoryTimestampColumn" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="shareholderPerShareColumn" xml:space="preserve">
+    <value>Per Share</value>
+  </data>
+  <data name="shareholderSiteExpensesDescriptionColumn" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="shareholderSiteExpensesHeadline" xml:space="preserve">
+    <value>Site Expenses</value>
+  </data>
+  <data name="shareholderSiteExpensesPriceBtcColumn" xml:space="preserve">
+    <value>Price (BTC)</value>
+  </data>
+  <data name="shareholderSiteExpensesPriceUsdColumn" xml:space="preserve">
+    <value>Price ($USD)</value>
+  </data>
+  <data name="shareholderSiteExpensesTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="shareholderSubmissionAlgoTypeLabel" xml:space="preserve">
+    <value>AlgoType</value>
+  </data>
+  <data name="shareholderSubmissionBlockExplorerLabel" xml:space="preserve">
+    <value>BlockExplorer</value>
+  </data>
+  <data name="shareholderSubmissionExtraInfoLabel" xml:space="preserve">
+    <value>ExtraInfo</value>
+  </data>
+  <data name="shareholderSubmissionHeadline" xml:space="preserve">
+    <value>Submission</value>
+  </data>
+  <data name="shareholderSubmissionLaunchForumLabel" xml:space="preserve">
+    <value>LaunchForum</value>
+  </data>
+  <data name="shareholderSubmissionNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="shareholderSubmissionNetworkTypeLabel" xml:space="preserve">
+    <value>NetworkType</value>
+  </data>
+  <data name="shareholderSubmissionPoolLabel" xml:space="preserve">
+    <value>Pool</value>
+  </data>
+  <data name="shareholderSubmissionSourceLabel" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="shareholderSubmissionSymbolLabel" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="shareholderSubmissionTypeLabel" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="shareholderSubmissionWebsiteLabel" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="shareholderSubmitionAlgorithmLabel" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="shareholderSubmitionPeriodBeginsLabel" xml:space="preserve">
+    <value>Period Begins</value>
+  </data>
+  <data name="shareholderSubmitionPeriodEndsLabel" xml:space="preserve">
+    <value>Period Ends</value>
+  </data>
+  <data name="shareholderTradeDividendsHeadline" xml:space="preserve">
+    <value>Trade Dividends</value>
+  </data>
+  <data name="shareholderYourDividendsColumn" xml:space="preserve">
+    <value>Your Dividends</value>
+  </data>
+  <data name="sharehoulderSubmissionTypeExtensionValue" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+</root>

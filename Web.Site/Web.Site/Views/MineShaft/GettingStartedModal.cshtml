@@ -1,0 +1,50 @@
+﻿@model Cryptopia.Common.Mineshaft.GettingStartedModel
+
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close();">×</button>
+			<h3 class="modal-title">Getting Started</h3>
+			<small>Instructions for getting started mining the Cryptopia @Model.AlgoType pools.</small>
+		</div>
+
+		<div class="modal-body">
+			<div class="form-margin">
+				<div class="row">
+					<div>
+						<b>1. Create worker</b>
+						<p style="white-space:pre-line;font-size:12px">First you need to create a Worker for you miner to connect to the Mineshaft.
+							You can create a worker and find the connections settings for the @Model.AlgoType algorithm in you accounts <a href="/Miners">Miners</a> section
+						</p>
+					</div>
+					<div>
+						<b>2. Configure miner</b>
+						<p style="white-space:pre-line;font-size:12px">Now you have a worker you can enter the details into your mining software (example below for cgminer)</p>
+<pre>
+	cgminer.exe -o stratum+tcp://@Model.StratumUrl:@Model.Port -u @(User.Identity.IsAuthenticated ? User.Identity.Name : "UserName").WorkerName -p WorkerPassword
+</pre>
+					</div>
+					<div>
+						<b>3. Choose pool</b>
+						<p style="white-space:pre-line;font-size:12px">Now you can choose the pool you want to mine by clicking "Start Mining" on the pool you would like.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-primary button-180" onclick="$.modal.close();">Close</button>
+		</div>
+
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$('#simplemodal-container').addClass('modal-medium');
+
+</script>

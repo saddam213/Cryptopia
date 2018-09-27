@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="forgotButton" xml:space="preserve">
+    <value>Send Password Reset</value>
+  </data>
+  <data name="forgotHeadline" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="forgotPageTitle" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="lockByUserMessage" xml:space="preserve">
+    <value>Your account has been locked at your request,</value>
+  </data>
+  <data name="lockByUserTitle" xml:space="preserve">
+    <value>Account Lockdown!</value>
+  </data>
+  <data name="lockByUserWithResetMessage" xml:space="preserve">
+    <value>Your account has been locked at your request, an email with unlock instructions has been sent to your registered email address.</value>
+  </data>
+  <data name="loginAccountIsLockedError" xml:space="preserve">
+    <value>Your account is locked</value>
+  </data>
+  <data name="loginAccountLockExpiresError" xml:space="preserve">
+    <value>Lock expires:</value>
+  </data>
+  <data name="loginButton" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="loginConfirmationEmailSentMessage" xml:space="preserve">
+    <value>An email has been sent to your registered email address with a confirmation link.</value>
+  </data>
+  <data name="loginEmailInvalidError" xml:space="preserve">
+    <value>The Email Address field is not a valid e-mail address</value>
+  </data>
+  <data name="loginEmailLabel" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="loginFailedError" xml:space="preserve">
+    <value>Email or password was invalid.</value>
+  </data>
+  <data name="loginForgotPasswordLink" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="loginHeadline" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="loginLockEmailError" xml:space="preserve">
+    <value>An email with unlock instructions has been sent to your registered email address.</value>
+  </data>
+  <data name="loginLockError" xml:space="preserve">
+    <value>Your account has been locked due to {0} invalid logon attempts.</value>
+    <comment>{0} Number of invalid attempts</comment>
+  </data>
+  <data name="loginLockForHoursError" xml:space="preserve">
+    <value>Your account has been locked for {0} hours due to {1} invalid logon attempts.</value>
+    <comment>{0} - Number of hours; {1} - Number of invalid attempts</comment>
+  </data>
+  <data name="loginPageTitle" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="loginPasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="loginRegisterLink" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="loginRegisterLinkText" xml:space="preserve">
+    <value>if you don't have an account.</value>
+  </data>
+  <data name="reCaptchaError" xml:space="preserve">
+    <value>Invalid reCaptcha</value>
+  </data>
+  <data name="registerAcceptError" xml:space="preserve">
+    <value>You must accept the terms and conditions to register.</value>
+  </data>
+  <data name="registerAcceptLabel" xml:space="preserve">
+    <value>I agree to the</value>
+  </data>
+  <data name="registerAcceptLink" xml:space="preserve">
+    <value>Terms &amp; conditions</value>
+  </data>
+  <data name="registerButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="registerEmailConfirmationError" xml:space="preserve">
+    <value>Failed to send registration confirmation email, if problem persists please contact Cryptopia Support.</value>
+  </data>
+  <data name="registerEmailConfirmationMessage" xml:space="preserve">
+    <value>An email has been sent to {0}, please click the activation link in the email to complete your registration process.</value>
+    <comment>{0} - Email placeholder</comment>
+  </data>
+  <data name="registerEmailConfirmationTitle" xml:space="preserve">
+    <value>Confirmation Email Sent.</value>
+  </data>
+  <data name="registerEmailConfirmedMessage" xml:space="preserve">
+    <value>Thank you for confirming your email address, your Cryptopia registration is now complete</value>
+  </data>
+  <data name="registerEmailConfirmedTitle" xml:space="preserve">
+    <value>Email Succesfully Confirmed.</value>
+  </data>
+  <data name="registerEmailExistsError" xml:space="preserve">
+    <value>Email '{0}' already in use, please try a new Email.</value>
+    <comment>{0} - Email placeholder</comment>
+  </data>
+  <data name="registerHeadline" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="registerPageTitle" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="registerPassConfirmError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="registerPassConfirmLabel" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="registerPasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="registerPasswordLengthError" xml:space="preserve">
+    <value>8 characters</value>
+  </data>
+  <data name="registerPasswordLengthRangeError" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+    <comment>{0} - Password field name; {1} - Max length; {2} - Min length;</comment>
+  </data>
+  <data name="registerPasswordLowerError" xml:space="preserve">
+    <value>Lowercase</value>
+  </data>
+  <data name="registerPasswordNumberError" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="registerPasswordUpperError" xml:space="preserve">
+    <value>Uppercase</value>
+  </data>
+  <data name="registerPinCodeLabel" xml:space="preserve">
+    <value>Two Factor Pincode</value>
+  </data>
+  <data name="registerPinCodeLabelEx" xml:space="preserve">
+    <value>Please choose a 4-8 digit PinCode</value>
+  </data>
+  <data name="registerPinCodeLengthError" xml:space="preserve">
+    <value>Two Factor Pincode must be between 4 and 8 digits</value>
+  </data>
+  <data name="registerPinCodePlaceholder" xml:space="preserve">
+    <value>e.g. 1234</value>
+  </data>
+  <data name="registerUserNameCharError" xml:space="preserve">
+    <value>UserName can only contain letters, digits and underscore</value>
+  </data>
+  <data name="registerUserNameExistsError" xml:space="preserve">
+    <value>UserName '{0}' already exists, please try a new Username.</value>
+    <comment>{0} - UserName placeholder</comment>
+  </data>
+  <data name="registerUserNameLabel" xml:space="preserve">
+    <value>UserName!</value>
+  </data>
+  <data name="resetButton" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="resetConfirmedMessage" xml:space="preserve">
+    <value>Your password has been reset</value>
+  </data>
+  <data name="resetConfirmedTitle" xml:space="preserve">
+    <value>Password Reset.</value>
+  </data>
+  <data name="resetHeadline" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="resetMessage" xml:space="preserve">
+    <value>An email has been sent to your registered email address with password reset instructions.</value>
+  </data>
+  <data name="resetPageTitle" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="resetPassConfirmLabel" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="resetPasswordConfirmError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="resetPasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="resetPasswordRangeError" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+    <comment>{0} - Password field name; {1} - Max length; {2} - Min length;</comment>
+  </data>
+  <data name="resetTitle" xml:space="preserve">
+    <value>Reset Email Sent</value>
+  </data>
+  <data name="twoFactorCreateAnswerRequiredError" xml:space="preserve">
+    <value>Answer is required</value>
+  </data>
+  <data name="twoFactorCreateApplayToAllLabel" xml:space="preserve">
+    <value>Apply to all other unsecured features</value>
+  </data>
+  <data name="twoFactorCreateButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaButton" xml:space="preserve">
+    <value>Activate Device!</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaCodeHint" xml:space="preserve">
+    <value>Authentication Code</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaCodeLabel" xml:space="preserve">
+    <value>Authentication Code</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaCodePatternError" xml:space="preserve">
+    <value>Authentication code must be 6 digits</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaCodeRequiredError" xml:space="preserve">
+    <value>Authentication code is required</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaEnableInfoText" xml:space="preserve">
+    <value>Click Submit to enable Cryptopia Authenticator for {0}</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorCreateCryptopiaNoDeviceError" xml:space="preserve">
+    <value>You do not have any Cryptopia two factor device assigned to your account.</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaSerialHint" xml:space="preserve">
+    <value>Device Serial Number</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaSerialLabel" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaSerialPatternError" xml:space="preserve">
+    <value>Serial Number must be 9 digits long.</value>
+  </data>
+  <data name="twoFactorCreateCryptopiaSerialRequiredError" xml:space="preserve">
+    <value>Serial number is required</value>
+  </data>
+  <data name="twoFactorCreateCryptpiaActivatedInfoText" xml:space="preserve">
+    <value>Your Cryptopia Authentication Device has already been activated.</value>
+  </data>
+  <data name="twoFactorCreateEmailButton" xml:space="preserve">
+    <value>Send Code</value>
+  </data>
+  <data name="twoFactorCreateEmailFailureMessage" xml:space="preserve">
+    <value>Failed to send TFA email code to the email address provided.</value>
+  </data>
+  <data name="twoFactorCreateEmailInfoText" xml:space="preserve">
+    <value>Please enter the email you would like to use for TFA then click 'Send Code'.</value>
+  </data>
+  <data name="twoFactorCreateEmailInvalidError" xml:space="preserve">
+    <value>Invalid email address format</value>
+  </data>
+  <data name="twoFactorCreateEmailRequiredError" xml:space="preserve">
+    <value>Email address is required</value>
+  </data>
+  <data name="twoFactorCreateEmailSuccessMessage" xml:space="preserve">
+    <value>Your verification code has been sent to the provided email address</value>
+  </data>
+  <data name="twoFactorCreateEmailVerifyFailureMessage" xml:space="preserve">
+    <value>Failed to validate your email TFA code.</value>
+  </data>
+  <data name="twoFactorCreateEmailVerifyInfoText" xml:space="preserve">
+    <value>Verify the code sent yo the email you entered above.</value>
+  </data>
+  <data name="twoFactorCreateEmailVerifyLabel" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="twoFactorCreateEmailVerifyRequiredError" xml:space="preserve">
+    <value>Verification code is required</value>
+  </data>
+  <data name="twoFactorCreateEmailVerifySuccessMessage" xml:space="preserve">
+    <value>Successfully verified your email TFA code.</value>
+  </data>
+  <data name="twoFactorCreateEmailVeryfyButton" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="twoFactorCreateGoogleApiError" xml:space="preserve">
+    <value>Unknown error occured in Google Auth. Api.</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeButton" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeFailureMessage" xml:space="preserve">
+    <value>Failed to verifiy your Google Authentication code.</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeInfoText" xml:space="preserve">
+    <value>Verify your Google Authentication code.</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeLabel" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeRequiredError" xml:space="preserve">
+    <value>Verification code is required</value>
+  </data>
+  <data name="twoFactorCreateGoogleCodeSuccessMessage" xml:space="preserve">
+    <value>Successfully verified your Google Authentication code.</value>
+  </data>
+  <data name="twoFactorCreateGoogleExistsMessage" xml:space="preserve">
+    <value>Google Authentication is already setup, Click Submit to enable for {0} two factor</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorCreateGoogleInfoText" xml:space="preserve">
+    <value>Please scan or enter your Google Authentication code below.</value>
+  </data>
+  <data name="twoFactorCreateHeadline" xml:space="preserve">
+    <value>Setup {0} Two Factor Security.</value>
+  </data>
+  <data name="twoFactorCreateNoneInfo" xml:space="preserve">
+    <value>You currently have no {0} TFA setup</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorCreateNoneWarning" xml:space="preserve">
+    <value>It is highly reccommended that you use Two factor authentication for {0}.</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorCreatePasswordInfoText" xml:space="preserve">
+    <value>Your current password will be required for {0}</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorCreatePinInfoText" xml:space="preserve">
+    <value>Please enter a 4 to 8 digit pin number.</value>
+  </data>
+  <data name="twoFactorCreateQuestionRequiredError" xml:space="preserve">
+    <value>Question is required</value>
+  </data>
+  <data name="twoFactorCryptopiaActivatedMessage" xml:space="preserve">
+    <value>Successfully activated Cryptopia Authenticator</value>
+  </data>
+  <data name="twoFactorCryptopiaInvaidCodeError" xml:space="preserve">
+    <value>Invalid authenticator code</value>
+  </data>
+  <data name="twoFactorCryptopiaInvalidSerialError" xml:space="preserve">
+    <value>Invalid serial number</value>
+  </data>
+  <data name="twoFactorCryptopiaNoDeviceError" xml:space="preserve">
+    <value>You do not have a registered Cryptopia Authenticator Device.</value>
+  </data>
+  <data name="twoFactorInvalidEmailError" xml:space="preserve">
+    <value>'{0}' is an invalid email address.</value>
+    <comment>{0} - Email address</comment>
+  </data>
+  <data name="twoFactorLockoutPageHeadline" xml:space="preserve">
+    <value>Verify TwoFactor</value>
+  </data>
+  <data name="twoFactorLockoutPageTitle" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="twoFactorLoginHeadline" xml:space="preserve">
+    <value>Verify TwoFactor</value>
+  </data>
+  <data name="twoFactorLoginPageTitle" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="twoFactorPageTitle" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="twoFactorRemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="twoFactorRemoveCryptopiaCodeLabel" xml:space="preserve">
+    <value>Cryptopia Code</value>
+  </data>
+  <data name="twoFactorRemoveCryptopiaCodeRequiredError" xml:space="preserve">
+    <value>Cryptopia Auth. code is required</value>
+  </data>
+  <data name="twoFactorRemoveCryptopiaInfoText" xml:space="preserve">
+    <value>Please enter your Cryptopia Authenticator code.</value>
+  </data>
+  <data name="twoFactorRemoveEmailCodeInfoText" xml:space="preserve">
+    <value>Please enter the code sent to your email address.</value>
+  </data>
+  <data name="twoFactorRemoveEmailCodeLabel" xml:space="preserve">
+    <value>Email Code</value>
+  </data>
+  <data name="twoFactorRemoveEmailCodeRequiredError" xml:space="preserve">
+    <value>Email code is required</value>
+  </data>
+  <data name="twoFactorRemoveEmailSendFaildMessage" xml:space="preserve">
+    <value>An error occured sending twofactor code email, If problems persists please contact {0}</value>
+    <comment>{0} - Support link;</comment>
+  </data>
+  <data name="twoFactorRemoveEmailSendFaildTitle" xml:space="preserve">
+    <value>Email Send Failed!</value>
+  </data>
+  <data name="twoFactorRemoveEmailSentMessage" xml:space="preserve">
+    <value>Your unlock code has been sent to your registered two factor email address</value>
+  </data>
+  <data name="twoFactorRemoveGoogleCodeInfoText" xml:space="preserve">
+    <value>Please enter your Google Authenticator code.</value>
+  </data>
+  <data name="twoFactorRemoveGoogleCodeLabel" xml:space="preserve">
+    <value>Google Code</value>
+  </data>
+  <data name="twoFactorRemoveGoogleCodeRequiredError" xml:space="preserve">
+    <value>Google Auth. code is required</value>
+  </data>
+  <data name="twoFactorRemoveHeadline" xml:space="preserve">
+    <value>Remove {0} Two Factor Security.</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorRemoveIncorrectTfaErrorMessage" xml:space="preserve">
+    <value>Incorrect TFA code.</value>
+  </data>
+  <data name="twoFactorRemovePasswordInfoText" xml:space="preserve">
+    <value>Please enter your site password.</value>
+  </data>
+  <data name="twoFactorRemovePasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="twoFactorRemovePasswordRequiredError" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="twoFactorRemovePinCodeLabel" xml:space="preserve">
+    <value>Pin Code</value>
+  </data>
+  <data name="twoFactorRemovePinCodeRequiredError" xml:space="preserve">
+    <value>PinCode is required</value>
+  </data>
+  <data name="twoFactorRemovePinInfoText" xml:space="preserve">
+    <value>Please enter your two factor pin code.</value>
+  </data>
+  <data name="twoFactorRemoveQuestion1Label" xml:space="preserve">
+    <value>Question 1</value>
+  </data>
+  <data name="twoFactorRemoveQuestion2Label" xml:space="preserve">
+    <value>Question 2</value>
+  </data>
+  <data name="twoFactorRemoveQuestionInfoText" xml:space="preserve">
+    <value>Please answer your security questions.</value>
+  </data>
+  <data name="twoFactorRemoveQuestionRequiredError" xml:space="preserve">
+    <value>Answer is required</value>
+  </data>
+  <data name="twoFactorVerifyButton" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="twoFactorViewHeadline" xml:space="preserve">
+    <value>{0} TwoFactor</value>
+    <comment>{0} - Component name</comment>
+  </data>
+  <data name="twoFactorViewRemoveButton" xml:space="preserve">
+    <value>Remove TwoFactor</value>
+  </data>
+  <data name="twoFactorViewSetupButton" xml:space="preserve">
+    <value>Setup TwoFactor</value>
+  </data>
+  <data name="twoFactorViewTypeLabel" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="unlockMessage" xml:space="preserve">
+    <value>Your account was successfully unlocked</value>
+  </data>
+  <data name="unlockTitle" xml:space="preserve">
+    <value>Account Unlocked</value>
+  </data>
+  <data name="unlockTwoFactorFailedMessage" xml:space="preserve">
+    <value>Code entered was invalid.</value>
+  </data>
+  <data name="unlockTwoFactorFailedTitle" xml:space="preserve">
+    <value>Invalid TwoFactor Code</value>
+  </data>
+  <data name="unlockTwoFactorNotSetMessage" xml:space="preserve">
+    <value>You have not setup any two factor options to unlock your account,</value>
+  </data>
+  <data name="unlockTwoFactorNotSetTitle" xml:space="preserve">
+    <value>Unlock Twofactor</value>
+  </data>
+</root>

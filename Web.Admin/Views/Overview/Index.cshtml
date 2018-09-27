@@ -1,0 +1,197 @@
+﻿@{
+	ViewBag.Title = "Overview";
+}
+
+<div class="container-fluid">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#deposits" data-toggle="tab"><h4>Deposits</h4></a>
+		</li>
+		<li>
+			<a href="#withdrawals" data-toggle="tab"><h4>Withdrawals</h4></a>
+		</li>
+		<li>
+			<a href="#transfers" data-toggle="tab"><h4>Transfers</h4></a>
+		</li>
+		<li>
+			<a href="#addresses" data-toggle="tab"><h4>Addresses</h4></a>
+		</li>
+		<li>
+			<a href="#logons" data-toggle="tab"><h4>Logons</h4></a>
+		</li>
+	</ul>
+
+	<div class="tab-content ">
+		<div class="tab-pane active" id="deposits">
+			<table id="depositTable" class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>UserName</th>
+						<th>Amount</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>TxId</th>
+						<th>Conf</th>
+						<th>Timestamp</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="withdrawals">
+			<table id="withdrawTable" class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>UserName</th>
+						<th>Amount</th>
+						<th>Status</th>
+						<th>Confirmed</th>
+						<th>TxId</th>
+						<th>Address</th>
+						<th>Conf</th>
+						<th>Timestamp</th>
+						<th>Init</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="transfers">
+			<table id="transferTable" class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Sender</th>
+						<th>Receiver</th>
+						<th>Amount</th>
+						<th>Type</th>
+						<th>Timestamp</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="addresses">
+			<table id="addressTable" class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>UserName</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="logons">
+			<table id="logonsTable" class="table table-condensed table-striped table-hover">
+				<thead>
+					<tr>
+						<th>UserId</th>
+						<th>UserName</th>
+						<th>IPAddress</th>
+						<th>Timestamp</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+
+		var tableOptionsLayout = "<'row'<'col-sm-12'f>>" +
+			"<'row'<'col-sm-12'tr>>" +
+			"<'row'<'col-sm-5'i><'col-sm-7'p>>"
+
+		$(function () {
+			var depositTable = buildDataTable("#depositTable", '@Url.Action("GetDeposits")');
+			var transferTable = buildDataTable("#transferTable", '@Url.Action("GetTransfers")');
+			var addressTable = buildDataTable("#addressTable", '@Url.Action("GetAddresses")');
+			var logonsTable = buildDataTable("#logonsTable", '@Url.Action("GetLogons")');
+			var withdrawTable = buildDataTable("#withdrawTable", '@Url.Action("GetWithdrawals")',
+				{
+					"columnDefs": [{
+						"targets": [5, 6, 8],
+						"render": function (data, type, full, meta) {
+							return '<div style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;display:block;max-width:200px">' + data + '</div>';
+						}
+					}]
+				}
+			);
+
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				var target = $(e.target).attr("href").replace('#', ''); // activated tab
+				if (target == 'deposits') {
+					depositTable.ajax.reload();
+				}
+				else if (target == 'withdrawals') {
+					withdrawTable.ajax.reload();
+				}
+				else if (target == 'transfers') {
+					transferTable.ajax.reload();
+				}
+				else if (target == 'addresses') {
+					addressTable.ajax.reload();
+				}
+				else if (target == 'logons') {
+					logonsTable.ajax.reload();
+				}
+			}).trigger('shown.bs.tab');
+
+			var searchDelay = null;
+			$('div.dataTables_filter input').off('keyup.DT input.DT');
+			$('div.dataTables_filter input').on('keyup', function (e) {
+				var _this = $(this);
+				var search = _this.val();
+				var delay = e.keyCode == 13 ? 0 : 2000;
+				clearTimeout(searchDelay);
+				searchDelay = setTimeout(function () {
+					if (search != null) {
+						var tableId = '#' + _this.closest('.dataTables_filter').attr("id").replace("_filter", "");
+						var table = $(tableId)
+						$(table.data("container") || '.right-content').block({ message: 'Searching...' });
+						table.DataTable().search(search).draw();
+					}
+				}, delay);
+			});
+		});
+
+		function buildDataTable(id, action, opts) {
+			var defaultOptions = {
+				"dom": tableOptionsLayout,
+				"order": [[0, "desc"]],
+				"searchDelay": 1500,
+				"lengthChange": false,
+				"processing": false,
+				"bServerSide": true,
+				"searching": true,
+				"scrollCollapse": true,
+				"scrollX": false,
+				"width": "100%",
+				"paging": true,
+				"info": true,
+				"iDisplayLength": 20,
+				"sAjaxSource": action,
+				"sServerMethod": "POST",
+				"deferLoading": 0,
+				"language": {
+					"emptyTable": "There are no items",
+					"searchPlaceholder": "Search",
+					"search": ""
+				},
+				"columnDefs": []
+			};
+			var options = $.extend(defaultOptions, opts ? opts : {});
+			return $(id).DataTable(options);
+		}
+
+
+
+
+	</script>
+}

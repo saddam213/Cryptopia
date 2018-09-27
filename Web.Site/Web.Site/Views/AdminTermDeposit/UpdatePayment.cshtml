@@ -1,0 +1,74 @@
+﻿@model Cryptopia.Common.TermDeposits.UpdateTermDepositPaymentModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Payment</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdatePayment", "AdminTermDeposit", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.WriterValidationSummary()
+				@Html.HiddenFor(m => m.PaymentId)
+				@Html.HiddenFor(m => m.Name)
+				@Html.HiddenFor(m => m.Amount)
+				@Html.HiddenFor(m => m.Type)
+				@Html.HiddenFor(m => m.UserId)
+				@Html.HiddenFor(m => m.Address)
+				<div class="row">
+					<div class="col-xs-12">
+						<div>Name: @Model.Name</div>
+						<div>Type: @Model.Type</div>
+						<div>Amount: @Model.Amount</div>
+						@if (!string.IsNullOrEmpty(Model.Address))
+						{
+							<div>Address: @Model.Address</div>
+						}
+						else
+						{
+							<div>
+								Address:
+								<span id="new-address">
+									<a onclick="generateAddress('@Model.UserId')" class="btn btn-info btn-xs">Generate Address</a>
+								</span>
+							</div>
+						}
+					</div>
+
+					<div class="col-xs-12">
+						@Html.LabelFor(m => m.TransactionId, new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.TransactionId, new { @class = "form-control  input-sm" })
+						@Html.ValidationMessageFor(model => model.TransactionId, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+
+	function generateAddress(user) {
+		$.blockUI({ message: "Generating address..." });
+		postJson('@Url.Action("GenerateAddress")', { userId: user }, function (data) {
+			$.unblockUI();
+			$("#new-address").removeClass("text-danger").addClass(data.Success ? "" : "text-danger").html(data.Message)
+		});
+	}
+</script>

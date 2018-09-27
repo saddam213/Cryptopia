@@ -1,0 +1,93 @@
+﻿@model Cryptopia.Common.Pool.AdminUpdatePoolSettingsModel
+@{
+	Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close simplemodal-close" aria-hidden="true" type="button" onclick="$.modal.close({ Cancel: true });">×</button>
+			<h3 class="modal-title">Update Pool Settings</h3>
+		</div>
+		@using (Ajax.BeginForm("UpdateSettings", "AdminMineshaft", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "simplemodal-data", InsertionMode = InsertionMode.Replace }, new { @class = "form-horizontal" }))
+		{
+			<div class="modal-body">
+				@Html.AntiForgeryToken()
+				@Html.WriterValidationSummary()
+				<div class="row">
+
+					<div class="col-xs-12">
+						<div>
+							@Html.CheckBoxFor(m => m.ProcessorEnabled)
+							@Html.LabelFor(m => m.ProcessorEnabled, "Statistic/Payout Processor Enabled", new { @class = "control-label" })
+						</div>
+					</div>
+
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.HashRateCalculationPeriod, "Hashrate Calculation Period", new { @class = "control-label" })
+						<small><i> (seconds)</i></small>
+						@Html.TextBoxFor(m => m.HashRateCalculationPeriod, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.HashRateCalculationPeriod, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.StatisticsPollPeriod, "Statistic Update Period", new { @class = "control-label" })
+						<small><i> (seconds)</i></small>
+						@Html.TextBoxFor(m => m.StatisticsPollPeriod, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.StatisticsPollPeriod, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.PayoutPollPeriod, "Payout Period", new { @class = "control-label" })
+						<small><i> (minutes)</i></small>
+						@Html.TextBoxFor(m => m.PayoutPollPeriod, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.PayoutPollPeriod, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.SitePayoutPollPeriod, "Site Payout Period", new { @class = "control-label" })
+						<small><i> (minutes)</i></small>
+						@Html.TextBoxFor(m => m.SitePayoutPollPeriod, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.SitePayoutPollPeriod, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.ProfitabilityPollPeriod, "Profit Switch Period", new { @class = "control-label" })
+						<small><i> (minutes)</i></small>
+						@Html.TextBoxFor(m => m.ProfitabilityPollPeriod, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.ProfitabilityPollPeriod, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						<div style="margin-top:23px">
+							@Html.CheckBoxFor(m => m.ProfitSwitchEnabled)
+							@Html.LabelFor(m => m.ProfitSwitchEnabled, "Profit Switch Enabled", new { @class = "control-label" })
+						</div>
+					</div>
+					<div class="row"></div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.ProfitSwitchDepthBTC, "BTC Depth for Profit Switch", new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.ProfitSwitchDepthBTC, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.ProfitSwitchDepthBTC, "", new { @class = "text-danger" })
+					</div>
+					<div class="col-xs-6">
+						@Html.LabelFor(m => m.ProfitSwitchDepthLTC, "LTC Depth for Profit Switch", new { @class = "control-label" })
+						@Html.TextBoxFor(m => m.ProfitSwitchDepthLTC, new { @class = "form-control input-sm" })
+						@Html.ValidationMessageFor(model => model.ProfitSwitchDepthLTC, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default simplemodal-close button-180" type="button" onclick="$.modal.close({ Cancel: true });">Cancel</button>
+				<button id="submit" class="btn btn-success button-180" type="submit">Update</button>
+			</div>
+		}
+	</div>
+</div>
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script type="text/javascript">
+	$("#submit").on("click", function () {
+		var valid = $(".form-horizontal").valid();
+		if (valid) {
+			$('.modal-dialog').block({ message: 'Submitting...' });
+		}
+	});
+</script>

@@ -1,0 +1,21 @@
+﻿@model double
+@{
+}
+<span style="cursor:pointer" title="@Resources.Layout.starRatingHint: @Model/5">
+	@for (int i = 0; i < 5; i++)
+	{
+		if (i < Model)
+		{
+			if (Model % 1 != 0 && Model - 0.5 == i)
+			{
+			<i class="fa fa-star-half-o text-@(Model > 2 ? "warning" : "danger")"></i>
+			}
+			else
+			{
+			<i class="fa fa-star text-@(Model > 2 ? "warning" : "danger")"></i>
+			}
+			continue;
+		}
+		<i class="fa fa-star-o "></i>
+	}
+</span>

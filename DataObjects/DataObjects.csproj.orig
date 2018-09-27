@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A81F2BA-8050-4F4F-8E93-D26D0A381623}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.API.Objects</RootNamespace>
+    <AssemblyName>Cryptopia.API.Objects</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Commands\Balance\SubmitWithdrawTwoFactorTokenRequest.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawTwoFactorTokenResponse.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawCancellationRequest.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawCancellationResponse.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawConfirmationRequest.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawConfirmationResponse.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawRequest.cs" />
+    <Compile Include="Commands\Balance\SubmitWithdrawResponse.cs" />
+    <Compile Include="Commands\Market\CancelMarketItemRequest.cs" />
+    <Compile Include="Commands\Market\CancelMarketItemResponse.cs" />
+    <Compile Include="Commands\Market\SubmitRelistMarketItemRequest.cs" />
+    <Compile Include="Commands\Market\SubmitRelistMarketItemResponse.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemFeedbackRequest.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemFeedbackResponse.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemBidRequest.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemBidResponse.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemAnswerRequest.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemAnswerResponse.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemQuestionRequest.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemQuestionResponse.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemRequest.cs" />
+    <Compile Include="Commands\Market\SubmitMarketItemResponse.cs" />
+    <Compile Include="Commands\Market\UpdateMarketItemRequest.cs" />
+    <Compile Include="Commands\Market\UpdateMarketItemResponse.cs" />
+    <Compile Include="Commands\Paytopia\CreatePaymentItemRequest.cs" />
+    <Compile Include="Commands\Paytopia\CreatePaymentItemResponse.cs" />
+    <Compile Include="Commands\Paytopia\UpdatePaymentItemRequest.cs" />
+    <Compile Include="Commands\Paytopia\UpdatePaymentItemResponse.cs" />
+    <Compile Include="Commands\Paytopia\CancelPaymentItemRequest.cs" />
+    <Compile Include="Commands\Paytopia\CancelPaymentItemResponse.cs" />
+    <Compile Include="Commands\Paytopia\SubmitPaymentRequest.cs" />
+    <Compile Include="Commands\Paytopia\SubmitPaymentResponse.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolUserSettingsRequest.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolUserSettingsResponse.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolStatusRequest.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolStatusResponse.cs" />
+    <Compile Include="Commands\Transfer\SubmitUserTransferRequest.cs" />
+    <Compile Include="Commands\Transfer\SubmitUserTransferResponse.cs" />
+    <Compile Include="Commands\Vote\AdminSubmitVoteRequest.cs" />
+    <Compile Include="Commands\Vote\AdminSubmitVoteResponse.cs" />
+    <Compile Include="Commands\Vote\SubmitVoteItemRequest.cs" />
+    <Compile Include="Commands\Vote\SubmitVoteItemResponse.cs" />
+    <Compile Include="Commands\Vote\SubmitVoteRequest.cs" />
+    <Compile Include="Commands\Vote\SubmitVoteResponse.cs" />
+    <Compile Include="Commands\Pool\CreatePoolWorkerRequest.cs" />
+    <Compile Include="Commands\Pool\CreatePoolWorkerResponse.cs" />
+    <Compile Include="Commands\Pool\DeletePoolWorkerRequest.cs" />
+    <Compile Include="Commands\Pool\DeletePoolWorkerResponse.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolWorkerRequest.cs" />
+    <Compile Include="Commands\Pool\UpdatePoolWorkerResponse.cs" />
+    <Compile Include="Commands\Support\SubmitSupportTicketRequest.cs" />
+    <Compile Include="Commands\Support\SubmitSupportTicketResponse.cs" />
+    <Compile Include="Commands\Support\SubmitSupportTicketMessageRequest.cs" />
+    <Compile Include="Commands\Support\SubmitSupportTicketMessageResponse.cs" />
+    <Compile Include="Commands\Support\UpdateSupportTicketMessageRequest.cs" />
+    <Compile Include="Commands\Support\UpdateSupportTicketMessageResponse.cs" />
+    <Compile Include="Commands\Support\UpdateSupportTicketRequest.cs" />
+    <Compile Include="Commands\Support\UpdateSupportTicketResponse.cs" />
+    <Compile Include="DataObjects\ChartPointResult.cs" />
+    <Compile Include="DataObjects\AdminUserResult.cs" />
+    <Compile Include="DataObjects\Exchange\ExchangeSummaryResult.cs" />
+<<<<<<< Updated upstream
+    <Compile Include="DataObjects\Faucets\FaucetPayoutResult.cs" />
+=======
+    <Compile Include="DataObjects\Paytopia\PaymentItemResult.cs" />
+>>>>>>> Stashed changes
+    <Compile Include="DataObjects\Pool\PoolSwitchHistoryResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolWorkerShares.cs" />
+    <Compile Include="DataObjects\Pool\PoolHashrateResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolConnectionResult.cs" />
+    <Compile Include="DataObjects\TransferResult.cs" />
+    <Compile Include="DataObjects\CurrencyStatusResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolStatusResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolErrorResult.cs" />
+    <Compile Include="DataObjects\Explorer\BlockResult.cs" />
+    <Compile Include="DataObjects\Explorer\TransactionRawResult.cs" />
+    <Compile Include="DataObjects\Explorer\GetInfoResult.cs" />
+    <Compile Include="DataObjects\Explorer\PeerInfoResult.cs" />
+    <Compile Include="DataObjects\Faucets\FaucetResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolSwitchResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolResult.cs" />
+    <Compile Include="DataObjects\MarketItemBidResult.cs" />
+    <Compile Include="DataObjects\MarketHistoryResult.cs" />
+    <Compile Include="DataObjects\FeedbackResult.cs" />
+    <Compile Include="DataObjects\LocationResult.cs" />
+    <Compile Include="DataObjects\MarketQuestionResult.cs" />
+    <Compile Include="DataObjects\MarketCategoryResult.cs" />
+    <Compile Include="DataObjects\MarketItemResult.cs" />
+    <Compile Include="DataObjects\VoteItemResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolBlockResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolUserResult.cs" />
+    <Compile Include="DataObjects\CurrencyDataResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolInfoResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolWorkerResult.cs" />
+    <Compile Include="DataObjects\Pool\PoolWorkerStatusResult.cs" />
+    <Compile Include="DataObjects\TradePairResult.cs" />
+    <Compile Include="DataObjects\TradeResult.cs" />
+    <Compile Include="DataObjects\SupportTicketMessageResult.cs" />
+    <Compile Include="DataObjects\SupportTicketResult.cs" />
+    <Compile Include="DataObjects\TransactionResult.cs" />
+    <Compile Include="Extensions\DataServiceExtensions.cs" />
+    <Compile Include="Notifications\TransactionResult.cs" />
+    <Compile Include="Queries\Admin\AdminGetUsersRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetUsersResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetDepositsRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetDepositsResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetWithdrawalsRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetWithdrawalsResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetErrorLogsRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetErrorLogsResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetSupportTicketsRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetSupportTicketsResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetMinersRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetMinersResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetDataRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetDataResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetTransfersRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetTransfersResponse.cs" />
+    <Compile Include="Queries\Balance\GetUserBalanceByTradePairIdRequest.cs" />
+    <Compile Include="Queries\Balance\GetUserBalanceByTradePairIdResponse.cs" />
+    <Compile Include="Queries\Admin\AdminGetCurrencyStatusRequest.cs" />
+    <Compile Include="Queries\Admin\AdminGetCurrencyStatusResponse.cs" />
+    <Compile Include="Queries\Exchange\GetExchangeSummaryRequest.cs" />
+    <Compile Include="Queries\Exchange\GetExchangeSummaryResponse.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerBlockResponse.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerTransactionResponse.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyDataRequest.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyDataResponse.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyAboutRequest.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyAboutResponse.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerTransactionRequest.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerBlockRequest.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerInfoResponse.cs" />
+    <Compile Include="Queries\Explorer\GetExplorerInfoRequest.cs" />
+    <Compile Include="Queries\Faucets\GetFaucetsResponse.cs" />
+    <Compile Include="Queries\Faucets\GetFaucetsRequest.cs" />
+    <Compile Include="Queries\Location\GetLocationsRequest.cs" />
+    <Compile Include="Queries\Location\GetLocationsResponse.cs" />
+    <Compile Include="Queries\Market\GetUserMarketHistoryRequest.cs" />
+    <Compile Include="Queries\Market\GetUserMarketHistoryResponse.cs" />
+    <Compile Include="Queries\Market\GetUserMarketItemsRequest.cs" />
+    <Compile Include="Queries\Market\GetUserMarketItemsResponse.cs" />
+    <Compile Include="Queries\Market\GetUserMarketFeedbackRequest.cs" />
+    <Compile Include="Queries\Market\GetUserMarketFeedbackResponse.cs" />
+    <Compile Include="Queries\Market\GetMarketItemRequest.cs" />
+    <Compile Include="Queries\Market\GetMarketItemResponse.cs" />
+    <Compile Include="Queries\Market\GetMarketCategoriesRequest.cs" />
+    <Compile Include="Queries\Market\GetMarketCategoriesResponse.cs" />
+    <Compile Include="Queries\Market\GetMarketItemsRequest.cs" />
+    <Compile Include="Queries\Market\GetMarketItemsResponse.cs" />
+    <Compile Include="Queries\Paytopia\GetPaymentItemRequest.cs" />
+    <Compile Include="Queries\Paytopia\GetPaymentItemResponse.cs" />
+    <Compile Include="Queries\Paytopia\GetPaymentItemsRequest.cs" />
+    <Compile Include="Queries\Paytopia\GetPaymentItemsResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolStatusRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolStatusResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolErrorsRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolErrorsResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolsRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolsResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolBlocksRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolBlocksResponse.cs" />
+    <Compile Include="Queries\Pool\GetUserPayoutsRequest.cs" />
+    <Compile Include="Queries\Pool\GetUserPayoutsResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolWorkersRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolWorkersResponse.cs" />
+    <Compile Include="DataObjects\Pool\PoolTransactionResult.cs" />
+    <Compile Include="Queries\Pool\GetPoolHashrateRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolHashrateResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolInfoRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolInfoResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserInfoRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserInfoResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserPayoutsRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserPayoutsResponse.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserWorkersRequest.cs" />
+    <Compile Include="Queries\Pool\GetPoolUserWorkersResponse.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairChartResponse.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairChartRequest.cs" />
+    <Compile Include="Queries\Trade\GetTradeHistoryByTradePairRequest.cs" />
+    <Compile Include="Queries\Trade\GetTradeHistoryByTradePairResponse.cs" />
+    <Compile Include="Queries\Trade\GetTradeOpenByTradePairRequest.cs" />
+    <Compile Include="Queries\Trade\GetTradeOpenByTradePairResponse.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeHistoryByTradePairRequest.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeHistoryByTradePairResponse.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeOpenByTradePairRequest.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeOpenByTradePairResponse.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeOpenRequest.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeOpenResponse.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketCategoryRequest.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketCategoryResponse.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketByIdRequest.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketByIdResponse.cs" />
+    <Compile Include="Queries\TradePair\FetchTradePairHistoryRequest.cs" />
+    <Compile Include="Queries\TradePair\FetchTradePairHistoryResponse.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairsRequest.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairsResponse.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairByIdRequest.cs" />
+    <Compile Include="Queries\TradePair\GetTradePairByIdResponse.cs" />
+    <Compile Include="Queries\Transaction\GetUserDepositsResponse.cs" />
+    <Compile Include="Queries\Transaction\GetUserWithdrawalsResponse.cs" />
+    <Compile Include="Queries\Transaction\GetUserWithdrawalsRequest.cs" />
+    <Compile Include="Queries\Transaction\GetUserDepositsRequest.cs" />
+    <Compile Include="Queries\Transfer\GetUserTransferHistoryRequest.cs" />
+    <Compile Include="Queries\Transfer\GetUserTransferHistoryResponse.cs" />
+    <Compile Include="Queries\User\GetUserDetailsRequest.cs" />
+    <Compile Include="Queries\User\GetUserDetailsResponse.cs" />
+    <Compile Include="Queries\Vote\GetVoteItemsRequest.cs" />
+    <Compile Include="Queries\Vote\GetVoteItemsResponse.cs" />
+    <Compile Include="Tables\Balance.cs" />
+    <Compile Include="Commands\Trade\SubmitTradeRequest.cs" />
+    <Compile Include="Commands\Trade\SubmitTradeResponse.cs" />
+    <Compile Include="Commands\Trade\CancelTradeRequest.cs" />
+    <Compile Include="Commands\Trade\CancelTradeResponse.cs" />
+    <Compile Include="Commands\Address\SubmitAddressByCurrencyIdRequest.cs" />
+    <Compile Include="Commands\Address\SubmitAddressByCurrencyIdResponse.cs" />
+    <Compile Include="Commands\Authentication\UserRegisterRequest.cs" />
+    <Compile Include="Commands\Authentication\UserRegisterResponse.cs" />
+    <Compile Include="Tables\Paytopia\PaymentHistory.cs" />
+    <Compile Include="Tables\Paytopia\PaymentItemStatus.cs" />
+    <Compile Include="Tables\Paytopia\PaymentItemType.cs" />
+    <Compile Include="Tables\Paytopia\PaymentItem.cs" />
+    <Compile Include="Tables\Pool\PoolSwitchConnection.cs" />
+    <Compile Include="Tables\Pool\PoolAlgoType.cs" />
+    <Compile Include="Tables\Pool\PoolUser.cs" />
+    <Compile Include="Tables\Pool\PoolSwitchHistory.cs" />
+    <Compile Include="Tables\Pool\PoolPayoutStatus.cs" />
+    <Compile Include="Tables\Pool\PoolPayoutType.cs" />
+    <Compile Include="Tables\Pool\PoolBlockStatus.cs" />
+    <Compile Include="Tables\Pool\PoolBlock.cs" />
+    <Compile Include="Tables\Pool\PoolShare.cs" />
+    <Compile Include="Tables\Pool\PoolPayout.cs" />
+    <Compile Include="Tables\Pool\Pool.cs" />
+    <Compile Include="Tables\Pool\PoolConnection.cs" />
+    <Compile Include="Tables\Pool\PoolError.cs" />
+    <Compile Include="Tables\Pool\PoolInfo.cs" />
+    <Compile Include="Tables\Pool\PoolSwitch.cs" />
+    <Compile Include="Tables\Pool\PoolUserInfo.cs" />
+    <Compile Include="Tables\Pool\PoolWorker.cs" />
+    <Compile Include="Tables\TransferHistory.cs" />
+    <Compile Include="Tables\Explorer\ExplorerTransactionOutput.cs" />
+    <Compile Include="Tables\Explorer\ExplorerTransactionInput.cs" />
+    <Compile Include="Tables\Explorer\ExplorerAddress.cs" />
+    <Compile Include="Tables\Explorer\ExplorerBlock.cs" />
+    <Compile Include="Tables\Explorer\ExplorerTransaction.cs" />
+    <Compile Include="Tables\Explorer\ExplorerWallet.cs" />
+    <Compile Include="Tables\DepositAutoSell.cs" />
+    <Compile Include="Tables\TradePairStatus.cs" />
+    <Compile Include="Tables\MarketFeedback.cs" />
+    <Compile Include="Tables\Location.cs" />
+    <Compile Include="Tables\MarketItemFeature.cs" />
+    <Compile Include="Tables\MarketItemType.cs" />
+    <Compile Include="Tables\MarketItemStatus.cs" />
+    <Compile Include="Tables\MarketItemBid.cs" />
+    <Compile Include="Tables\MarketItemImage.cs" />
+    <Compile Include="Tables\MarketCategory.cs" />
+    <Compile Include="Tables\MarketItemQuestion.cs" />
+    <Compile Include="Tables\MarketItem.cs" />
+    <Compile Include="Tables\Vote.cs" />
+    <Compile Include="Tables\VoteItem.cs" />
+    <Compile Include="Tables\SupportTicketStatus.cs" />
+    <Compile Include="Tables\SupportTicketCategory.cs" />
+    <Compile Include="Tables\EmailTemplate.cs" />
+    <Compile Include="Tables\EmailTemplateType.cs" />
+    <Compile Include="Tables\User.cs" />
+    <Compile Include="Tables\ErrorLog.cs" />
+    <Compile Include="Tables\CurrencyAbout.cs" />
+    <Compile Include="Tables\AlgoType.cs" />
+    <Compile Include="Tables\TradeHistory.cs" />
+    <Compile Include="Tables\Currency.cs" />
+    <Compile Include="DataObjects\AddressResult.cs" />
+    <Compile Include="DataObjects\BalanceResult.cs" />
+    <Compile Include="DataObjects\CurrencyResult.cs" />
+    <Compile Include="Tables\Deposit.cs" />
+    <Compile Include="Tables\Trade.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Balance\GetUserBalanceByCurrencyIdRequest.cs" />
+    <Compile Include="Queries\Balance\GetUserBalanceByCurrencyIdResponse.cs" />
+    <Compile Include="Queries\Balance\GetUserBalancesResponse.cs" />
+    <Compile Include="Queries\Balance\GetUserBalancesRequest.cs" />
+    <Compile Include="Queries\Currency\GetCurrenciesResponse.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyByIdResponse.cs" />
+    <Compile Include="Queries\Currency\GetCurrenciesRequest.cs" />
+    <Compile Include="Queries\Currency\GetCurrencyByIdRequest.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeHistoryRequest.cs" />
+    <Compile Include="Queries\Trade\GetUserTradeHistoryResponse.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketsByUserIdRequest.cs" />
+    <Compile Include="Queries\Support\GetSupportTicketsByUserIdResponse.cs" />
+    <Compile Include="Queries\Address\GetAddressesByUserIdRequest.cs" />
+    <Compile Include="Queries\Address\GetAddressesByUserIdResponse.cs" />
+    <Compile Include="Queries\Address\GetAddressByCurrencyIdResponse.cs" />
+    <Compile Include="Queries\Address\GetAddressByCurrencyIdRequest.cs" />
+    <Compile Include="Tables\SupportTicket.cs" />
+    <Compile Include="Tables\SupportTicketMessage.cs" />
+    <Compile Include="Tables\Withdraw.cs" />
+    <Compile Include="Tables\TradePair.cs" />
+    <Compile Include="Tables\Address.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{30aefbb4-ac87-4162-b570-60a1577cdeb5}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Currency\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

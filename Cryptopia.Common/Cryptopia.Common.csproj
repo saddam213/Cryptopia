@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E52B1491-8A60-48B6-B551-834E159867AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cryptopia.Common</RootNamespace>
+    <AssemblyName>Cryptopia.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressBook\AddressBookModel.cs" />
+    <Compile Include="AddressBook\IAddressBookWriter.cs" />
+    <Compile Include="AddressBook\IAddressBookReader.cs" />
+    <Compile Include="Address\AddressModel.cs" />
+    <Compile Include="Address\IAddressReader.cs" />
+    <Compile Include="Address\DisplayAddressModel.cs" />
+    <Compile Include="Api\ApiBalance.cs" />
+    <Compile Include="Api\ApiCancelUserTradeRequest.cs" />
+    <Compile Include="Api\ApiCancelUserTradeResponse.cs" />
+    <Compile Include="Api\ApiCurrency.cs" />
+    <Compile Include="Api\ApiCurrencyResult.cs" />
+    <Compile Include="Api\ApiMarket.cs" />
+    <Compile Include="Api\ApiMarketHistory.cs" />
+    <Compile Include="Api\ApiMarketHistoryResult.cs" />
+    <Compile Include="Api\ApiMarketOrder.cs" />
+    <Compile Include="Api\ApiMarketOrderGroupData.cs" />
+    <Compile Include="Api\ApiMarketOrderData.cs" />
+    <Compile Include="Api\ApiMarketOrderGroupResult.cs" />
+    <Compile Include="Api\ApiMarketOrdersResult.cs" />
+    <Compile Include="Api\ApiMarketResult.cs" />
+    <Compile Include="Api\ApiMarketsResult.cs" />
+    <Compile Include="Api\ApiOpenOrder.cs" />
+    <Compile Include="Api\ApiSubmitUserTipRequest.cs" />
+    <Compile Include="Api\ApiSubmitUserTipResponse.cs" />
+    <Compile Include="Api\ApiSubmitUserTradeRequest.cs" />
+    <Compile Include="Api\ApiSubmitUserTradeResponse.cs" />
+    <Compile Include="Api\ApiSubmitUserTransferRequest.cs" />
+    <Compile Include="Api\ApiSubmitUserTransferResponse.cs" />
+    <Compile Include="Api\ApiSubmitUserWithdrawRequest.cs" />
+    <Compile Include="Api\ApiSubmitUserWithdrawResponse.cs" />
+    <Compile Include="Api\ApiTradeHistory.cs" />
+    <Compile Include="Api\ApiTradePair.cs" />
+    <Compile Include="Api\ApiTradePairResult.cs" />
+    <Compile Include="Api\ApiTransaction.cs" />
+    <Compile Include="Api\ApiUserBalanceRequest.cs" />
+    <Compile Include="Api\ApiUserBalanceResponse.cs" />
+    <Compile Include="Api\ApiUserDepositAddressRequest.cs" />
+    <Compile Include="Api\ApiUserDepositAddressResponse.cs" />
+    <Compile Include="Api\ApiUserOpenOrdersRequest.cs" />
+    <Compile Include="Api\ApiUserOpenOrdersResponse.cs" />
+    <Compile Include="Api\ApiUserTradeHistoryRequest.cs" />
+    <Compile Include="Api\ApiUserTradeHistoryResponse.cs" />
+    <Compile Include="Api\ApiUserTransactionsRequest.cs" />
+    <Compile Include="Api\ApiUserTransactionsResponse.cs" />
+    <Compile Include="Api\IApiPrivateService.cs" />
+    <Compile Include="Api\IApiPublicService.cs" />
+    <Compile Include="Arbitrage\ArbitrageDataModel.cs" />
+    <Compile Include="Arbitrage\IArbitrageReader.cs" />
+    <Compile Include="Balance\BalanceCurrencyModel.cs" />
+    <Compile Include="Balance\BalanceTradePairModel.cs" />
+    <Compile Include="Balance\IBalanceEstimationService.cs" />
+    <Compile Include="Balance\IBalanceReader.cs" />
+    <Compile Include="Balance\BalanceTradeModel.cs" />
+    <Compile Include="Cache\CacheKey.cs" />
+    <Compile Include="Cache\ICacheService.cs" />
+    <Compile Include="Chat\ChatBanModel.cs" />
+    <Compile Include="Chat\ChatBanUserModel.cs" />
+    <Compile Include="Chat\ChatAdminModel.cs" />
+    <Compile Include="Chat\ChatUserModel.cs" />
+    <Compile Include="Chat\ChatEmoticonModel.cs" />
+    <Compile Include="Chat\ChatUser.cs" />
+    <Compile Include="Chat\ChatMessageData.cs" />
+    <Compile Include="Chat\IChatReader.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Currency\AdminCurrencyModel.cs" />
+    <Compile Include="Currency\BaseCurrencyModel.cs" />
+    <Compile Include="Currency\CoinInfoModel.cs" />
+    <Compile Include="Currency\CurrencyPeerInfoModel.cs" />
+    <Compile Include="Currency\CurrencySummaryModel.cs" />
+    <Compile Include="Currency\UpdateCurrencyInfoModel.cs" />
+    <Compile Include="Currency\ICurrencyWriter.cs" />
+    <Compile Include="Currency\ICurrencyReader.cs" />
+    <Compile Include="Currency\CurrencyModel.cs" />
+    <Compile Include="Currency\UpdateListingStatusModel.cs" />
+    <Compile Include="Currency\UpdateCurrencyModel.cs" />
+    <Compile Include="DataContext\IMonitoringDataContext.cs" />
+    <Compile Include="DataContext\IMonitoringDataContextFactory.cs" />
+    <Compile Include="DataContext\IPoolDataContext.cs" />
+    <Compile Include="DataContext\IPoolDataContextFactory.cs" />
+    <Compile Include="DataContext\IExchangeDataContextFactory.cs" />
+    <Compile Include="DataContext\IExchangeDataContext.cs" />
+    <Compile Include="Deposit\DepositViewModel.cs" />
+    <Compile Include="Deposit\IDepositReader.cs" />
+    <Compile Include="Deposit\IDepositService.cs" />
+    <Compile Include="Deposit\PeerInfoModel.cs" />
+    <Compile Include="Emoticons\CreateEmoticonModel.cs" />
+    <Compile Include="Emoticons\EmoticonModel.cs" />
+    <Compile Include="Emoticons\IEmoticonReader.cs" />
+    <Compile Include="Emoticons\IEmoticonWriter.cs" />
+    <Compile Include="Emoticons\DeleteEmoticonModel.cs" />
+    <Compile Include="Emoticons\UpdateEmoticonModel.cs" />
+    <Compile Include="Exchange\TradeSummaryData.cs" />
+    <Compile Include="Exchange\ExchangeModel.cs" />
+    <Compile Include="Exchange\ExchangeSummaryBaseCurrency.cs" />
+    <Compile Include="Exchange\FeaturedCurrency.cs" />
+    <Compile Include="Exchange\ExchangeSummary.cs" />
+    <Compile Include="Exchange\OrderBookModel.cs" />
+    <Compile Include="Exchange\UserOrderModel.cs" />
+    <Compile Include="Exchange\DistributionChartDataModel.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\LottoHelpers.cs" />
+    <Compile Include="External\IExternalApiService.cs" />
+    <Compile Include="Exchange\DepthChartDataModel.cs" />
+    <Compile Include="Exchange\StockChartDataModel.cs" />
+    <Compile Include="Exchange\ExchangeSummaryModel.cs" />
+    <Compile Include="Image\ValidateImageModel.cs" />
+    <Compile Include="Image\ValidateImageResultModel.cs" />
+    <Compile Include="Image\CreateImageModel.cs" />
+    <Compile Include="Image\IImageService.cs" />
+    <Compile Include="Image\CreateImageResultModel.cs" />
+    <Compile Include="Karma\CreateKarmaModel.cs" />
+    <Compile Include="Karma\DeleteKarmaModel.cs" />
+    <Compile Include="Karma\IKarmaReader.cs" />
+    <Compile Include="Karma\IKarmaWriter.cs" />
+    <Compile Include="Karma\SpendKarmaModel.cs" />
+    <Compile Include="Karma\UpdateKarmaModel.cs" />
+    <Compile Include="Karma\UserKarmaModel.cs" />
+    <Compile Include="Location\ILocationReader.cs" />
+    <Compile Include="Location\LocationModel.cs" />
+    <Compile Include="Lotto\CreateLottoItemModel.cs" />
+    <Compile Include="Lotto\ILottoReader.cs" />
+    <Compile Include="Lotto\ILottoWriter.cs" />
+    <Compile Include="Lotto\LottoItemModel.cs" />
+    <Compile Include="Lotto\LottoTicketModel.cs" />
+    <Compile Include="Lotto\LottoHistoryModel.cs" />
+    <Compile Include="Lotto\LottoPaymentModel.cs" />
+    <Compile Include="Lotto\LottoPrizeInfoModel.cs" />
+    <Compile Include="Lotto\LottoViewModel.cs" />
+    <Compile Include="Lotto\UpdateLottoItemModel.cs" />
+    <Compile Include="Marketplace\MarketItemSearchModel.cs" />
+    <Compile Include="Marketplace\MarketListItemModel.cs" />
+    <Compile Include="Marketplace\CreateMarketAnswerModel.cs" />
+    <Compile Include="Marketplace\CreateMarketBidModel.cs" />
+    <Compile Include="Marketplace\CreateMarketFeedbackModel.cs" />
+    <Compile Include="Marketplace\CreateMarketItemModel.cs" />
+    <Compile Include="Marketplace\CreateMarketQuestionModel.cs" />
+    <Compile Include="Marketplace\IMarketplaceReader.cs" />
+    <Compile Include="Marketplace\IMarketplaceWriter.cs" />
+    <Compile Include="Marketplace\MarketplaceFeedbackModel.cs" />
+    <Compile Include="Marketplace\MarketCategoryModel.cs" />
+    <Compile Include="Marketplace\MarketItemBidModel.cs" />
+    <Compile Include="Marketplace\MarketQuestionModel.cs" />
+    <Compile Include="Marketplace\MarketplaceItemModel.cs" />
+    <Compile Include="Marketplace\UpdateMarketItemModel.cs" />
+    <Compile Include="MineshaftNotification\PayoutNotification.cs" />
+    <Compile Include="MineshaftNotification\IMineshaftNotification.cs" />
+    <Compile Include="MineshaftNotification\BlockNotification.cs" />
+    <Compile Include="MineshaftNotification\StatisticNotification.cs" />
+    <Compile Include="MineshaftNotification\UserStatisticNotification.cs" />
+    <Compile Include="MineshaftNotification\WorkerNotification.cs" />
+    <Compile Include="Mineshaft\BlockChartModel.cs" />
+    <Compile Include="Mineshaft\ChangePoolModel.cs" />
+    <Compile Include="Mineshaft\HashrateChartData.cs" />
+    <Compile Include="Mineshaft\GettingStartedModel.cs" />
+    <Compile Include="Mineshaft\HashrateChartModel.cs" />
+    <Compile Include="Mineshaft\IMineshaftReader.cs" />
+    <Compile Include="Mineshaft\IMineshaftWriter.cs" />
+    <Compile Include="Mineshaft\MinersModel.cs" />
+    <Compile Include="Mineshaft\MineshaftSummaryModel.cs" />
+    <Compile Include="Mineshaft\FeaturedPool.cs" />
+    <Compile Include="Mineshaft\MineshaftModel.cs" />
+    <Compile Include="News\CreateNewsItemModel.cs" />
+    <Compile Include="News\INewsWriter.cs" />
+    <Compile Include="News\INewsReader.cs" />
+    <Compile Include="News\NewsItemModel.cs" />
+    <Compile Include="News\NewsModel.cs" />
+    <Compile Include="News\UpdateNewsItemModel.cs" />
+    <Compile Include="Notifications\CreateNotificationModel.cs" />
+    <Compile Include="Notifications\IDataNotification.cs" />
+    <Compile Include="Notifications\DataNotificationModel.cs" />
+    <Compile Include="Notifications\NotificationModel.cs" />
+    <Compile Include="Notifications\INotificationService.cs" />
+    <Compile Include="Paytopia\AdminUpdatePaytopiaPaymentModel.cs" />
+    <Compile Include="Paytopia\AvatarModel.cs" />
+    <Compile Include="Paytopia\EmoticonModel.cs" />
+    <Compile Include="Paytopia\FlairModel.cs" />
+    <Compile Include="Paytopia\PaymentDatatableModel.cs" />
+    <Compile Include="Paytopia\IPaytopiaWriter.cs" />
+    <Compile Include="Paytopia\PaytopiaItemModel.cs" />
+    <Compile Include="Paytopia\PaytopiaModel.cs" />
+    <Compile Include="Paytopia\TwoFactorModel.cs" />
+    <Compile Include="Paytopia\SharesModel.cs" />
+    <Compile Include="Paytopia\TipSlotModel.cs" />
+    <Compile Include="Paytopia\RewardSlotModel.cs" />
+    <Compile Include="Paytopia\PoolListingModel.cs" />
+    <Compile Include="Paytopia\ExchangeListingModel.cs" />
+    <Compile Include="Paytopia\FeaturedSlotModel.cs" />
+    <Compile Include="Paytopia\LottoSlotModel.cs" />
+    <Compile Include="Paytopia\IPaytopiaReader.cs" />
+    <Compile Include="PoolWorker\IPoolWorkerWriter.cs" />
+    <Compile Include="PoolWorker\IPoolWorkerReader.cs" />
+    <Compile Include="PoolWorker\AdminPoolWorkerUpdateModel.cs" />
+    <Compile Include="PoolWorker\AdminUpdateWorkerPoolModel.cs" />
+    <Compile Include="Pool\AdminUpdatePoolConnectionModel.cs" />
+    <Compile Include="Pool\IPoolReader.cs" />
+    <Compile Include="Pool\IPoolWriter.cs" />
+    <Compile Include="Pool\PoolConnectionModel.cs" />
+    <Compile Include="Pool\PoolModel.cs" />
+    <Compile Include="Pool\AdminUpdatePoolSettingsModel.cs" />
+    <Compile Include="Pool\PoolWorkerModel.cs" />
+    <Compile Include="Pool\PoolWorkerViewModel.cs" />
+    <Compile Include="Pool\AdminUpdatePoolModel.cs" />
+    <Compile Include="Pool\PoolSettingsModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Referral\IReferralReader.cs" />
+    <Compile Include="Referral\ReferralInfoModel.cs" />
+    <Compile Include="Rewards\IRewardReader.cs" />
+    <Compile Include="Security\ISecurityReader.cs" />
+    <Compile Include="Shareholder\IShareholderReader.cs" />
+    <Compile Include="Shareholder\IShareholderWriter.cs" />
+    <Compile Include="Shareholder\PaytopiaDatatableModel.cs" />
+    <Compile Include="Shareholder\ShareholderFeeInfo.cs" />
+    <Compile Include="Shareholder\ShareInfoModel.cs" />
+    <Compile Include="Shareholder\SiteExpenseModel.cs" />
+    <Compile Include="SiteSettings\ISiteSettingsReader.cs" />
+    <Compile Include="SiteSettings\ISiteSettingsWriter.cs" />
+    <Compile Include="SiteSettings\SiteSettingsModel.cs" />
+    <Compile Include="Support\CreateSupportReplyModel.cs" />
+    <Compile Include="Support\CreateSupportTicketModel.cs" />
+    <Compile Include="Support\ISupportWriter.cs" />
+    <Compile Include="Support\AdminSupportTicketModel.cs" />
+    <Compile Include="Support\UpdateSupportTicketModel.cs" />
+    <Compile Include="Support\UserSupportModel.cs" />
+    <Compile Include="Support\SupportTicketMessageModel.cs" />
+    <Compile Include="Support\SupportTicketModel.cs" />
+    <Compile Include="Support\ISupportReader.cs" />
+    <Compile Include="TradeNotification\ITradeDataUpdate.cs" />
+    <Compile Include="Notifications\INotification.cs" />
+    <Compile Include="TradeNotification\TradeBalanceUpdate.cs" />
+    <Compile Include="TradeNotification\TradeUserHistoryUpdate.cs" />
+    <Compile Include="TradeNotification\TradeOpenOrderUpdate.cs" />
+    <Compile Include="TradeNotification\TradeOrderBookUpdate.cs" />
+    <Compile Include="TermDeposits\UpdateTermDepositPaymentModel.cs" />
+    <Compile Include="TermDeposits\TermDepositSummaryModel.cs" />
+    <Compile Include="TermDeposits\CreateTermDepositModel.cs" />
+    <Compile Include="TermDeposits\ITermDepositWriter.cs" />
+    <Compile Include="TermDeposits\ITermDepositReader.cs" />
+    <Compile Include="TermDeposits\TermDepositItemModel.cs" />
+    <Compile Include="TermDeposits\UserTermDepositModel.cs" />
+    <Compile Include="TermDeposits\TermDepositModel.cs" />
+    <Compile Include="TradePair\TradePairTickerModel.cs" />
+    <Compile Include="TradePair\ITradePairReader.cs" />
+    <Compile Include="TradePair\ITradePairWriter.cs" />
+    <Compile Include="TradePair\TradePairModel.cs" />
+    <Compile Include="Exchange\IExchangeReader.cs" />
+    <Compile Include="TradePair\CreateTradePairModel.cs" />
+    <Compile Include="TradePair\UpdateTradePairModel.cs" />
+    <Compile Include="Trade\CancelTradeModel.cs" />
+    <Compile Include="Trade\CancelTradeResponseModel.cs" />
+    <Compile Include="Trade\SubmitTradeModel.cs" />
+    <Compile Include="Trade\CreateLottoModel.cs" />
+    <Compile Include="Trade\CreateLottoResponseModel.cs" />
+    <Compile Include="TradeNotification\TipNotificationModel.cs" />
+    <Compile Include="TradeNotification\TradePriceUpdate.cs" />
+    <Compile Include="TradeNotification\TradeHistoryUpdate.cs" />
+    <Compile Include="Trade\ITradeService.cs" />
+    <Compile Include="Trade\CreateTipModel.cs" />
+    <Compile Include="Trade\CreateTipResponseModel.cs" />
+    <Compile Include="Trade\CreateTradeModel.cs" />
+    <Compile Include="Trade\CreateTradeResponseModel.cs" />
+    <Compile Include="Trade\CreateTransferModel.cs" />
+    <Compile Include="Trade\CreateTransferResponseModel.cs" />
+    <Compile Include="Transfer\TransferCurrencyModel.cs" />
+    <Compile Include="Transfer\TransferViewModel.cs" />
+    <Compile Include="Transfer\ITransferReader.cs" />
+    <Compile Include="Transfer\TransferModel.cs" />
+    <Compile Include="TwoFactor\IVerifyTwoFactorModel.cs" />
+    <Compile Include="TwoFactor\RemoveTwoFactorModel.cs" />
+    <Compile Include="TwoFactor\CreateTwoFactorModel.cs" />
+    <Compile Include="TwoFactor\ViewTwoFactorModel.cs" />
+    <Compile Include="TwoFactor\GoogleTwoFactorData.cs" />
+    <Compile Include="UserVerification\IUserVerificationReader.cs" />
+    <Compile Include="UserVerification\IUserVerificationWriter.cs" />
+    <Compile Include="UserVerification\ApproveVerificationModel.cs" />
+    <Compile Include="UserVerification\VerificationStatusModel.cs" />
+    <Compile Include="User\UpdateWithdrawModel.cs" />
+    <Compile Include="User\UserSecurityModel.cs" />
+    <Compile Include="User\UserModel.cs" />
+    <Compile Include="User\IUserWriter.cs" />
+    <Compile Include="User\IUserReader.cs" />
+    <Compile Include="User\UserBalanceModel.cs" />
+    <Compile Include="User\UserBalanceItemModel.cs" />
+    <Compile Include="User\UserMessageReportModel.cs" />
+    <Compile Include="User\UserMessageCreateModel.cs" />
+    <Compile Include="User\UserMessageModel.cs" />
+    <Compile Include="User\UpdatePasswordModel.cs" />
+    <Compile Include="User\UserApiAuthKey.cs" />
+    <Compile Include="User\UpdateApiModel.cs" />
+    <Compile Include="User\IUserBalanceWriter.cs" />
+    <Compile Include="User\IUserSyncService.cs" />
+    <Compile Include="User\IUserDepositWriter.cs" />
+    <Compile Include="User\IUserExchangeWriter.cs" />
+    <Compile Include="User\IUserMarketplaceWriter.cs" />
+    <Compile Include="User\IUserMarketplaceReader.cs" />
+    <Compile Include="User\IUserMessageWriter.cs" />
+    <Compile Include="User\IUserMineshaftWriter.cs" />
+    <Compile Include="User\IUserMineshaftReader.cs" />
+    <Compile Include="User\IUserExchangeReader.cs" />
+    <Compile Include="User\IUserSecurityWriter.cs" />
+    <Compile Include="User\IUserSettingsWriter.cs" />
+    <Compile Include="User\IUserSettingsReader.cs" />
+    <Compile Include="User\IUserTransferWriter.cs" />
+    <Compile Include="User\IUserTransferReader.cs" />
+    <Compile Include="User\IUserWithdrawWriter.cs" />
+    <Compile Include="User\IUserWithdrawReader.cs" />
+    <Compile Include="User\IUserDepositReader.cs" />
+    <Compile Include="User\IUserBalanceReader.cs" />
+    <Compile Include="User\IUserMessageReader.cs" />
+    <Compile Include="User\UserMessagesModel.cs" />
+    <Compile Include="User\UserProfileInfoModel.cs" />
+    <Compile Include="User\UserProfileModel.cs" />
+    <Compile Include="UserVerification\UserVerificationModel.cs" />
+    <Compile Include="User\UserNotificationModel.cs" />
+    <Compile Include="User\IUserProfileReader.cs" />
+    <Compile Include="User\IUserProfileWriter.cs" />
+    <Compile Include="User\UserNotificationItemModel.cs" />
+    <Compile Include="User\IUserNotificationReader.cs" />
+    <Compile Include="User\IUserNotificationWriter.cs" />
+    <Compile Include="User\UserSettingsModel.cs" />
+    <Compile Include="User\UserToolbarInfoModel.cs" />
+    <Compile Include="User\UserDepositDataTableModel.cs" />
+    <Compile Include="User\UserTradeDataTableModel.cs" />
+    <Compile Include="User\UserTradeHistoryDataTableModel.cs" />
+    <Compile Include="User\UserUnlockSecurityModel.cs" />
+    <Compile Include="User\UserWithdrawDataTableModel.cs" />
+    <Compile Include="User\UserTransferDataTableModel.cs" />
+    <Compile Include="PoolWorker\PoolWorkerUpdateModel.cs" />
+    <Compile Include="PoolWorker\PoolWorkerCreateModel.cs" />
+    <Compile Include="PoolWorker\PoolWorkerUpdatePoolModel.cs" />
+    <Compile Include="Utilities\EncryptionKeyPair.cs" />
+    <Compile Include="Utilities\IEncryptionService.cs" />
+    <Compile Include="Validation\RangeBaseAttribute.cs" />
+    <Compile Include="Validation\RequiredBaseAttribute.cs" />
+    <Compile Include="Validation\RequiredToBeTrueAttribute.cs" />
+    <Compile Include="Validation\RequiredIfAttribute.cs" />
+    <Compile Include="Trade\CreateWithdrawModel.cs" />
+    <Compile Include="Validation\StringLengthBaseAttribute.cs" />
+    <Compile Include="Withdraw\ConfirmWithdrawModel.cs" />
+    <Compile Include="Withdraw\CancelWithdrawModel.cs" />
+    <Compile Include="Trade\CreateWithdrawResponseModel.cs" />
+    <Compile Include="Withdraw\SubmitWithdrawModel.cs" />
+    <Compile Include="Withdraw\WithdrawModel.cs" />
+    <Compile Include="Withdraw\WithdrawViewModel.cs" />
+    <Compile Include="Withdraw\IWithdrawWriter.cs" />
+    <Compile Include="Withdraw\UpdateTwoFactorTokenModel.cs" />
+    <Compile Include="Withdraw\IWithdrawReader.cs" />
+    <Compile Include="Withdraw\WithdrawCurrencyModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cryptopia.Entity\Cryptopia.Entity.csproj">
+      <Project>{6c3292dd-2ae8-4025-925c-bdd2c10dc741}</Project>
+      <Name>Cryptopia.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Enums\Cryptopia.Enums.csproj">
+      <Project>{b49dc053-65b7-4b50-ae51-ab16717ef9c7}</Project>
+      <Name>Cryptopia.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Common\Cryptopia.Infrastructure.Common.csproj">
+      <Project>{6e49b123-5cc9-4b9d-bbd6-feeb8fa4ce39}</Project>
+      <Name>Cryptopia.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Resources\Cryptopia.Resources.csproj">
+      <Project>{ba77649b-fdfb-45b3-84b9-669bf8ea3783}</Project>
+      <Name>Cryptopia.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cryptopia.Infrastructure.Incapsula.Common\Cryptopia.Infrastructure.Incapsula.Common.csproj">
+      <Project>{57a8b09c-71bf-437e-968d-387744be2b90}</Project>
+      <Name>Cryptopia.Infrastructure.Incapsula.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

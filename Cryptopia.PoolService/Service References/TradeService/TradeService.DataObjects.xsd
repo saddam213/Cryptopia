@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TradeService.DataObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/TradeService.Notifications" />
+  <xs:complexType name="SubmitTradeItemRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsBuy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Rate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTradeItemRequest" nillable="true" type="tns:SubmitTradeItemRequest" />
+  <xs:complexType name="SubmitTradeItemResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FilledOrderIds" nillable="true" type="q1:ArrayOfint" />
+      <xs:element minOccurs="0" name="FilledOrders" nillable="true" type="tns:ArrayOfFilledOrderResponse" />
+      <xs:element minOccurs="0" name="Order" nillable="true" type="tns:OrderResponse" />
+      <xs:element minOccurs="0" name="OrderId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="OrderRefund" nillable="true" type="tns:OrderRefundResponse" />
+      <xs:element minOccurs="0" name="OrdersUpdated" nillable="true" type="tns:ArrayOfUpdatedOrderResponse" />
+      <xs:element minOccurs="0" name="Ticker" nillable="true" type="tns:TickerResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTradeItemResponse" nillable="true" type="tns:SubmitTradeItemResponse" />
+  <xs:complexType name="ArrayOfFilledOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FilledOrderResponse" nillable="true" type="tns:FilledOrderResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFilledOrderResponse" nillable="true" type="tns:ArrayOfFilledOrderResponse" />
+  <xs:complexType name="FilledOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BaseSymbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="Fee" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Rate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ToUserId" type="ser:guid" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q2:TradeHistoryType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FilledOrderResponse" nillable="true" type="tns:FilledOrderResponse" />
+  <xs:complexType name="OrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BaseSymbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fee" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Rate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Remaining" type="xs:decimal" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Status" type="q3:TradeStatus" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q4:TradeHistoryType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderResponse" nillable="true" type="tns:OrderResponse" />
+  <xs:complexType name="OrderRefundResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q5:TradeHistoryType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderRefundResponse" nillable="true" type="tns:OrderRefundResponse" />
+  <xs:complexType name="ArrayOfUpdatedOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UpdatedOrderResponse" nillable="true" type="tns:UpdatedOrderResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUpdatedOrderResponse" nillable="true" type="tns:ArrayOfUpdatedOrderResponse" />
+  <xs:complexType name="UpdatedOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OrderId" type="xs:int" />
+      <xs:element minOccurs="0" name="Rate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Remaining" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q6:TradeHistoryType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UpdatedOrderResponse" nillable="true" type="tns:UpdatedOrderResponse" />
+  <xs:complexType name="TickerResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BaseVolume" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Change" type="xs:double" />
+      <xs:element minOccurs="0" name="High" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Last" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Low" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Market" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element minOccurs="0" name="Volume" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TickerResponse" nillable="true" type="tns:TickerResponse" />
+  <xs:complexType name="CancelTradeItemRequest">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="CancelType" type="q7:CancelTradeType" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TradeId" type="xs:int" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CancelTradeItemRequest" nillable="true" type="tns:CancelTradeItemRequest" />
+  <xs:complexType name="CancelTradeItemResponse">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CanceledOrderIds" nillable="true" type="q8:ArrayOfint" />
+      <xs:element minOccurs="0" name="CanceledOrders" nillable="true" type="tns:ArrayOfCanceledOrderResponse" />
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CancelTradeItemResponse" nillable="true" type="tns:CancelTradeItemResponse" />
+  <xs:complexType name="ArrayOfCanceledOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CanceledOrderResponse" nillable="true" type="tns:CanceledOrderResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCanceledOrderResponse" nillable="true" type="tns:ArrayOfCanceledOrderResponse" />
+  <xs:complexType name="CanceledOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Fee" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Rate" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Remaining" type="xs:decimal" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Status" type="q9:TradeStatus" />
+      <xs:element minOccurs="0" name="TradePairId" type="xs:int" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q10:TradeHistoryType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CanceledOrderResponse" nillable="true" type="tns:CanceledOrderResponse" />
+  <xs:complexType name="SubmitTransferRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NotificationMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationTitle" nillable="true" type="xs:string" />
+      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="TransferType" type="q11:TransferType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+      <xs:element minOccurs="0" name="UserTo" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTransferRequest" nillable="true" type="tns:SubmitTransferRequest" />
+  <xs:complexType name="SubmitTransferResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TradeService.Notifications" minOccurs="0" name="Notifications" nillable="true" type="q12:ArrayOfTradeNotification" />
+      <xs:element minOccurs="0" name="TransferId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTransferResponse" nillable="true" type="tns:SubmitTransferResponse" />
+  <xs:complexType name="SubmitLottoRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EntryCount" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LottoItemId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitLottoRequest" nillable="true" type="tns:SubmitLottoRequest" />
+  <xs:complexType name="SubmitLottoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/TradeService.Notifications" minOccurs="0" name="Notifications" nillable="true" type="q13:ArrayOfTradeNotification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitLottoResponse" nillable="true" type="tns:SubmitLottoResponse" />
+  <xs:complexType name="SubmitTipRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+      <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UserTo" nillable="true" type="q14:ArrayOfguid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTipRequest" nillable="true" type="tns:SubmitTipRequest" />
+  <xs:complexType name="SubmitTipResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TradeService.Notifications" minOccurs="0" name="Notifications" nillable="true" type="q15:ArrayOfTipNotification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitTipResponse" nillable="true" type="tns:SubmitTipResponse" />
+  <xs:complexType name="SubmitPoolPaymentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Payments" nillable="true" type="tns:ArrayOfPoolPayment" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitPoolPaymentRequest" nillable="true" type="tns:SubmitPoolPaymentRequest" />
+  <xs:complexType name="ArrayOfPoolPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PoolPayment" nillable="true" type="tns:PoolPayment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoolPayment" nillable="true" type="tns:ArrayOfPoolPayment" />
+  <xs:complexType name="PoolPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PaymentId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PoolPayment" nillable="true" type="tns:PoolPayment" />
+  <xs:complexType name="SubmitPoolPaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TradeService.Notifications" minOccurs="0" name="Notifications" nillable="true" type="q16:ArrayOfTradeNotification" />
+      <xs:element minOccurs="0" name="Payments" nillable="true" type="tns:ArrayOfPoolPaymentResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitPoolPaymentResponse" nillable="true" type="tns:SubmitPoolPaymentResponse" />
+  <xs:complexType name="ArrayOfPoolPaymentResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PoolPaymentResult" nillable="true" type="tns:PoolPaymentResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoolPaymentResult" nillable="true" type="tns:ArrayOfPoolPaymentResult" />
+  <xs:complexType name="PoolPaymentResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaymentId" type="xs:int" />
+      <xs:element minOccurs="0" name="TransferId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PoolPaymentResult" nillable="true" type="tns:PoolPaymentResult" />
+  <xs:complexType name="SubmitWithdrawRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CurrencyId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsApi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TwoFactorToken" nillable="true" type="xs:string" />
+      <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Cryptopia.Enums" minOccurs="0" name="Type" type="q17:WithdrawType" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitWithdrawRequest" nillable="true" type="tns:SubmitWithdrawRequest" />
+  <xs:complexType name="SubmitWithdrawResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TradeService.Notifications" minOccurs="0" name="Notifications" nillable="true" type="q18:ArrayOfTradeNotification" />
+      <xs:element minOccurs="0" name="WithdrawId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubmitWithdrawResponse" nillable="true" type="tns:SubmitWithdrawResponse" />
+</xs:schema>

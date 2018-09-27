@@ -1,0 +1,117 @@
+﻿@{
+	ViewBag.Title = Resources.Chat.chatPageTitle;
+	Layout = null;
+}
+<!DOCTYPE html>
+@CdnHelper.RenderStyle("~/Content/Bundle/site_bundle.min.css")
+@Styles.Render("~/Content/css")
+@CdnHelper.RenderStyle(string.Format("/Content/theme.{0}.css", ClaimsUser.Theme), "siteTheme")
+@CdnHelper.RenderScript("~/Scripts/Bundle/jq_bundle.min.js")
+
+@Html.AntiForgeryToken()
+<div class="chat-outercontainer">
+	<div class="chat-header">
+		<div class="chat-title-container">
+			<div>
+				<span class="chat-title"><i class="fa fa-comments-o"></i>@Resources.Chat.chatTrollbox</span>
+			</div>
+			<div class="chat-usersonline">
+				<small>@Resources.Chat.chatUsersOnline: <span class="chat-online-count">0</span></small>
+			</div>
+		</div>
+		<div class="chat-options">
+			<div class="btn-group btn-group-justified btn-group-sm basecurrency-btn-group">
+				<a class="btn btn-default" title="@Resources.Chat.chatTrollboxRulesHint" onclick="openModalGet('@Url.Action("ChatRules", "Chat")')">
+					<i class="fa fa-list-ol"></i>
+				</a>
+
+				<a class="btn btn-default chat-popout" title="@Resources.Chat.chatOpenTrollboxWindowHint">
+					<i class="fa fa-refresh"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="chat-container" style="overflow:auto">
+		<table class="chat-messages table table-striped table-hover tablefixed table-condensed">
+			<tbody>
+				<tr>
+					<td class="text-center">
+						<h4><i class="fa fa-spinner fa-pulse fa-fw"></i> @Resources.Chat.chatLoadingHeadline</h4>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="chat-footer">
+		@if (User.Identity.IsAuthenticated)
+			{
+			<div class="form-group">
+				<div class="input-group">
+					<textarea class="chat-message form-control" rows="6" maxlength="500"></textarea>
+					<div class="input-group-btn">
+						<div>
+							<button class="chat-send exchange-chat-send btn btn-info" type="button" value="Send">
+								<i class="fa icon-emailexport"></i>
+							</button>
+						</div>
+						<div>
+							<div class="chat-option-emoticons exchange-chat-option">
+								<button type="button" class="btn btn-info btn-sm">
+									<i class="fa icon-emojismile"></i>
+								</button>
+							</div>
+							<div class="chat-option-tip exchange-chat-option">
+								<button type="button" class="btn btn-info btn-sm">
+									<i class="fa icon-bitcoinalt"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			}
+			else
+			{
+			<div class="login-label text-center">
+				<strong class="stronglargerfont">@Html.ActionLink(Resources.Chat.chatLoginToTrollLink, "Login", "Login", routeValues: new { ReturnUrl = Request.Url }, htmlAttributes: new { })</strong>
+			</div>
+			}
+	</div>
+</div>
+
+
+@Html.Partial("_ChatTemplates")
+<script type="text/javascript">
+	var cdnImagePath = '@CdnHelper.ImagePath()';
+	var authenticated = '@User.Identity.IsAuthenticated';
+	var authenticatedUserName = '@User.Identity.Name';
+	var authenticatedChatHandle = '@ClaimsUser.ChatHandle';
+	var authenticatedAdmin = '@(ClaimsUser.IsInRole("Admin") || ClaimsUser.IsInRole("Moderator") || ClaimsUser.IsInRole("ChatModerator"))';
+</script>
+@CdnHelper.RenderScript("~/Scripts/Project/Chat.min.js")
+@CdnHelper.RenderScript("~/Scripts/Bundle/site_bundle.min.js")
+@Scripts.Render("~/signalr/hubs")
+<script type="text/javascript">
+		document.title = '@Resources.Chat.chatTrollbox';
+		var chatModule = new ChatModule(".chat-outercontainer");
+		$(document).ready(function () {
+			setupChatList();
+			chatModule.initializeChat();
+		});
+
+		$(window).resize(function () {
+			setupChatList();
+		});
+
+		function setupChatList() {
+			var headerHeight = $(".chat-outercontainer .chat-header").outerHeight();
+			var footerHeight = $(".chat-outercontainer .chat-footer").outerHeight();
+			$(".chat-outercontainer .chat-container").height($(window).height() - (headerHeight + footerHeight))
+		}
+
+</script>
+@Html.Partial("_SEOPartial")
+

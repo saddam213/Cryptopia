@@ -1,0 +1,312 @@
+﻿@using Cryptopia.Enums
+@model Cryptopia.Common.Currency.CoinInfoModel
+@{
+	ViewBag.Title = Resources.CoinInfo.infoPageTitle;
+	ViewBag.ReturnUrl = "/CoinInfo";
+	ViewBag.HideFooter = true;
+}
+<style>
+	td {
+		vertical-align: middle !important;
+	}
+</style>
+@Html.AntiForgeryToken()
+<div id="wrapper">
+	<div class="coininfo-content user-tabtarget" data-action="@Url.Action("GetCoinSummary", "CoinInfo")" data-update="@Url.Action("UpdateInfo", "CoinInfo")" data-peerinfo="@Url.Action("PeerInfo", "CoinInfo")" data-view="@Model.View" data-coin="@Model.Coin">
+		<div class="coininfo-sidebar hidden-xs hidden-sm col-md-3">
+			<div id="currencyTarget" class="coininfo-target">
+			</div>
+		</div>
+	</div>
+	<div id="table-panel" class="coininfo-table-target col-md-offset-3 col-md-9">
+		<div class="coininfo-table-container">
+			<div class="table-header-container">
+				<h3 class="table-header">@Resources.CoinInfo.infoHeadline</h3>
+				<hr class="table-seperator" />
+			</div>
+			<div class="table-search-seperator"></div>
+			<div class="table-search-seperator-mobile visible-xs"></div>
+			<table id="currencyInfo" class="table table-striped table-hover table-condensed" data-action="@Url.Action("GetCoinInfo", "CoinInfo")">
+				<thead>
+					<tr>
+						<th></th>
+						<th>@Resources.CoinInfo.infoNameColumn</th>
+						<th>@Resources.CoinInfo.infoSymbolColumn</th>
+						<th>@Resources.CoinInfo.infoRatingColumn</th>
+						<th>@Resources.CoinInfo.infoAlgoColumn</th>
+						<th>@Resources.CoinInfo.infoNetworkColumn</th>
+						<th>@Resources.CoinInfo.infoConnectionsColumn</th>
+						<th style="white-space:nowrap">@Resources.CoinInfo.infoBlockHeightColumn</th>
+						<th style="white-space:nowrap">@Resources.CoinInfo.infoWalletStatusColumn</th>
+						<th style="white-space:nowrap">@Resources.CoinInfo.infoStatusMessageColumn</th>
+						<th style="white-space:nowrap">@Resources.CoinInfo.infoListingStatusColumn</th>
+						<th>@Resources.CoinInfo.infoVersionColumn</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI4AdA7FBCuc1j6ASe5o0wL39Krec-VMs" type="text/javascript"></script>
+<script id="currencyTemplate" type="text/html">
+	<div class="user-tabtarget">
+
+		<div class="coininfo-coin-header">
+			<img style="width: 25%" src="@CdnHelper.ImagePath()/Content/Images/Coins/{{symbol}}-large.png" />
+			<div class="title">
+				<b>{{name}}({{symbol}})</b>
+			</div>
+			<div class="rating view-rating-btn">
+				{{{starRating}}}
+			</div>
+			<small><i>{{ratingSummary}}</i></small>
+		</div>
+
+		{{#statusMessage}}
+		<div class="coininfo-coin-status {{#hasWarningBackground}}alert-warning{{/hasWarningBackground}}{{#hasDangerBackground}}alert-danger{{/hasDangerBackground}}">
+			<h4>@Resources.CoinInfo.infoStatusLabel:</h4>
+			<p>{{statusMessage}}</p>
+		</div>
+		{{/statusMessage}}
+
+		<div class="coininfo-coin-content">
+			@if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("ChatModerator"))
+			{
+				<div class="pull-right" style="padding:5px">
+					<button class="btn btn-default btn-xs  btn-details-edit" style="min-width:50px" data-id="{{currencyId}}">@Resources.CoinInfo.infoEditButton</button>
+				</div>
+			}
+			<div class="view-info">
+
+				<ul class="breadcrumb" style="margin-bottom: 0px">
+					<li class="active">@Resources.CoinInfo.infoInformationPath</li>
+					<li><a class="view-links-btn">@Resources.CoinInfo.infoLinksPath</a></li>
+					<li><a class="view-rating-btn">@Resources.CoinInfo.infoRatingPath</a></li>
+					<li><a class="view-settings-btn">@Resources.CoinInfo.infoSettingsPath</a></li>
+				</ul>
+
+				<div style="padding: 10px">
+					<h4>@Resources.CoinInfo.infoInfoHeadline</h4>
+					<table class="table table-condensed">
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoAlgorithmLabel:</td>
+							<td>{{algo}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoNetworkLabel:</td>
+							<td>{{network}}</td>
+						</tr>
+						@*<tr>
+							<td>Current Block:</td>
+							<td>{{block}}</td>
+						</tr>*@
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoBlockTimeLabel:</td>
+							<td>{{blockTime}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoBlockRewardLabel:</td>
+							<td>{{blockReward}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoDifficultyRetargetLabel:</td>
+							<td>{{diffRetarget}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoTotalCoinsLabel:</td>
+							<td>{{totalCoin}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoAnnualPosRateLabel:</td>
+							<td>{{posRate}}%</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoMinStakeAgeLabel:</td>
+							<td>{{minStakeAge}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoInfoMaxStakeAgeLabel:</td>
+							<td>{{maxStakeAge}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="view-links" style="display: none">
+				<ul class="breadcrumb" style="margin-bottom: 0px">
+					<li><a class="view-info-btn">@Resources.CoinInfo.infoInformationPath</a></li>
+					<li class="active">@Resources.CoinInfo.infoLinksPath</li>
+					<li><a class="view-rating-btn">@Resources.CoinInfo.infoRatingPath</a></li>
+					<li><a class="view-settings-btn">@Resources.CoinInfo.infoSettingsPath</a></li>
+				</ul>
+				<div style="padding: 10px">
+					<h4>{{name}} Links</h4>
+					<table class="table table-condensed">
+						<tr>
+							<td>@Resources.CoinInfo.infoLinksWebsiteLabel:</td>
+							<td><a target="_blank" rel="noopener noreferrer" href="{{website}}">{{website}}</a></td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoLinksExplorerLabel:</td>
+							<td><a target="_blank" rel="noopener noreferrer" href="{{blockExplorer}}">{{blockExplorer}}</a></td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoLinksSourceCodeLabel:</td>
+							<td><a target="_blank" rel="noopener noreferrer" href="{{source}}">{{source}}</a></td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoLinksLaunchForumLabel:</td>
+							<td><a target="_blank" rel="noopener noreferrer" href="{{launchForum}}">{{launchForum}}</a></td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoLinksCryptopiaForumLabel:</td>
+							<td><a target="_blank" rel="noopener noreferrer" href="{{cryptopiaForum}}">{{cryptopiaForum}}</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="view-rating" style="display: none">
+				<ul class="breadcrumb" style="margin-bottom: 0px">
+					<li><a class="view-info-btn">@Resources.CoinInfo.infoInformationPath</a></li>
+					<li><a class="view-links-btn">@Resources.CoinInfo.infoLinksPath</a></li>
+					<li class="active">@Resources.CoinInfo.infoRatingPath</li>
+					<li><a class="view-settings-btn">@Resources.CoinInfo.infoSettingsPath</a></li>
+				</ul>
+				<div style="padding: 10px">
+
+					<h4>@Resources.CoinInfo.infoRatingHeadline</h4>
+					<table class="table table-condensed">
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingWindowsWalletLabel:</td>
+							<td>{{walletWindows}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingLinuxWalletLabel:</td>
+							<td>{{walletLinux}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingMacWalletLabel:</td>
+							<td>{{walletMac}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingMobileWalletLabel:</td>
+							<td>{{walletMobile}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingWebPaperWalletLabel:</td>
+							<td>{{walletWeb}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingPremineLabel:</td>
+							<td>{{totalPremine}}%</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingWebsiteLabel:</td>
+							<td>{{ratingWebsite}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingBlockExplorerLabel:</td>
+							<td>{{ratingBlockEx}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoRatingCryptopiaForumLabel:</td>
+							<td>{{ratingForum}}</td>
+						</tr>
+						<tr>
+							<td><b>@Resources.CoinInfo.infoRatingTotalLabel:</b></td>
+							<td>{{totalRating}}/{{maxRating}}</td>
+						</tr>
+					</table>
+
+				</div>
+			</div>
+
+			<div class="view-settings" style="display: none">
+				<ul class="breadcrumb" style="margin-bottom: 0px">
+					<li><a class="view-info-btn">@Resources.CoinInfo.infoInformationPath</a></li>
+					<li><a class="view-links-btn">@Resources.CoinInfo.infoLinksPath</a></li>
+					<li><a class="view-rating-btn">@Resources.CoinInfo.infoRatingPath</a></li>
+					<li class="active">@Resources.CoinInfo.infoSettingsPath</li>
+				</ul>
+				<div style="padding: 10px">
+					<h4>@Resources.CoinInfo.infoSettingsHeadline</h4>
+					<table class="table table-condensed">
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsTradeFeeLabel:</td>
+							<td>{{tradeFee}}%</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsPoolFeeLabel:</td>
+							<td>{{poolFee}}%</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsDepositConfirmationsLabel:</td>
+							<td>{{minConfirmations}} blocks</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsWithdrawalFeeLabel:</td>
+							<td>{{withdrawFee}} {{symbol}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsMinWithdrawalLabel:</td>
+							<td>{{withdrawMin}} {{symbol}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsMaxWithdrawalLabel:</td>
+							<td>{{withdrawMax}} {{symbol}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsTippingExpiresLabel:</td>
+							<td>{{tippingExpires}}</td>
+						</tr>
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsMinTipAmountLabel:</td>
+							<td>{{tipMin}} {{symbol}}</td>
+						</tr>
+						@*<tr>
+							<td>Featured Expires:</td>
+							<td>{{featuredExpires}}</td>
+						</tr>*@
+						<tr>
+							<td>@Resources.CoinInfo.infoSettingsRewardExpiresLabel:</td>
+							<td>{{rewardExpires}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="text-center">
+				<small>
+					<i>
+						@Html.Raw(String.Format(
+						Resources.CoinInfo.infoSupportMessage,
+						String.Format("<a href=\"{0}\">{1}</a>",
+							Url.Action("Support", "Support"),
+							Cryptopia.Resources.General.CryptopiaSupportLink))
+					)
+					</i>
+				</small>
+			</div>
+		</div>
+	</div>
+</script>
+@Html.Partial("_SEOPartial")
+
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.CoinInfo = {
+		InfoRatingText: '@Resources.CoinInfo.infoRatingText',
+		InfoRatingUnratedText: '@Resources.CoinInfo.infoRatingUnratedText',
+		PageTitle: '@Resources.CoinInfo.infoPageTitle',
+		InfoCurrencyListEmptyMessage: '@Resources.CoinInfo.infoCurrencyListEmptyMessage',
+		InfoWalletStatusMaintenanceMessage: '@Resources.CoinInfo.infoWalletStatusMaintenanceMessage',
+		InfoWalletStatusMessageTitle: '@Resources.CoinInfo.infoWalletStatusMessageTitle'
+	}
+</script>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/Project/CoinInfo/coinInfo.min.js")
+}

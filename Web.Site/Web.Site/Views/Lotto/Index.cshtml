@@ -1,0 +1,242 @@
+﻿@model Cryptopia.Common.Lotto.LottoViewModel
+@{
+	ViewBag.Title = Resources.Lotto.lottoPageTitle;
+	ViewBag.ReturnUrl = "/Lotto";
+	ViewBag.HideFooter = false;
+	bool isAuthed = User.Identity.IsAuthenticated;
+}
+
+@Html.AntiForgeryToken()
+<script src="~/Scripts/jquery.plugin.js"></script>
+<script src="~/Scripts/jquery.countdown.js"></script>
+<div class="row">
+	<div id="lotto-container" class="col-xs-12" data-create="@Url.Action("CreateLottoTicket", "Lotto")" style="padding-top:10px">
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#tab-lotto" data-toggle="tab" style="width:180px;border-radius:0">
+					<h3 style="margin:0">@Resources.Lotto.lottoTab</h3>
+				</a>
+			</li>
+			<li>
+				<a href="#tab-history" data-toggle="tab" style="width:180px;border-radius:0">
+					<h3 style="margin:0">@Resources.Lotto.lottoTab</h3>
+				</a>
+			</li>
+			@if (isAuthed)
+			{
+			<li>
+				<a href="#tab-user" data-toggle="tab" style="width:180px;border-radius:0">
+					<h3 style="margin:0">@Resources.Lotto.lottoMyLottoTab</h3>
+				</a>
+			</li>
+			}
+		</ul>
+		<div class="tab-content" style="padding-top:10px">
+
+			<div class="tab-pane fade active in" id="tab-lotto">
+				<div class="row">
+					@foreach (var item in Model.LottoItems.OrderBy(x => x.Symbol).ThenBy(x => x.Name))
+					{
+					<div class="col-lg-4 col-sm-6 col-xs-12" style="padding-top: 5px">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<img width="30" src="@CdnHelper.RenderImage("/Content/Images/Coins/{0}-medium.png", item.Symbol)" style="margin-right:5px;" />
+								@item.Name
+							</div>
+							<small style="padding-right: 5px" class="pull-right"><i>@string.Format(Resources.Lotto.lottoInfoText, item.LottoItemId, item.CurrentDrawId)</i></small>
+							<div class="panel-body" style="height: 250px">
+
+								<div class="row">
+									@for (int i = 0; i < item.PrizeInfo.Count; i++)
+									{
+										var prizePlace = (i + 1).ToPrizePlace();
+										if (i == 0)
+										{
+										<div class="col-xs-12" style="padding-bottom: 20px">
+											<div class="text-center">
+												<small><b>@prizePlace @Resources.Lotto.lottoPrizeLabel</b><i>(@item.PrizeInfo[i].Percentage.ToString("F1")%)</i></small>
+												<strong style="font-size: 22px; display: block">@item.PrizeInfo[i].Prize.ToString("F8") @item.Symbol</strong>
+											</div>
+										</div>
+											continue;
+										}
+										<div class="col-xs-6">
+											<div class="text-center">
+												<small><b>@prizePlace @Resources.Lotto.lottoPrizeLabel</b><i>(@item.PrizeInfo[i].Percentage.ToString("F1")%)</i></small>
+												<div style="font-size: 16px">@item.PrizeInfo[i].Prize.ToString("F8") @item.Symbol</div>
+											</div>
+										</div>
+									}
+
+								</div>
+								<hr style="margin-bottom: 5px" />
+								<div class="text-center">
+									<div>
+										<span>@item.Name</span>
+									</div>
+									<div>
+										<p style="font-size: 12px;word-break:break-all;white-space:pre-line">@item.Description</p>
+									</div>
+								</div>
+
+							</div>
+							<div style="font-size:10px;position:relative;bottom:15px;right:3px;float:right">
+								<i>Powered by <a href="~/Paytopia">Paytopia</a></i>
+							</div>
+							<div class="panel-footer">
+								<div class="text-center">
+									<strong>@Resources.Lotto.lottoNextDrawLabel: </strong>
+									<span id="lotto@(item.LottoItemId)"></span>
+								</div>
+								<hr style="margin: 5px" />
+								<div class="row">
+									<div class="col-xs-8">
+										<div>
+											<small>@Resources.Lotto.lottoTicketPriceLabel: @item.Rate @item.Symbol</small>
+										</div>
+									</div>
+									<div class="col-xs-8">
+										<div>
+											<small>@Resources.Lotto.lottoTicketsInDrawLabel: <span id="tickets-@(item.LottoItemId)">@item.TicketsInDraw</span></small>
+											@if (User.Identity.IsAuthenticated)
+											{
+											<small style="padding-left: 3px; padding-right: 3px">|</small>
+											<small>@Resources.Lotto.lottoYourTicketsLabel: <span id="tickets-yours-@(item.LottoItemId)">@item.UserTicketsInDraw</span></small>
+											}
+										</div>
+										<div>
+											<small>@Resources.Lotto.lottoGameFeeLabel: @item.Fee.ToString("G29") %</small>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										@if (isAuthed)
+										{
+										<button id="btn@(item.LottoItemId)" class="btn btn-info pull-right" onclick="openPaymentDialog('@item.LottoItemId')">@Resources.Lotto.lottoBuyTicketButton</button>
+										}
+										else
+										{
+										<a href="@Url.Action("Login",  "Login", new { ReturnUrl = Url.Action("Index", "Lotto")})" class="btn btn-info pull-right">lottoBuyTicketButton</a>
+										}
+									</div>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+
+					<script>
+						$('#lotto@(item.LottoItemId)').countdown({
+							until: new Date('@item.NextDraw.Year', '@(item.NextDraw.Month - 1)', '@item.NextDraw.Day', '@item.NextDraw.Hour', '@item.NextDraw.Minute', '@item.NextDraw.Second', 0),
+							significant: 3,
+							timezone: +0,
+							layout: '{d<}{dn} {dl} {d>}{h<}{hn} {hl} {h>}{m<}{mn} {ml} {m>}{s<}{sn} {sl}{s>}',
+							onTick: function (periods) {
+								if ($.countdown.periodsToSeconds(periods) < (60 * 60)) {
+									$(this).addClass('text-danger');
+								}
+								if ($.countdown.periodsToSeconds(periods) === 0) {
+									$('#btn@(item.LottoItemId)').addClass('disabled');
+								}
+							}
+						});
+					</script>
+					}
+				</div>
+			</div>
+
+
+
+			<div class="tab-pane fade" id="tab-history">
+				<div class="table-header-container">
+					<h3 class="table-header">@Resources.Lotto.lottoHistoryHeadline</h3>
+					<hr class="table-seperator" />
+				</div>
+				<div class="table-search-seperator"></div>
+				<div class="table-search-seperator-mobile visible-xs"></div>
+				<table id="history" class="table table-striped table-hover datatable" data-action="@Url.Action("GetLottoHistory")">
+					<thead>
+						<tr>
+							<th>@Resources.Lotto.lottoHistoryNameColumn</th>
+							<th>@Resources.Lotto.lottoHistoryDrawColumn</th>
+							<th>@Resources.Lotto.lottoHistoryCurrencyColumn</th>
+							<th>@Resources.Lotto.lottoHistoryTotalPrizeColumn</th>
+							<th>@Resources.Lotto.lottoHistoryTicketColumn</th>
+							<th>@Resources.Lotto.lottoHistoryUserColumn</th>
+							<th>@Resources.Lotto.lottoHistoryPlaceColumn</th>
+							<th>@Resources.Lotto.lottoHistoryPrizePercentColumn</th>
+							<th>@Resources.Lotto.lottoHistoryPrizeColumn</th>
+							<th>@Resources.Lotto.lottoHistoryDrawTimeColumn</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			@if (isAuthed)
+			{
+			<div class="tab-pane fade" id="tab-user">
+				<div class="table-header-container">
+					<h3 class="table-header">@Resources.Lotto.lottoMyActiveHeadline</h3>
+					<hr class="table-seperator" />
+				</div>
+				<div class="table-search-seperator"></div>
+				<div class="table-search-seperator-mobile visible-xs"></div>
+				<table id="usertickets" class="table table-striped table-hover " data-action="@Url.Action("GetUserLottoTickets")">
+					<thead>
+						<tr>
+							<th>@Resources.Lotto.lottoMyActiveTicketColumn</th>
+							<th>@Resources.Lotto.lottoMyActiveNameColumn</th>
+							<th>@Resources.Lotto.lottoMyActiveDrawColumn</th>
+							<th>@Resources.Lotto.lottoMyActiveCurrencyColumn</th>
+							<th>@Resources.Lotto.lottoMyActivePriceColumn</th>
+							<th>@Resources.Lotto.lottoMyActiveNextDrawColumn</th>
+							<th>@Resources.Lotto.lottoMyActiveTimestampColumn</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+
+				<hr />
+
+				<div class="table-header-container">
+					<h3 class="table-header">@Resources.Lotto.lottoMyPrizeHeadline</h3>
+					<hr class="table-seperator" />
+				</div>
+				<div class="table-search-seperator"></div>
+				<div class="table-search-seperator-mobile visible-xs"></div>
+				<table id="userhistory" class="table table-striped table-hover " data-action="@Url.Action("GetUserLottoHistory")">
+					<thead>
+						<tr>
+							<th>@Resources.Lotto.lottoMyPrizeNameColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizeDrawColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizeCurrencyColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizeTotalPrizeColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizeTicketColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizePlaceColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizePrizePercentColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizePrizeColumn</th>
+							<th>@Resources.Lotto.lottoMyPrizeDrawTimeColumn</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			}
+		</div>
+	</div>
+</div>
+
+@Html.Partial("_SEOPartial")
+<script type="text/javascript">
+	var Resources = Resources || {};
+	Resources.Lotto = {
+		LottoHistoryEmptyListMessage: '@Resources.Lotto.lottoHistoryEmptyListMessage',
+		LottoMyActiveEmptyListMessage: '@Resources.Lotto.lottoMyActiveEmptyListMessage',
+		LottoMyPrizeEmptyListMessage: '@Resources.Lotto.lottoMyPrizeEmptyListMessage',
+	};
+</script>
+@section Scripts {
+	@Scripts.Render("~/Scripts/Project/Lotto/lotto.min.js")
+}
+
+

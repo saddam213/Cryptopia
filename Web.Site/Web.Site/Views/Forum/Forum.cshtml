@@ -1,0 +1,178 @@
+﻿@model Web.Site.Models.ForumViewModel
+@{
+	ViewBag.Title = Resources.Forum.forumPageTitle;
+	ViewBag.ReturnUrl = "/Forum";
+	ViewBag.HideFooter = false;
+	bool isAdmin = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+
+@Html.Partial("_GoogleAdsense")
+
+<div class="row">
+	<div class=" col-lg-9 col-md-8 col-sm-6 col-xs-12">
+		<h3>@Resources.Forum.forumHeadline</h3>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+		@using (Html.BeginForm("SearchResult", "Forum", FormMethod.Get))
+		{
+			@Html.AntiForgeryToken()
+			<div style="padding-top: 10px">
+				<div class="input-group input-group-sm">
+					@Html.TextBox("SearchText", "", new { @class = "form-control  input-sm", placeholder = Resources.Forum.forumSearchFieldPlaceholder })
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+				<div>
+					<span class="pull-right">
+						@Html.CheckBox("SearchPosts", true, new { })
+						<small>@Resources.Forum.forumSearchPostCheckbox</small>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<hr style="padding: 5px; margin: 5px" />
+
+
+
+@if (User.IsInRole("Admin"))
+{
+	<div class="row" style="padding-bottom: 5px">
+		<div class="col-xs-12">
+			<button id="create-forum" class="btn btn-sm btn-success">@Resources.Forum.forumCreateForumButton</button>
+		</div>
+	</div>
+}
+<div class="row">
+	<div class=" col-lg-9 col-md-8 col-sm-6 col-xs-12">
+
+		<div class="row">
+			@foreach (var forum in Model.Forums)
+			{
+				<div class="col-xs-12">
+					<div class="panel panel-primary nopad" style="margin-bottom: 0px; padding-bottom: 0px">
+						<div class="panel-heading panel-primary" style="padding: 5px">
+							<span>
+								<span style="font-size: 16px">
+									<i class="@(string.IsNullOrEmpty(forum.Icon) ? "fa fa-list-ol" : forum.Icon)"></i>
+									<span style="padding-left: 3px">@forum.Name</span>
+								</span>
+								@if (isAdmin)
+								{
+									<span data-forumid="@forum.Id" class="create-category btn btn-sm btn-link pull-right">@Resources.Forum.categoryCreateButton</span>
+									<span data-forumid="@forum.Id" class="update-forum btn btn-sm btn-link pull-right">@Resources.Forum.forumEditForumButton</span>
+									<span data-forumid="@forum.Id" class="delete-forum btn btn-sm btn-link pull-right">@Resources.Forum.forumDeleteForumButton</span>
+								}
+							</span>
+						</div>
+					</div>
+				</div>
+
+				if (forum.Categories != null)
+				{
+					foreach (var category in forum.Categories)
+					{
+						<div class="col-xs-12">
+							<div style="padding: 5px">
+								<div style="display: inline-block">
+									<i style="font-size: 40px" class="@(string.IsNullOrEmpty(category.Icon) ? "fa fa-newspaper-o" : category.Icon) panel-icon"></i>
+								</div>
+								<div style="display: inline-block">
+									<div>
+										<a style="font-size:16px" href="@Url.Action("Category", new { id = category.Id })">@category.Name</a>
+									</div>
+									<div>
+										<p>@category.Description</p>
+									</div>
+								</div>
+								<div class="pull-right">
+									<div>
+										<span>@Resources.Forum.threadCountLabel: @category.ThreadCount @Resources.Forum.postCountLabel: @category.PostCount</span>
+									</div>
+								</div>
+								<hr style="margin: 0px;" />
+							</div>
+						</div>
+			
+					}
+				}
+			}
+		</div>
+	</div>
+
+	<div class=" col-lg-3 col-md-4 col-sm-6 col-xs-12">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-primary nopad" style="margin-bottom: 0px; padding-bottom: 0px">
+					<div class="panel-heading panel-primary" style="padding: 5px">
+						<span style="font-size: 16px">
+							<i class="fa fa-history"></i>
+							<span style="padding-left: 3px">@Resources.Forum.forumLastPostsHeadline</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			@foreach (var post in Model.LatestPosts)
+			{
+				<div class="col-xs-12">
+					<div style="padding: 5px">
+						<div>
+							<a style="font-size:14px" href="@Url.Action("Thread", new { id = post.ThreadId })">@post.ThreadTitle</a>
+						</div>
+						<div>
+							<small>@Resources.Forum.threadLabel: <a href="@Url.Action("Thread", new { id = post.ThreadId })" >@post.ForumName</a></small>
+						</div>
+						<div style="max-height: 60px; overflow: hidden">
+							<p style="font-size: 12px; white-space: pre-line;">@Html.Raw(post.Message)</p>
+						</div>
+						<hr style="margin: 0px;" />
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+@Html.Partial("_SEOPartial")
+@Html.Partial("_GoogleAdsense")
+
+@Scripts.Render("~/Scripts/Bundle/validation_bundle.min.js")
+<script>
+	$(document).ready(function () {
+		@if (isAdmin)
+		{
+			<text>
+			$('#create-forum').on('click', function () {
+				openModal('@Url.Action("CreateForum", "Forum")', '@Cryptopia.Resources.General.LoadingMessage', {}, function () { });
+			});
+
+			$('.update-forum').on('click', function () {
+				var forumId = $(this).data('forumid');
+				if (forumId) {
+					openModal('@Url.Action("UpdateForum", "Forum")', '@Cryptopia.Resources.General.LoadingMessage', { forumId: forumId }, function () { });
+				}
+			});
+
+			$('.create-category').on('click', function () {
+				var forumId = $(this).data('forumid');
+				if (forumId) {
+					openModal('@Url.Action("CreateCategory", "Forum")', '@Cryptopia.Resources.General.LoadingMessage', { forumId: forumId }, function () { });
+				}
+			});
+
+			$('.delete-forum').on('click', function () {
+				var forumId = $(this).data('forumid');
+				confirm("@Resources.Forum.forumDeleteForumQuestionTitle", "@Resources.Forum.forumDeleteForumQuestion", function () {
+					if (forumId) {
+						getJson('@Url.Action("DeleteForum", "Forum")', { forumId: forumId }, function () {
+							location = '@Url.Action("Index")';
+						});
+					}
+				});
+			});
+			</text>
+		}
+	});
+</script>
